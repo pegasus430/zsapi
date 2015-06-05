@@ -1,0 +1,4 @@
+class Order < ActiveRecord::Base
+  belongs_to :location
+  belongs_to :beacon
+end

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @order.location %>
+</p>
+
+<p>
+  <strong>Beacon:</strong>
+  <%= @order.beacon %>
+</p>
+
+<p>
+  <strong>Buyer ip:</strong>
+  <%= @order.buyer_ip %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @order.purchase_date %>
+</p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @order.transaction_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @order.key %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

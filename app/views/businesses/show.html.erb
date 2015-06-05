@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @business.user %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @business.name %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @business.published %>
+</p>
+
+<p>
+  <strong>Logo filename:</strong>
+  <%= @business.logo_filename %>
+</p>
+
+<p>
+  <strong>Primary color:</strong>
+  <%= @business.primary_color %>
+</p>
+
+<p>
+  <strong>Secondary color:</strong>
+  <%= @business.secondary_color %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @business.website %>
+</p>
+
+<p>
+  <strong>Facebook:</strong>
+  <%= @business.facebook %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @business.twitter %>
+</p>
+
+<%= link_to 'Edit', edit_business_path(@business) %> |
+<%= link_to 'Back', businesses_path %>

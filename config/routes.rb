@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :orders
+
+  resources :beacons
+
+  resources :locations
+
+  resources :businesses
+
   devise_for :admins
   devise_for :users
   # get 'pages/dashboard'

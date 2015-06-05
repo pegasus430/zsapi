@@ -1,0 +1,33 @@
+<%= form_for(@beacon) do |f| %>
+  <% if @beacon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@beacon.errors.count, "error") %> prohibited this beacon from being saved:</h2>
+
+      <ul>
+      <% @beacon.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :location_id %><br>
+    <%= f.text_field :location_id %>
+  </div>
+  <div class="field">
+    <%= f.label :order_id %><br>
+    <%= f.text_field :order_id %>
+  </div>
+  <div class="field">
+    <%= f.label :uuid %><br>
+    <%= f.text_field :uuid %>
+  </div>
+  <div class="field">
+    <%= f.label :void %><br>
+    <%= f.check_box :void %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

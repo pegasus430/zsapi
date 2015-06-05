@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Businesses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Published</th>
+      <th>Logo filename</th>
+      <th>Primary color</th>
+      <th>Secondary color</th>
+      <th>Website</th>
+      <th>Facebook</th>
+      <th>Twitter</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @businesses.each do |business| %>
+      <tr>
+        <td><%= business.user %></td>
+        <td><%= business.name %></td>
+        <td><%= business.published %></td>
+        <td><%= business.logo_filename %></td>
+        <td><%= business.primary_color %></td>
+        <td><%= business.secondary_color %></td>
+        <td><%= business.website %></td>
+        <td><%= business.facebook %></td>
+        <td><%= business.twitter %></td>
+        <td><%= link_to 'Show', business %></td>
+        <td><%= link_to 'Edit', edit_business_path(business) %></td>
+        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Business', new_business_path %>
