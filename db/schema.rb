@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603210834) do
+ActiveRecord::Schema.define(version: 20150605202821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,19 @@ ActiveRecord::Schema.define(version: 20150603210834) do
   add_index "orders", ["beacon_id"], name: "index_orders_on_beacon_id", using: :btree
   add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree
 
+  create_table "receipts", force: :cascade do |t|
+    t.integer  "location_id"
+    t.date     "purchased_on",                          null: false
+    t.decimal  "amount",        precision: 8, scale: 2, null: false
+    t.date     "approved_on"
+    t.date     "rejected_on"
+    t.string   "reject_reason"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                          null: false
     t.string   "last_name",                           null: false
@@ -124,4 +137,5 @@ ActiveRecord::Schema.define(version: 20150603210834) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "businesses", "users"
+  add_foreign_key "receipts", "locations"
 end

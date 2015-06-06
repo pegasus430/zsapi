@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :receipts
+
   resources :orders
 
   resources :beacons
@@ -7,10 +10,15 @@ Rails.application.routes.draw do
 
   resources :businesses
 
-  devise_for :admins
   devise_for :users
-  # get 'pages/dashboard'
+  devise_for :admins
+  
+  root 'pages#dashboard'
 
+  namespace :admin do
+    root 'pages#dashboard'
+    resources :receipts, only: [:index, :update, :destroy]
+  end
 
   
 
@@ -18,7 +26,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'pages#dashboard'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

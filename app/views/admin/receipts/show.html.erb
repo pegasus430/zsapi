@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @receipt.location %>
+</p>
+
+<p>
+  <strong>Purchased on:</strong>
+  <%= @receipt.purchased_on %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @receipt.amount %>
+</p>
+
+<p>
+  <strong>Approved on:</strong>
+  <%= @receipt.approved_on %>
+</p>
+
+<p>
+  <strong>Rejected on:</strong>
+  <%= @receipt.rejected_on %>
+</p>
+
+<p>
+  <strong>Reject reason:</strong>
+  <%= @receipt.reject_reason %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<%= link_to 'Back', receipts_path %>
