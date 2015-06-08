@@ -65,4 +65,17 @@ RSpec.describe Customer, type: :model do
 		end
 	end
 
+
+	describe "Scopes" do
+		it ".active" do
+			FactoryGirl.create_list(:customer, 3)
+			expect(Customer.active.length).to eq 3
+		end
+
+		it ".inactive" do
+			FactoryGirl.create_list(:inactive_customer, 3)
+			expect(Customer.inactive.length).to eq 3
+		end
+	end
+
 end

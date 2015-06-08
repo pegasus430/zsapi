@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :customers
+  scope '/customers' do
+    get '/',          to: 'customers#index'
+    get '/active',    to: 'customers#index_active'
+    get '/inactive',  to: 'customers#index_inactive'
+  end
 
   resources :receipts
 
