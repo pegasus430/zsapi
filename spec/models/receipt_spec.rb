@@ -25,15 +25,8 @@ RSpec.describe Receipt, type: :model do
 	end
 
 
-	describe "Relations" do
-		describe "Location" do
-			it "belongs to a single location" do
-				location = FactoryGirl.create(:location)
-				receipt = FactoryGirl.create(:receipt, location: location)
-
-				expect(receipt.location).to be_valid
-			end
-		end
+	describe "Associations" do
+		it { should belong_to :location }
 	end
 
 

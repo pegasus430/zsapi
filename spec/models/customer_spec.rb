@@ -32,16 +32,10 @@ RSpec.describe Customer, type: :model do
 	end
 
 
-	describe "Relations" do
-		# describe "Business" do
-		# 	it "can have one or more businesses" do
-		# 		user = FactoryGirl.create(:customer)
-		# 		FactoryGirl.create(:business, user: user)
-		# 		FactoryGirl.create(:business, user: user)
-
-		# 		expect(user).to be_valid
-		# 	end
-		# end
+	describe "Associations" do
+		# it { should have_many :redemptions }
+		# it { should have_many :visits }
+		# it { should have_many(:locations), through: :visits }
 	end
 
 

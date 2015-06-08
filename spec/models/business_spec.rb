@@ -43,27 +43,10 @@ RSpec.describe Business, type: :model do
 	end
 
 
-
-	describe "Relations" do
-
-		describe "Locations" do
-			it "can have one or more locations" do
-				business = FactoryGirl.create(:business_with_locations)
-				expect(business.locations.length).to eq 2
-			end
-		end
-
-		describe "User" do
-			it "belongs to a single user" do
-				user = FactoryGirl.create(:user)
-				business = FactoryGirl.create(:business, user: user)
-
-				expect(business.user).to be_valid
-			end
-		end
-
+	describe "Associations" do
+		it { should have_many :locations }
+		it { should belong_to :user }
 	end
-
 
 
 	describe "Methods" do

@@ -28,15 +28,7 @@ RSpec.describe User, type: :model do
 
 
 	describe "Relations" do
-		describe "Business" do
-			it "can have one or more businesses" do
-				user = FactoryGirl.create(:user)
-				FactoryGirl.create(:business, user: user)
-				FactoryGirl.create(:business, user: user)
-
-				expect(user).to be_valid
-			end
-		end
+		it { should have_many :businesses }
 	end
 
 
