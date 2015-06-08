@@ -11,6 +11,15 @@ class Customer < ActiveRecord::Base
 		Customer.where(active: false)
 	end
 
+	def self.to_csv
+		CSV.generate do |csv|
+			cav << columns_names
+			all.each do |customer|
+				csv << customer.attributes.values_at(*columns_name)
+			end
+		end
+	end
+
 	def name
 		[first_name, last_name].join(' ')
 	end
