@@ -2,36 +2,45 @@
 
 <h1>Listing Receipts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Location</th>
-      <th>Purchased on</th>
-      <th>Amount</th>
-      <th>Approved on</th>
-      <th>Rejected on</th>
-      <th>Reject reason</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p><%= Receipt.untouched.count %> Unapproved receipts</p>
+<p><%= Receipt.approved.from_today.count %> Approved receipts today</p>
+<p><%= Receipt.rejected.from_today.count %> Rejected receipts today</p>
 
-  <tbody>
-    <% @receipts.each do |receipt| %>
+
+<% if @receipts %>
+  <h2>First receipt</h2>
+
+  <div>
+    <img src="/receipts/<%= @first.image_filename %>">
+    <%= render 'form', receipt: @first %>
+  </div>
+
+
+  <table>
+    <thead>
       <tr>
-        <td><%= receipt.location %></td>
-        <td><%= receipt.purchased_on %></td>
-        <td><%= receipt.amount %></td>
-        <td><%= receipt.approved_on %></td>
-        <td><%= receipt.rejected_on %></td>
-        <td><%= receipt.reject_reason %></td>
-        <td><%= link_to 'Show', receipt %></td>
-        <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-        <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Location</th>
+        <th>Purchased on</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @receipts.each do |receipt| %>
+        <tr>
+          <td><%= receipt.location %></td>
+          <td><%= receipt.purchased_on %></td>
+          <td><%= link_to 'Show', receipt %></td>
+          <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
+          <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Receipt', new_receipt_path %>
+  <br>
+
+  <%= link_to 'New Receipt', new_receipt_path %>
+<% else %>
+  No receipts!
+<% end %>

@@ -4,6 +4,6 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  validates_presence_of :email, :encrypted_password, :manage_receipts
+  validates_presence_of :email, :encrypted_password
   validates_uniqueness_of :email
 end

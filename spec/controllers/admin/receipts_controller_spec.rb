@@ -9,7 +9,6 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
     end
 
     describe "GET #index" do
-
       it "assigns all untouched receipts as @receipts" do
         receipt = FactoryGirl.create(:receipt)
         get :index
@@ -34,10 +33,20 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         end
 
         it "changes the attributes on save" do
-          today = Date.today
-          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, approved_on: today)
+          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
           @receipt.reload
-          expect(@receipt.approved_on).to eq today
+          expect(@receipt.amount).to eq 15
+        end
+
+        it "updates the actioned_on date when saved" do
+          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
+          @receipt.reload
+          expect(@receipt.actioned_on).not_to be_blank
+        end
+
+        it "redirects to the receipts list" do
+          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
+          expect(response).to redirect_to(admin_receipts_url)
         end
       end
 
@@ -48,10 +57,9 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         end
 
         it "does not change the attributes" do
-          today = Date.today
-          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, approved_on: today)
+          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, amount: 15)
           @receipt.reload
-          expect(@receipt.approved_on).not_to eq today
+          expect(@receipt.amount).not_to eq 15
         end
 
         it "re-renders the index template" do

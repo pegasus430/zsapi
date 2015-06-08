@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605202821) do
+ActiveRecord::Schema.define(version: 20150607001114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,13 +100,14 @@ ActiveRecord::Schema.define(version: 20150605202821) do
 
   create_table "receipts", force: :cascade do |t|
     t.integer  "location_id"
-    t.date     "purchased_on",                          null: false
-    t.decimal  "amount",        precision: 8, scale: 2, null: false
-    t.date     "approved_on"
-    t.date     "rejected_on"
+    t.date     "purchased_on"
+    t.decimal  "amount",         precision: 8, scale: 2
     t.string   "reject_reason"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "image_filename"
+    t.integer  "status",                                 default: 0, null: false
+    t.datetime "actioned_on"
   end
 
   add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree

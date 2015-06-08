@@ -24,11 +24,6 @@ RSpec.describe Admin, type: :model do
 	  	expect(@admin).not_to be_valid
 	  end
 
-	  it "must have a manage receipt value" do
-	  	@admin.manage_receipts = nil
-	  	expect(@admin).not_to be_valid
-	  end
-
 	  # Unique
 	  it "does not allow duplicate email addresses" do
 	  	admin = FactoryGirl.create(:admin)

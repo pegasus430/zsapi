@@ -3,7 +3,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'helpers'
+require 'database_cleaner'
+
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -50,6 +51,13 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  #Include the helpers
-  config.include TestHelpers
+  # For using capybara with devise
+  config.include Warden::Test::Helpers
+  config.before :suite do
+    Warden.test_mode!
+  end
+  config.after :each do
+     Warden.test_reset!
+  end
+  #End
 end

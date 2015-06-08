@@ -12,7 +12,7 @@ RSpec.describe Receipt, type: :model do
   	end
 
   	# Presence
-  	%w(location_id amount purchased_on).each do |attr|
+  	%w(location_id).each do |attr|
 	  	it "validates presenve of #{attr}" do
 	  		@receipt.send("#{attr}=", nil)
 	  		expect(@receipt).not_to be_valid
@@ -21,12 +21,6 @@ RSpec.describe Receipt, type: :model do
 
 	 	it "must have a reason if rejected" do
 	 		expect( FactoryGirl.build(:receipt_rejected, reject_reason: nil) ).not_to be_valid
-	 	end
-
-	 	it "cannot be approved and rejected at the same time" do
-	 		@receipt.rejected_on = Date.today
-	 		@receipt.approved_on = Date.yesterday
-	 		expect(@receipt).not_to be_valid
 	 	end
 	end
 
@@ -90,6 +84,14 @@ RSpec.describe Receipt, type: :model do
 			it ".rejected" do
 				FactoryGirl.create_list(:receipt_rejected, 3)
 				expect(Receipt.rejected.length).to eq 3
+			end
+
+			it "shows a list of approved receipts from today" do
+				FactoryGirl.create(:receipt_approved, actioned_on: 2.days.ago)
+				FactoryGirl.create(:receipt_approved, actioned_on: Date.yesterday)
+				FactoryGirl.create(:receipt_approved, actioned_on: Date.today)
+				FactoryGirl.create(:receipt_approved, actioned_on: Date.tomorrow)
+				expect(Receipt.approved.from_today.count).to eq 1
 			end
 		end
 	end

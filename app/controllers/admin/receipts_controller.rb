@@ -2,13 +2,19 @@ class Admin::ReceiptsController < AdminController
   before_action :set_receipt, only: [:update, :destroy]
 
   def index
-    @receipts = Receipt.untouched
+    @receipts = Receipt.untouched.limit(10)
+    @first = @receipts.first
   end
 
   def update
+
+    @receipt.status = Receipt::APPROVED if params[:approve]
+    @receipt.status = Receipt::REJECTED if params[:reject]
+    @receipt.actioned_on = Date.today
+
     respond_to do |format|
       if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
         format.json { render :show, status: :ok, location: @receipt }
       else
         format.html { render :index }
@@ -35,6 +41,6 @@ class Admin::ReceiptsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
-      params.require(:receipt).permit(:location_id, :purchased_on, :amount, :approved_on, :rejected_on, :reject_reason)
+      params.require(:receipt).permit(:location_id, :purchased_on, :amount, :reject_reason)
     end
 end

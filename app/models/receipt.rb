@@ -6,31 +6,23 @@ class Receipt < ActiveRecord::Base
   belongs_to :location
 
   validates_presence_of :location_id, :amount, :purchased_on
-  validates_presence_of :reject_reason, unless: "rejected_on.nil?"
-  validate :consistent_approve_reject
+  validates_presence_of :reject_reason, if: "status == #{Receipt::REJECTED}"
 
 
   def self.untouched
-  	Receipt.where('approved_on IS NULL AND rejected_on IS NULL')
+    Receipt.where( status: Receipt::UNTOUCHED )
   end
 
   def self.approved
-  	Receipt.where('approved_on IS NOT NULL AND rejected_on IS NULL')
+    Receipt.where( status: Receipt::APPROVED )
   end
 
   def self.rejected
-  	Receipt.where('approved_on IS NULL AND rejected_on IS NOT NULL')
+  	Receipt.where( status: Receipt::REJECTED )
   end
-  
 
-  def status
-  	if approved_on.blank? && rejected_on.blank?
-  		Receipt::UNTOUCHED
-  	elsif !approved_on.blank? && rejected_on.blank?
-  		Receipt::APPROVED
-  	elsif approved_on.blank? && !rejected_on.blank?
-  		Receipt::REJECTED
-  	end
+  def self.from_today
+    where( actioned_on: (Date.today)..(Date.today + 23.hours + 59.minutes + 59.seconds) )
   end
 
   def untouched?
@@ -45,14 +37,4 @@ class Receipt < ActiveRecord::Base
   	( status == Receipt::REJECTED )
   end
 
-
-  private
-
-  	def consistent_approve_reject
-  		if !approved_on.blank? && !rejected_on.blank?
-  			return false
-  		else
-  			return true
-  		end
-  	end
 end
