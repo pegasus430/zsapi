@@ -6,7 +6,6 @@ FactoryGirl.define do
     first_name 	{ Faker::Name.first_name }
 		last_name 	{ Faker::Name.last_name }
 		email 			{ Faker::Internet.email }
-		points 			500
 		active 			true
 		contacted 	false
 
@@ -14,8 +13,21 @@ FactoryGirl.define do
 			active false
 		end
 
-		factory :broke_customer do
-			points 0
+		factory :customer_with_wallet do
+			after(:create) do |cust, eval|
+				b = create(:business)
+				w = create(:wallet, business: b, customer: cust)
+			end
+		end
+
+		factory :customer_with_wallet_without_business do
+			transient do
+				business nil
+			end
+
+			after(:create) do |cust, eval|
+				w = create(:wallet, business: eval.business, customer: cust)
+			end
 		end
   end
 

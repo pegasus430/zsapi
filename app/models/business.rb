@@ -1,6 +1,8 @@
 class Business < ActiveRecord::Base
   belongs_to :user
   has_many :locations
+  has_many :wallets
+  has_many :customers, through: :wallets
 
   validates_presence_of :name, :primary_color, :secondary_color, :published
   validates_length_of :twitter, within: 1..15, allow_nil?: true

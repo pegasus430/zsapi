@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
 
 
 	describe "Relations" do
-		it { should have_many :businesses }
+		it { should have_one :business }
 	end
 
 

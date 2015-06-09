@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608164952) do
+ActiveRecord::Schema.define(version: 20150608213006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 20150608164952) do
     t.string   "first_name",                 null: false
     t.string   "last_name",                  null: false
     t.string   "email",                      null: false
-    t.integer  "points",     default: 0,     null: false
     t.boolean  "active",     default: false, null: false
     t.boolean  "contacted",  default: false, null: false
     t.datetime "created_at",                 null: false
@@ -127,8 +126,8 @@ ActiveRecord::Schema.define(version: 20150608164952) do
   add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",                          null: false
-    t.string   "last_name",                           null: false
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -151,6 +150,17 @@ ActiveRecord::Schema.define(version: 20150608164952) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "wallets", force: :cascade do |t|
+    t.integer "business_id"
+    t.integer "customer_id"
+    t.integer "points",      default: 0, null: false
+  end
+
+  add_index "wallets", ["business_id"], name: "index_wallets_on_business_id", using: :btree
+  add_index "wallets", ["customer_id"], name: "index_wallets_on_customer_id", using: :btree
+
   add_foreign_key "businesses", "users"
   add_foreign_key "receipts", "locations"
+  add_foreign_key "wallets", "businesses"
+  add_foreign_key "wallets", "customers"
 end

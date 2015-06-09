@@ -11,7 +11,6 @@
       <th>Points</th>
       <th>Active</th>
       <th>Contacted</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -21,17 +20,10 @@
         <td><%= customer.first_name %></td>
         <td><%= customer.last_name %></td>
         <td><%= customer.email %></td>
-        <td><%= customer.points %></td>
+        <td><%= customer.points(current_user.business) %></td>
         <td><%= customer.active %></td>
         <td><%= customer.contacted %></td>
-        <td><%= link_to 'Show', customer %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Customer', new_customer_path %>

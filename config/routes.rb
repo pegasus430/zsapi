@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope '/customers' do
+  scope '/customers', as: 'customers' do
     get '/',          to: 'customers#index'
     get '/active',    to: 'customers#index_active'
     get '/inactive',  to: 'customers#index_inactive'

@@ -12,7 +12,7 @@ RSpec.describe Customer, type: :model do
   	end
 
   	# Presence
-  	%w(first_name last_name email points).each do |attr|
+  	%w(first_name last_name email).each do |attr|
 	  	it "validates presenve of #{attr}" do
 	  		@user.send("#{attr}=", nil)
 	  		expect(@user).not_to be_valid
@@ -26,9 +26,9 @@ RSpec.describe Customer, type: :model do
 	  end
 
 	  # Other
-	  it "cannot have less than 0 points" do
-	  	expect(FactoryGirl.build(:customer, points: -5)).not_to be_valid
-	  end
+	  # it "cannot have less than 0 points" do
+	  # 	expect(FactoryGirl.build(:customer, points: -5)).not_to be_valid
+	  # end
 	end
 
 
@@ -36,6 +36,7 @@ RSpec.describe Customer, type: :model do
 		# it { should have_many :redemptions }
 		# it { should have_many :visits }
 		# it { should have_many(:locations), through: :visits }
+		it { should have_many(:wallets) }
 	end
 
 
@@ -62,6 +63,58 @@ RSpec.describe Customer, type: :model do
 			expect(@user.contacted?).to be_truthy
 			@user.contacted = false
 			expect(@user.contacted?).to be_falsey
+		end
+
+		describe "Points" do
+			before :each do
+				@business = FactoryGirl.create(:business)
+				@customer = FactoryGirl.create(:customer)
+				@wallet = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
+			end
+
+			context "when wallet not set" do
+				it "#points(@business)" do
+					expect(@customer.points(@business)).to eq 500
+				end
+
+				it "#set_points(amount, @business)" do
+					@customer.set_points(250, @business)
+					@customer.save
+					@customer.reload
+					expect(@customer.points(@business)).to eq 250
+				end
+
+				it "#increase_points_by(amount, @business)" do
+					@customer.increase_points_by(250, @business)
+					@customer.save
+					@customer.reload
+					expect(@customer.points(@business)).to eq 750
+				end
+			end
+
+			context "when wallet is set" do
+				before :each do
+					@customer.wallet = @business
+				end
+
+				it "#points" do
+					expect(@customer.points).to eq 500
+				end
+
+				it "#set_points(amount)" do
+					@customer.set_points(250)
+					@customer.save
+					@customer.reload
+					expect(@customer.points).to eq 250
+				end
+
+				it "#increase_points_by(amount)" do
+					@customer.increase_points_by(250)
+					@customer.save
+					@customer.reload
+					expect(@customer.points).to eq 750
+				end
+			end
 		end
 	end
 

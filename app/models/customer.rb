@@ -1,7 +1,8 @@
 class Customer < ActiveRecord::Base
-	validates_presence_of :first_name, :last_name, :email, :points
+	has_many :wallets
+
+	validates_presence_of :first_name, :last_name, :email
 	validates_uniqueness_of :email
-	validates :points, numericality: { greater_than: 0 }
 
 	def self.active
 		Customer.where(active: true)
@@ -11,11 +12,11 @@ class Customer < ActiveRecord::Base
 		Customer.where(active: false)
 	end
 
-	def self.to_csv
-		CSV.generate do |csv|
-			cav << columns_names
+	def self.to_csv(options = {})
+		CSV.generate(options) do |csv|
+			csv << ["First Name","Last Name", "Email", "Points", "Active"]
 			all.each do |customer|
-				csv << customer.attributes.values_at(*columns_name)
+				csv << [customer.first_name, customer.last_name, customer.email, customer.points, customer.active]
 			end
 		end
 	end
@@ -23,5 +24,41 @@ class Customer < ActiveRecord::Base
 	def name
 		[first_name, last_name].join(' ')
 	end
+
+
+	def points(business = nil)
+		get_wallet(business).points
+	end
+
+	def wallet=(business)
+		set_wallet(business)
+	end
+
+	def set_points(amount, business = nil)
+		wallet = get_wallet(business)
+		wallet.points = amount
+		wallet.save
+	end
+
+	def increase_points_by(amount, business = nil)
+		wallet = get_wallet(business)
+		wallet.points += amount
+		wallet.save
+	end
+
+
+	private
+
+		def set_wallet(business)
+			@wallet = get_wallet(business)
+		end
+
+		def get_wallet(business = nil)
+			if business.nil?
+				@wallet
+			else
+				wallets.find_by_business_id(business)
+			end
+		end
 
 end

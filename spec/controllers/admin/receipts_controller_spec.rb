@@ -35,7 +35,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         it "changes the attributes on save" do
           put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
           @receipt.reload
-          expect(@receipt.amount).to eq 15
+          expect(@receipt.amount.to_i).to eq 15
         end
 
         it "updates the actioned_on date when saved" do
@@ -59,7 +59,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         it "does not change the attributes" do
           put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, amount: 15)
           @receipt.reload
-          expect(@receipt.amount).not_to eq 15
+          expect(@receipt.amount.to_i).not_to eq 15
         end
 
         it "re-renders the index template" do

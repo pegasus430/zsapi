@@ -44,8 +44,10 @@ RSpec.describe Business, type: :model do
 
 
 	describe "Associations" do
-		it { should have_many :locations }
 		it { should belong_to :user }
+		it { should have_many :locations }
+		it { should have_many :wallets }
+		# it { should have_many(:customers), through: :wallets }
 	end
 
 
