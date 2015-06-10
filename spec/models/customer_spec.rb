@@ -51,6 +51,12 @@ RSpec.describe Customer, type: :model do
 			expect( @user.name ).to eq "Wes Foster"
 		end
 
+		it "#name_reversed" do
+			@user.first_name = "Wes"
+			@user.last_name = "Foster"
+			expect( @user.name_reversed ).to eq "Foster, Wes"
+		end
+
 		it "#active?" do
 			@user.active = true
 			expect(@user.active?).to be_truthy

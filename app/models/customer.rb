@@ -25,6 +25,10 @@ class Customer < ActiveRecord::Base
 		[first_name, last_name].join(' ')
 	end
 
+	def name_reversed
+		[last_name, first_name].join(', ')
+	end
+
 
 	def points(business = nil)
 		get_wallet(business).points

@@ -5,8 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Name</th>
       <th>Email</th>
       <th>Points</th>
       <th>Active</th>
@@ -17,8 +16,7 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= customer.first_name %></td>
-        <td><%= customer.last_name %></td>
+        <td><%= customer.name_reversed %></td>
         <td><%= customer.email %></td>
         <td><%= customer.points(current_user.business) %></td>
         <td><%= customer.active %></td>

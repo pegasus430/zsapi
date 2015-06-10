@@ -1,4 +1,15 @@
+6/9/15
+	
 
+	21:47
+	Finished the capybara testing for the current stage of the customers index	
 
-6/8/15 20:04
-The customers are setup to display points and listing depending on the current_user's business ID. The export is also ready. The next step is to just look through the PDF and ensure that the controller tests cover the page. Also, setup the view and run simple capybara testing. After customers, we'll move onto the campaign system.
+	21:13
+		Earlier I updated the MySQL ERD to the new schema based off of memory. Today was a long day with school, so I haven't started on this project until now. It's late, so my goals are to:
+		- Setup capybara testing for the customers
+		- Build the "Visit" association
+		- Build the "Redemption" association
+
+6/8/15
+	20:04
+		The customers are setup to display points and listing depending on the current_user's business ID. The export is also ready. The next step is to just look through the PDF and ensure that the controller tests cover the page. Also, setup the view and run simple capybara testing. After customers, we'll move onto the campaign system.
