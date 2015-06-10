@@ -13,9 +13,12 @@ RSpec.describe Business, type: :model do
   	end
 
   	# Presence
-  	it "has presence methods" do
-  		# validate_presence @business, %w(name primary_color secondary_color published)
-  	end
+  	%w(name).each do |attr|
+	  	it "validates presenve of #{attr}" do
+	  		@business.send("#{attr}=", nil)
+	  		expect(@business).not_to be_valid
+		  end
+	 	end
 
 	  # Length
 	  it "twitter must be 15 chars or less" do
@@ -48,6 +51,8 @@ RSpec.describe Business, type: :model do
 		it { should have_many :locations }
 		it { should have_many :wallets }
 		# it { should have_many(:customers), through: :wallets }
+
+		it { should accept_nested_attributes_for :locations }
 	end
 
 

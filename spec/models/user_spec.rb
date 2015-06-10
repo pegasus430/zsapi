@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
   	# Presence
   	%w(email password first_name last_name).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@user.send("#{attr}=", nil)
 	  		expect(@user).not_to be_valid
 		  end
@@ -29,6 +29,7 @@ RSpec.describe User, type: :model do
 
 	describe "Relations" do
 		it { should have_one :business }
+		it { should have_many(:locations), through: :business }
 	end
 
 

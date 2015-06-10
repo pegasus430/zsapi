@@ -12,7 +12,7 @@ RSpec.describe Location, type: :model do
   	end
 
   	# Presence
-  	%w(title address city state zipcode).each do |attr|
+  	%w(address city state zipcode).each do |attr|
 	  	it "validates presenve of #{attr}" do
 	  		@location.send("#{attr}=", nil)
 	  		expect(@location).not_to be_valid
@@ -23,6 +23,13 @@ RSpec.describe Location, type: :model do
 	  it "must have state abbreviation" do
 	  	expect( FactoryGirl.build(:location, state: "Tennessee") ).not_to be_valid
 	  end
+	end
+
+
+	it "sets the title to the street name if title is blank" do
+		my_address = "123 King Street"
+		location = FactoryGirl.create(:location, title: nil, address: my_address)
+		expect(location.title).to eq my_address
 	end
 
 

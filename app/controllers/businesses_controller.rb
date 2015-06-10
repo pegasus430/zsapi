@@ -15,6 +15,7 @@ class BusinessesController < ApplicationController
   # GET /businesses/new
   def new
     @business = Business.new
+    @business.locations.build
   end
 
   # GET /businesses/1/edit
@@ -69,6 +70,8 @@ class BusinessesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
-      params.require(:business).permit(:user_id, :name, :published, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter)
+      params.require(:business).permit(:user_id, :name, :published, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter,
+        :locations_attributes => [:address, :address2, :city, :state, :zipcode]
+      )
     end
 end
