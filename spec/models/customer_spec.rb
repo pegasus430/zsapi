@@ -117,6 +117,14 @@ RSpec.describe Customer, type: :model do
 				end
 			end
 		end
+
+		describe "Visits" do
+			it "#visit!" do
+				location = FactoryGirl.create(:location_with_business)
+				customer = FactoryGirl.create(:customer_with_wallet_without_business, business: location.business)
+				expect{customer.visit!(location)}.to change{Visit.count}.by(1)
+			end
+		end
 	end
 
 

@@ -1,5 +1,7 @@
 class Customer < ActiveRecord::Base
 	has_many :wallets
+	has_many :visits
+	has_many :locations, through: :visits
 
 	validates_presence_of :first_name, :last_name, :email
 	validates_uniqueness_of :email
@@ -29,7 +31,7 @@ class Customer < ActiveRecord::Base
 		[last_name, first_name].join(', ')
 	end
 
-
+	# Points
 	def points(business = nil)
 		get_wallet(business).points
 	end
@@ -48,6 +50,11 @@ class Customer < ActiveRecord::Base
 		wallet = get_wallet(business)
 		wallet.points += amount
 		wallet.save
+	end
+	# End points
+
+	def visit!(location)
+		Visit.create(customer: self, location: location, created_at: Time.now)
 	end
 
 

@@ -26,7 +26,7 @@ FactoryGirl.define do
 			end
 
 			after(:create) do |cust, eval|
-				w = create(:wallet, business: eval.business, customer: cust)
+				create(:wallet, business: eval.business, customer: cust)
 			end
 		end
   end

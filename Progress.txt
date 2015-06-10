@@ -1,8 +1,12 @@
 6/9/15
-	
+	22:58
+		Retiring for night. Just added the visit! method for customers. Tomorrow I should add campaigns.
+
+	22:42
+		Added beacon, location, and visit specs. Will probably postpone redemptions until tomorrow because I didn't realize locations were not finished.	
 
 	21:47
-	Finished the capybara testing for the current stage of the customers index	
+		Finished the capybara testing for the current stage of the customers index	
 
 	21:13
 		Earlier I updated the MySQL ERD to the new schema based off of memory. Today was a long day with school, so I haven't started on this project until now. It's late, so my goals are to:
