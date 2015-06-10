@@ -24,18 +24,13 @@ RSpec.describe Customer, type: :model do
 	  	user = FactoryGirl.create(:customer)
 	  	expect( FactoryGirl.build(:customer, email: user.email) ).not_to be_valid
 	  end
-
-	  # Other
-	  # it "cannot have less than 0 points" do
-	  # 	expect(FactoryGirl.build(:customer, points: -5)).not_to be_valid
-	  # end
 	end
 
 
 	describe "Associations" do
 		# it { should have_many :redemptions }
-		# it { should have_many :visits }
-		# it { should have_many(:locations), through: :visits }
+		it { should have_many :visits }
+		it { should have_many(:locations), through: :visits }
 		it { should have_many(:wallets) }
 	end
 

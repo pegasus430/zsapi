@@ -1,28 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe Beacon, type: :model do
+RSpec.describe Visit, type: :model do
 
   describe "Validations" do
   	  before :each do
-  			@beacon = FactoryGirl.build(:beacon)
+  			@visit = FactoryGirl.build(:visit)
   		end
 
   		it "has a valid factory" do
-  			expect( FactoryGirl.build(:beacon) ).to be_valid
+  			expect( FactoryGirl.build(:visit) ).to be_valid
   		end
 
   	# Presence
-  	%w(uuid).each do |attr|
+  	%w(created_at).each do |attr|
 	  	it "validates presenve of #{attr}" do
-	  		@beacon.send("#{attr}=", nil)
-	  		expect(@beacon).not_to be_valid
+	  		@visit.send("#{attr}=", nil)
+	  		expect(@visit).not_to be_valid
 		  end
 	 	end
 	end
 
 
 	describe "Associations" do
-		# it { should belong_to(:order) }
+		it { should belong_to(:customer) }
 		it { should belong_to(:location) }
 	end
 
