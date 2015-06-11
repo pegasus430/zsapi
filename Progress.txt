@@ -1,4 +1,7 @@
 6/11/15
+	17:24
+		So, we're going to separate the Business, Location, and Order creation. I'm working to install Stripe so that we can get it out of the way and test the Beacon order process. Currently working in orders_controller.rb. I need to setup the routes for /locations/#/order/new because the order needs to be built from the location selected.
+
 	15:45
 		Another slow day. Today, the registration process needs to be completed.
 

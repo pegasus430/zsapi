@@ -35,6 +35,10 @@ module Zippyspot
             request_specs: true
         g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+    # Stripe
+    config.stripe.secret_key = "sk_test_S3gkDnv0bcJIMlr9XDrlzGZ3"
+    config.stripe.publishable_key = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
     
   end
 end
