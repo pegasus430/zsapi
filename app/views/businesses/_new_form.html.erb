@@ -1,3 +1,5 @@
+<h1>Business details</h1>
+
 <%= form_for(@business) do |f| %>
 <% if @business.errors.any? %>
   <div id="error_explanation">
@@ -26,6 +28,6 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit" %>
   </div>
 <% end %>

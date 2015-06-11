@@ -1,19 +1,12 @@
 class BusinessesController < ApplicationController
-  before_action :set_business, only: [:show, :edit, :update, :destroy]
-
-  # GET /businesses
-  # GET /businesses.json
-  def index
-    @businesses = Business.all
-  end
-
-  # GET /businesses/1
-  # GET /businesses/1.json
-  def show
-  end
+  before_action :set_business, only: [:show, :edit, :update]
 
   # GET /businesses/new
   def new
+    if !current_user.business.nil?
+      redirect_to root_url, alert: "You have already created your business."
+    end
+
     @business = Business.new
     @business.locations.build
   end
@@ -30,10 +23,8 @@ class BusinessesController < ApplicationController
     respond_to do |format|
       if @business.save
         format.html { redirect_to @business, notice: 'Business was successfully created.' }
-        format.json { render :show, status: :created, location: @business }
       else
         format.html { render :new }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,21 +35,9 @@ class BusinessesController < ApplicationController
     respond_to do |format|
       if @business.update(business_params)
         format.html { redirect_to @business, notice: 'Business was successfully updated.' }
-        format.json { render :show, status: :ok, location: @business }
       else
         format.html { render :edit }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /businesses/1
-  # DELETE /businesses/1.json
-  def destroy
-    @business.destroy
-    respond_to do |format|
-      format.html { redirect_to businesses_url, notice: 'Business was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

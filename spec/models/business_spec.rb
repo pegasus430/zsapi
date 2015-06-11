@@ -27,21 +27,22 @@ RSpec.describe Business, type: :model do
 	  end
 
 	  # Regex Hex values
-	  %w(primary_color secondary_color).each do |color|
-	  	it "#{color} should be a valid hex" do
+	  # This is commented out because it should only happeon on UPDATE
+	 #  %w(primary_color secondary_color).each do |color|
+	 #  	it "#{color} should be a valid hex" do
 
-	  		%w(sdf 123ADG).each do |invalid|
-	  			@business.send("#{color}=", invalid)
-	  			expect( @business ).not_to be_valid
-	  		end
+	 #  		%w(sdf 123ADG).each do |invalid|
+	 #  			@business.send("#{color}=", invalid)
+	 #  			expect( @business ).not_to be_valid
+	 #  		end
 
-	  		%w(336699 FFF).each do |valid|
-		  		@business.send("#{color}=", valid)
-		  		expect( @business ).to be_valid
-		  	end
+	 #  		%w(336699 FFF).each do |valid|
+		#   		@business.send("#{color}=", valid)
+		#   		expect( @business ).to be_valid
+		#   	end
 
-		  end
-		end
+		#   end
+		# end
 
 	end
 

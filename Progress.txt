@@ -1,9 +1,26 @@
+6/11/15
+	15:45
+		Another slow day. Today, the registration process needs to be completed.
+
+	11:13
+		Just finished making some nice looking sequence diagrams for the registration/order process. Now, my goals are to finish the business registration process (everything but stripe).
+		- Create business
+		- Create primary location
+		- Fake stripe
+		- Create order
+		- Send admin email
+		- Confirm order and create beacon
+		- Activate location once beacon is received
+
 6/10/15
+	17:56
+		The capybara test works! A user confirms their email, signs in, then is directed to the new business page! Next, we need to implement the details that will create a business and their first location.
+
 	17:05
 		The user controller with devise is tougher than I thought. I've decided to just deal with creating the business and location AFTER the user has confirmed their account. I did, however, modify the controller to allow for the "first" and "last" names to be saved on creation.
 
 		The last thing I did was create a capybara test for the registration pae to ensure that the names were saved... they are! Now, create a capybara test that will sign up and go to the confirmation URL. This page should redirect the user to create a new business and location.
-		
+
 	14:24
 		Today is the day of back to the future! I'm going to get a little more structured and follow through with the PDF as I go through the schedule. Businesses aren't able to be created nor modified, so this will be added now.
 
