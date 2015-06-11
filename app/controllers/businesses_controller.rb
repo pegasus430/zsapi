@@ -22,7 +22,7 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.save
-        format.html { redirect_to @business, notice: 'Business was successfully created.' }
+        format.html { redirect_to new_location_path, notice: 'Business was successfully created.' }
       else
         format.html { render :new }
       end

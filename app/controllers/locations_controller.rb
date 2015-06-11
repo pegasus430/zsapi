@@ -14,7 +14,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/new
   def new
-    @location = Location.new
+    @location = current_user.business.locations.build
   end
 
   # GET /locations/1/edit
@@ -28,11 +28,9 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render :show, status: :created, location: @location }
+        format.html { redirect_to new_order_path, notice: 'Location was successfully created. Create the payment now' }
       else
         format.html { render :new }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end
   end

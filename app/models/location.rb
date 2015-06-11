@@ -5,6 +5,8 @@ class Location < ActiveRecord::Base
   has_many :receipts
   has_many :visits
 
+  # accepts_nested_attributes_for :notifications, allow_destroy: true
+
   validates_presence_of :address, :city, :state, :zipcode
   validates_length_of :state, is: 2
 

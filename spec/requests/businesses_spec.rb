@@ -36,7 +36,7 @@ RSpec.describe "Businesses", type: :feature do
 	    end
 	  end
 
-    describe "GET /businesses/new" do
+    describe "/businesses/new" do
       it "shows the form" do 
         visit '/businesses/new'
         expect(page).to have_content "Business details"
@@ -46,12 +46,7 @@ RSpec.describe "Businesses", type: :feature do
       	visit '/businesses/new'
     		fill_in "Name", with: "Business"
     		fill_in "Website", with: "twitter.com"
-    		fill_in "Address", with: "Address"
-    		fill_in "City", with: "City"
-    		fill_in "State", with: "ST"
-    		fill_in "Zipcode", with: "12345"
     		click_button "Submit"
-      	byebug
       	expect(Business.last.name).to eq "Business"
       end
     end
