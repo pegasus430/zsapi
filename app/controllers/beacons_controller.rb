@@ -1,34 +1,40 @@
 class BeaconsController < ApplicationController
-  before_action :set_beacon, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!
 
-  # GET /beacons
-  # GET /beacons.json
-  def index
-    @beacons = Beacon.all
-  end
-
-  # GET /beacons/1
-  # GET /beacons/1.json
-  def show
-  end
-
-  # GET /beacons/new
+  # GET /beacons/:key
   def new
-    @beacon = Beacon.new
-  end
+    @order = Order.find_by_key(params[:key])
 
-  # GET /beacons/1/edit
-  def edit
+    if @order.nil?
+      redirect_to root_url, alert: "The confirmation you entered is invalid."
+    end
+
+    @beacon = @order.beacon.build
+    @location = @order.location
+    @business = @location.business
   end
 
   # POST /beacons
   # POST /beacons.json
   def create
-    @beacon = Beacon.new(beacon_params)
+    if params[:uuid] != params[:uuid_confirm]
+      return render :new, alert: "The two UUID codes you entered do not match. Please confirm and try again."
+    end
+
+    if params[:key].blank?
+      return render :new, alert: "The order confirmation key cannot be located. Please click the link in your email and try again."
+    end
+
+
+    @order = Order.find_by_key(params[:key])
+    @beacon = @order.beacon.build(beacon_params)
 
     respond_to do |format|
       if @beacon.save
-        format.html { redirect_to @beacon, notice: 'Beacon was successfully created.' }
+        @order.status = Order::SHIPPED
+        @order.save
+        
+        format.html { render :new, notice: 'Beacon was successfully created. Go ahead and ship it out!' }
         format.json { render :show, status: :created, location: @beacon }
       else
         format.html { render :new }
@@ -37,38 +43,10 @@ class BeaconsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /beacons/1
-  # PATCH/PUT /beacons/1.json
-  def update
-    respond_to do |format|
-      if @beacon.update(beacon_params)
-        format.html { redirect_to @beacon, notice: 'Beacon was successfully updated.' }
-        format.json { render :show, status: :ok, location: @beacon }
-      else
-        format.html { render :edit }
-        format.json { render json: @beacon.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /beacons/1
-  # DELETE /beacons/1.json
-  def destroy
-    @beacon.destroy
-    respond_to do |format|
-      format.html { redirect_to beacons_url, notice: 'Beacon was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beacon
-      @beacon = Beacon.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def beacon_params
-      params.require(:beacon).permit(:location_id, :order_id, :uuid, :void)
+      params.require(:beacon).permit(:uuid)
     end
 end

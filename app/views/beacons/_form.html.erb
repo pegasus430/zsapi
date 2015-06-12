@@ -12,21 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :location_id %><br>
-    <%= f.text_field :location_id %>
-  </div>
-  <div class="field">
-    <%= f.label :order_id %><br>
-    <%= f.text_field :order_id %>
-  </div>
-  <div class="field">
     <%= f.label :uuid %><br>
     <%= f.text_field :uuid %>
   </div>
+
+
   <div class="field">
-    <%= f.label :void %><br>
-    <%= f.check_box :void %>
+    <%= label_tag :uuid_confirm %><br>
+    <%= text_field_tag :uuid_confirm %>
   </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

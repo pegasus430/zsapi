@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Admin,</h1>
+    <p>
+      A new beacon order has been placed, and the payment has been processed. Below is a summary of the information:
+
+      --------------------
+      Business: <%= @business.name %> (#<%= @business.id %>)<br>
+      New Location: <%= @location.full_address %>
+      --------------------
+    </p>
+    <p>
+      Before shipping the Beacon, click the follow URL to enter it's UUID code: <%= @url %>.
+    </p>
+    <p>The Zippy Spot Team</p>
+  </body>
+</html>

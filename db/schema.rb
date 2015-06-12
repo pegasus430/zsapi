@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610025101) do
+ActiveRecord::Schema.define(version: 20150612025640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 20150610025101) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "location_id"
-    t.integer  "beacon_id"
     t.string   "buyer_ip",                   null: false
     t.datetime "purchase_date",              null: false
     t.string   "transaction_id",             null: false
@@ -108,7 +107,6 @@ ActiveRecord::Schema.define(version: 20150610025101) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "orders", ["beacon_id"], name: "index_orders_on_beacon_id", using: :btree
   add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree
 
   create_table "receipts", force: :cascade do |t|

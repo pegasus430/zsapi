@@ -23,7 +23,7 @@ RSpec.describe Order, type: :model do
 
 	describe "Associations" do
 		it { should belong_to :location }
-		it { should belong_to :beacon }
+		it { should have_one :beacon }
 	end
 
 
@@ -33,6 +33,12 @@ RSpec.describe Order, type: :model do
 
 		describe "Scopes" do
 		end
+	end
+
+
+	it "generates a random key after creating" do
+		order = FactoryGirl.create(:order)
+		expect(order.key).not_to be_nil
 	end
 
 end

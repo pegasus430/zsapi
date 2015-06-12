@@ -1,11 +1,17 @@
 6/11/15
-	17:24
+	22:01-
+		Got the stripe integration done, as well as the order creation and the beacon creation! Everything should be set for testing now. Need to test: New Location > New Order (payment details) > Click link in email > Create beacon. After this, test the Location "Confirm UUID" code for when the business owner received the iBeacon in the mail. After that, if tests look good, we're good to go!
+
+	20:38+
+		My goal for tonight is to complete the stripe integration, breacon creation, and beacon approval. Let's see how close we get!
+
+	17:24-
 		So, we're going to separate the Business, Location, and Order creation. I'm working to install Stripe so that we can get it out of the way and test the Beacon order process. Currently working in orders_controller.rb. I need to setup the routes for /locations/#/order/new because the order needs to be built from the location selected.
 
-	15:45
+	15:45+
 		Another slow day. Today, the registration process needs to be completed.
 
-	11:13
+	11:13-
 		Just finished making some nice looking sequence diagrams for the registration/order process. Now, my goals are to finish the business registration process (everything but stripe).
 		- Create business
 		- Create primary location
@@ -16,7 +22,7 @@
 		- Activate location once beacon is received
 
 6/10/15
-	17:56
+	17:56-
 		The capybara test works! A user confirms their email, signs in, then is directed to the new business page! Next, we need to implement the details that will create a business and their first location.
 
 	17:05

@@ -6,13 +6,15 @@ Rails.application.routes.draw do
     get '/inactive',  to: 'customers#index_inactive'
   end
 
+  get   '/beacon/:key', to: 'beacons#new', as: 'new_beacon'
+  post  '/beacon/:key', to: 'beacons#create'
+
   resources :receipts
 
-  resources :orders
 
-  resources :beacons
-
-  resources :locations
+  resources :locations do
+    resources :orders, only: [:new, :create, :show]
+  end
 
   resources :businesses
 

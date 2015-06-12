@@ -26,15 +26,8 @@ RSpec.describe Location, type: :model do
 	end
 
 
-	it "sets the title to the street name if title is blank" do
-		my_address = "123 King Street"
-		location = FactoryGirl.create(:location, title: nil, address: my_address)
-		expect(location.title).to eq my_address
-	end
-
-
 	describe "Associations" do
-		# it { should have_many :orders }
+		it { should have_many :orders }
 		# it { should have_many :notifications }
 		# it { should have_many :redemptions }
 
@@ -57,6 +50,15 @@ RSpec.describe Location, type: :model do
 			expect(location.pending?).to be_falsey
 			expect(pending_location.pending?).to be_truthy
 		end
+
+		it "#full_address" do
+			@location.address = "Street"
+			@location.address2 = ""
+			@location.city = "Balls"
+			@location.state = "TN"
+			@location.zipcode = "12345"
+			expect(@location.full_address).to eq "Street Balls, TN 12345"
+		end
 	end
 
 
@@ -72,6 +74,13 @@ RSpec.describe Location, type: :model do
 			FactoryGirl.create(:location, beacon: nil)
 			expect(Location.pending.length).to eq 1
 		end
+	end
+
+
+	it "sets the title to the street name if title is blank" do
+		my_address = "123 King Street"
+		location = FactoryGirl.create(:location, title: nil, address: my_address)
+		expect(location.title).to eq my_address + " Location"
 	end
 
 end

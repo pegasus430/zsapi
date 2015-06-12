@@ -1,5 +1,13 @@
 <h1>New Beacon</h1>
 
+<p>Look on the iBeacon device and locate its UUID number. Enter that number below.</p>
+<p>After submitting this form, ship the iBeacon to the following address.</p>
+
+<p>
+	<%= @business.name %> (#<%= @business.id %>)<br>
+	<%= @location.full_address multiline: true %>
+</p>
+
 <%= render 'form' %>
 
 <%= link_to 'Back', beacons_path %>

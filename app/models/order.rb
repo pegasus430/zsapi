@@ -1,6 +1,13 @@
+require 'securerandom'
+
 class Order < ActiveRecord::Base
+	# Statuses
+	PROCESSING 	= 0
+	SHIPPED 		= 1
+	RECEIVED 		= 2
+
   belongs_to :location
-  belongs_to :beacon
+  has_one :beacon
 
   validates_presence_of :status
 
@@ -10,7 +17,7 @@ class Order < ActiveRecord::Base
   private
 
   	def generate_random_key
-  		o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-			self[:key] = (0...50).map { o[rand(o.length)] }.join}
+  		self[:key] = SecureRandom.hex(15)
+  		self[:key]
 		end
 end

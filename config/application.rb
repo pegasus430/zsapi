@@ -39,6 +39,10 @@ module Zippyspot
     # Stripe
     config.stripe.secret_key = "sk_test_S3gkDnv0bcJIMlr9XDrlzGZ3"
     config.stripe.publishable_key = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
+
+    # Custom
+    config.x.beacon_cost = 3999 #total cents
+    config.x.beacon_description = 'iBeacon'
     
   end
 end
