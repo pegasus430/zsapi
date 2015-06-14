@@ -1,4 +1,10 @@
 6/13/15
+	23:10-
+		Got the payment tests done. Got the beacon testing ready to be implemented (the "its" are there). Need to finish the "its" in the beacon, then move onto the customer validating a location. That is all! Finally, run all tests.
+
+	22:13+
+		Trying to finish thoses tests real quick.
+
 	20:18-
 		Got the request specs working. Now, need to get the confirm key from the email and test the beacon creator. After that, test the location validator once a user received the beacon via mail. That should be all the tests.
 

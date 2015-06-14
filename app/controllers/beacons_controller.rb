@@ -3,15 +3,16 @@ class BeaconsController < ApplicationController
 
   # GET /beacons/:key
   def new
-    @order = Order.find_by_key(params[:key])
+    @payment = Payment.find_by_key(params[:key])
 
-    if @order.nil?
-      redirect_to root_url, alert: "The confirmation you entered is invalid."
+    if @payment.nil?
+      @invalid = true
+      flash[:alert] = "The confirmation you entered is invalid."
+    else
+      @beacon = @payment.build_beacon
+      @location = @payment.location
+      @business = @location.business
     end
-
-    @beacon = @order.beacon.build
-    @location = @order.location
-    @business = @location.business
   end
 
   # POST /beacons
@@ -22,17 +23,17 @@ class BeaconsController < ApplicationController
     end
 
     if params[:key].blank?
-      return render :new, alert: "The order confirmation key cannot be located. Please click the link in your email and try again."
+      return render :new, alert: "The payment confirmation key cannot be located. Please click the link in your email and try again."
     end
 
 
-    @order = Order.find_by_key(params[:key])
-    @beacon = @order.beacon.build(beacon_params)
+    @payment = Payment.find_by_key(params[:key])
+    @beacon = @payment.beacon.build(beacon_params)
 
     respond_to do |format|
       if @beacon.save
-        @order.status = Order::SHIPPED
-        @order.save
+        @payment.status = Payment::SHIPPED
+        @payment.save
         
         format.html { render :new, notice: 'Beacon was successfully created. Go ahead and ship it out!' }
         format.json { render :show, status: :created, location: @beacon }

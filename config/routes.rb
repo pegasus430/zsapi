@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Confirm a beacon
   get   '/beacon/:key', to: 'beacons#new', as: 'new_beacon'
-  post  '/beacon/:key', to: 'beacons#create'
+  post  '/beacon/:key', to: 'beacons#create', as: 'beacons'
 
 
   resources :businesses, only: [:new, :create, :edit, :update]
