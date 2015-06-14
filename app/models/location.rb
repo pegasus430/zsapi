@@ -1,8 +1,8 @@
 class Location < ActiveRecord::Base
   belongs_to :business
   belongs_to :beacon
+  has_one :payment
   has_many :customers, through: :visits
-  has_many :orders
   has_many :receipts
   has_many :visits
 

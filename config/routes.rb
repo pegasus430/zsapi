@@ -6,31 +6,33 @@ Rails.application.routes.draw do
     get '/inactive',  to: 'customers#index_inactive'
   end
 
+  # Confirm a beacon
   get   '/beacon/:key', to: 'beacons#new', as: 'new_beacon'
   post  '/beacon/:key', to: 'beacons#create'
 
+
+  resources :businesses, only: [:new, :create, :edit, :update]
   resources :receipts
 
-
   resources :locations do
-    resources :orders, only: [:new, :create, :show]
+    get  '/payment/success',  to: 'payments#success', as: 'payment_success'
+    get  '/payment/:id',      to: 'payments#show',    as: 'payment', constraints: { id: /[0-9]+/ }
+    get  '/payment/new',      to: 'payments#new',     as: 'new_payment'
+    post '/payment/new',      to: 'payments#create',  as: 'payments'
   end
-
-  resources :businesses
 
   devise_for :users, controllers: {
     confirmations:  'users/confirmations',
     registrations:  'users/registrations'
   }
   devise_for :admins
-  
-  root 'pages#dashboard'
 
   namespace :admin do
     root 'pages#dashboard'
     resources :receipts, only: [:index, :update, :destroy]
   end
 
+  root 'pages#dashboard'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

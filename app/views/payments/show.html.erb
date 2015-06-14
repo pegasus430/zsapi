@@ -2,38 +2,36 @@
 
 <p>
   <strong>Location:</strong>
-  <%= @order.location %>
+  <%= @payment.location %>
 </p>
 
 <p>
   <strong>Beacon:</strong>
-  <%= @order.beacon %>
+  <%= @payment.beacon %>
 </p>
 
 <p>
   <strong>Buyer ip:</strong>
-  <%= @order.buyer_ip %>
+  <%= @payment.buyer_ip %>
 </p>
 
 <p>
   <strong>Purchase date:</strong>
-  <%= @order.purchase_date %>
+  <%= @payment.purchase_date %>
 </p>
 
 <p>
   <strong>Transaction:</strong>
-  <%= @order.transaction_id %>
+  <%= @payment.transaction_id %>
 </p>
 
 <p>
   <strong>Key:</strong>
-  <%= @order.key %>
+  <%= @payment.key %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @order.status %>
+  <%= @payment.status %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>

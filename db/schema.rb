@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612025640) do
+ActiveRecord::Schema.define(version: 20150612185703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150612025640) do
 
   create_table "beacons", force: :cascade do |t|
     t.integer  "location_id"
-    t.integer  "order_id"
+    t.integer  "payment_id"
     t.string   "uuid"
     t.boolean  "void",        default: false
     t.datetime "created_at",                  null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150612025640) do
   end
 
   add_index "beacons", ["location_id"], name: "index_beacons_on_location_id", using: :btree
-  add_index "beacons", ["order_id"], name: "index_beacons_on_order_id", using: :btree
+  add_index "beacons", ["payment_id"], name: "index_beacons_on_payment_id", using: :btree
 
   create_table "businesses", force: :cascade do |t|
     t.integer  "user_id"
@@ -96,10 +96,9 @@ ActiveRecord::Schema.define(version: 20150612025640) do
   add_index "locations", ["beacon_id"], name: "index_locations_on_beacon_id", using: :btree
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree
 
-  create_table "orders", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.integer  "location_id"
     t.string   "buyer_ip",                   null: false
-    t.datetime "purchase_date",              null: false
     t.string   "transaction_id",             null: false
     t.string   "key",                        null: false
     t.integer  "status",         default: 0
@@ -107,7 +106,7 @@ ActiveRecord::Schema.define(version: 20150612025640) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree
+  add_index "payments", ["location_id"], name: "index_payments_on_location_id", using: :btree
 
   create_table "receipts", force: :cascade do |t|
     t.integer  "location_id"

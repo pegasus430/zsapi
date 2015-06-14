@@ -27,7 +27,7 @@ RSpec.describe Location, type: :model do
 
 
 	describe "Associations" do
-		it { should have_many :orders }
+		it { should have_one :payments }
 		# it { should have_many :notifications }
 		# it { should have_many :redemptions }
 

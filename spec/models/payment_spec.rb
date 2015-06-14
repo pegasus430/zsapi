@@ -1,21 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe Order, type: :model do
+RSpec.describe Payment, type: :model do
 
   describe "Validations" do
     before :each do
-  		@order = FactoryGirl.build(:order)
+  		@payment = FactoryGirl.build(:payment)
   	end
 
   	it "has a valid factory" do
-  		expect( FactoryGirl.create(:order) ).to be_valid
+  		expect( FactoryGirl.create(:payment) ).to be_valid
   	end
 
   	# Presence
   	%w(status).each do |attr|
 	  	it "validates presenve of #{attr}" do
-	  		@order.send("#{attr}=", nil)
-	  		expect(@order).not_to be_valid
+	  		@payment.send("#{attr}=", nil)
+	  		expect(@payment).not_to be_valid
 		  end
 	 	end
 	end
@@ -37,8 +37,8 @@ RSpec.describe Order, type: :model do
 
 
 	it "generates a random key after creating" do
-		order = FactoryGirl.create(:order)
-		expect(order.key).not_to be_nil
+		payment = FactoryGirl.create(:payment)
+		expect(payment.key).not_to be_nil
 	end
 
 end
