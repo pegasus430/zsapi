@@ -1,10 +1,9 @@
 FactoryGirl.define do
 	
   factory :beacon do
-    location 	nil
-		payment 		nil
+    location
 		uuid 			{ Faker::Number.number(10) }
-		void 			false
+		void 			true
   end
 
 end

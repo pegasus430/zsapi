@@ -23,7 +23,7 @@ RSpec.describe Payment, type: :model do
 
 	describe "Associations" do
 		it { should belong_to :location }
-		it { should have_one :beacon }
+		it { should have_one(:beacon), through: :location }
 	end
 
 

@@ -7,18 +7,20 @@ Rails.application.routes.draw do
   end
 
   # Confirm a beacon
-  get   '/beacon/:key', to: 'beacons#new', as: 'new_beacon'
-  post  '/beacon/:key', to: 'beacons#create', as: 'beacons'
+  get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'
+  post  '/beacon/:key',     to: 'beacons#create',   as: 'beacons'
+  get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
 
 
   resources :businesses, only: [:new, :create, :edit, :update]
   resources :receipts
 
   resources :locations do
-    get  '/payment/success',  to: 'payments#success', as: 'payment_success'
-    get  '/payment/:id',      to: 'payments#show',    as: 'payment', constraints: { id: /[0-9]+/ }
-    get  '/payment/new',      to: 'payments#new',     as: 'new_payment'
-    post '/payment/new',      to: 'payments#create',  as: 'payments'
+    get   '/payment/success', to: 'payments#success',   as: 'payment_success'
+    get   '/payment/:id',     to: 'payments#show',      as: 'payment', constraints: { id: /[0-9]+/ }
+    get   '/payment/new',     to: 'payments#new',       as: 'new_payment'
+    post  '/payment/new',     to: 'payments#create',    as: 'payments'
+    put   '/confirm',         to: 'locations#confirm',  as: 'confirm'
   end
 
   devise_for :users, controllers: {

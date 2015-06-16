@@ -22,8 +22,23 @@ RSpec.describe Beacon, type: :model do
 
 
 	describe "Associations" do
-		it { should belong_to(:payment) }
 		it { should belong_to(:location) }
+		it { should have_one(:payment), through: :location }
+	end
+
+
+	describe "Methods" do
+		it '#active?' do
+			beacon = FactoryGirl.create(:beacon, void: true)
+			expect(beacon.active?).to be_falsey
+		end
+
+		it 'activate!' do
+			beacon = FactoryGirl.create(:beacon, void: true)
+			beacon.activate!
+			expect(beacon).to be_active
+		end
+
 	end
 
 end

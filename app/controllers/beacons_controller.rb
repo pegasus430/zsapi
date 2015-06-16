@@ -1,47 +1,42 @@
 class BeaconsController < ApplicationController
   skip_before_action :authenticate_user!
+  before_action :validate_key, only: [:new, :create]
 
   # GET /beacons/:key
   def new
-    @payment = Payment.find_by_key(params[:key])
-
-    if @payment.nil?
-      @invalid = true
-      flash[:alert] = "The confirmation you entered is invalid."
-    else
-      @beacon = @payment.build_beacon
-      @location = @payment.location
-      @business = @location.business
-    end
+    @beacon = @payment.location.build_beacon
+    @location = @payment.location
+    @business = @location.business
   end
 
   # POST /beacons
   # POST /beacons.json
   def create
-    if params[:uuid] != params[:uuid_confirm]
+    if params[:beacon][:uuid] != params[:uuid_confirm]
       return render :new, alert: "The two UUID codes you entered do not match. Please confirm and try again."
     end
 
-    if params[:key].blank?
-      return render :new, alert: "The payment confirmation key cannot be located. Please click the link in your email and try again."
-    end
-
-
-    @payment = Payment.find_by_key(params[:key])
-    @beacon = @payment.beacon.build(beacon_params)
+    @beacon = @payment.location.build_beacon(beacon_params)
 
     respond_to do |format|
       if @beacon.save
         @payment.status = Payment::SHIPPED
         @payment.save
-        
-        format.html { render :new, notice: 'Beacon was successfully created. Go ahead and ship it out!' }
-        format.json { render :show, status: :created, location: @beacon }
+
+        format.html { render :success }
+        PaymentMailer.beacon_shipped_email(@payment).deliver_now
+        # format.json { render :show, status: :created, location: @beacon }
       else
-        format.html { render :new }
-        format.json { render json: @beacon.errors, status: :unprocessable_entity }
+        format.html { render :success }
+        format.html { redirect_to new_beacon_path(@payment.key) }
+        # format.json { render json: @beacon.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+
+  def success
+
   end
 
 
@@ -49,5 +44,13 @@ class BeaconsController < ApplicationController
 
     def beacon_params
       params.require(:beacon).permit(:uuid)
+    end
+
+    def validate_key
+      @payment = Payment.find_by_key(params[:key])
+      if @payment.nil?
+        @invalid = true
+        render :new
+      end
     end
 end

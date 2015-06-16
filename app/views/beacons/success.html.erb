@@ -1,0 +1,8 @@
+<h1>Success!</h1>
+
+Beacon was successfully created. Ship this beacon to:
+
+<p>
+	<%= @payment.location.business.name %><br>
+	<%= @payment.location.full_address multiline: true %>
+</p>

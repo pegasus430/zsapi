@@ -1,3 +1,17 @@
+6/16/15
+	17:27-
+		Got the beacons and locations all finished! *I might end up converting more request specs into controller specs now that I understand them better. ** Next step is to create the API. So get ready!
+
+	11:00+
+		Working on completing the beacon spec. After that, customer validation of location. Need to finish both of these today and start on the API!
+
+6/14/15
+	8:55-
+		The @payment var is showing as nil in the beacon spec. Which doesn't allow any of the new tests to run. Fix this.
+		
+	8:47+
+		Working on the beacon "it" tests real quick.
+
 6/13/15
 	23:10-
 		Got the payment tests done. Got the beacon testing ready to be implemented (the "its" are there). Need to finish the "its" in the beacon, then move onto the customer validating a location. That is all! Finally, run all tests.

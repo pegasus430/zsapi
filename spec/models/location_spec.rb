@@ -27,14 +27,15 @@ RSpec.describe Location, type: :model do
 
 
 	describe "Associations" do
-		it { should have_one :payments }
 		# it { should have_many :notifications }
 		# it { should have_many :redemptions }
 
-		it { should belong_to :beacon }
+		it { should have_one :beacon }
+		it { should have_one :payment }
 		it { should belong_to :business }
 		it { should have_many :visits }
 		it { should have_many :receipts }
+		it { should have_one(:user), through: :business }
 		it { should have_many(:customers), through: :visits }
 	end
 
@@ -44,11 +45,28 @@ RSpec.describe Location, type: :model do
 			@location = FactoryGirl.build(:location)
 		end
 
+		it "#active?" do
+			location_beacon = FactoryGirl.create(:location_with_beacon)
+			location_beacon.beacon.void = false
+			expect(location_beacon.active?).to be_truthy
+
+			location_void_beacon = FactoryGirl.create(:location_with_beacon)
+			expect(location_void_beacon.active?).to be_falsey
+
+			location_no_beacon = FactoryGirl.create(:location)
+			expect(location_no_beacon.active?).to be_falsey
+		end
+
 		it "#pending?" do
-			location = FactoryGirl.create(:location_with_beacon)
-			pending_location = FactoryGirl.create(:location)
-			expect(location.pending?).to be_falsey
-			expect(pending_location.pending?).to be_truthy
+			location_beacon = FactoryGirl.create(:location_with_beacon)
+			location_beacon.beacon.void = false
+			expect(location_beacon.pending?).to be_falsey
+
+			location_void_beacon = FactoryGirl.create(:location_with_beacon)
+			expect(location_void_beacon.pending?).to be_truthy
+
+			location_no_beacon = FactoryGirl.create(:location)
+			expect(location_no_beacon.pending?).to be_truthy
 		end
 
 		it "#full_address" do
@@ -65,13 +83,13 @@ RSpec.describe Location, type: :model do
 	describe "Scopes" do
 		it ".active" do
 			FactoryGirl.create_list(:location_with_beacon, 3)
-			FactoryGirl.create(:location, beacon: nil)
+			FactoryGirl.create(:location)
 			expect(Location.active.length).to eq 3
 		end
 
 		it ".pending" do
 			FactoryGirl.create_list(:location_with_beacon, 3)
-			FactoryGirl.create(:location, beacon: nil)
+			FactoryGirl.create(:location)
 			expect(Location.pending.length).to eq 1
 		end
 	end

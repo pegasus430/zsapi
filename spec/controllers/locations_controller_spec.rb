@@ -4,21 +4,75 @@ RSpec.describe LocationsController, type: :controller do
 
   before :each do
     @user = FactoryGirl.create(:user_with_business)
+    @location = FactoryGirl.create(:location, business: @user.business)
     sign_in @user
   end
 
-  # describe "GET #index" do
-  #   it "assigns all untouched receipts as @receipts" do
-  #     receipt = FactoryGirl.create(:receipt)
-  #     get :index
-  #     expect(assigns(:receipts)).to eq([receipt])
-  #   end
+  describe "GET #edit" do
+    it "assigns @location" do
+      get :edit, id: @location
+      expect(assigns(:location)).to eq(@location)
+    end
 
-  #   it "renders the index template" do
-  #     get :index
-  #     expect(response).to render_template :index
-  #   end
-  # end
+    it "renders the edit template if beacon exists" do
+      location_with_beacon = FactoryGirl.create(:location_with_beacon, business: @user.business)
+      get :edit, id: location_with_beacon
+      expect(response).to render_template :edit
+    end
+
+    it "renders the confirm template if no beacon" do
+      FactoryGirl.create(:location, business: @user.business)
+      get :edit, id: @location
+      expect(response).to render_template :confirm
+    end
+  end
+
+
+
+  describe "PUT #confirm" do
+
+    context "[Valid UUID]" do
+      before :each do
+        FactoryGirl.create(:beacon, location: @location)
+        FactoryGirl.create(:payment, location: @location)
+        @location.beacon.uuid = "testing"
+        @location.beacon.save
+
+        put :confirm, location_id: @location, uuid: "testing"
+      end
+
+      it "validates the location on confirm" do
+        @location.reload
+        expect(@location.active?).to be_truthy
+      end
+    end
+
+    context "[Beacon doesn't exist]" do
+      before :each do
+        FactoryGirl.create(:payment, location: @location)
+        put :confirm, location_id: @location, uuid: "balls"
+      end
+
+      it "does not validates the location on confirm" do
+        expect(@location.active?).to be_falsey
+      end
+    end
+
+    context "[Beacon exists, but invalid UUID]" do
+      before :each do
+        FactoryGirl.create(:beacon, location: @location)
+        FactoryGirl.create(:payment, location: @location)
+        @location.beacon.uuid = "testing"
+        @location.beacon.save
+
+        put :confirm, location_id: @location, uuid: "balls"
+      end
+
+      it "does not validates the location on confirm" do
+        expect(@location.active?).to be_falsey
+      end
+    end
+  end
 
 
   # describe "GET #new" do

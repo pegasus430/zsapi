@@ -1,0 +1,23 @@
+<%= form_for(@location, url: location_confirm(@location)) do |f| %>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+      <% @location.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>Please enter the UUID code found on your new iBeacon device</p>
+
+  <div class="field">
+    <%= label_tag :uuid, 'UUID' %><br>
+    <%= text_field_tag :uuid %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

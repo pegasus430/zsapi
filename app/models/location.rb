@@ -1,7 +1,8 @@
 class Location < ActiveRecord::Base
   belongs_to :business
-  belongs_to :beacon
+  has_one :beacon
   has_one :payment
+  has_one :user, through: :business
   has_many :customers, through: :visits
   has_many :receipts
   has_many :visits
@@ -14,15 +15,19 @@ class Location < ActiveRecord::Base
   before_save { |l| l.title = l.address + " Location" if l.title.nil? }
 
   def self.active
-  	Location.where('beacon_id IS NOT NULL')
+  	Location.joins(:beacon)
   end
 
   def self.pending
-  	Location.where(beacon: nil)
+  	Location.includes(:beacon).where(beacons: {id: nil})
+  end
+
+  def active?
+    !beacon.nil? && beacon.active?
   end
 
   def pending?
-  	beacon.nil?
+  	beacon.nil? || beacon.void?
   end
 
   def full_address(params = {})

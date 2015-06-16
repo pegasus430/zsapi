@@ -1,6 +1,8 @@
-<% unless @invalid === true %>
-	<h1>New Beacon</h1>
+<h1>New Beacon</h1>
 
+<% if @invalid === true %>
+	The payment confirmation key cannot be located. Please click the link in your email and try again.
+<% else %>
 	<p>Look on the iBeacon device and locate its UUID number. Enter that number below.</p>
 	<p>After submitting this form, ship the iBeacon to the following address.</p>
 

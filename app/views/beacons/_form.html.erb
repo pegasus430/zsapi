@@ -1,4 +1,4 @@
-<%= form_for(@beacon) do |f| %>
+<%= form_for(@beacon, key: @key) do |f| %>
   <% if @beacon.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@beacon.errors.count, "error") %> prohibited this beacon from being saved:</h2>
@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :uuid %><br>
+    <%= f.label :uuid, 'UUID' %><br>
     <%= f.text_field :uuid %>
   </div>
 
@@ -23,6 +23,6 @@
   </div>
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create beacon' %>
   </div>
 <% end %>

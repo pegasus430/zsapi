@@ -3,7 +3,6 @@ require 'faker'
 FactoryGirl.define do
   factory :location do
     business 		nil
-		beacon 			nil
 		title 			{ Faker::Address.street_name + " Location" }
 		address 		{ Faker::Address.street_address}
 		address2 		{ Faker::Address.secondary_address }
@@ -20,8 +19,7 @@ FactoryGirl.define do
 
 		factory :location_with_beacon do
 			before :create do |l|
-				b = create(:beacon)
-				l.beacon = b
+				create(:beacon, location: l)
 			end
 		end
   end

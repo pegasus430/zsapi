@@ -8,4 +8,12 @@ class PaymentMailer < ApplicationMailer
 	  mail(to: 'wesfed@gmail.com', subject: 'New iBeacon Order')
 	end
 
+	def beacon_shipped_email(payment)
+	  @key = payment.key
+	  @business = payment.location.business
+	  @location = payment.location
+	  @user = @location.user
+	  mail(to: @user.email, subject: 'Your iBeacon has been shipped!')
+	end
+
 end

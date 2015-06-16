@@ -19,6 +19,9 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
+    if @location.beacon.nil?
+      render :confirm
+    end
   end
 
   # POST /locations
@@ -46,6 +49,21 @@ class LocationsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+
+  # PUT /location/1/confirm
+  def confirm
+    @location = Location.find(params[:location_id])
+    beacon = @location.beacon
+
+    if !beacon.nil? && params[:uuid] == beacon.uuid
+      beacon.activate!
+      @location.reload
+      redirect_to @location, notice: 'Your location has been confirmed!'
+    else
+      redirect_to @location, alert: 'The UUID code you entered is invalid. Please try again.'
     end
   end
 
