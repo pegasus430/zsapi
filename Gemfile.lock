@@ -141,6 +141,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    rabl (0.11.6)
+      activesupport (>= 2.3.14)
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -268,6 +270,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg
+  rabl
   rails (= 4.2.0)
   rspec-rails
   sass-rails (~> 5.0)
