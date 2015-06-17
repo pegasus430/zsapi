@@ -39,7 +39,22 @@ Rails.application.routes.draw do
 
   ## API
   api versions: 1, module: "api/v1" do
-    resources :users, only: [:index]
+    post '/customer/sign_in', to: 'customers#sign_in'
+    post '/customer/sign_out', to: 'customers#sign_out'
+    get '/customer/:id/feed/:page', to: 'customers#feed'
+    # Fetch map. + user_id, lat, long. - array of locations
+    post '/customer/:id/store_notification', to: 'customers#store_notification'
+    get '/customer/:id', to: 'customers#show'
+    get '/customer/:id/visits/:location_id', to: 'customers#get_visits'
+    get '/customer/:id/balance/:location_id', to: 'customers#get_balance'
+
+    get '/location/:id', to: 'locations#show'
+    get '/location/:id/:campaign_type', to: 'campaigns#index'
+
+    post '/campaign/:id/redeem', to: 'campaigns#redeem'
+
+    post '/receipt/new', to: 'receipts#create'
+    # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
   end  
 
 end
