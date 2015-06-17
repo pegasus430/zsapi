@@ -26,7 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #WES
 gem 'devise'
 gem 'stripe-rails'
-gem 'rabl'
+gem 'rocket_pants', '~> 1.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
