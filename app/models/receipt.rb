@@ -5,8 +5,13 @@ class Receipt < ActiveRecord::Base
 
   belongs_to :location
 
-  validates_presence_of :location_id, :amount, :purchased_on
+  validates_presence_of :location_id
+  validates_presence_of :amount, :purchased_on, on: [:update]
   validates_presence_of :reject_reason, if: "status == #{Receipt::REJECTED}"
+
+  has_attached_file :image, :styles => { :medium => "500x500>" }
+  validates_attachment_presence :image
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 
   def self.untouched

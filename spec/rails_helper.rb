@@ -65,4 +65,7 @@ RSpec.configure do |config|
   config.include RocketPants::TestHelper,    :type => :controller
   config.include RocketPants::RSpecMatchers, :type => :controller
   #end RP
+
+  # For including fixture uploads in factories (receipt, for example)
+  include ActionDispatch::TestProcess
 end

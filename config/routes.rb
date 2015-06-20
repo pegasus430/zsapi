@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     post '/customers/sign_out', to: 'customers#sign_out'
     post '/customers/notification_token', to: 'customers#notification_token'
     get '/customers', to: 'customers#fetch'
-    get '/customers/feed', to: 'customers#feed'
+      get '/customers/feed', to: 'customers#feed'
     # Fetch map. + user_id, lat, long. - array of locations
     get '/locations/:id/visits', to: 'locations#get_visits'
     get '/locations/:id/points', to: 'locations#get_balance'
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
     post '/campaigns/:id/redeem', to: 'campaigns#redeem'
 
-    post '/receipts/new', to: 'receipts#create'
+    post '/receipts', to: 'receipts#create'
     # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
   end  
 

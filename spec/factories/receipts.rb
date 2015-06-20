@@ -4,7 +4,7 @@ FactoryGirl.define do
     location
 		amount 					15
 		purchased_on 		{ 2.days.ago }
-		image_filename 	"receipt.jpg"
+		image 					{ fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'receipt.jpg'), 'image/jpeg') }
 		status					Receipt::UNTOUCHED
 
 
