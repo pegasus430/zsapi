@@ -60,4 +60,9 @@ RSpec.configure do |config|
      Warden.test_reset!
   end
   #End
+
+  # For Rocketpants helpers
+  config.include RocketPants::TestHelper,    :type => :controller
+  config.include RocketPants::RSpecMatchers, :type => :controller
+  #end RP
 end

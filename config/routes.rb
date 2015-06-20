@@ -39,21 +39,20 @@ Rails.application.routes.draw do
 
   ## API
   api versions: 1, module: "api/v1" do
-    post '/customer/sign_in', to: 'customers#sign_in'
-    post '/customer/sign_out', to: 'customers#sign_out'
-    get '/customer/:id/feed/:page', to: 'customers#feed'
+    post '/customers/sign_in', to: 'customers#sign_in'
+    post '/customers/sign_out', to: 'customers#sign_out'
+    post '/customers/notification_token', to: 'customers#notification_token'
+    get '/customers', to: 'customers#fetch'
+    get '/customers/feed', to: 'customers#feed'
     # Fetch map. + user_id, lat, long. - array of locations
-    post '/customer/:id/store_notification', to: 'customers#store_notification'
-    get '/customer/:id', to: 'customers#show'
-    get '/customer/:id/visits/:location_id', to: 'customers#get_visits'
-    get '/customer/:id/balance/:location_id', to: 'customers#get_balance'
+    get '/locations/:id/visits', to: 'locations#get_visits'
+    get '/locations/:id/points', to: 'locations#get_balance'
+    get '/locations/:id', to: 'locations#fetch'
+    get '/locations/:id/campaigns', to: 'campaigns#index'
 
-    get '/location/:id', to: 'locations#show'
-    get '/location/:id/:campaign_type', to: 'campaigns#index'
+    post '/campaigns/:id/redeem', to: 'campaigns#redeem'
 
-    post '/campaign/:id/redeem', to: 'campaigns#redeem'
-
-    post '/receipt/new', to: 'receipts#create'
+    post '/receipts/new', to: 'receipts#create'
     # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
   end  
 

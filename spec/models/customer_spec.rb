@@ -4,7 +4,7 @@ RSpec.describe Customer, type: :model do
 
   describe "Validations" do
     before :each do
-  		@user = FactoryGirl.build(:customer)
+  		@customer = FactoryGirl.build(:customer)
   	end
 
   	it "has a valid factory" do
@@ -14,15 +14,15 @@ RSpec.describe Customer, type: :model do
   	# Presence
   	%w(first_name last_name email).each do |attr|
 	  	it "validates presenve of #{attr}" do
-	  		@user.send("#{attr}=", nil)
-	  		expect(@user).not_to be_valid
+	  		@customer.send("#{attr}=", nil)
+	  		expect(@customer).not_to be_valid
 		  end
 	 	end
 
 	  # Unique
 	  it "must have a unique email address" do
-	  	user = FactoryGirl.create(:customer)
-	  	expect( FactoryGirl.build(:customer, email: user.email) ).not_to be_valid
+	  	customer = FactoryGirl.create(:customer)
+	  	expect( FactoryGirl.build(:customer, email: customer.email) ).not_to be_valid
 	  end
 	end
 
@@ -37,33 +37,33 @@ RSpec.describe Customer, type: :model do
 
 	describe "Methods" do
 		before :all do
-			@user = FactoryGirl.build(:customer)
+			@customer = FactoryGirl.build(:customer)
 		end
 
 		it "#name" do
-			@user.first_name = "Wes"
-			@user.last_name = "Foster"
-			expect( @user.name ).to eq "Wes Foster"
+			@customer.first_name = "Wes"
+			@customer.last_name = "Foster"
+			expect( @customer.name ).to eq "Wes Foster"
 		end
 
 		it "#name_reversed" do
-			@user.first_name = "Wes"
-			@user.last_name = "Foster"
-			expect( @user.name_reversed ).to eq "Foster, Wes"
+			@customer.first_name = "Wes"
+			@customer.last_name = "Foster"
+			expect( @customer.name_reversed ).to eq "Foster, Wes"
 		end
 
 		it "#active?" do
-			@user.active = true
-			expect(@user.active?).to be_truthy
-			@user.active = false
-			expect(@user.active?).to be_falsey
+			@customer.active = true
+			expect(@customer.active?).to be_truthy
+			@customer.active = false
+			expect(@customer.active?).to be_falsey
 		end
 
 		it "#contacted?" do
-			@user.contacted = true
-			expect(@user.contacted?).to be_truthy
-			@user.contacted = false
-			expect(@user.contacted?).to be_falsey
+			@customer.contacted = true
+			expect(@customer.contacted?).to be_truthy
+			@customer.contacted = false
+			expect(@customer.contacted?).to be_falsey
 		end
 
 		describe "Points" do
@@ -130,7 +130,7 @@ RSpec.describe Customer, type: :model do
 
 	describe "Scopes" do
 		it ".active" do
-			FactoryGirl.create_list(:customer, 3)
+			FactoryGirl.create_list(:customer, 3, active: true)
 			expect(Customer.active.length).to eq 3
 		end
 

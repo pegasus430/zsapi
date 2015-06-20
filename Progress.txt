@@ -1,3 +1,24 @@
+6/20/15
+	08:54+
+		Ok, I'm skipping authentication for now and just writing all of the API controllers to pass tests. I'll manually input the user until I can figure out testing. This way, 1 little thing will not continue to hold me up.
+
+6/19/15
+	22:02-
+		Having a hard time with the authentication! Need to just skip it, finish the API, then worry about token authentication!
+
+	20:14+
+		Finishing the new authentication header and testing the customer api.
+
+	19:30-
+		Working on setting up the authentication header for api tests. This will solve the problem of having to set get or post params.
+
+	12:37+
+		Today I plan on getting the customer (sign in, out, fetch), locations (fetch, find near, find in map), notification (send), and receipt (send) api calls finished. If I have time, I want to be able to create mock JSON for the visits
+
+6/17/15
+	18:10-
+		Got rocket pants setup and ready to go. Got the routes ready. Now I just need to implement all of the controllers. Additionally, I'll need to create the campaigns, redemptions, and visits for the api to be ready!
+
 6/16/15
 	17:27-
 		Got the beacons and locations all finished! *I might end up converting more request specs into controller specs now that I understand them better. ** Next step is to create the API. So get ready!

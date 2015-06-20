@@ -6,11 +6,19 @@ FactoryGirl.define do
     first_name 	{ Faker::Name.first_name }
 		last_name 	{ Faker::Name.last_name }
 		email 			{ Faker::Internet.email }
-		active 			true
-		contacted 	false
+
+		factory :active_customer do
+			active 			true
+		end
 
 		factory :inactive_customer do
 			active false
+		end
+
+		factory :facebook_customer do
+			social_type 	'facebook'
+			social_id 		1
+			social_token 	{ Faker::Internet.password(10) }
 		end
 
 		factory :customer_with_wallet do

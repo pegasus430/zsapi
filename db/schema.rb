@@ -66,16 +66,17 @@ ActiveRecord::Schema.define(version: 20150617225044) do
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
-    t.string   "first_name",                 null: false
-    t.string   "last_name",                  null: false
-    t.string   "email",                      null: false
-    t.boolean  "active",     default: false, null: false
-    t.boolean  "contacted",  default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "fb_id"
-    t.string   "gp_id"
-    t.string   "token"
+    t.string   "first_name",                         null: false
+    t.string   "last_name",                          null: false
+    t.string   "email",                              null: false
+    t.boolean  "active",             default: false, null: false
+    t.boolean  "contacted",          default: false, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "social_type"
+    t.string   "social_id"
+    t.string   "social_token"
+    t.string   "notification_token"
   end
 
   add_index "customers", ["active"], name: "index_customers_on_active", using: :btree
