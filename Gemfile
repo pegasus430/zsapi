@@ -28,6 +28,7 @@ gem 'devise'
 gem 'stripe-rails'
 gem 'rocket_pants', '~> 1.0'
 gem "paperclip", "~> 4.2"
+gem 'geocoder'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

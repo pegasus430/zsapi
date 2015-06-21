@@ -5,10 +5,12 @@ FactoryGirl.define do
     business 		nil
 		title 			{ Faker::Address.street_name + " Location" }
 		address 		{ Faker::Address.street_address}
-		address2 		{ Faker::Address.secondary_address }
+		address2 		'ignore'
 		city 				{ Faker::Address.city }
 		state 			{ Faker::Address.state_abbr }
 		zipcode 		{ Faker::Address.zip }
+		latitude		nil
+		longitude		nil
 
 		factory :location_with_business do
 			before :create do |l|

@@ -1,4 +1,5 @@
 class Api::V1::CustomersController < ApiBaseController
+	skip_before_action :authenticate_social
 	before_action :authenticate_social, except: [:sign_in]
 
 

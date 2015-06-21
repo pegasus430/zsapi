@@ -14,6 +14,9 @@ class Location < ActiveRecord::Base
 
   before_save { |l| l.title = l.address + " Location" if l.title.nil? }
 
+  geocoded_by :full_address
+  after_validation :geocode, on: [:create], if: Proc.new { |l| l.address.present? && l.address2 != 'ignore' }
+
   def self.active
   	Location.joins(:beacon)
   end
@@ -43,5 +46,9 @@ class Location < ActiveRecord::Base
 
 		the_address += "#{city}, #{state} #{zipcode}"
 		the_address
+  end
+
+  def full_address_changed?
+    address_changed? || city_changed? || state_changed? || zipcode_changed?
   end
 end

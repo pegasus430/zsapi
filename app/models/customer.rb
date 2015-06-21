@@ -54,9 +54,12 @@ class Customer < ActiveRecord::Base
 	# End points
 
 	def visit!(location)
-		Visit.create(customer: self, location: location, created_at: Time.now)
+		Visit.create_or_increment(customer: self, location: location)
 	end
 
+	def visits_for(location)
+		visits.where(location: location).first.total rescue 0
+	end
 
 	private
 

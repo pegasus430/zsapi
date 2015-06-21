@@ -2,6 +2,24 @@ require 'rails_helper'
 
 RSpec.describe Location, type: :model do
 
+	# before :all do 
+	#   Geocoder.configure(:lookup => :test)
+
+	#   Geocoder::Lookup::Test.add_stub(
+	#   "New York, NY", [
+	#     {
+	#       'latitude'     => 40.7143528,
+	#       'longitude'    => -74.0059731,
+	#       'address'      => 'New York, NY, USA',
+	#       'state'        => 'New York',
+	#       'state_code'   => 'NY',
+	#       'country'      => 'United States',
+	#       'country_code' => 'US'
+	#     }
+	#    ]
+	#   )
+	#  end
+
   describe "Validations" do
     before :each do
   		@location = FactoryGirl.build(:location)
@@ -45,6 +63,12 @@ RSpec.describe Location, type: :model do
 			@location = FactoryGirl.build(:location)
 		end
 
+		it 'full_address_changed?' do
+			loc = FactoryGirl.create(:location)
+			loc.address = 'Changed'
+			expect(loc.full_address_changed?).to be_truthy
+		end
+
 		it "#active?" do
 			location_beacon = FactoryGirl.create(:location_with_beacon)
 			location_beacon.beacon.void = false
@@ -71,11 +95,11 @@ RSpec.describe Location, type: :model do
 
 		it "#full_address" do
 			@location.address = "Street"
-			@location.address2 = ""
+			@location.address2 = "ignore"
 			@location.city = "Balls"
 			@location.state = "TN"
 			@location.zipcode = "12345"
-			expect(@location.full_address).to eq "Street Balls, TN 12345"
+			expect(@location.full_address).to eq "Street ignore, Balls, TN 12345"
 		end
 	end
 
@@ -99,6 +123,12 @@ RSpec.describe Location, type: :model do
 		my_address = "123 King Street"
 		location = FactoryGirl.create(:location, title: nil, address: my_address)
 		expect(location.title).to eq my_address + " Location"
+	end
+
+	it 'adds the lat and long upon create' do
+		loc = FactoryGirl.build(:location, address2: '')
+		loc.save
+		expect(loc.latitude).not_to be_nil
 	end
 
 end

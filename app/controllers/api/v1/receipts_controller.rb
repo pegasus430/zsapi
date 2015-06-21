@@ -1,6 +1,4 @@
 class Api::V1::ReceiptsController < ApiBaseController
-	before_action :authenticate_social
-
 
 	# POST receipt: {:location_id, :image}
 	def create

@@ -124,6 +124,26 @@ RSpec.describe Customer, type: :model do
 				customer = FactoryGirl.create(:customer_with_wallet_without_business, business: location.business)
 				expect{customer.visit!(location)}.to change{Visit.count}.by(1)
 			end
+
+			context '[Has visits]' do
+				it '#visits_for' do
+					customer = FactoryGirl.create(:customer)
+					location2 = FactoryGirl.create(:location)
+					location3 = FactoryGirl.create(:location)
+					2.times { customer.visit!(location2) }
+					3.times { customer.visit!(location3) }
+					expect(customer.visits_for(location2)).to eq 2
+					expect(customer.visits_for(location3)).to eq 3
+				end
+			end
+
+			context '[No visits]' do
+				it '#visits_for' do
+					customer = FactoryGirl.create(:customer)
+					location = FactoryGirl.create(:location)
+					expect(customer.visits_for(location)).to eq 0
+				end
+			end
 		end
 	end
 

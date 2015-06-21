@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620142941) do
+ActiveRecord::Schema.define(version: 20150621003635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20150620142941) do
     t.string   "zipcode",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "latitude"
+    t.string   "longitude"
   end
 
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree
@@ -149,9 +151,10 @@ ActiveRecord::Schema.define(version: 20150620142941) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
-    t.integer  "customer_id", null: false
-    t.integer  "location_id", null: false
-    t.datetime "created_at",  null: false
+    t.integer  "customer_id",             null: false
+    t.integer  "location_id",             null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total",       default: 0
   end
 
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree

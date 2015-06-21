@@ -1,4 +1,5 @@
 class ApiBaseController < RocketPants::Base
+	before_action :authenticate_social
 
 	private
 	

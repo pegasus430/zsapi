@@ -1,4 +1,17 @@
 6/20/15
+	21:45-
+		REMINDER: TEST GOOGLE VOICE CONFERENCE CALL!
+		Finished the visit api controls. Just started working on "fetch_nearby" for locations. It should work, but we need a way to test it. After this, move onto the location_in_map api call. Then onto campaigns!
+
+	20:45+
+		Working to finish the visit model, then finishing the fetch location method.
+
+	19:54-
+		Working on the locations api and needed to update the visits. Instead of many visit rows per location, it will increment. I'm implementing a class method for Visit which will do this. I just finished writing the test, now need to implement the code. Then finish working on the location get api call.
+
+	11:22-
+		Completed the receipt uploading functionality. **Need to add paperclip to campaign models when they are created.
+
 	08:54+
 		Ok, I'm skipping authentication for now and just writing all of the API controllers to pass tests. I'll manually input the user until I can figure out testing. This way, 1 little thing will not continue to hold me up.
 

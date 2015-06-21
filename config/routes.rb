@@ -44,16 +44,14 @@ Rails.application.routes.draw do
     post '/customers/notification_token', to: 'customers#notification_token'
     get '/customers', to: 'customers#fetch'
       get '/customers/feed', to: 'customers#feed'
-    # Fetch map. + user_id, lat, long. - array of locations
-    get '/locations/:id/visits', to: 'locations#get_visits'
-    get '/locations/:id/points', to: 'locations#get_balance'
+      # get Fetch map. + user_id, lat, long. - array of locations
     get '/locations/:id', to: 'locations#fetch'
-    get '/locations/:id/campaigns', to: 'campaigns#index'
+      post '/locations/near/:lat|:long', to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
+      get '/locations/:id/campaigns', to: 'campaigns#index'
 
-    post '/campaigns/:id/redeem', to: 'campaigns#redeem'
+      post '/campaigns/:id/redeem', to: 'campaigns#redeem'
 
     post '/receipts', to: 'receipts#create'
-    # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
   end  
 
 end
