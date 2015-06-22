@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
   		the_address = "#{address}" + params[:newline]
   		the_address += "#{address2}" + params[:newline] unless address2.blank?
   	else
-  		the_address = "#{address} "
+  		the_address = "#{address}, "
   		the_address += "#{address2}, " unless address2.blank?
   	end
 

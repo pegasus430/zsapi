@@ -99,7 +99,7 @@ RSpec.describe Location, type: :model do
 			@location.city = "Balls"
 			@location.state = "TN"
 			@location.zipcode = "12345"
-			expect(@location.full_address).to eq "Street ignore, Balls, TN 12345"
+			expect(@location.full_address).to eq "Street, ignore, Balls, TN 12345"
 		end
 	end
 

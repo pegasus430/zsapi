@@ -1,6 +1,15 @@
+6/22/15
+	15:03
+		Finished the locations api calls! Now starting on campaigns
+
+	13:54+
+		Continuing the fetch nearby call.
+
+	11:30+
+		Testing the "fetch nearby" locations call, then onto the map call. After testing, moving onto the campaigns!
+
 6/20/15
 	21:45-
-		REMINDER: TEST GOOGLE VOICE CONFERENCE CALL!
 		Finished the visit api controls. Just started working on "fetch_nearby" for locations. It should work, but we need a way to test it. After this, move onto the location_in_map api call. Then onto campaigns!
 
 	20:45+

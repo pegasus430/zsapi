@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621003635) do
+ActiveRecord::Schema.define(version: 20150622172351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,19 +84,21 @@ ActiveRecord::Schema.define(version: 20150621003635) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
-    t.string   "title",       null: false
-    t.string   "address",     null: false
+    t.string   "title",                     null: false
+    t.string   "address",                   null: false
     t.string   "address2"
-    t.string   "city",        null: false
-    t.string   "state",       null: false
-    t.string   "zipcode",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "latitude"
-    t.string   "longitude"
+    t.string   "city",                      null: false
+    t.string   "state",                     null: false
+    t.string   "zipcode",                   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.float    "latitude",    default: 0.0
+    t.float    "longitude",   default: 0.0
   end
 
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree
+  add_index "locations", ["latitude"], name: "index_locations_on_latitude", using: :btree
+  add_index "locations", ["longitude"], name: "index_locations_on_longitude", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.string   "buyer_ip",                   null: false

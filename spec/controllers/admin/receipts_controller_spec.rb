@@ -26,7 +26,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         @receipt = FactoryGirl.create(:receipt)
       end
 
-      context "with valid params" do
+      context "[valid params]" do
         it "locates the requested receipt" do
           put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt)
           expect(assigns(:receipt)).to eq(@receipt)
@@ -50,7 +50,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
         end
       end
 
-      context "with invalid params" do
+      context "[invalid params]" do
         it "locates the requested receipt" do
           put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt)
           expect(assigns(:receipt)).to eq(@receipt)
@@ -58,8 +58,8 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
         it "does not change the attributes" do
           put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, amount: 15)
-          @receipt.reload
-          expect(@receipt.amount.to_i).not_to eq 15
+          # @receipt.reload
+          expect(Receipt.find(@receipt.id).amount.to_i).not_to eq 15
         end
 
         it "re-renders the index template" do
