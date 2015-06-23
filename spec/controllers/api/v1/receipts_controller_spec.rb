@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ReceiptsController, type: :controller do
 
+  before(:each) { controller.stub(:api_key_valid).and_return(true) }
+
   describe 'POST #create' do
     before :each do
       business = FactoryGirl.create(:business_with_locations)
       customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
       FactoryGirl.create(:wallet, business: business, customer: customer)
       @location = business.locations.first
     end

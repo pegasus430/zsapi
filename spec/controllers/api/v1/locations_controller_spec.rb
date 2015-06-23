@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::LocationsController, type: :controller do
+  
+  before(:each) { controller.stub(:api_key_valid).and_return(true) }
 
   before :all do 
     Geocoder.configure(:lookup => :test)
@@ -51,6 +53,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
     before :each do
       @location = FactoryGirl.create(:location_with_business)
       customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
       @wallet = FactoryGirl.create(:wallet, customer: customer, business: @location.business)
     end
     
@@ -78,6 +81,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @waffle_house = FactoryGirl.create(:location_with_business, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
       @mcd_wallet = FactoryGirl.create(:wallet, customer: customer, business: @mcdonalds.business)
       @wh_wallet = FactoryGirl.create(:wallet, customer: customer, business: @waffle_house.business)
       @ts_wallet = FactoryGirl.create(:wallet, customer: customer, business: @titans_stadium.business)
@@ -104,6 +108,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @waffle_house = FactoryGirl.create(:location_with_business, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
       @mcd_wallet = FactoryGirl.create(:wallet, customer: customer, business: @mcdonalds.business)
       @wh_wallet = FactoryGirl.create(:wallet, customer: customer, business: @waffle_house.business)
       @ts_wallet = FactoryGirl.create(:wallet, customer: customer, business: @titans_stadium.business)

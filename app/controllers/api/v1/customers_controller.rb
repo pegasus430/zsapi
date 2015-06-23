@@ -8,11 +8,15 @@ class Api::V1::CustomersController < ApiBaseController
 		customer = Customer.find_by_email(params[:customer][:email])
 
 		if customer
-			customer.active = true
 			customer.update(customer_params)
 		else
 			customer = Customer.new(customer_params)
-			customer.save
+
+			if customer.valid?
+				customer.save
+			else
+				error! :bad_request
+			end
 		end
 
 		expose customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_token]
@@ -21,27 +25,26 @@ class Api::V1::CustomersController < ApiBaseController
 
 	# POST
 	def sign_out
-		# byebug
-		@current_customer.social_token = nil
-		@current_customer.save
+		current_customer.social_token = nil
+		current_customer.save
 	end
 
 
 	# POST :notification_token
 	def notification_token
-		@current_customer.notification_token = params[:notification_token]
-		@current_customer.save
+		current_customer.notification_token = params[:notification_token]
+		current_customer.save
 	end
 
 
   def fetch
-		expose @current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type]
+		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type]
  	end
 
 
  	private
  		def customer_params
- 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name)
+ 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name).merge(active: true)
  		end
 
 end

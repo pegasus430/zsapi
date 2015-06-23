@@ -15,8 +15,8 @@ class Api::V1::LocationsController < ApiBaseController
 				latitude: 	loc.latitude,
 				longitude: 	loc.longitude,
 				active: 		loc.active?,
-				points: 		@current_customer.points(loc.business_id),
-				visits: 		@current_customer.visits_for(loc)
+				points: 		current_customer.points(loc.business_id),
+				visits: 		current_customer.visits_for(loc)
 			})
 		else
 			error! :invalid_resource, loc.errors
@@ -67,8 +67,8 @@ class Api::V1::LocationsController < ApiBaseController
  					latitude: 	loc.latitude,
  					longitude: 	loc.longitude,
  					active: 		loc.active?,
- 					points: 		@current_customer.points(loc.business_id),
- 					visits: 		@current_customer.visits_for(loc)
+ 					points: 		current_customer.points(loc.business_id),
+ 					visits: 		current_customer.visits_for(loc)
  				})
  			else
  				error! :invalid_resource, loc.errors
