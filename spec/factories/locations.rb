@@ -2,6 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :location do
+  	greeting
     business 		nil
 		title 			{ Faker::Address.street_name + " Location" }
 		address 		{ Faker::Address.street_address}

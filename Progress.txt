@@ -1,4 +1,21 @@
+6/23/15
+	14:38
+		Finish the greetings specs
+
+	12:12+
+		Passing controller specs for greetings.
+
 6/22/15
+	18:34-
+		Working on the "Greetings" now, which will lead to the campaigns. The user can create many greetings, but only 1 per location can be used. Therefore, I need to update the prototype to include this list of "index" functionality for greetings. Also, add "index" to the greetings controller and routes.
+		  Tomorrow:
+		  * Greeting controller specs PASS
+		  * Mock campaigns and feeds
+		  * Serialize friend IDs when saving facebook
+		  * Ask greg if friends are saved on google+ as well
+		  * Authentication for api (ehh)
+		  * Setup heroku and run test on api
+
 	15:03
 		Finished the locations api calls! Now starting on campaigns
 

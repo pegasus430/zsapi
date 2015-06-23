@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622172351) do
+ActiveRecord::Schema.define(version: 20150622222050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,20 @@ ActiveRecord::Schema.define(version: 20150622172351) do
   add_index "customers", ["active"], name: "index_customers_on_active", using: :btree
   add_index "customers", ["contacted"], name: "index_customers_on_contacted", using: :btree
 
+  create_table "greetings", force: :cascade do |t|
+    t.string   "welcome_message"
+    t.integer  "welcome_reward"
+    t.integer  "welcome_reward_freq", default: 0
+    t.string   "exit_message"
+    t.integer  "exit_campaign_id"
+    t.integer  "exit_freq_days"
+    t.integer  "exit_freq_type",      default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "greetings", ["exit_campaign_id"], name: "index_greetings_on_exit_campaign_id", using: :btree
+
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
     t.string   "title",                     null: false
@@ -94,9 +108,11 @@ ActiveRecord::Schema.define(version: 20150622172351) do
     t.datetime "updated_at",                null: false
     t.float    "latitude",    default: 0.0
     t.float    "longitude",   default: 0.0
+    t.integer  "greeting_id"
   end
 
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree
+  add_index "locations", ["greeting_id"], name: "index_locations_on_greeting_id", using: :btree
   add_index "locations", ["latitude"], name: "index_locations_on_latitude", using: :btree
   add_index "locations", ["longitude"], name: "index_locations_on_longitude", using: :btree
 
@@ -172,6 +188,7 @@ ActiveRecord::Schema.define(version: 20150622172351) do
   add_index "wallets", ["customer_id"], name: "index_wallets_on_customer_id", using: :btree
 
   add_foreign_key "businesses", "users"
+  add_foreign_key "locations", "greetings"
   add_foreign_key "receipts", "locations"
   add_foreign_key "visits", "customers"
   add_foreign_key "visits", "locations"

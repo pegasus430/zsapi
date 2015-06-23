@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get   '/payment/new',     to: 'payments#new',       as: 'new_payment'
     post  '/payment/new',     to: 'payments#create',    as: 'payments'
     put   '/confirm',         to: 'locations#confirm',  as: 'confirm'
+
+    resources :greetings, only: [:show, :new, :create, :edit, :update]
   end
 
   devise_for :users, controllers: {

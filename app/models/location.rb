@@ -6,6 +6,7 @@ class Location < ActiveRecord::Base
   has_many :customers, through: :visits
   has_many :receipts
   has_many :visits
+  belongs_to :greeting
 
   # accepts_nested_attributes_for :notifications, allow_destroy: true
 
