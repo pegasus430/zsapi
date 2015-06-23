@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     get '/locations/:id', to: 'locations#fetch'
     get '/locations/near/:lat|:lon', to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
     get '/locations/map/:lat|:lon|:distance', to: 'locations#fetch_map'
-      get '/locations/:id/campaigns', to: 'campaigns#index'
+      get '/locations/:location_id/campaigns', to: 'campaigns#index'
 
       post '/campaigns/:id/redeem', to: 'campaigns#redeem'
 
