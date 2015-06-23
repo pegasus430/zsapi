@@ -40,20 +40,22 @@ Rails.application.routes.draw do
 
 
   ## API
-  api versions: 1, module: "api/v1" do
-    post '/customers/sign_in', to: 'customers#sign_in'
-    post '/customers/sign_out', to: 'customers#sign_out'
-    post '/customers/notification_token', to: 'customers#notification_token'
-    get '/customers', to: 'customers#fetch'
-      get '/customers/feed', to: 'customers#feed'
-    get '/locations/:id', to: 'locations#fetch'
-    get '/locations/near/:lat|:lon', to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
-    get '/locations/map/:lat|:lon|:distance', to: 'locations#fetch_map'
-      get '/locations/:location_id/campaigns', to: 'campaigns#index'
+  namespace :api do
+    api versions: 1, module: "v1" do
+      post '/customers/sign_in', to: 'customers#sign_in'
+      post '/customers/sign_out', to: 'customers#sign_out'
+      post '/customers/notification_token', to: 'customers#notification_token'
+      get '/customers', to: 'customers#fetch'
+        get '/customers/feed', to: 'customers#feed'
+      get '/locations/:id', to: 'locations#fetch'
+      get '/locations/near/:lat|:lon', to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
+      get '/locations/map/:lat|:lon|:distance', to: 'locations#fetch_map'
+        get '/locations/:location_id/campaigns', to: 'campaigns#index'
 
-      post '/campaigns/:id/redeem', to: 'campaigns#redeem'
+        post '/campaigns/:id/redeem', to: 'campaigns#redeem'
 
-    post '/receipts', to: 'receipts#create'
-  end  
+      post '/receipts', to: 'receipts#create'
+    end
+  end
 
 end

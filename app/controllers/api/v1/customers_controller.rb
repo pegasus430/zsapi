@@ -1,6 +1,6 @@
 class Api::V1::CustomersController < ApiBaseController
-	skip_before_action :authenticate_social
-	before_action :authenticate_social, except: [:sign_in]
+	skip_before_action :require_customer!
+	before_action :require_customer!, except: [:sign_in]
 
 
 	# POST :first_name, :last_name, :email, :social_id, :social_type, :social_token
@@ -35,7 +35,7 @@ class Api::V1::CustomersController < ApiBaseController
 
 
   def fetch
-		expose @current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_token]
+		expose @current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type]
  	end
 
 

@@ -43,6 +43,7 @@ module Zippyspot
     # Custom
     config.x.beacon_cost = 3999 #total cents
     config.x.beacon_description = 'iBeacon'
+    config.x.api_secret_key = '90f3a14f1a7025cb374e4d91cb007d2e'
     
   end
 end
