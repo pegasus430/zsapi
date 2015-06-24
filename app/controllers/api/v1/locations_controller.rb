@@ -25,7 +25,7 @@ class Api::V1::LocationsController < ApiBaseController
 
 	# GET :lat, :lon
 	def fetch_nearby
-		loc = Location.near([params[:lat], params[:lon]], 1)
+		loc = Location.near([params[:lat], params[:lon]], 1).limit(20)
 
 		if loc
 			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :points, :visits]
