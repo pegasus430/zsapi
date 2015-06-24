@@ -28,7 +28,7 @@ class Api::V1::LocationsController < ApiBaseController
 		loc = Location.near([params[:lat], params[:lon]], 1).limit(20)
 
 		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :points, :visits]
+			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :distance]
 		else
 			error! :invalid_resource, loc.errors
 		end
@@ -43,7 +43,7 @@ class Api::V1::LocationsController < ApiBaseController
 		loc = Location.within_bounding_box(box)
 
 		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :points, :visits]
+			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :distance]
 		else
 			error! :invalid_resource, loc.errors
 		end
