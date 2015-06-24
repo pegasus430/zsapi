@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  unless Rails.env.development?
+  if Rails.env.development?
     scope '/customers', as: 'customers' do
       get '/',          to: 'customers#index'
       get '/active',    to: 'customers#index_active'
