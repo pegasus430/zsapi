@@ -15,7 +15,7 @@ user = User.create!(
 	confirmed_at: 					Date.yesterday
 )
 
-business1 = Business.create!(
+business = Business.create!(
 	user_id:   				user.id,
 	name:      				"My business",
 	published: 				true,
