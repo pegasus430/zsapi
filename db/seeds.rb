@@ -9,7 +9,7 @@
 user = User.create!(
 	first_name: 						"Wes",
 	last_name: 							"Foster",
-	email: 									"user@gmail.com",
+	email: 									"user2@gmail.com",
 	password: 							"abcd1234",
 	sign_in_count: 					0,
 	confirmed_at: 					Date.yesterday
