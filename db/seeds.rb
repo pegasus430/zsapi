@@ -8,12 +8,12 @@
 
 users = User.create!([
   {
-    first_name:             "Business",
-    last_name:              "Owner",
-    email:                  "user@gmail.com",
-    password:               "abcd1234",
-    sign_in_count:          0,
-    confirmed_at:           Date.yesterday
+    first_name:     "Business",
+    last_name:      "Owner",
+    email:          "user@gmail.com",
+    password:       "abcd1234",
+    sign_in_count:  0,
+    confirmed_at:   Date.yesterday
   }
 ])
 
