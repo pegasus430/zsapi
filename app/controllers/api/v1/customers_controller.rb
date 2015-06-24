@@ -38,13 +38,14 @@ class Api::V1::CustomersController < ApiBaseController
 
 
   def fetch
-		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type]
+		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_friends]
  	end
 
 
  	private
  		def customer_params
- 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name).merge(active: true)
+ 			params[:customer][:social_friends] ||= []
+ 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name, social_friends: []).merge(active: true)
  		end
 
 end

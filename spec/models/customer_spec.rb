@@ -160,4 +160,37 @@ RSpec.describe Customer, type: :model do
 		end
 	end
 
+
+
+	describe 'social_friends' do
+		before :each do
+			#setup
+			@customer = FactoryGirl.create(:customer)
+		end
+
+		context '[Using IDs]' do
+			it 'serializes an array on saving the social_friends' do
+				#execute
+				@customer.social_friends = [1,2,3,4]
+				@customer.save
+
+				#verify
+				@customer.reload
+				expect(@customer.social_friends).to eq [1,2,3,4]
+			end
+		end
+
+		context '[Using email addresses]' do
+			it 'serializes an array on saving the social_friends' do
+				#execute
+				@customer.social_friends = ['john@smith.com','james@jo.com']
+				@customer.save
+
+				#verify
+				@customer.reload
+				expect(@customer.social_friends).to eq ['john@smith.com','james@jo.com']
+			end
+		end
+	end
+
 end

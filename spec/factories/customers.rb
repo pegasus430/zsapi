@@ -3,9 +3,9 @@ require 'faker'
 FactoryGirl.define do
 	
   factory :customer do
-    first_name 	{ Faker::Name.first_name }
-		last_name 	{ Faker::Name.last_name }
-		email 			{ Faker::Internet.email }
+    first_name 			{ Faker::Name.first_name }
+		last_name 			{ Faker::Name.last_name }
+		email 					{ Faker::Internet.email }
 
 		factory :active_customer do
 			active 			true
@@ -19,6 +19,7 @@ FactoryGirl.define do
 			social_type 	'facebook'
 			social_id 		1
 			social_token 	{ Faker::Internet.password(10) }
+			social_friends 	[]
 		end
 
 		factory :customer_with_wallet do

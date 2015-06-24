@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622222050) do
+ActiveRecord::Schema.define(version: 20150624184055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20150622222050) do
     t.string   "social_id"
     t.string   "social_token"
     t.string   "notification_token"
+    t.text     "social_friends"
   end
 
   add_index "customers", ["active"], name: "index_customers_on_active", using: :btree

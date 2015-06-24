@@ -8,12 +8,17 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     context '[Customer email exists]' do
       before :each do
         @customer = FactoryGirl.create(:inactive_customer)
-        post :sign_in, version: 1, customer: FactoryGirl.attributes_for(:facebook_customer, email: @customer.email)
+        post :sign_in, version: 1, customer: FactoryGirl.attributes_for(:facebook_customer, email: @customer.email, social_friends: [1,2,3])
       end
       
       it 'finds the customer and updates the information' do
         @customer.reload
         expect(@customer.active).to be_truthy
+      end
+
+      it 'saved the friend IDs' do
+        @customer.reload
+        expect(@customer.social_friends).to eq ["1","2","3"]
       end
 
       it 'returns the customer object' do

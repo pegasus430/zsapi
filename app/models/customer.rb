@@ -6,6 +6,8 @@ class Customer < ActiveRecord::Base
 	validates_presence_of :first_name, :last_name, :email
 	validates_uniqueness_of :email
 
+	serialize :social_friends, Array
+
 	def self.active
 		Customer.where(active: true)
 	end
