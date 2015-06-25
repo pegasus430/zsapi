@@ -43,7 +43,7 @@ class Api::V1::LocationsController < ApiBaseController
 		loc = Location.within_bounding_box(box)
 
 		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :distance]
+			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active]
 		else
 			error! :invalid_resource, loc.errors
 		end
