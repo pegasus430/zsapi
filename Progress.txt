@@ -1,3 +1,7 @@
+6/25/15
+	10:13+
+		Fixing the ERD and setting up campaigns.
+
 6/24/15
 	12:26+
 		Working on seeding the heroku environment.
