@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625182807) do
+ActiveRecord::Schema.define(version: 20150626184049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,6 +170,17 @@ ActiveRecord::Schema.define(version: 20150625182807) do
 
   add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree
 
+  create_table "redemptions", force: :cascade do |t|
+    t.integer  "campaign_id", null: false
+    t.integer  "customer_id", null: false
+    t.integer  "location_id", null: false
+    t.datetime "created_at",  null: false
+  end
+
+  add_index "redemptions", ["campaign_id"], name: "index_redemptions_on_campaign_id", using: :btree
+  add_index "redemptions", ["customer_id"], name: "index_redemptions_on_customer_id", using: :btree
+  add_index "redemptions", ["location_id"], name: "index_redemptions_on_location_id", using: :btree
+
   create_table "schedules", force: :cascade do |t|
     t.string "title",                       null: false
     t.text   "days_of_week",   default: [],              array: true
@@ -225,6 +236,9 @@ ActiveRecord::Schema.define(version: 20150625182807) do
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "locations", "greetings"
   add_foreign_key "receipts", "locations"
+  add_foreign_key "redemptions", "campaigns"
+  add_foreign_key "redemptions", "customers"
+  add_foreign_key "redemptions", "locations"
   add_foreign_key "visits", "customers"
   add_foreign_key "visits", "locations"
   add_foreign_key "wallets", "businesses"
