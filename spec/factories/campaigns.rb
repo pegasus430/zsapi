@@ -8,20 +8,20 @@ FactoryGirl.define do
 		image 						nil
 		share_reward 			100
 		featured 					false
-		active 						false
+		status 						false
 		start_at 					{ 10.minutes.ago }
 		end_at 						nil
 
 		factory :active_campaign do
-			active true
+			status true
 		end
 
 		factory :inactive_campaign do
-			active false
+			status false
 		end
 
 		factory :featured_campaign do
-			active 		true
+			status 		true
 			featured 	true
 		end
 

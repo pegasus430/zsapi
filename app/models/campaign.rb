@@ -8,23 +8,15 @@ class Campaign < ActiveRecord::Base
   belongs_to :schedule
   has_and_belongs_to_many :locations
 
-  validates_presence_of :type_of, :title, :discount_amount, :discount_type, :featured, :active, :start_at
+  validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
 
   has_attached_file :image, :styles => { :medium => "500x500" }
-  validates_attachment_presence :image
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
-  def active
-  	where(active: true)
-  end
+  scope :active, 		-> { where(status: true) }
+  scope :inactive, 	-> { where(status: false) }
+  scope :featured, 	-> { where(featured: true) }
 
-  def inactive
-  	where(active: false)
-  end
-
-  def featured
-  	# where(featured: true)
-  end
 
   def self.coupons
   	Campaign.where(type_of: Campaign::CT_COUPON)

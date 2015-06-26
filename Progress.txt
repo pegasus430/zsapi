@@ -1,3 +1,7 @@
+6/26/15
+	12:12+
+		Finishing up the basic campaign specs and setting up schedules.
+
 6/25/15
 	20:46-
 		Setup the models for campaign and schedules (yay!). Now working on the campaign model and basic tests. *Having a problem where the "acive,inactive,features" methods are screwing up with the "Where" method. Not sure why... After basic model is setup, need to setup basic models for schedules, as well as many different factories of settings for schedules. Then it's onto testing the schedules!

@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150625182807) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "featured",           default: false, null: false
-    t.boolean  "active",             default: false, null: false
+    t.boolean  "status",             default: false, null: false
     t.integer  "schedule_id"
     t.datetime "start_at",                           null: false
     t.datetime "end_at"

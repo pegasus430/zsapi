@@ -12,7 +12,7 @@ RSpec.describe Campaign, type: :model do
   	end
 
   	# Presence
-  	%w(type_of title discount_amount discount_type featured active start_at).each do |attr|
+  	%w(type_of title discount_amount discount_type start_at).each do |attr|
 	  	it "validates presence of #{attr}" do
 	  		@campaign.send("#{attr}=", nil)
 	  		expect(@campaign).not_to be_valid
