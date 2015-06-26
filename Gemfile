@@ -32,6 +32,7 @@ gem "paperclip", "~> 4.2"
 gem 'geocoder'
 gem 'rails_12factor', group: :production
 gem 'rails-erd', group: :development
+gem 'week_of_month'
 
 
 # Use ActiveModel has_secure_password
