@@ -2,24 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Location, type: :model do
 
-	# before :all do 
-	#   Geocoder.configure(:lookup => :test)
-
-	#   Geocoder::Lookup::Test.add_stub(
-	#   "New York, NY", [
-	#     {
-	#       'latitude'     => 40.7143528,
-	#       'longitude'    => -74.0059731,
-	#       'address'      => 'New York, NY, USA',
-	#       'state'        => 'New York',
-	#       'state_code'   => 'NY',
-	#       'country'      => 'United States',
-	#       'country_code' => 'US'
-	#     }
-	#    ]
-	#   )
-	#  end
-
   describe "Validations" do
     before :each do
   		@location = FactoryGirl.build(:location)
@@ -45,7 +27,7 @@ RSpec.describe Location, type: :model do
 
 
 	describe "Associations" do
-		# it { should have_many :notifications }
+		it { should belong_to :greeting }
 		# it { should have_many :redemptions }
 
 		it { should have_one :beacon }
@@ -55,6 +37,7 @@ RSpec.describe Location, type: :model do
 		it { should have_many :receipts }
 		it { should have_one(:user), through: :business }
 		it { should have_many(:customers), through: :visits }
+		it { should have_and_belong_to_many :campaigns }
 	end
 
 
@@ -125,10 +108,11 @@ RSpec.describe Location, type: :model do
 		expect(location.title).to eq my_address + " Location"
 	end
 
-	it 'adds the lat and long upon create' do
-		loc = FactoryGirl.build(:location, address2: '')
-		loc.save
-		expect(loc.latitude).not_to be_nil
-	end
+	# it 'adds the lat and long upon create' do
+	# 	loc = FactoryGirl.build(:location, address2: '')
+	# 	loc.save
+	# 	loc.reload
+	# 	expect(loc.latitude).not_to be_nil
+	# end
 
 end
