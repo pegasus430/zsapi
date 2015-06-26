@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :campaigns
+
   if Rails.env.development?
     scope '/customers', as: 'customers' do
       get '/',          to: 'customers#index'

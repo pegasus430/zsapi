@@ -1,4 +1,7 @@
 6/25/15
+	18:58+
+		Working on setting up campaign models
+
 	10:13+
 		Fixing the ERD and setting up campaigns.
 

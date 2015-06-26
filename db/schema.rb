@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624184055) do
+ActiveRecord::Schema.define(version: 20150625182807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,32 @@ ActiveRecord::Schema.define(version: 20150624184055) do
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree
+
+  create_table "campaigns", force: :cascade do |t|
+    t.integer  "type_of",                            null: false
+    t.string   "title",                              null: false
+    t.decimal  "discount_amount",    default: 0.0,   null: false
+    t.integer  "discount_type",      default: 0,     null: false
+    t.integer  "share_reward"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "featured",           default: false, null: false
+    t.boolean  "active",             default: false, null: false
+    t.integer  "schedule_id"
+    t.datetime "start_at",                           null: false
+    t.datetime "end_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "campaigns", ["schedule_id"], name: "index_campaigns_on_schedule_id", using: :btree
+
+  create_table "campaigns_locations", id: false, force: :cascade do |t|
+    t.integer "location_id", null: false
+    t.integer "campaign_id", null: false
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string   "first_name",                         null: false
@@ -144,6 +170,13 @@ ActiveRecord::Schema.define(version: 20150624184055) do
 
   add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree
 
+  create_table "schedules", force: :cascade do |t|
+    t.string "title",                       null: false
+    t.text   "days_of_week",   default: [],              array: true
+    t.text   "weeks_of_month", default: [],              array: true
+    t.text   "day_numbers",    default: [],              array: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -189,6 +222,7 @@ ActiveRecord::Schema.define(version: 20150624184055) do
   add_index "wallets", ["customer_id"], name: "index_wallets_on_customer_id", using: :btree
 
   add_foreign_key "businesses", "users"
+  add_foreign_key "campaigns", "schedules"
   add_foreign_key "locations", "greetings"
   add_foreign_key "receipts", "locations"
   add_foreign_key "visits", "customers"

@@ -1,0 +1,61 @@
+<%= form_for(@campaign) do |f| %>
+  <% if @campaign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+
+      <ul>
+      <% @campaign.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :type_of %><br>
+    <%= f.number_field :type_of %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :discount_amount %><br>
+    <%= f.text_field :discount_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :discount_type %><br>
+    <%= f.number_field :discount_type %>
+  </div>
+  <div class="field">
+    <%= f.label :share_reward %><br>
+    <%= f.number_field :share_reward %>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.text_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :featured %><br>
+    <%= f.check_box :featured %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :frequency_id %><br>
+    <%= f.text_field :frequency_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_at %><br>
+    <%= f.datetime_select :start_at %>
+  </div>
+  <div class="field">
+    <%= f.label :end_at %><br>
+    <%= f.datetime_select :end_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
