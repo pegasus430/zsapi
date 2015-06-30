@@ -16,14 +16,12 @@ class Campaign < ActiveRecord::Base
   scope :active, 		-> { where(status: true) }
   scope :inactive, 	-> { where(status: false) }
   scope :featured, 	-> { where(featured: true) }
-
-
-  def self.valid_for(date)
+  scope :valid_for, ->(date) {
   	# Add '99' (the last day criteria) to the query if 'date.day' is equal to the last day of the month
   	add_last_day = (date.day == date.end_of_month.day) ? Schedule::LAST_DAY : nil
 
-		includes(:schedules).where("
-			( start_at >= ? AND (end_at IS NULL OR end_at <= ? ) )
+		includes(:schedule).where("
+			( start_at <= ? AND (end_at IS NULL OR end_at >= ? ) )
 			AND schedules.days_of_week && '{0, ?}'::INT[]
 			AND schedules.weeks_of_month && '{0, ?}'::INT[]
 			AND schedules.day_numbers && ?::INT[]",
@@ -32,8 +30,8 @@ class Campaign < ActiveRecord::Base
 			date.wday + 1,
 			date.week_of_month,
 			'{' + [0, date.day, add_last_day].compact.join(',') + '}'
-		)
-  end
+		).references(:schedule)
+  }
 
 
   def self.coupons

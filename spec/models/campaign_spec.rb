@@ -83,7 +83,7 @@ RSpec.describe Campaign, type: :model do
 			end
 
 			context '[Every monday]' do
-				it 'is valid on Monday 6/22' do
+				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_monday)
 					FactoryGirl.create(:campaign, schedule: sched)
 					expect(Campaign.active.valid_for("2015-06-15".to_date).size).to eq 1

@@ -8,8 +8,8 @@ FactoryGirl.define do
 		image 						nil
 		share_reward 			100
 		featured 					false
-		status 						false
-		start_at 					{ Date.yesterday }
+		status 						true
+		start_at 					{ "2015-01-01".to_date }
 		end_at 						nil
 
 		factory :active_campaign do
