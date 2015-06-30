@@ -10,8 +10,8 @@ class CreateCampaigns < ActiveRecord::Migration
       t.boolean :featured, null: false, default: false
       t.boolean :status, null: false, default: false
       t.references :schedule, index: true
-      t.datetime :start_at, null: false
-      t.datetime :end_at
+      t.date :start_at, null: false
+      t.date :end_at
 
       t.timestamps null: false
     end

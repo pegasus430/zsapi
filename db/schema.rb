@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20150626184049) do
     t.boolean  "featured",           default: false, null: false
     t.boolean  "status",             default: false, null: false
     t.integer  "schedule_id"
-    t.datetime "start_at",                           null: false
-    t.datetime "end_at"
+    t.date     "start_at",                           null: false
+    t.date     "end_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -182,11 +182,15 @@ ActiveRecord::Schema.define(version: 20150626184049) do
   add_index "redemptions", ["location_id"], name: "index_redemptions_on_location_id", using: :btree
 
   create_table "schedules", force: :cascade do |t|
-    t.string "title",                       null: false
-    t.text   "days_of_week",   default: [],              array: true
-    t.text   "weeks_of_month", default: [],              array: true
-    t.text   "day_numbers",    default: [],              array: true
+    t.string  "title",                        null: false
+    t.integer "days_of_week",   default: [0],              array: true
+    t.integer "weeks_of_month", default: [0],              array: true
+    t.integer "day_numbers",    default: [0],              array: true
   end
+
+  add_index "schedules", ["day_numbers"], name: "index_schedules_on_day_numbers", using: :gin
+  add_index "schedules", ["days_of_week"], name: "index_schedules_on_days_of_week", using: :gin
+  add_index "schedules", ["weeks_of_month"], name: "index_schedules_on_weeks_of_month", using: :gin
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

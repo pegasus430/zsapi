@@ -9,7 +9,7 @@ FactoryGirl.define do
 		share_reward 			100
 		featured 					false
 		status 						false
-		start_at 					{ 10.minutes.ago }
+		start_at 					{ Date.yesterday }
 		end_at 						nil
 
 		factory :active_campaign do

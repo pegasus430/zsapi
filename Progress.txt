@@ -1,4 +1,17 @@
+6/30/15
+	13:29+
+		Finally got an idea on how to setup the biz profile social connections. I will complete this after I work on the campaign start/end problem for an hour.
+
 6/26/15
+	21:19-
+		All of the schedules work!! Now I need to add in the campaign start/end restrictions. The query is setup, but the "Schedule" class method has no association to the campaigns! So the current approach will not work. We need to associate it somehow, OR, grab the schedules individually and loop through them to see when their respective campaigns (if exists) starts and ends.
+
+	18:54+
+		Working on schedule specs for "every monday"
+
+	14:37-
+		Left working on the schedule spec array query.
+
 	13:01-
 		Lunch time. Working on the schedule specs
 
