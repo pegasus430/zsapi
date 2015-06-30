@@ -180,3 +180,8 @@
 6/8/15
 	20:04
 		The customers are setup to display points and listing depending on the current_user's business ID. The export is also ready. The next step is to just look through the PDF and ensure that the controller tests cover the page. Also, setup the view and run simple capybara testing. After customers, we'll move onto the campaign system.
+
+
+
+JIC
+curl -H 'Authorization: Token token="90f3a14f1a7025cb374e4d91cb007d2e", social_token="6wplsvxens1", id="2"' -i --data "first_name=Wes&last_name=Foster&email=dogs@gmail.com&social_id=5&social_type=facebook&social_token=abcdefg" 'http://localhost:3000/api/1/customers/sign_in'
