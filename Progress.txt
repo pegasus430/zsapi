@@ -1,4 +1,9 @@
 7/1/15
+	
+
+	13:03
+		Helpful guide for setting up oauth: http://willschenk.com/setting-up-devise-with-twitter-and-facebook-and-other-omniauth-schemes-without-email-addresses/
+
 	12:05+
 		Adding the identity model and setting up facebook/twitter omniauth controllers so the business user can integrate those social items.
 

@@ -34,9 +34,15 @@ Rails.application.routes.draw do
 
     devise_for :users, controllers: {
       confirmations:  'users/confirmations',
-      registrations:  'users/registrations'
+      registrations:  'users/registrations',
+      omniauth_callbacks: 'omniauth_callbacks'
     }
     devise_for :admins
+
+    devise_scope :user do
+      get '/users/auth/:provider/upgrade' => 'omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
+      get '/users/auth/:provider/setup'   => 'omniauth_callbacks#setup'
+    end
 
     namespace :admin do
       root 'pages#dashboard'

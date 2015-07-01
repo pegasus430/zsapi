@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626184049) do
+ActiveRecord::Schema.define(version: 20150701174039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,24 @@ ActiveRecord::Schema.define(version: 20150626184049) do
   end
 
   add_index "greetings", ["exit_campaign_id"], name: "index_greetings_on_exit_campaign_id", using: :btree
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "customer_id"
+    t.string   "provider",      null: false
+    t.string   "access_token",  null: false
+    t.string   "refresh_token"
+    t.string   "uid",           null: false
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "identities", ["access_token"], name: "index_identities_on_access_token", using: :btree
+  add_index "identities", ["customer_id"], name: "index_identities_on_customer_id", using: :btree
+  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
@@ -238,6 +256,8 @@ ActiveRecord::Schema.define(version: 20150626184049) do
 
   add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "schedules"
+  add_foreign_key "identities", "customers"
+  add_foreign_key "identities", "users"
   add_foreign_key "locations", "greetings"
   add_foreign_key "receipts", "locations"
   add_foreign_key "redemptions", "campaigns"

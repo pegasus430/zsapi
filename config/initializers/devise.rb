@@ -232,9 +232,9 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],   ENV['FACEBOOK_APP_SECRET'], scope: "email,manage_pages,publish_pages"
-  config.omniauth :twitter,   ENV['TWITTER_APP_ID'],    ENV['TWITTER_APP_SECRET']
-  # config.omniauth :instagram, ENV['INSTAGRAM_APP_ID'],  ENV['INSTAGRAM_APP_SECRET']
+  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],   ENV['FACEBOOK_APP_SECRET'], setup: true
+  config.omniauth :twitter,   ENV['TWITTER_APP_ID'],    ENV['TWITTER_APP_SECRET'], setup: true
+  config.omniauth :instagram, ENV['INSTAGRAM_APP_ID'],  ENV['INSTAGRAM_APP_SECRET'], setup: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
