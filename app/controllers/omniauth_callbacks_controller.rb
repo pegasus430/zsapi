@@ -34,7 +34,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def upgrade
     scope = nil
     if params[:provider] == "facebook"
-      scope = "email,manage_pages,publish_pages,offline_access"
+      scope = "email,manage_pages,publish_pages"
     end
 
     redirect_to user_omniauth_authorize_path( params[:provider] ), flash: { scope: scope }

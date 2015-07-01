@@ -23,30 +23,55 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
-    client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = Rails.configuration.x.TWITTER_APP_ID
-      config.consumer_secret     = Rails.configuration.x.TWITTER_APP_SECRET
-      config.access_token        = twitter.access_token
-      config.access_token_secret = twitter.secret_token
-    end
+  	if twitter
+	    @twitter_client ||= Twitter::REST::Client.new do |config|
+	      config.consumer_key        = Rails.configuration.x.TWITTER_APP_ID
+	      config.consumer_secret     = Rails.configuration.x.TWITTER_APP_SECRET
+	      config.access_token        = twitter.access_token
+	      config.access_token_secret = twitter.secret_token
+	    end
 
-    client
+	    @twitter_client
+	  end
   end
 
-  def twitter?
-  	!twitter.nil?
-  end
-
+  # The facebook identity
   def facebook
     identities.where(provider: "facebook").first
   end
 
+  # The facebook API client via Koala
   def facebook_client
-    @facebook_client ||= Facebook.client( access_token: facebook.accesstoken )
+    @facebook_client ||= Koala::Facebook::API.new(facebook.access_token) if facebook
+    @facebook_client
   end
 
-  def facebook?
-  	!facebook.nil?
+  # Gets the list of facebook pages
+  def facebook_pages
+  	@facebook_pages ||= facebook_client.get_connections('me', 'accounts') if facebook_client
+  	@facebook_pages
+  end
+
+  # Sets up a facebook page client for page posting to pages
+  def facebook_page_client
+  	@facebook_page_client ||= Koala::Facebook::API.new(facebook.page_token) if facebook.page_token
+  end
+
+  # Returns the chosen facebook page object
+  def facebook_page
+  	facebook_page_client.get_object("me") if facebook_page_client
+  end
+
+  # Saves the facebook page token to the identity via page_id
+  def set_facebook_page(page_id)
+  	if facebook_client
+  		page_access_token = facebook_client.get_page_access_token(page_id)
+
+  		if page_access_token
+	  		facebook.update_attribute(:other_token, page_access_token)
+	  		facebook.update_attribute(:name, facebook_page['name'])
+	  	end
+	  end
   end
 
   def instagram
@@ -57,12 +82,15 @@ class User < ActiveRecord::Base
     @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
   end
 
-  def instagram?
-  	!instagram.nil?
-  end
+
+
 
   def tweet(message)
     twitter_client.update(message)
+  end
+
+  def post_to_facebook_page(message)
+  	facebook_page_client.put_wall_post(message) if facebook_page_client
   end
 
 end

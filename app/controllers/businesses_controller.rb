@@ -34,10 +34,17 @@ class BusinessesController < ApplicationController
   def update
     respond_to do |format|
       if @business.update(business_params)
-        if @business.published?
-          current_user.tweet("I've published my page!")
+
+        if params[:facebook_page]
+          current_user.set_facebook_page(params[:facebook_page])
         end
-        
+
+        if @business.published?
+          # message = "Testing with #{@business.name}"
+          # current_user.tweet(message)
+          # current_user.post_to_facebook_page(message)
+        end
+
         format.html { redirect_to edit_business_path, notice: 'Business was successfully updated.' }
       else
         format.html { render :edit }
@@ -53,7 +60,7 @@ class BusinessesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
-      params.require(:business).permit(:name, :published, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter,
+      params.require(:business).permit(:name, :published, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter, :facebook_page,
         :locations_attributes => [:address, :address2, :city, :state, :zipcode]
       )
     end

@@ -4,19 +4,34 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid, scope: :provider
 
   def self.find_for_oauth(auth)
-  	byebug
   	auth_store_data = {
   		provider: 			auth.provider,
   		uid: 						auth.uid,
   		access_token: 	auth.credentials.token,
-  		secret_token: 	auth.credentials.secret,
-    	refresh_token: 	auth.credentials.refresh_token,
     	name: 					auth.info.name,
     	email: 					auth.info.email
   	}
 
+  	if auth.provider == 'facebook'
+    	auth_store_data['expires_at'] = auth.credentials.expires_at
+    end
+
+    if auth.provider == 'twitter'
+    	# Twitter's secret token
+  		auth_store_data['other_token'] = auth.credentials.secret
+  	end
+
   	identity = find_by(provider: auth.provider, uid: auth.uid)
   	identity = create(auth_store_data) if identity.nil?
     identity
+  end
+
+
+  def page_token
+  	other_token if provider == 'facebook'
+  end
+
+  def secret_token
+  	other_token if provider == 'twitter'
   end
 end

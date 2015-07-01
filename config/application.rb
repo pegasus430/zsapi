@@ -51,6 +51,8 @@ module Zippyspot
     config.x.INSTAGRAM_APP_ID       = "NkWazFulS6zSg3AsItfANDyUz"
     config.x.INSTAGRAM_APP_SECRET   = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
 
+    #Koala
+    Koala.config.api_version = "v2.0"
     
   end
 end

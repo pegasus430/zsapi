@@ -5,8 +5,8 @@ class CreateIdentities < ActiveRecord::Migration
       t.references :customer,   index: true
       t.string :provider,       null: false
       t.string :access_token,   null: false, index: true
-      t.string :secret_token
-      t.string :refresh_token
+      t.string :other_token
+      t.datetime :expires_at
       t.string :uid,            null: false, index: true
       t.string :name
       t.string :email

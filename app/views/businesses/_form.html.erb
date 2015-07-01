@@ -50,7 +50,16 @@
     <%= connect_identity_link("facebook") %><br>
     <%= connect_identity_link("twitter") %><br>
   </div>
-  
+
+  <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+    <div class="field">
+    <strong>Select a page for this business</strong><br>
+      <% current_user.facebook_pages.each do |page| %>
+        <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

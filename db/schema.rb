@@ -126,15 +126,15 @@ ActiveRecord::Schema.define(version: 20150701174039) do
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "customer_id"
-    t.string   "provider",      null: false
-    t.string   "access_token",  null: false
-    t.string   "secret_token"
-    t.string   "refresh_token"
-    t.string   "uid",           null: false
+    t.string   "provider",     null: false
+    t.string   "access_token", null: false
+    t.string   "other_token"
+    t.datetime "expires_at"
+    t.string   "uid",          null: false
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "identities", ["access_token"], name: "index_identities_on_access_token", using: :btree
