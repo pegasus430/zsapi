@@ -39,8 +39,8 @@ class PaymentsController < ApplicationController
 
         charge = Stripe::Charge.create(
           :customer    => customer.id,
-          :amount      => Rails.configuration.x.beacon_cost,
-          :description => Rails.configuration.x.beacon_description,
+          :amount      => Rails.configuration.x.BEACON_COST,
+          :description => Rails.configuration.x.BEACON_DESCRIPTION,
           :currency    => 'usd')
 
       rescue Stripe::CardError => e

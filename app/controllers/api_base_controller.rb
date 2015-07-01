@@ -24,7 +24,7 @@ class ApiBaseController < RocketPants::Base
 	def authenticate_tokens
 	  customer = authenticate_with_http_token do |token, options|
 	  	# The token is the API secret key
-	  	if Devise.secure_compare(Rails.configuration.x.api_secret_key, token)
+	  	if Devise.secure_compare(Rails.configuration.x.API_SECRET_KEY, token)
 	  		@api_key_valid = true
 
 	  		# Check for social token

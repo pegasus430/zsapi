@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     @twitter_client ||= Twitter.client( access_token: twitter.accesstoken )
   end
 
+  def twitter?
+  	!twitter.nil?
+  end
+
   def facebook
     identities.where(provider: "facebook").first
   end
@@ -34,12 +38,20 @@ class User < ActiveRecord::Base
     @facebook_client ||= Facebook.client( access_token: facebook.accesstoken )
   end
 
+  def facebook?
+  	!facebook.nil?
+  end
+
   def instagram
     identities.where(provider: "instagram").first
   end
 
   def instagram_client
     @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
+  end
+
+  def instagram?
+  	!instagram.nil?
   end
 
 end

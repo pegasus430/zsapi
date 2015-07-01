@@ -37,13 +37,20 @@ module Zippyspot
     end
 
     # Stripe
-    config.stripe.secret_key = ENV['STRIPE_APP_SECRET']
-    config.stripe.publishable_key = ENV['STRIPE_APP_PUBLIC']
+    config.stripe.secret_key        = "sk_test_S3gkDnv0bcJIMlr9XDrlzGZ3"
+    config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
 
     # Custom
-    config.x.beacon_cost = ENV['BEACON_COST'] #total cents
-    config.x.beacon_description = ENV['BEACON_DESC']
-    config.x.api_secret_key = ENV['APP_API_SECRET_KEY']
+    config.x.API_SECRET_KEY         = "90f3a14f1a7025cb374e4d91cb007d2e"
+    config.x.BEACON_COST            = 3999 #total cents
+    config.x.BEACON_DESCRIPTION     = "A new beacon for you!"
+    config.x.FACEBOOK_APP_ID        = "809663465807807"
+    config.x.FACEBOOK_APP_SECRET    = "507d6f37d530c3393c55bc720339a336"
+    config.x.TWITTER_APP_ID         = "NkWazFulS6zSg3AsItfANDyUz"
+    config.x.TWITTER_APP_SECRET     = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
+    config.x.INSTAGRAM_APP_ID       = "NkWazFulS6zSg3AsItfANDyUz"
+    config.x.INSTAGRAM_APP_SECRET   = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
+
     
   end
 end
