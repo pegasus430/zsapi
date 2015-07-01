@@ -38,6 +38,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 gem 'twitter'
+gem "koala", "~> 2.0" #facebook api
 gem 'instagram'
 
 
