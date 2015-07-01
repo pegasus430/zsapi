@@ -1,4 +1,11 @@
+7/1/15
+	12:05+
+		Adding the identity model and setting up facebook/twitter omniauth controllers so the business user can integrate those social items.
+
 6/30/15
+	16:46
+		Adding simple page views to the app so I can navigate it as the business user and work on the social integrations.
+
 	16:22
 		Got the campaigns and schedules completed!
 

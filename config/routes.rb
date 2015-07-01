@@ -15,8 +15,12 @@ Rails.application.routes.draw do
     get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
 
 
-    resources :businesses, only: [:new, :create, :edit, :update]
+    resources :businesses, only: [:new, :create, :update]
+    get '/business/edit', to: 'businesses#edit', as: 'edit_business'
+
     resources :receipts
+
+    resources :greetings
 
     resources :locations do
       get   '/payment/success', to: 'payments#success',   as: 'payment_success'
@@ -25,7 +29,7 @@ Rails.application.routes.draw do
       post  '/payment/new',     to: 'payments#create',    as: 'payments'
       put   '/confirm',         to: 'locations#confirm',  as: 'confirm'
 
-      resources :greetings, only: [:show, :new, :create, :edit, :update]
+      # resources :greetings, only: [:show, :new, :create, :edit, :update]
     end
 
     devise_for :users, controllers: {
