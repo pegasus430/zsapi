@@ -56,6 +56,9 @@ group :development, :test do
 
   # Allows for quick-testing matchers, such as for associations
   gem 'shoulda-matchers'
+
+  # Allows for storing data in env vars
+  gem 'dotenv-rails'
 end
 
 

@@ -37,13 +37,13 @@ module Zippyspot
     end
 
     # Stripe
-    config.stripe.secret_key = "sk_test_S3gkDnv0bcJIMlr9XDrlzGZ3"
-    config.stripe.publishable_key = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
+    config.stripe.secret_key = ENV['STRIPE_APP_SECRET']
+    config.stripe.publishable_key = ENV['STRIPE_APP_PUBLIC']
 
     # Custom
-    config.x.beacon_cost = 3999 #total cents
-    config.x.beacon_description = 'iBeacon'
-    config.x.api_secret_key = '90f3a14f1a7025cb374e4d91cb007d2e'
+    config.x.beacon_cost = ENV['BEACON_COST'] #total cents
+    config.x.beacon_description = ENV['BEACON_DESC']
+    config.x.api_secret_key = ENV['APP_API_SECRET_KEY']
     
   end
 end
