@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150701174039) do
     t.integer  "customer_id"
     t.string   "provider",      null: false
     t.string   "access_token",  null: false
+    t.string   "secret_token"
     t.string   "refresh_token"
     t.string   "uid",           null: false
     t.string   "name"

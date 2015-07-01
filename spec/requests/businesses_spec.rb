@@ -22,34 +22,49 @@ RSpec.describe "Businesses", type: :feature do
       login_as @user, scope: :user
     end
 
-    context "when business already exists for user" do
-    	before :each do
-    		@business = FactoryGirl.create(:business, user: @user)
-    	end
+    describe "GET /businesses/new" do
+      context "[business already exists]" do
+        before :each do
+          @business = FactoryGirl.create(:business, user: @user)
+        end
 
-	    describe "GET /businesses/new" do
 	      it "redirects to the dashboard" do 
 	        visit '/businesses/new'
 	        expect(page).to have_content "DASHBOARD"
 	        expect(page).to have_content "You have already"
 	      end
 	    end
-	  end
 
-    describe "/businesses/new" do
-      it "shows the form" do 
-        visit '/businesses/new'
-        expect(page).to have_content "Business details"
-      end
+      context "[business does not exist]" do
+        it "shows the form" do 
+          visit '/businesses/new'
+          expect(page).to have_content "Business details"
+        end
 
-      it "creates the business and location on submit" do
-      	visit '/businesses/new'
-    		fill_in "Name", with: "Business"
-    		fill_in "Website", with: "twitter.com"
-    		click_button "Submit"
-      	expect(Business.last.name).to eq "Business"
+        it "creates the business and location on submit" do
+        	visit '/businesses/new'
+      		fill_in "Name", with: "Business"
+      		fill_in "Website", with: "twitter.com"
+      		click_button "Submit"
+        	expect(Business.last.name).to eq "Business"
+        end
       end
     end
+
+
+    describe "GET /business/edit" do
+      before :each do
+        @business = FactoryGirl.create(:business, user: @user)
+        visit '/business/edit'
+      end
+
+      context '[not connected to twitter]' do
+        it 'asks to connect to twitter' do
+          expect(page).to have_content "Connect to twitter"
+        end
+      end
+    end
+
   end
 
 end

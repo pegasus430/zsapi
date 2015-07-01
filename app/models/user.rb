@@ -23,7 +23,14 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
-    @twitter_client ||= Twitter.client( access_token: twitter.accesstoken )
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = Rails.configuration.x.TWITTER_APP_ID
+      config.consumer_secret     = Rails.configuration.x.TWITTER_APP_SECRET
+      config.access_token        = twitter.access_token
+      config.access_token_secret = twitter.secret_token
+    end
+
+    client
   end
 
   def twitter?
@@ -52,6 +59,10 @@ class User < ActiveRecord::Base
 
   def instagram?
   	!instagram.nil?
+  end
+
+  def tweet(message)
+    twitter_client.update(message)
   end
 
 end

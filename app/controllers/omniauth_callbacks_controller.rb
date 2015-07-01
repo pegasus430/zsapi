@@ -13,14 +13,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # We aren't creating a user, just simply adding the identity to the user
   def generic_callback( provider )
-    @identity = Identity.find_for_oauth env["omniauth.auth"]
+    @identity = Identity.find_for_oauth(env["omniauth.auth"])
     @identity.update_attribute(:user_id, current_user.id)
 
     if current_user.email.blank? && @identity.email
       current_user.update_attribute(:email, @identity.email)
     end
 
-    session["devise.#{provider}_data"] = env["omniauth.auth"]
+    session["devise.#{provider}_data"] = env["omniauth.auth"].except("extra")
+    flash[:success] = "#{provider} is now connected!"
     redirect_to edit_business_path
   end
 
@@ -33,7 +34,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def upgrade
     scope = nil
     if params[:provider] == "facebook"
-      scope = "email,manage_pages,publish_pages"
+      scope = "email,manage_pages,publish_pages,offline_access"
     end
 
     redirect_to user_omniauth_authorize_path( params[:provider] ), flash: { scope: scope }

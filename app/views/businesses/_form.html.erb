@@ -15,10 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :published %><br>
-    <%= f.check_box :published %>
-  </div>
+  <% unless @business.published? %>
+    <div class="field">
+      <%= f.label :published %><br>
+      <%= f.check_box :published %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :logo_filename %><br>
     <%= f.text_field :logo_filename %>

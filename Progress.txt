@@ -1,5 +1,6 @@
 7/1/15
-	
+	16:06
+		Twitter successfully logs in and tweets!
 
 	13:03
 		Helpful guide for setting up oauth: http://willschenk.com/setting-up-devise-with-twitter-and-facebook-and-other-omniauth-schemes-without-email-addresses/
