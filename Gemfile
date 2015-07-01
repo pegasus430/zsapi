@@ -33,16 +33,13 @@ gem 'geocoder'
 gem 'rails_12factor', group: :production
 gem 'rails-erd', group: :development
 gem 'week_of_month'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-instagram'
+gem 'twitter'
+gem 'instagram'
 
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
 	gem 'rspec-rails'
@@ -60,6 +57,7 @@ group :development, :test do
   # Allows for quick-testing matchers, such as for associations
   gem 'shoulda-matchers'
 end
+
 
 group :test do
 	gem 'faker'
