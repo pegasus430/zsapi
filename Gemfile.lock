@@ -70,6 +70,10 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    constantcontact (2.1.0)
+      json (~> 1.8, >= 1.8.1)
+      mime-types (~> 2.4, >= 2.4.1)
+      rest-client (~> 1.6, >= 1.6.7)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     devise (3.4.1)
@@ -371,6 +375,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
+  constantcontact (~> 2.1.0)
   database_cleaner
   devise
   factory_girl_rails

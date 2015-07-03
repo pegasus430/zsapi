@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
 
   def mailchimp_client
-    @mailchimp_client ||= Gibbon::API.new( mailchimp.access_token )
+    @mailchimp_client ||= Gibbon::API.new( mailchimp.access_token ) if mailchimp
   end
 
   def mailchimp_lists
@@ -109,11 +109,11 @@ class User < ActiveRecord::Base
   end
 
   def constantcontact_client
-    @constantcontact_client ||= Gibbon::API.new( constantcontact.access_token )
+    @constantcontact_client ||= ConstantContact::Api.new( Rails.configuration.x.CONSTANTCONTACT_APP_ID, constantcontact.access_token ) if constantcontact
   end
 
   def constantcontact_lists
-  	constantcontact_client.lists.list(start: 0, limit: 5) if constantcontact_client
+  	constantcontact_client.get_lists if constantcontact_client
   end
 
 

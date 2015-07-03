@@ -4,7 +4,6 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid, scope: :provider
 
   def self.find_for_oauth(auth)
-  	byebug
   	auth_store_data = {
   		provider: 			auth.provider,
   		uid: 						auth.uid,
@@ -29,7 +28,7 @@ class Identity < ActiveRecord::Base
   	end
 
   	if auth.provider == 'constantcontact'
-
+    	auth_store_data['expires_at'] = auth.credentials.expires_at
   	end
 
   	identity = find_by(provider: auth.provider, uid: auth.uid)

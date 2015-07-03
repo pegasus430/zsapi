@@ -43,6 +43,7 @@ gem 'twitter'
 gem "koala", "~> 2.0" #facebook api
 gem 'instagram'
 gem 'gibbon'
+gem 'constantcontact', '~> 2.1.0'
 
 
 group :development, :test do
