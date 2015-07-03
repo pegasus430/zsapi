@@ -38,7 +38,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 gem 'omniauth-mailchimp'
-gem 'omniauth-constantcontact'
+gem 'omniauth-constantcontact2'
 gem 'twitter'
 gem "koala", "~> 2.0" #facebook api
 gem 'instagram'

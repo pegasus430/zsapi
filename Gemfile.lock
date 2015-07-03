@@ -187,9 +187,11 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-constantcontact (1.0)
+    omniauth-constantcontact2 (1.0.5)
+      multi_json (~> 1.0)
       multi_xml
-      omniauth-oauth (~> 1.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
     omniauth-instagram (1.0.1)
@@ -382,7 +384,7 @@ DEPENDENCIES
   koala (~> 2.0)
   launchy
   omniauth
-  omniauth-constantcontact
+  omniauth-constantcontact2
   omniauth-facebook
   omniauth-instagram
   omniauth-mailchimp

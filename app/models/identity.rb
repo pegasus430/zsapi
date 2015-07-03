@@ -4,6 +4,7 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid, scope: :provider
 
   def self.find_for_oauth(auth)
+  	byebug
   	auth_store_data = {
   		provider: 			auth.provider,
   		uid: 						auth.uid,
