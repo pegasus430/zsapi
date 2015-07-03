@@ -1,4 +1,7 @@
 7/3/15
+	18:50-
+		Paperclip is setup for business. *Still need to modify according to actual needed sizes. Also, in the "business_social" branch I'm trying to refactor the identities.
+
 	18:27+
 		Setting up paperclip for business
 
