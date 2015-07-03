@@ -49,6 +49,7 @@
   <div class="field">
     <%= connect_identity_link("facebook") %><br>
     <%= connect_identity_link("twitter") %><br>
+    <%= connect_identity_link("mailchimp") %><br>
   </div>
 
   <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
@@ -59,6 +60,17 @@
       <% end %>
     </div>
   <% end %>
+
+
+  <% if current_user.mailchimp_lists %>
+    <div class="field">
+    <strong>Select a list</strong><br>
+      <% current_user.mailchimp_lists['data'].each do |list| %>
+        <%= list %><br>
+      <% end %>
+    </div>
+  <% end %>
+
 
   <div class="actions">
     <%= f.submit %>

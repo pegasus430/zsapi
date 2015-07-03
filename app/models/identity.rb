@@ -21,6 +21,12 @@ class Identity < ActiveRecord::Base
   		auth_store_data['other_token'] = auth.credentials.secret
   	end
 
+  	if auth.provider == 'mailchimp'
+  		auth_store_data['name'] 			 		= auth.extra.metadata.accountname
+  		auth_store_data['access_token'] 	= "#{auth.credentials.token}-#{auth.extra.metadata.dc}"
+  		auth_store_data['other_token'] 		= auth.extra.metadata.api_endpoint
+  	end
+
   	identity = find_by(provider: auth.provider, uid: auth.uid)
   	identity = create(auth_store_data) if identity.nil?
     identity
@@ -33,5 +39,9 @@ class Identity < ActiveRecord::Base
 
   def secret_token
   	other_token if provider == 'twitter'
+  end
+
+  def api_endpoint
+  	other_token if provider == 'mailchimp'
   end
 end

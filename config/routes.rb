@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   resources :campaigns
 
   if Rails.env.development?
-    scope '/customers', as: 'customers' do
-      get '/',          to: 'customers#index'
-      get '/active',    to: 'customers#index_active'
-      get '/inactive',  to: 'customers#index_inactive'
-    end
+    get '/customers/:status',    to: 'customers#index',              as: 'customers',           constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    get '/customers/:status/mc', to: 'customers#mailchimp_export',   as: 'customers_mc_export', constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+
 
     # Confirm a beacon
     get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'

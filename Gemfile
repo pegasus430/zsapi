@@ -37,9 +37,11 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
+gem 'omniauth-mailchimp'
 gem 'twitter'
 gem "koala", "~> 2.0" #facebook api
 gem 'instagram'
+gem 'gibbon'
 
 
 group :development, :test do

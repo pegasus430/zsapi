@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:facebook, :twitter, :instagram]
+         :omniauthable, :omniauth_providers => [:facebook, :twitter, :instagram, :mailchimp]
 
  	has_one :business
  	has_many :locations, through: :business
@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
  	end
 
 
+ 	## TWITTER
  	def twitter
     identities.where(provider: "twitter").first
   end
@@ -35,6 +36,8 @@ class User < ActiveRecord::Base
 	  end
   end
 
+
+  ## FACEBOOK
   # The facebook identity
   def facebook
     identities.where(provider: "facebook").first
@@ -74,14 +77,29 @@ class User < ActiveRecord::Base
 	  end
   end
 
+
+  ## INSTAGRAM
   def instagram
     identities.where(provider: "instagram").first
   end
 
   def instagram_client
-    @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
+    # @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
   end
 
+
+  ## MAILCHIMP
+  def mailchimp
+    identities.where(provider: "mailchimp").first
+  end
+
+  def mailchimp_client
+    @mailchimp_client ||= Gibbon::API.new( mailchimp.access_token )
+  end
+
+  def mailchimp_lists
+  	mailchimp_client.lists.list(start: 0, limit: 5) if mailchimp_client
+  end
 
 
 

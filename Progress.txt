@@ -1,3 +1,10 @@
+7/2/15
+	17:39-
+		The mailchimp works! Now I just need to ask the user which list to subscribe them to, then it's on to constant contact!
+
+	17:05
+		Have been working on the mailchimp integration all day. Got it working! All that is left is to subscribe a user to the list.
+
 7/1/15
 	16:06
 		Twitter successfully logs in and tweets!

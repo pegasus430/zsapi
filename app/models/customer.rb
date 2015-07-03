@@ -20,7 +20,7 @@ class Customer < ActiveRecord::Base
 		CSV.generate(options) do |csv|
 			csv << ["First Name","Last Name", "Email", "Points", "Active"]
 			all.each do |customer|
-				csv << [customer.first_name, customer.last_name, customer.email, customer.points, customer.active]
+				csv << [customer.first_name, customer.last_name, customer.email, customer.points(business), customer.active]
 			end
 		end
 	end

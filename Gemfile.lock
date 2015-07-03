@@ -99,6 +99,9 @@ GEM
     ffi (1.9.8)
     formatador (0.2.5)
     geocoder (1.2.9)
+    gibbon (1.1.5)
+      httparty
+      multi_json (>= 1.9.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     guard (2.12.5)
@@ -189,6 +192,9 @@ GEM
     omniauth-instagram (1.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
+    omniauth-mailchimp (1.0.3)
+      omniauth (~> 1.0)
+      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -365,6 +371,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   geocoder
+  gibbon
   guard-rspec
   instagram
   jbuilder (~> 2.0)
@@ -374,6 +381,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   omniauth-instagram
+  omniauth-mailchimp
   omniauth-twitter
   paperclip (~> 4.2)
   pg

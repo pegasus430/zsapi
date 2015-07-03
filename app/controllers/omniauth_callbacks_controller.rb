@@ -11,6 +11,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback( 'twitter' )
   end
 
+  def mailchimp
+    generic_callback( 'mailchimp' )
+  end
+
   # We aren't creating a user, just simply adding the identity to the user
   def generic_callback( provider )
     @identity = Identity.find_for_oauth(env["omniauth.auth"])
@@ -21,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     session["devise.#{provider}_data"] = env["omniauth.auth"].except("extra")
-    flash[:success] = "#{provider} is now connected!"
+    flash[:notice] = "#{provider} is now connected!"
     redirect_to edit_business_path
   end
 

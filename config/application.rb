@@ -46,6 +46,8 @@ module Zippyspot
     config.x.BEACON_DESCRIPTION     = "A new beacon for you!"
     config.x.FACEBOOK_APP_ID        = "809663465807807"
     config.x.FACEBOOK_APP_SECRET    = "507d6f37d530c3393c55bc720339a336"
+    config.x.MAILCHIMP_APP_ID       = "356985103618"
+    config.x.MAILCHIMP_APP_SECRET   = "b2eef01b12b4c77c554a87c640ace2d0"
     config.x.TWITTER_APP_ID         = "NkWazFulS6zSg3AsItfANDyUz"
     config.x.TWITTER_APP_SECRET     = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
     config.x.INSTAGRAM_APP_ID       = "NkWazFulS6zSg3AsItfANDyUz"

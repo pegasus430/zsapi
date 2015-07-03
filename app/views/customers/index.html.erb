@@ -2,6 +2,15 @@
 
 <h1>Listing Customers</h1>
 
+<%= link_to 'All', customers_url(status: 'all') %>
+<%= link_to 'Active', customers_url(status: 'active') %>
+<%= link_to 'Inactive', customers_url(status: 'inactive') %>
+<%= link_to 'Export to Excel', customers_url(status: params[:status], format: 'xls') %>
+<% if current_user.mailchimp %>
+  <%= link_to 'Save to Mailchimp list', customers_mc_export_url(status: params[:status]) %>
+<% end %>
+
+
 <table>
   <thead>
     <tr>
