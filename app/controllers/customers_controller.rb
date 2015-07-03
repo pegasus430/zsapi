@@ -28,6 +28,12 @@ class CustomersController < ApplicationController
   end
 
 
+  def constantcontact_export
+    
+    redirect_to customers_url(status: params[:status]), notice: "#{add_subscribers['add_count']} new subscribers have been emailed to request to be subscribed to your constantcontact list!"
+  end
+
+
 
   private
 

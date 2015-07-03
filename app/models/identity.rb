@@ -27,6 +27,10 @@ class Identity < ActiveRecord::Base
   		auth_store_data['other_token'] 		= auth.extra.metadata.api_endpoint
   	end
 
+  	if auth.provider == 'constantcontact'
+
+  	end
+
   	identity = find_by(provider: auth.provider, uid: auth.uid)
   	identity = create(auth_store_data) if identity.nil?
     identity

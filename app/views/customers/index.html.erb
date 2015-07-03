@@ -9,6 +9,9 @@
 <% if current_user.mailchimp %>
   <%= link_to 'Save to Mailchimp list', customers_mc_export_url(status: params[:status]) %>
 <% end %>
+<% if current_user.constantcontact %>
+  <%= link_to 'Save to Constant Contact list', customers_cc_export_url(status: params[:status]) %>
+<% end %>
 
 
 <table>

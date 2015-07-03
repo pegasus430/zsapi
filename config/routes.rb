@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     get '/customers/:status',    to: 'customers#index',              as: 'customers',           constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
     get '/customers/:status/mc', to: 'customers#mailchimp_export',   as: 'customers_mc_export', constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    get '/customers/:status/cc', to: 'customers#constantcontact_export',   as: 'customers_cc_export', constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
 
 
     # Confirm a beacon

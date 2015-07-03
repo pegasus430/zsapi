@@ -15,6 +15,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback( 'mailchimp' )
   end
 
+  def constantcontact
+    generic_callback( 'constantcontact' )
+  end
+
   # We aren't creating a user, just simply adding the identity to the user
   def generic_callback( provider )
     @identity = Identity.find_for_oauth(env["omniauth.auth"])

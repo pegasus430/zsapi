@@ -41,17 +41,19 @@ module Zippyspot
     config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
 
     # Custom
-    config.x.API_SECRET_KEY         = "90f3a14f1a7025cb374e4d91cb007d2e"
-    config.x.BEACON_COST            = 3999 #total cents
-    config.x.BEACON_DESCRIPTION     = "A new beacon for you!"
-    config.x.FACEBOOK_APP_ID        = "809663465807807"
-    config.x.FACEBOOK_APP_SECRET    = "507d6f37d530c3393c55bc720339a336"
-    config.x.MAILCHIMP_APP_ID       = "356985103618"
-    config.x.MAILCHIMP_APP_SECRET   = "b2eef01b12b4c77c554a87c640ace2d0"
-    config.x.TWITTER_APP_ID         = "NkWazFulS6zSg3AsItfANDyUz"
-    config.x.TWITTER_APP_SECRET     = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
-    config.x.INSTAGRAM_APP_ID       = "NkWazFulS6zSg3AsItfANDyUz"
-    config.x.INSTAGRAM_APP_SECRET   = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
+    config.x.API_SECRET_KEY             = "90f3a14f1a7025cb374e4d91cb007d2e"
+    config.x.BEACON_COST                = 3999 #total cents
+    config.x.BEACON_DESCRIPTION         = "A new beacon for you!"
+    config.x.FACEBOOK_APP_ID            = "809663465807807"
+    config.x.FACEBOOK_APP_SECRET        = "507d6f37d530c3393c55bc720339a336"
+    config.x.MAILCHIMP_APP_ID           = "356985103618"
+    config.x.MAILCHIMP_APP_SECRET       = "b2eef01b12b4c77c554a87c640ace2d0"
+    config.x.CONSTANTCONTACT_APP_ID     = "tshw8qaqjjv5xpnfv5hcnb9d"
+    config.x.CONSTANTCONTACT_APP_SECRET = "cH5WrjDafJu6F6VywJ5uYjXF"
+    config.x.TWITTER_APP_ID             = "NkWazFulS6zSg3AsItfANDyUz"
+    config.x.TWITTER_APP_SECRET         = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
+    config.x.INSTAGRAM_APP_ID           = "NkWazFulS6zSg3AsItfANDyUz"
+    config.x.INSTAGRAM_APP_SECRET       = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
 
     #Koala
     Koala.config.api_version = "v2.0"

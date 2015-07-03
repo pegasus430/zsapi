@@ -236,6 +236,7 @@ Devise.setup do |config|
   config.omniauth :twitter,   Rails.configuration.x.TWITTER_APP_ID,    Rails.configuration.x.TWITTER_APP_SECRET, setup: true
   config.omniauth :instagram, Rails.configuration.x.INSTAGRAM_APP_ID,  Rails.configuration.x.INSTAGRAM_APP_SECRET, setup: true
   config.omniauth :mailchimp, Rails.configuration.x.MAILCHIMP_APP_ID,  Rails.configuration.x.MAILCHIMP_APP_SECRET, setup: true
+  config.omniauth :constantcontact, Rails.configuration.x.CONSTANTCONTACT_APP_ID,  Rails.configuration.x.CONSTANTCONTACT_APP_SECRET, setup: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

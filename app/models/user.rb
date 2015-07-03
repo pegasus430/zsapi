@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:facebook, :twitter, :instagram, :mailchimp]
+         :omniauthable, :omniauth_providers => [:facebook, :twitter, :instagram, :mailchimp, :constantcontact]
 
  	has_one :business
  	has_many :locations, through: :business
@@ -99,6 +99,21 @@ class User < ActiveRecord::Base
 
   def mailchimp_lists
   	mailchimp_client.lists.list(start: 0, limit: 5) if mailchimp_client
+  end
+
+
+
+  ## CONSTANT CONTACT
+  def constantcontact
+    identities.where(provider: "constantcontact").first
+  end
+
+  def constantcontact_client
+    @constantcontact_client ||= Gibbon::API.new( constantcontact.access_token )
+  end
+
+  def constantcontact_lists
+  	constantcontact_client.lists.list(start: 0, limit: 5) if constantcontact_client
   end
 
 
