@@ -1,3 +1,7 @@
+7/6/15
+	16:43+
+		Starting on the campaign checklist now.
+
 7/3/15
 	20:18-
 		Dev branch is good to go with the business image. business_social branch is almost ready, but still getting some nil errors. I might just leave it how it is for now and return if I have extra time....right. Next up, campaigns!
