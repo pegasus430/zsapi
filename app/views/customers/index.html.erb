@@ -7,10 +7,10 @@
 <%= link_to 'Inactive', customers_url(status: 'inactive') %>
 <%= link_to 'Export to Excel', customers_url(status: params[:status], format: 'xls') %>
 <% if current_user.mailchimp %>
-  <%= link_to 'Save to Mailchimp list', customers_mc_export_url(status: params[:status]) %>
+  <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
 <% end %>
 <% if current_user.constantcontact %>
-  <%= link_to 'Save to Constant Contact list', customers_cc_export_url(status: params[:status]) %>
+  <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
 <% end %>
 
 
