@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :type_of %><br>
-    <%= f.number_field :type_of %>
-  </div>
-  <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
@@ -25,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :discount_type %><br>
-    <%= f.number_field :discount_type %>
+    <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type) %>
   </div>
   <div class="field">
     <%= f.label :share_reward %><br>
@@ -36,12 +32,8 @@
     <%= f.file_field :image %>
   </div>
   <div class="field">
-    <%= f.label :featured %><br>
-    <%= f.check_box :featured %>
-  </div>
-  <div class="field">
     <%= f.label :status %><br>
-    <%= f.check_box :status %>
+    <%= f.select :status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status) %>
   </div>
   <div class="field">
     <%= f.label :start_at %><br>
