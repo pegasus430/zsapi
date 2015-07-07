@@ -1,0 +1,21 @@
+<div class="field">
+	<%= label_tag :days_of_week %>
+	<% %w(s m t w t f s).map{|o| [o.upcase!, o] }.each do |day| %>
+		<%= check_box_tag :days_of_week, {multiple: true}, day[0] %> <%= day[1] %><br>
+	<% end %>
+</div>
+
+<div class="field">
+	<%= label_tag :weeks_of_month, 'Valid Weeks' %>
+	<% %w(first second third fourth fifth).map{|o| [o.humanize, o] }.each do |day| %>
+		<%= check_box_tag :weeks_of_month, {multiple: true}, day[0] %> <%= day[1] %><br>
+	<% end %>
+</div>
+
+<div class="field">
+	<%= label_tag :days_of_month %>
+  
+  <%= radio_button_tag 'dom_selector', 'always' %> Every day<br>
+  <%= radio_button_tag 'dom_selector', 'last' %> Last day<br>
+  <%= radio_button_tag 'dom_selector', 'custom' %> Custom<br>
+</div>

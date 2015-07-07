@@ -6,7 +6,7 @@ FactoryGirl.define do
     user
 		name 						{ Faker::Company.name }
 		published 			true
-		logo_filename 	"mylogo.jpg"
+		image 				 	''
 		primary_color 	"FF0000"
 		secondary_color "0000FF"
 		website 				{ Faker::Internet.url }

@@ -12,6 +12,8 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new(type_of: params[:type])
+    @locations = current_user.locations
+    @schedule = Schedule.new
   end
 
   def edit
@@ -22,6 +24,8 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
+        current_user.publish_to_all_social_connections("Posted")
+
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else
@@ -54,11 +58,11 @@ class CampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
-      @campaign = current_user.business.campaigns.where(id: params[:id])
+      @campaign = current_user.business.campaigns.where(id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:type_of, :title, :discount_amount, :discount_type, :share_reward, :image, :status, :frequency_id, :start_at, :end_at)
+      params.require(:campaign).permit(:type_of, :title, :discount_amount, :discount_type, :share_reward, :image, :status, :frequency_id, :start_at, :end_at, :locations)
     end
 end

@@ -121,11 +121,16 @@ class User < ActiveRecord::Base
 
 
   def tweet(message)
-    twitter_client.update(message)
+    twitter_client.update(message) if twitter
   end
 
   def post_to_facebook_page(message)
   	facebook_page_client.put_wall_post(message) if facebook_page_client
+  end
+
+  def publish_to_all_social_connections(message)
+    tweet(message)
+    post_to_facebook_page(message)
   end
 
 end

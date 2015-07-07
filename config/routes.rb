@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
 
   if Rails.env.development?
+    concern :locationable do
+      member do
+        get 'location'
+      end
+    end
+
     # Campaigns
     get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
     get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
-    resources :campaigns, except: [:index, :new]
+    get('/campaigns/:id',               to: 'campaigns#show',    as: 'campaign') do
+      member do
+        get 'location'
+      end
+    end
+    resources :campaigns, except: [:index, :new, :show]
     
     # Customers
     get '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}

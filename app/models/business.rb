@@ -12,7 +12,7 @@ class Business < ActiveRecord::Base
   validates_format_of :primary_color, :secondary_color, with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i, on: [:update]
 
   has_attached_file :image, :styles => { :medium => "500x500" }
-  validates_attachment_presence :image
+  validates_attachment_presence :image, on: [:update]
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   # Remove hashtags from color RGB hex values

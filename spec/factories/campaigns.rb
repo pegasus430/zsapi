@@ -5,7 +5,7 @@ FactoryGirl.define do
 		title 						"Military"
 		discount_amount 	5
 		discount_type 		'amount'
-		image 						nil
+		image 						''
 		share_reward 			100
 		status 						'inactive'
 		start_at 					{ "2015-01-01".to_date }
@@ -21,6 +21,11 @@ FactoryGirl.define do
 
 		factory :featured_campaign do
 			status 		'featured'
+		end
+
+		factory :invalid_campaign do
+			status nil
+			start_at nil
 		end
 
 		factory :campaign_with_image do

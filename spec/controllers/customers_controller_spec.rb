@@ -10,7 +10,7 @@ RSpec.describe CustomersController, type: :controller do
       @business = FactoryGirl.create(:business, user: @user)
       @all_customers = FactoryGirl.create_list(:customer_with_wallet_without_business, 10, business: @business)
       @active_customers = @all_customers.first(5)
-      @inactive_customers = @all_customers.last(5).each { |c| c.active = false; c.save }
+      @inactive_customers = @all_customers.last(5).each { |c| c.status = 'inactive'; c.save }
       FactoryGirl.create_list(:customer, 5)
     end
 

@@ -33,7 +33,7 @@ Type:
     <% @campaigns.each do |campaign| %>
       <tr>
         <td><%= campaign.type_of %></td>
-        <td><%= campaign.title %></td>
+        <td><%= link_to campaign.title, campaign %></td>
         <td><%= campaign.locations_string %></td>
         <td><%= campaign.schedule.title %></td>
         <td><%= yesno(campaign.featured) %></td>

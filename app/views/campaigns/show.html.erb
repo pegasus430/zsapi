@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+Show for location:<br>
+<%= current_user.locations.each do |l| %>
+  
+<% end %>
+
 <p>
   <strong>Type of:</strong>
   <%= @campaign.type_of %>
@@ -31,18 +36,13 @@
 </p>
 
 <p>
-  <strong>Featured:</strong>
-  <%= @campaign.featured %>
+  <strong>Status:</strong>
+  <%= @campaign.status %>
 </p>
 
 <p>
-  <strong>Active:</strong>
-  <%= @campaign.active %>
-</p>
-
-<p>
-  <strong>Frequency:</strong>
-  <%= @campaign.frequency %>
+  <strong>Schedule:</strong>
+  <%= @campaign.schedule %>
 </p>
 
 <p>

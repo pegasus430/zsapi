@@ -1,4 +1,4 @@
-<%= form_for(@business) do |f| %>
+<%= form_for(@business, multipart: true) do |f| %>
   <% if @business.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h2>

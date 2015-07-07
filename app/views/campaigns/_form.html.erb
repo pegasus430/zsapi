@@ -1,4 +1,4 @@
-<%= form_for(@campaign) do |f| %>
+<%= form_for(@campaign, multipart: true) do |f| %>
   <% if @campaign.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
@@ -28,6 +28,12 @@
     <%= f.number_field :share_reward %>
   </div>
   <div class="field">
+    <%= f.label 'Valid Location(s)' %><br>
+    <% @locations.each do |l| %>
+      <%= f.check_box :locations, {multiple: true}, l.id %> <%= l.title %><br>
+    <% end %>
+  </div>
+  <div class="field">
     <%= f.label :image %><br>
     <%= f.file_field :image %>
   </div>
@@ -35,13 +41,39 @@
     <%= f.label :status %><br>
     <%= f.select :status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status) %>
   </div>
+
+  
+  <fieldset>
+    <div class="field">
+      <%= f.label :start_at %><br>
+      <%= f.datetime_select :start_at %>
+    </div>
+    <div class="field">
+      <%= f.label :end_at %><br>
+      <%= radio_button_tag 'end_at_selector', 'specific' %>
+      <%= f.datetime_select :end_at %><br><br>
+
+      <%= radio_button_tag 'end_at_selector', 'from_now' %> in
+      <%= text_field_tag 'from_now_number' %>
+      <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %><br><br>
+
+      <%= radio_button_tag 'end_at_selector', 'never' %> Never
+    </div>
+
+    <%# f.fields_for @schedule do |builder| %>
+      <%= render 'schedules/form' %>
+    <%# end %>
+
+  </fieldset>
+
+
   <div class="field">
-    <%= f.label :start_at %><br>
-    <%= f.datetime_select :start_at %>
-  </div>
-  <div class="field">
-    <%= f.label :end_at %><br>
-    <%= f.datetime_select :end_at %>
+    <% if current_user.facebook %>
+      <%= check_box_tag 'facebook', {}, '1' %> Publish to facebook?<br>
+    <% end %>
+    <% if current_user.twitter %>
+      <%= check_box_tag 'twitter', {}, '1' %> Publish to twitter?<br>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
