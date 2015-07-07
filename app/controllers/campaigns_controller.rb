@@ -13,7 +13,6 @@ class CampaignsController < ApplicationController
   def new
     @campaign = Campaign.new(type_of: params[:type])
     @locations = current_user.locations
-    @schedule = Schedule.new
   end
 
   def edit
