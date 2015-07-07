@@ -1,6 +1,7 @@
 class Business < ActiveRecord::Base
   belongs_to :user
   has_many :locations
+  has_many :campaigns, through: :locations
   has_many :wallets
   has_many :customers, through: :wallets
 

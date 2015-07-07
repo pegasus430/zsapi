@@ -16,6 +16,9 @@ class Campaign < ActiveRecord::Base
   scope :active, 		-> { where(status: true) }
   scope :inactive, 	-> { where(status: false) }
   scope :featured, 	-> { where(featured: true) }
+  scope :coupons,   -> { where(type_of: Campaign::CT_COUPON) }
+  scope :rewards,   -> { where(type_of: Campaign::CT_REWARD) }
+  scope :specials,  -> { where(type_of: Campaign::CT_SPECIAL) }
   scope :valid_for, ->(date) {
   	# Add '99' (the last day criteria) to the query if 'date.day' is equal to the last day of the month
   	add_last_day = (date.day == date.end_of_month.day) ? Schedule::LAST_DAY : nil
@@ -34,15 +37,12 @@ class Campaign < ActiveRecord::Base
   }
 
 
-  def self.coupons
-  	Campaign.where(type_of: Campaign::CT_COUPON)
+  def locations_string
+    if locations.size > 0
+      locations.order('title ASC').map(&:title).join(', ')
+    else
+      "None"
+    end
   end
 
-  def self.rewards
-  	Campaign.where(type_of: Campaign::CT_REWARD)
-  end
-
-  def self.specials
-  	Campaign.where(type_of: Campaign::CT_SPECIAL)
-  end
 end

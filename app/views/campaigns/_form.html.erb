@@ -33,19 +33,15 @@
   </div>
   <div class="field">
     <%= f.label :image %><br>
-    <%= f.text_field :image %>
+    <%= f.file_field :image %>
   </div>
   <div class="field">
     <%= f.label :featured %><br>
     <%= f.check_box :featured %>
   </div>
   <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :frequency_id %><br>
-    <%= f.text_field :frequency_id %>
+    <%= f.label :status %><br>
+    <%= f.check_box :status %>
   </div>
   <div class="field">
     <%= f.label :start_at %><br>

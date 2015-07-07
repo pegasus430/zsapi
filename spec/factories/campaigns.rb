@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :campaign do
 		schedule
+		locations
     type_of 					Campaign::CT_COUPON
 		title 						"Military"
 		discount_amount 	5

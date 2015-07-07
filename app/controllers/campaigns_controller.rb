@@ -1,28 +1,22 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
-  # GET /campaigns
-  # GET /campaigns.json
   def index
-    @campaigns = Campaign.all
+    @campaigns = current_user.business.campaigns
+    @campaigns = @campaigns.send(params[:type]) unless params[:type] == 'all'
+    @campaigns = @campaigns.send(params[:status]) unless params[:status] == 'all'
   end
 
-  # GET /campaigns/1
-  # GET /campaigns/1.json
   def show
   end
 
-  # GET /campaigns/new
   def new
     @campaign = Campaign.new
   end
 
-  # GET /campaigns/1/edit
   def edit
   end
 
-  # POST /campaigns
-  # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
 
@@ -37,8 +31,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /campaigns/1
-  # PATCH/PUT /campaigns/1.json
   def update
     respond_to do |format|
       if @campaign.update(campaign_params)
@@ -51,8 +43,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # DELETE /campaigns/1
-  # DELETE /campaigns/1.json
   def destroy
     @campaign.destroy
     respond_to do |format|
@@ -64,7 +54,7 @@ class CampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
-      @campaign = Campaign.find(params[:id])
+      @campaign = current_user.business.campaigns.where(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

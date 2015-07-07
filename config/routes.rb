@@ -1,24 +1,30 @@
 Rails.application.routes.draw do
 
-  resources :campaigns
-
   if Rails.env.development?
+    # Campaigns
+    get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupons|rewards|specials)/}, defaults: {status: 'all', type: 'all'}
+    get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
+    resources :campaigns, except: [:index, :new]
+    
+    # Customers
     get '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
 
-
-    # Confirm a beacon
+    # Beacons
     get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'
     post  '/beacon/:key',     to: 'beacons#create',   as: 'beacons'
     get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
 
-
+    # Businesses
+    get '/business', to: 'businesses#edit', as: 'edit_business'
     resources :businesses, only: [:new, :create, :update]
-    get '/business/edit', to: 'businesses#edit', as: 'edit_business'
 
+    # Receipts
     resources :receipts
 
+    # Greetings
     resources :greetings
 
+    # Locations
     resources :locations do
       get   '/payment/success', to: 'payments#success',   as: 'payment_success'
       get   '/payment/:id',     to: 'payments#show',      as: 'payment', constraints: { id: /[0-9]+/ }
@@ -29,23 +35,27 @@ Rails.application.routes.draw do
       # resources :greetings, only: [:show, :new, :create, :edit, :update]
     end
 
+    # Users
     devise_for :users, controllers: {
       confirmations:  'users/confirmations',
       registrations:  'users/registrations',
       omniauth_callbacks: 'omniauth_callbacks'
     }
-    devise_for :admins
 
     devise_scope :user do
       get '/users/auth/:provider/upgrade' => 'omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
       get '/users/auth/:provider/setup'   => 'omniauth_callbacks#setup'
     end
 
+    # Admins
+    devise_for :admins
+
     namespace :admin do
       root 'pages#dashboard'
       resources :receipts, only: [:index, :update, :destroy]
     end
 
+    # Root
     root 'pages#dashboard'
   end
 

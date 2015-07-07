@@ -40,19 +40,21 @@ class User < ActiveRecord::Base
   ## FACEBOOK
   # The facebook identity
   def facebook
-    identities.where(provider: "facebook").first
+    identities.where(provider: "facebook").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
   end
 
   # The facebook API client via Koala
   def facebook_client
-    @facebook_client ||= Koala::Facebook::API.new(facebook.access_token) if facebook
-    @facebook_client
+    @facebook_client ||= Koala::Facebook::API.new(facebook.access_token) if facebook.access_token
   end
 
   # Gets the list of facebook pages
   def facebook_pages
-  	@facebook_pages ||= facebook_client.get_connections('me', 'accounts') if facebook_client
-  	@facebook_pages
+  	begin
+      @facebook_pages ||= facebook_client.get_connections('me', 'accounts') if facebook_client
+    rescue Exception => e
+      facebook.destroy if facebook
+    end
   end
 
   # Sets up a facebook page client for page posting to pages
@@ -79,18 +81,18 @@ class User < ActiveRecord::Base
 
 
   ## INSTAGRAM
-  def instagram
-    identities.where(provider: "instagram").first
-  end
+  # def instagram
+  #   identities.where(provider: "instagram").first
+  # end
 
-  def instagram_client
-    # @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
-  end
+  # def instagram_client
+  #   @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
+  # end
 
 
   ## MAILCHIMP
   def mailchimp
-    identities.where(provider: "mailchimp").first
+    identities.where(provider: "mailchimp").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
   end
 
   def mailchimp_client
@@ -105,7 +107,7 @@ class User < ActiveRecord::Base
 
   ## CONSTANT CONTACT
   def constantcontact
-    identities.where(provider: "constantcontact").first
+    identities.where(provider: "constantcontact").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
   end
 
   def constantcontact_client

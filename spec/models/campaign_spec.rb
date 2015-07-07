@@ -29,6 +29,27 @@ RSpec.describe Campaign, type: :model do
 
 
 	describe 'Methods' do
+		describe '#locations_string' do
+			it 'returns the list of location separated by comma' do
+				campaign = FactoryGirl.create(:campaign)
+				FactoryGirl.create(:location, title: 'Grass', campaigns: [campaign])
+				FactoryGirl.create(:location, title: 'Ball', campaigns: [campaign])
+				FactoryGirl.create(:location, title: 'Fit', campaigns: [campaign])
+				FactoryGirl.create(:location, title: 'No Campaign')
+
+				campaign.reload
+
+				expect(campaign.locations_string).to eq "Ball, Fit, Grass"
+			end
+
+			it 'return None if applicable' do
+				campaign = FactoryGirl.create(:campaign)
+
+				campaign.reload
+
+				expect(campaign.locations_string).to eq "None"
+			end
+		end
 	end
 
 
@@ -76,6 +97,8 @@ RSpec.describe Campaign, type: :model do
 
 
 	describe 'Schedule Scopes' do
+		before { skip }
+
 		describe '.valid_for(date)' do
 			before :each do
 				# Create a default schedule that will stay in the DB
