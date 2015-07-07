@@ -2,7 +2,7 @@
 
 Show for location:<br>
 <%= current_user.locations.each do |l| %>
-  
+  <%= link_to l.title, location_campaign_url(@campaign.id, l.id) %>
 <% end %>
 
 <p>
