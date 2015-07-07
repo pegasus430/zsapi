@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703234529) do
+ActiveRecord::Schema.define(version: 20150707001712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,12 +79,12 @@ ActiveRecord::Schema.define(version: 20150703234529) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "featured",           default: false, null: false
-    t.boolean  "status",             default: false, null: false
     t.integer  "schedule_id"
     t.date     "start_at",                           null: false
     t.date     "end_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "status",             default: 0,     null: false
   end
 
   add_index "campaigns", ["schedule_id"], name: "index_campaigns_on_schedule_id", using: :btree

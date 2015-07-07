@@ -57,19 +57,19 @@ RSpec.describe Campaign, type: :model do
 		it '#active' do
 			FactoryGirl.create(:active_campaign)
 			FactoryGirl.create(:inactive_campaign)
-			expect(Campaign.all.active.size).to eq 1
+			expect(Campaign.active.size).to eq 1
 		end
 
 		it '#inactive' do
 			FactoryGirl.create(:active_campaign)
 			FactoryGirl.create(:inactive_campaign)
-			expect(Campaign.all.inactive.size).to eq 1
+			expect(Campaign.inactive.size).to eq 1
 		end
 
 		it '#featured' do
 			FactoryGirl.create(:featured_campaign)
 			FactoryGirl.create(:active_campaign)
-			expect(Campaign.all.featured.size).to eq 1
+			expect(Campaign.featured.size).to eq 1
 		end
 
 
@@ -81,15 +81,15 @@ RSpec.describe Campaign, type: :model do
 			end
 			
 			it '.coupons' do
-				expect(Campaign.coupons.size).to eq 1
+				expect(Campaign.coupon.size).to eq 1
 			end
 
 			it '.reward' do
-				expect(Campaign.rewards.size).to eq 1
+				expect(Campaign.reward.size).to eq 1
 			end
 
 			it '.special' do
-				expect(Campaign.specials.size).to eq 1
+				expect(Campaign.special.size).to eq 1
 			end
 		end
 	end

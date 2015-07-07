@@ -11,9 +11,9 @@ Status:
 <%= link_to 'Inactive', campaigns_url(status: 'inactive', type: params[:type]) %><br>
 Type:
 <%= link_to 'All', campaigns_url(type: 'all', status: params[:status]) %>
-<%= link_to 'Coupons', campaigns_url(type: 'coupons', status: params[:status]) %>
-<%= link_to 'Rewards', campaigns_url(type: 'rewards', status: params[:status]) %>
-<%= link_to 'Specials', campaigns_url(type: 'specials', status: params[:status]) %>
+<%= link_to 'Coupons', campaigns_url(type: 'coupon', status: params[:status]) %>
+<%= link_to 'Rewards', campaigns_url(type: 'reward', status: params[:status]) %>
+<%= link_to 'Specials', campaigns_url(type: 'special', status: params[:status]) %>
 
 <br><br>
 

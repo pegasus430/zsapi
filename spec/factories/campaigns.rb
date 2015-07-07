@@ -1,29 +1,26 @@
 FactoryGirl.define do
   factory :campaign do
 		schedule
-		locations
-    type_of 					Campaign::CT_COUPON
+    type_of 					'coupon'
 		title 						"Military"
 		discount_amount 	5
-		discount_type 		Campaign::DT_AMOUNT
+		discount_type 		'amount'
 		image 						nil
 		share_reward 			100
-		featured 					false
-		status 						true
+		status 						'inactive'
 		start_at 					{ "2015-01-01".to_date }
 		end_at 						nil
 
 		factory :active_campaign do
-			status true
+			status 'active'
 		end
 
 		factory :inactive_campaign do
-			status false
+			status 'inactive'
 		end
 
 		factory :featured_campaign do
-			status 		true
-			featured 	true
+			status 		'featured'
 		end
 
 		factory :campaign_with_image do
@@ -31,17 +28,17 @@ FactoryGirl.define do
 		end
 
 		factory :coupon do
-			type_of 					Campaign::CT_COUPON
+			type_of 					'coupon'
 			sequence(:title) 	{ |n| "Coupon \##{n}"}
 		end
 
 		factory :reward do
-			type_of 					Campaign::CT_REWARD
+			type_of 					'reward'
 			sequence(:title) 	{ |n| "Reward \##{n}"}
 		end
 
 		factory :special do
-			type_of 					Campaign::CT_SPECIAL
+			type_of 					'special'
 			sequence(:title) 	{ |n| "Special \##{n}"}
 		end
 	end
