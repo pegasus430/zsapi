@@ -53,9 +53,9 @@ RSpec.describe Customer, type: :model do
 		end
 
 		it "#active?" do
-			@customer.active = true
+			@customer.active!
 			expect(@customer.active?).to be_truthy
-			@customer.active = false
+			@customer.inactive!
 			expect(@customer.active?).to be_falsey
 		end
 
@@ -73,7 +73,7 @@ RSpec.describe Customer, type: :model do
 				@wallet = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
 			end
 
-			context "when wallet not set" do
+			context '[Wallet not set]' do
 				it "#points(@business)" do
 					expect(@customer.points(@business)).to eq 500
 				end
@@ -93,7 +93,7 @@ RSpec.describe Customer, type: :model do
 				end
 			end
 
-			context "when wallet is set" do
+			context '[Wallet is set]' do
 				before :each do
 					@customer.wallet = @business
 				end
@@ -114,6 +114,19 @@ RSpec.describe Customer, type: :model do
 					@customer.save
 					@customer.reload
 					expect(@customer.points).to eq 750
+				end
+			end
+
+			context '[On creation of customer]' do
+				it 'creates a wallet when a new customer is created' do
+					# customer = Customer.create(FactoryGirl.attributes_for(:customer)) do |c|
+					# 	c.set_points(500, @business)
+					# end
+
+					customer = Customer.create(FactoryGirl.attributes_for(:customer, points: {business: @business, points: 500}))
+
+					expect(customer.wallets.size).to eq 1
+					expect(customer.points(@business)).to eq 500
 				end
 			end
 		end
@@ -150,7 +163,7 @@ RSpec.describe Customer, type: :model do
 
 	describe "Scopes" do
 		it ".active" do
-			FactoryGirl.create_list(:customer, 3, active: true)
+			FactoryGirl.create_list(:active_customer, 3)
 			expect(Customer.active.length).to eq 3
 		end
 

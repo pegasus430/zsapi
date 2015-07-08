@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'rails-erd',      group: :development # ERD Generator
   gem 'rails_12factor', group: :production  # 12 factor
   gem 'rocket_pants',   '~> 1.0'            # API versioning
+  gem 'smarter_csv'                         # Simple CSV importing
   gem 'stripe-rails'                        # Stripe integration
   gem 'week_of_month'                       # Week of month methods
 

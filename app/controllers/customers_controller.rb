@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer_list
+  before_action :set_customer_list, only: :index
 
   def index
     if params[:export]
@@ -12,10 +12,10 @@ class CustomersController < ApplicationController
       end
     end
   end
-  
+
 
   def import
-    total_imported = Customer.import(params[:file])
+    total_imported = Customer.import(params[:file], business: current_user.business)
     redirect_to customers, notice: "#{total_imported} customers have been imported successfully!"
   end
 

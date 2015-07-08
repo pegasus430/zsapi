@@ -20,16 +20,15 @@ class Customer < ActiveRecord::Base
 		end
 	end
 
-	def self.import(file)
-	  csv_file = open_csv(file)
-	  byebug
-	  header = csv_file.row(1)
-	  (2..csv_file.last_row).each do |i|
-	    row = Hash[[header, csv_file.row(i)].transpose]
-	    product = find_by_id(row["id"]) || new
-	    product.attributes = row.to_hash.slice(*accessible_attributes)
-	    product.save!
-	  end
+	def self.import(file, opts)
+		business = opts['business']
+
+		counter = 0
+	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |r|
+	  	customer = Customer.create(r) do |c|
+	  		c.set_points(r[:points], business)
+	  	end
+  	end
 	end
 
 
@@ -44,6 +43,15 @@ class Customer < ActiveRecord::Base
 	# Points
 	def points(business = nil)
 		get_wallet(business).points
+	end
+
+	def points=(opts)
+		business   = opts[:business]
+		the_points = opts[:points]
+
+		set_wallet(business)
+		set_points(the_points)
+		# byebug
 	end
 
 	def wallet=(business)
@@ -80,10 +88,16 @@ class Customer < ActiveRecord::Base
 
 		def get_wallet(business = nil)
 			if business.nil?
-				@wallet
+				wallet = @wallet
 			else
-				wallets.find_by_business_id(business)
+				wallet = wallets.find_by_business_id(business)
 			end
+			
+			if wallet.nil?
+				wallet = Wallet.create(customer: self, business: business)
+			end
+
+			wallet
 		end
 
 		def self.open_csv(file)

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  if Rails.env.development?
+  if Rails.env.development? || Rails.env.test?
     concern :locationable do
       member do
         get 'locations/:location_id', as: 'location'
