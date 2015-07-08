@@ -1,4 +1,7 @@
 7/7/15
+	23:15-
+		Working on the import system. We need to be able to easily set "points" on create. That's all we're lacking!
+
 	21:20+
 		Working on importing customers from CSV and notifying those new customers of the Zippyspot app!
 

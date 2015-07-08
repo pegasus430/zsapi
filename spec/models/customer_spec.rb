@@ -123,7 +123,7 @@ RSpec.describe Customer, type: :model do
 					# 	c.set_points(500, @business)
 					# end
 
-					customer = Customer.create(FactoryGirl.attributes_for(:customer, points: {business: @business, points: 500}))
+					customer = Customer.create(FactoryGirl.attributes_for(:customer, points: 500, wallet: @business))
 
 					expect(customer.wallets.size).to eq 1
 					expect(customer.points(@business)).to eq 500

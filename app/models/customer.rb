@@ -24,7 +24,8 @@ class Customer < ActiveRecord::Base
 		business = opts['business']
 
 		counter = 0
-	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |r|
+	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name, points: {:points, business}}) do |r|
+	  	byebug
 	  	customer = Customer.create(r) do |c|
 	  		c.set_points(r[:points], business)
 	  	end
@@ -45,16 +46,16 @@ class Customer < ActiveRecord::Base
 		get_wallet(business).points
 	end
 
-	def points=(opts)
-		business   = opts[:business]
-		the_points = opts[:points]
+	def points=(the_points)
+		# byebug
 
-		set_wallet(business)
+		# set_wallet(business)
 		set_points(the_points)
 		# byebug
 	end
 
 	def wallet=(business)
+		# byebug
 		set_wallet(business)
 	end
 
