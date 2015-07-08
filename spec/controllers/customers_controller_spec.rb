@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe CustomersController, type: :controller do
 
-  context "when signed in" do
+  context "[Signed in]" do
 
     before :each do
       @user = FactoryGirl.create(:user)
-      sign_in @user
+      sign_in :user, @user
       @business = FactoryGirl.create(:business, user: @user)
       @all_customers = FactoryGirl.create_list(:customer_with_wallet_without_business, 10, business: @business)
       @active_customers = @all_customers.first(5)
@@ -16,28 +16,38 @@ RSpec.describe CustomersController, type: :controller do
 
 
     describe "GET #index" do
-      it "assigns all customers as @customers" do
-        get :index
-        expect(assigns(:customers)).to eq(@active_customers + @inactive_customers)
-        expect(response).to render_template :index
+      context '[All customers]' do
+        it "assigns all customers as @customers" do
+          get :index
+          expect(assigns(:customers)).to eq(@active_customers + @inactive_customers)
+          expect(response).to render_template :index
+        end
+      end
+
+      context '[Active customers]' do
+        it "assigns active customers as @customers and renders index" do
+          get :index, status: 'active'
+          expect(assigns(:customers)).to eq(@active_customers)
+          expect(response).to render_template :index
+        end
+      end
+
+      context '[Inactive customers]' do
+        it "assigns inactive customers as @customers and renders index" do
+          get :index, status: 'inactive'
+          expect(assigns(:customers)).to eq(@inactive_customers)
+          expect(response).to render_template :index
+        end
       end
     end
 
 
-    describe "GET #index_active" do
-      it "assigns active customers as @customers and renders index" do
-        get :index_active
-        expect(assigns(:customers)).to eq(@active_customers)
-        expect(response).to render_template :index
-      end
-    end
-    
-
-    describe "GET #index_inactive" do
-      it "assigns inactive customers as @customers and renders index" do
-        get :index_inactive
-        expect(assigns(:customers)).to eq(@inactive_customers)
-        expect(response).to render_template :index
+    describe 'POST #import' do
+      context '[Valid CSV file]' do
+        it 'uploads the file' do
+          file = fixture_file_upload('files/importusers.csv', 'text/csv')
+          post :import, file: file
+        end
       end
     end
 

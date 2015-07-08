@@ -98,8 +98,6 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.9.1)
-      faraday (>= 0.7.4, < 0.10)
     ffi (1.9.8)
     formatador (0.2.5)
     geocoder (1.2.9)
@@ -133,11 +131,6 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
-    instagram (1.1.5)
-      faraday (>= 0.7, < 0.10)
-      faraday_middleware (>= 0.8, < 0.10)
-      hashie (>= 0.4.0)
-      multi_json (~> 1.0, >= 1.0.3)
     jbuilder (2.2.16)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -198,9 +191,6 @@ GEM
       omniauth-oauth2 (~> 1.0)
     omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
-    omniauth-instagram (1.0.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
     omniauth-mailchimp (1.0.3)
       omniauth (~> 1.0)
       omniauth-oauth2
@@ -383,7 +373,6 @@ DEPENDENCIES
   geocoder
   gibbon
   guard-rspec
-  instagram
   jbuilder (~> 2.0)
   jquery-rails
   koala (~> 2.0)
@@ -391,7 +380,6 @@ DEPENDENCIES
   omniauth
   omniauth-constantcontact2
   omniauth-facebook
-  omniauth-instagram
   omniauth-mailchimp
   omniauth-twitter
   paperclip (~> 4.2)

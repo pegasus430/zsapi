@@ -8,11 +8,11 @@ FactoryGirl.define do
 		email 					{ Faker::Internet.email }
 
 		factory :active_customer do
-			active 			true
+			status 'active'
 		end
 
 		factory :inactive_customer do
-			active false
+			status 'inactive'
 		end
 
 		factory :facebook_customer do

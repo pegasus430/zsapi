@@ -80,16 +80,6 @@ class User < ActiveRecord::Base
   end
 
 
-  ## INSTAGRAM
-  # def instagram
-  #   identities.where(provider: "instagram").first
-  # end
-
-  # def instagram_client
-  #   @instagram_client ||= Instagram.client( access_token: instagram.accesstoken )
-  # end
-
-
   ## MAILCHIMP
   def mailchimp
     identities.where(provider: "mailchimp").where('expires_at >= ? OR expires_at IS NULL', Time.now).first

@@ -2,17 +2,19 @@
 
 <h1>Listing Customers</h1>
 
-<%= link_to 'All', customers_url(status: 'all') %>
-<%= link_to 'Active', customers_url(status: 'active') %>
-<%= link_to 'Inactive', customers_url(status: 'inactive') %>
-<%= link_to 'Export to Excel', customers_url(status: params[:status], format: 'xls') %>
+Show: 
+<%= link_to 'All', customers_url(status: 'all') %> |
+<%= link_to 'Active', customers_url(status: 'active') %> |
+<%= link_to 'Inactive', customers_url(status: 'inactive') %><br><br>
+
+Export: 
+<%= link_to 'To Excel', customers_url(status: params[:status], format: 'xls') %>
 <% if current_user.mailchimp %>
-  <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
+  | <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
 <% end %>
 <% if current_user.constantcontact %>
-  <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
-<% end %>
-
+  | <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
+<% end %><br><br>
 
 <table>
   <thead>
@@ -37,3 +39,8 @@
     <% end %>
   </tbody>
 </table>
+
+<br><br>
+
+<h2>Import Customers</h2>
+form here...

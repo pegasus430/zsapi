@@ -24,26 +24,32 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-#WES
-gem 'devise'
-gem 'stripe-rails'
-gem 'rocket_pants', '~> 1.0'
-gem "paperclip", "~> 4.2"
-gem 'geocoder'
-gem 'rails_12factor', group: :production
-gem 'rails-erd', group: :development
-gem 'week_of_month'
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-instagram'
-gem 'omniauth-mailchimp'
-gem 'omniauth-constantcontact2'
-gem 'twitter'
-gem "koala", "~> 2.0" #facebook api
-gem 'instagram'
-gem 'gibbon'
-gem 'constantcontact', '~> 2.1.0'
+# Wesfed++
+  gem 'devise'                              # User accounts
+  gem 'geocoder'                            # Location lat/lon
+  gem 'paperclip',      '~> 4.2'            # Image uploads
+  gem 'rails-erd',      group: :development # ERD Generator
+  gem 'rails_12factor', group: :production  # 12 factor
+  gem 'rocket_pants',   '~> 1.0'            # API versioning
+  gem 'stripe-rails'                        # Stripe integration
+  gem 'week_of_month'                       # Week of month methods
+
+  # Identities++
+    gem 'omniauth'
+
+    gem 'omniauth-constantcontact2'
+    gem 'constantcontact', '~> 2.1.0'
+    
+    gem 'omniauth-facebook'
+    gem 'koala', '~> 2.0'
+    
+    gem 'omniauth-mailchimp'
+    gem 'gibbon'
+    
+    gem 'omniauth-twitter'
+    gem 'twitter'
+  # Identities--
+# Wesfed--
 
 
 group :development, :test do

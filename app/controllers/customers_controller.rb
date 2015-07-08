@@ -12,6 +12,12 @@ class CustomersController < ApplicationController
       end
     end
   end
+  
+
+  def import
+    total_imported = Customer.import(params[:file])
+    redirect_to customers, notice: "#{total_imported} customers have been imported successfully!"
+  end
 
 
   private

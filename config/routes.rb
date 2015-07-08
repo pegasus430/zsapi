@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     resources :campaigns, except: [:index, :new]
     
     # Customers
-    get '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    get  '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    post '/customers/import',            to: 'customers#import',  as: 'import_customers'
 
     # Beacons
     get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'

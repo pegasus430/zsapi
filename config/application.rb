@@ -1,6 +1,5 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'csv'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -52,8 +51,6 @@ module Zippyspot
     config.x.CONSTANTCONTACT_APP_SECRET = "cH5WrjDafJu6F6VywJ5uYjXF"
     config.x.TWITTER_APP_ID             = "NkWazFulS6zSg3AsItfANDyUz"
     config.x.TWITTER_APP_SECRET         = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
-    config.x.INSTAGRAM_APP_ID           = "NkWazFulS6zSg3AsItfANDyUz"
-    config.x.INSTAGRAM_APP_SECRET       = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
 
     #Koala
     Koala.config.api_version = "v2.0"

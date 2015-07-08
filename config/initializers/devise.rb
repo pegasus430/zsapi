@@ -234,7 +234,6 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth :facebook,  Rails.configuration.x.FACEBOOK_APP_ID,   Rails.configuration.x.FACEBOOK_APP_SECRET, setup: true
   config.omniauth :twitter,   Rails.configuration.x.TWITTER_APP_ID,    Rails.configuration.x.TWITTER_APP_SECRET, setup: true
-  config.omniauth :instagram, Rails.configuration.x.INSTAGRAM_APP_ID,  Rails.configuration.x.INSTAGRAM_APP_SECRET, setup: true
   config.omniauth :mailchimp, Rails.configuration.x.MAILCHIMP_APP_ID,  Rails.configuration.x.MAILCHIMP_APP_SECRET, setup: true
   config.omniauth :constantcontact, Rails.configuration.x.CONSTANTCONTACT_APP_ID,  Rails.configuration.x.CONSTANTCONTACT_APP_SECRET, setup: true
 

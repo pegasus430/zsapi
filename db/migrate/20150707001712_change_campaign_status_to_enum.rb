@@ -6,6 +6,6 @@ class ChangeCampaignStatusToEnum < ActiveRecord::Migration
 
   def down
   	remove_column :campaigns, :status
-  	add_colimn :campaigns, :status, null: false, default: false
+  	add_colimn :campaigns, :status, :boolean, null: false, default: false
   end
 end
