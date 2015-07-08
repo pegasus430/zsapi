@@ -78,17 +78,50 @@ RSpec.describe Customer, type: :model do
 			end
 
 
-			context '[On creation of customer]' do
-				it 'creates a wallet when a new customer is created' do
-					# customer = Customer.create(FactoryGirl.attributes_for(:customer)) do |c|
-					# 	c.set_points(500, @business)
-					# end
+			describe '.find_or_create_with_wallet' do
+				context '[Customer does not exist]' do
+					before :each do
+						@customer = Customer.find_or_create_with_wallet(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
+					end
 
-					customer = Customer.create(FactoryGirl.attributes_for(:customer, points: 500, wallet: @business))
-
-					expect(customer.wallets.size).to eq 1
-					expect(customer.points(@business)).to eq 500
+					it 'creates the customer' do
+						expect(@customer).to be_valid
+					end
+				
+					it 'creates a wallet with 500 points' do
+						expect(@customer.wallet_for(@business).points).to eq 500
+					end
 				end
+
+			 	context '[Customer exist but does not have wallet with business]' do
+			 		before :each do
+			 			@other_business = FactoryGirl.create(:business)
+			 			@found_customer = Customer.find_or_create_with_wallet(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
+			 		end
+
+			 		it 'finds the customer' do
+			 			expect(@found_customer).to eq @customer
+			 		end
+			 		
+			 		it 'creates a wallet with 500 points' do
+			 			expect(@found_customer.wallet_for(@other_business).points).to eq 500
+			 		end
+			 	end
+
+			 	context '[Customer exist and has wallet with business]' do
+			 		before :each do
+			 			@found_customer = Customer.find_or_create_with_wallet(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
+			 		end
+
+			 		it 'finds the customer' do
+			 			expect(@found_customer).to eq @customer
+			 		end
+			 		
+			 		it 'finds a wallet with 500 points and adds 250 more points' do
+			 			expect(@found_customer.wallet_for(@business).points).to eq 750
+			 		end
+			 	end
+				 
 			end
 		end
 
