@@ -33,8 +33,8 @@ class Customer < ActiveRecord::Base
 
 		counter = 0
 	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |r|
-	  	customer = Customer.find_or_create_with_wallet(r.merge({business: business})
-	  	counter++ if customer.persisted?
+	  	customer = Customer.find_or_create_with_wallet(r.merge({business: business}))
+	  	counter = counter+1 if customer.persisted?
   	end
 	end
 

@@ -43,4 +43,8 @@ Export:
 <br><br>
 
 <h2>Import Customers</h2>
-form here...
+
+<%= form_tag import_products_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
