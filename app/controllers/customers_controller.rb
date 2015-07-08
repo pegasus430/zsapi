@@ -15,8 +15,8 @@ class CustomersController < ApplicationController
 
 
   def import
-    total_imported = Customer.import(params[:file], business: current_user.business)
-    redirect_to customers, notice: "#{total_imported} customers have been imported successfully!"
+    @newly_imported_customers = Customer.import(params[:file], business: current_user.business)
+    redirect_to customers_url, notice: "#{@newly_imported_customers.size} customers have been imported successfully!"
   end
 
 

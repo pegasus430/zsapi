@@ -20,33 +20,36 @@ class Customer < ActiveRecord::Base
 		end
 	end
 
+
 	def self.import(file, opts)
-		business = opts['business']
+		newly_imported_customers = []
 
-		# Search DB for customer by email
-		# If exists
-			# Create a wallet (if not exists already) between the customer and business
-		# If not exists
-			# Create the customer
-			# Create the wallet
-
-
-		counter = 0
-	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |r|
-	  	customer = Customer.find_or_create_with_wallet(r.merge({business: business}))
-	  	counter = counter+1 if customer.persisted?
+	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |chunk_row|
+	  	chunk_row.each do |row|
+	  		customer = Customer.find_or_create_with_wallet(row.merge({business: opts[:business]}))
+	  		if customer
+	  			newly_imported_customers.push(customer) if customer.persisted?
+	  		end
+	  	end
   	end
+
+  	newly_imported_customers
 	end
+
 
 	def self.find_or_create_with_wallet(opts)
 		# Find or create the customer
 		customer = Customer.create_with(first_name: opts[:first_name], last_name: opts[:last_name]).find_or_create_by(email: opts[:email])
 
 		# Find or create the wallet
-		wallet = Wallet.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business])
-		wallet.increment!(:points, opts[:points]) if opts[:points] > 0
+		if customer.valid?
+			wallet = Wallet.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business])
+			wallet.increment!(:points, opts[:points]) if opts[:points] > 0
 
-		customer
+			customer
+		else
+			false
+		end
 	end
 
 

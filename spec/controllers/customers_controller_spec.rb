@@ -44,12 +44,54 @@ RSpec.describe CustomersController, type: :controller do
 
     describe 'POST #import' do
       context '[Valid CSV file]' do
-        it 'uploads the file' do
-          file = fixture_file_upload('files/importusers.csv', 'text/csv')
-          post :import, file: file
-          expect(Customers.count).to eq 2
+        before :each do
+          skip
+          @file = fixture_file_upload('files/importusers_2_valid.csv', 'text/csv')
+        end
+
+        it 'uploads the file and creates the users' do
+          expect {
+            post :import, file: @file
+          }.to change(Customer, :count).by 2
+        end
+
+        it 'shows 2 customers as being created' do
+          post :import, file: @file
+          expect(assigns(:newly_imported_customers).size).to eq 2
+        end
+
+        it 'sends an email to the new users imported'
+
+        it 'redirects back to customers index' do
+          post :import, file: @file
+          expect(response).to redirect_to customers_url
         end
       end
+
+      context '[Valid CSV file with invalid user params]' do
+        before :each do
+          @file = fixture_file_upload('files/importusers_1_valid_1_invalid.csv', 'text/csv')
+        end
+
+        it 'does not create new users' do
+          expect {
+            post :import, file: @file
+          }.to change(Customer, :count).by 1
+        end
+
+        it 'shows 0 customers as being created' do
+          post :import, file: @file
+          expect(assigns(:newly_imported_customers).size).to eq 1
+        end
+
+        it 'ignores the negative value of points for the new customer' do
+          post :import, file: @file
+          expect(Customer.find_by_first_name('C1alton').wallet_for(@business).points).to eq 0
+        end
+
+      end
+      
+      context '[Invalid CSV format]'
     end
 
   end

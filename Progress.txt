@@ -1,4 +1,7 @@
 7/8/15
+	16:51-
+		Got the import method completed finally! And the wallets all straightened out as well. *Now, just need to email the newly imported users.
+
 	14:53
 		The new customer method works for creating a customer and wallet for an import.
 
