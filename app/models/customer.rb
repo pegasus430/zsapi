@@ -24,7 +24,7 @@ class Customer < ActiveRecord::Base
 		business = opts['business']
 
 		counter = 0
-	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name, points: {:points, business}}) do |r|
+	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |r|
 	  	byebug
 	  	customer = Customer.create(r) do |c|
 	  		c.set_points(r[:points], business)
@@ -41,37 +41,10 @@ class Customer < ActiveRecord::Base
 		[last_name, first_name].join(', ')
 	end
 
-	# Points
-	def points(business = nil)
-		get_wallet(business).points
+	def wallet_for(business_obj)
+		wallets.where(business: business_obj)
 	end
-
-	def points=(the_points)
-		# byebug
-
-		# set_wallet(business)
-		set_points(the_points)
-		# byebug
-	end
-
-	def wallet=(business)
-		# byebug
-		set_wallet(business)
-	end
-
-	def set_points(amount, business = nil)
-		wallet = get_wallet(business)
-		wallet.points = amount
-		wallet.save
-	end
-
-	def increase_points_by(amount, business = nil)
-		wallet = get_wallet(business)
-		wallet.points += amount
-		wallet.save
-	end
-	# End points
-
+	
 	def visit!(location)
 		Visit.create_or_increment(customer: self, location: location)
 	end
@@ -82,24 +55,6 @@ class Customer < ActiveRecord::Base
 
 
 	private
-
-		def set_wallet(business)
-			@wallet = get_wallet(business)
-		end
-
-		def get_wallet(business = nil)
-			if business.nil?
-				wallet = @wallet
-			else
-				wallet = wallets.find_by_business_id(business)
-			end
-			
-			if wallet.nil?
-				wallet = Wallet.create(customer: self, business: business)
-			end
-
-			wallet
-		end
 
 		def self.open_csv(file)
 		  if File.extname(file.original_filename) == '.csv'

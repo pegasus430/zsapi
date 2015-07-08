@@ -73,49 +73,10 @@ RSpec.describe Customer, type: :model do
 				@wallet = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
 			end
 
-			context '[Wallet not set]' do
-				it "#points(@business)" do
-					expect(@customer.points(@business)).to eq 500
-				end
-
-				it "#set_points(amount, @business)" do
-					@customer.set_points(250, @business)
-					@customer.save
-					@customer.reload
-					expect(@customer.points(@business)).to eq 250
-				end
-
-				it "#increase_points_by(amount, @business)" do
-					@customer.increase_points_by(250, @business)
-					@customer.save
-					@customer.reload
-					expect(@customer.points(@business)).to eq 750
-				end
+			it "#wallet_for(@business)" do
+				expect(@customer.wallet_for(@business).points).to eq 500
 			end
 
-			context '[Wallet is set]' do
-				before :each do
-					@customer.wallet = @business
-				end
-
-				it "#points" do
-					expect(@customer.points).to eq 500
-				end
-
-				it "#set_points(amount)" do
-					@customer.set_points(250)
-					@customer.save
-					@customer.reload
-					expect(@customer.points).to eq 250
-				end
-
-				it "#increase_points_by(amount)" do
-					@customer.increase_points_by(250)
-					@customer.save
-					@customer.reload
-					expect(@customer.points).to eq 750
-				end
-			end
 
 			context '[On creation of customer]' do
 				it 'creates a wallet when a new customer is created' do

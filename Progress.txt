@@ -1,3 +1,10 @@
+7/8/15
+	12:53-
+		Restructured the wallet and customer system and removed over ~40 lines of code! Now finishing up the "find_or_create_with_wallet" method for Customer
+
+	11:46+
+		Setting up the import to run through businesses instead of customers.
+
 7/7/15
 	23:15-
 		Working on the import system. We need to be able to easily set "points" on create. That's all we're lacking!

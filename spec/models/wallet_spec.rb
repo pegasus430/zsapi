@@ -16,4 +16,21 @@ RSpec.describe Wallet, type: :model do
 		it { should belong_to(:customer) }
 	end
 
+
+	describe 'Methods' do
+		before :each do
+			@business = FactoryGirl.create(:business)
+			@customer = FactoryGirl.create(:customer)
+			@wallet   = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
+		end
+
+		it "#increment!(amount)" do
+			# This is a rails method, but we are testing it's implementation here
+			@wallet.increment!(:points, 250)
+			@wallet.reload
+			expect(@wallet.points).to eq 750
+		end
+
+	end
+
 end
