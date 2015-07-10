@@ -1,5 +1,9 @@
 require 'rails_helper'
 
+def clear_mail_deliveries
+  ActionMailer::Base.deliveries = []
+end
+
 RSpec.describe CustomersController, type: :controller do
 
   context "[Signed in]" do
@@ -45,7 +49,6 @@ RSpec.describe CustomersController, type: :controller do
     describe 'POST #import' do
       context '[Valid CSV file]' do
         before :each do
-          skip
           @file = fixture_file_upload('files/importusers_2_valid.csv', 'text/csv')
         end
 
@@ -60,11 +63,50 @@ RSpec.describe CustomersController, type: :controller do
           expect(assigns(:newly_imported_customers).size).to eq 2
         end
 
-        it 'sends an email to the new users imported'
+        it 'does not send a notify email' do
+          last_email = ActionMailer::Base.deliveries.last
+          expect(last_email).to be_nil
+
+          clear_mail_deliveries
+        end
 
         it 'redirects back to customers index' do
           post :import, file: @file
           expect(response).to redirect_to customers_url
+        end
+
+        context '[Notify imported customers]' do
+          it 'sends a custom email to the new users imported' do
+            post :import, file: @file, notify: true, message: '{FULL_NAME} Hello'
+            last_email = ActionMailer::Base.deliveries.last
+            expect(last_email.body).to have_content "Wes Foster Hello"
+
+            clear_mail_deliveries
+          end
+
+          it 'sends the default email to the new users imported' do
+            post :import, file: @file, notify: true
+            last_email = ActionMailer::Base.deliveries.last
+            expect(last_email.html_part.body).to have_content "Hello Calton Jammies"
+
+            clear_mail_deliveries
+          end
+
+          context '[Importing the same list twice]' do
+            it 'does not notify the customers twice' do
+              # Import the first time
+              post :import, file: @file, notify: true
+              # expect(ActionMailer::Base.deliveries.size).to eq 2
+
+              clear_mail_deliveries
+              
+              # Import the second time
+              post :import, file: @file, notify: true
+              expect(ActionMailer::Base.deliveries.size).to eq 0
+
+              clear_mail_deliveries
+            end
+          end
         end
       end
 
@@ -73,13 +115,13 @@ RSpec.describe CustomersController, type: :controller do
           @file = fixture_file_upload('files/importusers_1_valid_1_invalid.csv', 'text/csv')
         end
 
-        it 'does not create new users' do
+        it 'creates 1 new user' do
           expect {
             post :import, file: @file
           }.to change(Customer, :count).by 1
         end
 
-        it 'shows 0 customers as being created' do
+        it 'shows 1 customers as being created' do
           post :import, file: @file
           expect(assigns(:newly_imported_customers).size).to eq 1
         end
@@ -89,9 +131,38 @@ RSpec.describe CustomersController, type: :controller do
           expect(Customer.find_by_first_name('C1alton').wallet_for(@business).points).to eq 0
         end
 
+        context '[Notify new customers]' do
+          it 'only notifies the imported customer' do
+            post :import, file: @file, notify: true
+            expect(ActionMailer::Base.deliveries.size).to eq 1
+
+            clear_mail_deliveries
+          end
+        end
+
       end
       
-      context '[Invalid CSV format]'
+      context '[Invalid CSV format]' do
+        before :each do
+          @file = fixture_file_upload('files/importusers_invalid.csv', 'text/csv')
+        end
+
+        it 'does not create new users' do
+          expect {
+            post :import, file: @file
+          }.to change(Customer, :count).by 0
+        end
+
+        it 'shows 0 customers as being created' do
+          post :import, file: @file
+          expect(assigns(:newly_imported_customers).size).to eq 0
+        end
+
+        it 'redirects to customer index and gives error' do
+          post :import, file: @file
+          expect(response).to redirect_to customers_url
+        end
+      end
     end
 
   end

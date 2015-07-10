@@ -1,3 +1,13 @@
+7/10/15
+	14:27-
+		Working on the "twice" import mail test. Can't post twice, so ***I need to manually create the users from the valid CSV and then run post.
+
+	14:18
+		Emails are being sent to newly imported customers!
+
+	10:21+
+		Finishing the customer email notifier
+
 7/8/15
 	16:51-
 		Got the import method completed finally! And the wallets all straightened out as well. *Now, just need to email the newly imported users.

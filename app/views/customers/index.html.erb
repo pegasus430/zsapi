@@ -46,5 +46,12 @@ Export:
 
 <%= form_tag import_products_path, multipart: true do %>
   <%= file_field_tag :file %>
+
+  <div class="field">
+    <%= check_box_tag :notify %>
+    <%= label_tag :import, "Notify newly imported users of new rewards system?" %><br><br>
+
+    <%= text_area_tag :message %>
+  </div>
   <%= submit_tag "Import" %>
 <% end %>

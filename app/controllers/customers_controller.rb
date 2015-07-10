@@ -16,6 +16,15 @@ class CustomersController < ApplicationController
 
   def import
     @newly_imported_customers = Customer.import(params[:file], business: current_user.business)
+
+    if params[:notify]
+      custom_message = params[:message] ? params[:message] : nil
+
+      @newly_imported_customers.each do |cust|
+        CustomerMailer.import_email(customer: cust, business: current_user.business, message: custom_message).deliver_later
+      end
+    end
+
     redirect_to customers_url, notice: "#{@newly_imported_customers.size} customers have been imported successfully!"
   end
 
