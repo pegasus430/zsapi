@@ -59,13 +59,6 @@ RSpec.describe Customer, type: :model do
 			expect(@customer.active?).to be_falsey
 		end
 
-		it "#contacted?" do
-			@customer.contacted = true
-			expect(@customer.contacted?).to be_truthy
-			@customer.contacted = false
-			expect(@customer.contacted?).to be_falsey
-		end
-
 		describe "Points" do
 			before :each do
 				@business = FactoryGirl.create(:business)
@@ -81,7 +74,7 @@ RSpec.describe Customer, type: :model do
 			describe '.find_or_create_with_membership' do
 				context '[Customer does not exist]' do
 					before :each do
-						@customer = Customer.find_or_create_with_membership(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
+						@customer, @is_new_to_business = Customer.find_or_create_with_membership(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
 					end
 
 					it 'creates the customer' do
@@ -96,7 +89,7 @@ RSpec.describe Customer, type: :model do
 			 	context '[Customer exist but does not have membership with business]' do
 			 		before :each do
 			 			@other_business = FactoryGirl.create(:business)
-			 			@found_customer = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
+			 			@found_customer, @is_new_to_business = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
 			 		end
 
 			 		it 'finds the customer' do
@@ -110,7 +103,7 @@ RSpec.describe Customer, type: :model do
 
 			 	context '[Customer exist and has membership with business]' do
 			 		before :each do
-			 			@found_customer = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
+			 			@found_customer, @is_new_to_business = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
 			 		end
 
 			 		it 'finds the customer' do

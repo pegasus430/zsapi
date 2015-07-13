@@ -1,4 +1,10 @@
 7/13/15
+	11:55
+		Corrected the customer spec.
+
+	11:41+
+		Correcting the customer's spec (since the change of the wallet setup)
+
 	10:51
 		Renamed all occurrances of 'wallet' to 'membership'. This is the new association model between customers and a business
 
