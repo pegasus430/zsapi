@@ -22,20 +22,20 @@ FactoryGirl.define do
 			social_friends 	[]
 		end
 
-		factory :customer_with_wallet do
+		factory :customer_with_membership do
 			after(:create) do |cust, eval|
 				b = create(:business)
-				w = create(:wallet, business: b, customer: cust)
+				w = create(:membership, business: b, customer: cust)
 			end
 		end
 
-		factory :customer_with_wallet_without_business do
+		factory :customer_with_membership_without_business do
 			transient do
 				business nil
 			end
 
 			after(:create) do |cust, eval|
-				create(:wallet, business: eval.business, customer: cust)
+				create(:membership, business: eval.business, customer: cust)
 			end
 		end
   end

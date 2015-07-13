@@ -31,7 +31,7 @@ RSpec.describe Customer, type: :model do
 		# it { should have_many :redemptions }
 		it { should have_many :visits }
 		it { should have_many(:locations), through: :visits }
-		it { should have_many(:wallets) }
+		it { should have_many(:memberships) }
 	end
 
 
@@ -70,55 +70,55 @@ RSpec.describe Customer, type: :model do
 			before :each do
 				@business = FactoryGirl.create(:business)
 				@customer = FactoryGirl.create(:customer)
-				@wallet = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
+				@membership = FactoryGirl.create(:membership, business: @business, customer: @customer, points: 500)
 			end
 
-			it "#wallet_for(@business)" do
-				expect(@customer.wallet_for(@business).points).to eq 500
+			it "#membership_for(@business)" do
+				expect(@customer.membership_for(@business).points).to eq 500
 			end
 
 
-			describe '.find_or_create_with_wallet' do
+			describe '.find_or_create_with_membership' do
 				context '[Customer does not exist]' do
 					before :each do
-						@customer = Customer.find_or_create_with_wallet(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
+						@customer = Customer.find_or_create_with_membership(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
 					end
 
 					it 'creates the customer' do
 						expect(@customer).to be_valid
 					end
 				
-					it 'creates a wallet with 500 points' do
-						expect(@customer.wallet_for(@business).points).to eq 500
+					it 'creates a membership with 500 points' do
+						expect(@customer.membership_for(@business).points).to eq 500
 					end
 				end
 
-			 	context '[Customer exist but does not have wallet with business]' do
+			 	context '[Customer exist but does not have membership with business]' do
 			 		before :each do
 			 			@other_business = FactoryGirl.create(:business)
-			 			@found_customer = Customer.find_or_create_with_wallet(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
+			 			@found_customer = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
 			 		end
 
 			 		it 'finds the customer' do
 			 			expect(@found_customer).to eq @customer
 			 		end
 			 		
-			 		it 'creates a wallet with 500 points' do
-			 			expect(@found_customer.wallet_for(@other_business).points).to eq 500
+			 		it 'creates a membership with 500 points' do
+			 			expect(@found_customer.membership_for(@other_business).points).to eq 500
 			 		end
 			 	end
 
-			 	context '[Customer exist and has wallet with business]' do
+			 	context '[Customer exist and has membership with business]' do
 			 		before :each do
-			 			@found_customer = Customer.find_or_create_with_wallet(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
+			 			@found_customer = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
 			 		end
 
 			 		it 'finds the customer' do
 			 			expect(@found_customer).to eq @customer
 			 		end
 			 		
-			 		it 'finds a wallet with 500 points and adds 250 more points' do
-			 			expect(@found_customer.wallet_for(@business).points).to eq 750
+			 		it 'finds a membership with 500 points and adds 250 more points' do
+			 			expect(@found_customer.membership_for(@business).points).to eq 750
 			 		end
 			 	end
 				 
@@ -128,7 +128,7 @@ RSpec.describe Customer, type: :model do
 		describe "Visits" do
 			it "#visit!" do
 				location = FactoryGirl.create(:location_with_business)
-				customer = FactoryGirl.create(:customer_with_wallet_without_business, business: location.business)
+				customer = FactoryGirl.create(:customer_with_membership_without_business, business: location.business)
 				expect{customer.visit!(location)}.to change{Visit.count}.by(1)
 			end
 

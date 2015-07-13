@@ -2,7 +2,7 @@ require 'csv'
 
 class Customer < ActiveRecord::Base
 	enum status: [:inactive, :active]
-	has_many :wallets
+	has_many :memberships
 	has_many :visits
 	has_many :locations, through: :visits
 
@@ -26,7 +26,7 @@ class Customer < ActiveRecord::Base
 
 	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |chunk_row|
 	  	chunk_row.each do |row|
-	  		customer, is_new_to_business = Customer.find_or_create_with_wallet(row.merge({business: opts[:business]}))
+	  		customer, is_new_to_business = Customer.find_or_create_with_membership(row.merge({business: opts[:business]}))
 	  		if customer
 	  			newly_imported_customers.push(customer) if is_new_to_business
 	  		end
@@ -37,23 +37,23 @@ class Customer < ActiveRecord::Base
 	end
 
 
-	def self.find_or_create_with_wallet(opts)
+	def self.find_or_create_with_membership(opts)
 		# Find or create the customer
 		customer = Customer.create_with(
 			first_name: opts[:first_name], 
 			last_name:  opts[:last_name]
 		).find_or_create_by(email: opts[:email])
 
-		# Find or create the wallet
+		# Find or create the membership
 		if customer.valid?
 			is_new_to_business = false
 
-			wallet = Wallet.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business]) do |w|
+			membership = Membership.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business]) do |w|
 				# The block of "find_or_create_by" only gets executed if the object is new
 				# So, we set this to true so we know that it had already existed
 				is_new_to_business = true
 			end
-			wallet.increment!(:points, opts[:points]) if opts[:points] > 0
+			membership.increment!(:points, opts[:points]) if opts[:points] > 0
 
 			[customer, is_new_to_business]
 		else
@@ -70,8 +70,8 @@ class Customer < ActiveRecord::Base
 		[last_name, first_name].join(', ')
 	end
 
-	def wallet_for(business_obj)
-		wallets.where(business: business_obj).first
+	def membership_for(business_obj)
+		memberships.where(business: business_obj).first
 	end
 	
 	def visit!(location)

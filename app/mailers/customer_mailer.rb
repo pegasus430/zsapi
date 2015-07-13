@@ -11,7 +11,7 @@ class CustomerMailer < ApplicationMailer
 				'{FIRST_NAME}' => opts[:customer].first_name,
 				'{LAST_NAME}'  => opts[:customer].last_name,
 				'{EMAIL}'      => opts[:customer].email,
-				'{POINTS}'     => opts[:customer].wallet_for(opts[:business]).points.to_s,
+				'{POINTS}'     => opts[:customer].membership_for(opts[:business]).points.to_s,
   		}
 
   		%w({FULL_NAME} {FIRST_NAME} {LAST_NAME} {EMAIL} {POINTS}).each do |tag|
@@ -22,7 +22,7 @@ class CustomerMailer < ApplicationMailer
     else
     	@name    = opts[:customer].name
     	@email   = opts[:customer].email
-    	@points  = opts[:customer].wallet_for(opts[:business]).points.to_s
+    	@points  = opts[:customer].membership_for(opts[:business]).points.to_s
 
     	moo = mail to: opts[:customer].email, subject: subject
     end

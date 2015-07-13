@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Wallet, type: :model do
+RSpec.describe Membership, type: :model do
 
   describe "Validations" do
 	  it "cannot have less than 0 points" do
-  		@customer = FactoryGirl.create(:customer_with_wallet)
-  		expect( @customer.wallets.length ).to eq 1
-	  	expect(FactoryGirl.build(:wallet, points: -5)).not_to be_valid
+  		@customer = FactoryGirl.create(:customer_with_membership)
+  		expect( @customer.memberships.length ).to eq 1
+	  	expect(FactoryGirl.build(:membership, points: -5)).not_to be_valid
 	  end
 	end
 
@@ -21,14 +21,14 @@ RSpec.describe Wallet, type: :model do
 		before :each do
 			@business = FactoryGirl.create(:business)
 			@customer = FactoryGirl.create(:customer)
-			@wallet   = FactoryGirl.create(:wallet, business: @business, customer: @customer, points: 500)
+			@membership   = FactoryGirl.create(:membership, business: @business, customer: @customer, points: 500)
 		end
 
 		it "#increment!(amount)" do
 			# This is a rails method, but we are testing it's implementation here
-			@wallet.increment!(:points, 250)
-			@wallet.reload
-			expect(@wallet.points).to eq 750
+			@membership.increment!(:points, 250)
+			@membership.reload
+			expect(@membership.points).to eq 750
 		end
 
 	end

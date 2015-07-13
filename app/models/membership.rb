@@ -1,4 +1,4 @@
-class Wallet < ActiveRecord::Base
+class Membership < ActiveRecord::Base
 	belongs_to :business
 	belongs_to :customer
 

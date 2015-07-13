@@ -54,7 +54,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @location = FactoryGirl.create(:location_with_business)
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
-      @wallet = FactoryGirl.create(:wallet, customer: customer, business: @location.business)
+      @membership = FactoryGirl.create(:membership, customer: customer, business: @location.business)
     end
     
     context '[Customer token exists]' do
@@ -82,9 +82,9 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
-      @mcd_wallet = FactoryGirl.create(:wallet, customer: customer, business: @mcdonalds.business)
-      @wh_wallet = FactoryGirl.create(:wallet, customer: customer, business: @waffle_house.business)
-      @ts_wallet = FactoryGirl.create(:wallet, customer: customer, business: @titans_stadium.business)
+      @mcd_membership = FactoryGirl.create(:membership, customer: customer, business: @mcdonalds.business)
+      @wh_membership = FactoryGirl.create(:membership, customer: customer, business: @waffle_house.business)
+      @ts_membership = FactoryGirl.create(:membership, customer: customer, business: @titans_stadium.business)
     end
     
     context '[Customer token exists]' do
@@ -109,9 +109,9 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
-      @mcd_wallet = FactoryGirl.create(:wallet, customer: customer, business: @mcdonalds.business)
-      @wh_wallet = FactoryGirl.create(:wallet, customer: customer, business: @waffle_house.business)
-      @ts_wallet = FactoryGirl.create(:wallet, customer: customer, business: @titans_stadium.business)
+      @mcd_membership = FactoryGirl.create(:membership, customer: customer, business: @mcdonalds.business)
+      @wh_membership = FactoryGirl.create(:membership, customer: customer, business: @waffle_house.business)
+      @ts_membership = FactoryGirl.create(:membership, customer: customer, business: @titans_stadium.business)
     end
     
     context '[Customer token exists]' do

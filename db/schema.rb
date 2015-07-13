@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708022833) do
+ActiveRecord::Schema.define(version: 20150713152632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,21 +95,18 @@ ActiveRecord::Schema.define(version: 20150708022833) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string   "first_name",                         null: false
-    t.string   "last_name",                          null: false
-    t.string   "email",                              null: false
-    t.boolean  "contacted",          default: false, null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "first_name",                     null: false
+    t.string   "last_name",                      null: false
+    t.string   "email",                          null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "social_type"
     t.string   "social_id"
     t.string   "social_token"
     t.string   "notification_token"
     t.text     "social_friends"
-    t.integer  "status",             default: 0,     null: false
+    t.integer  "status",             default: 0, null: false
   end
-
-  add_index "customers", ["contacted"], name: "index_customers_on_contacted", using: :btree
 
   create_table "greetings", force: :cascade do |t|
     t.string   "welcome_message"
@@ -163,6 +160,20 @@ ActiveRecord::Schema.define(version: 20150708022833) do
   add_index "locations", ["greeting_id"], name: "index_locations_on_greeting_id", using: :btree
   add_index "locations", ["latitude"], name: "index_locations_on_latitude", using: :btree
   add_index "locations", ["longitude"], name: "index_locations_on_longitude", using: :btree
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "business_id",                              null: false
+    t.integer  "customer_id",                              null: false
+    t.integer  "points",                   default: 0,     null: false
+    t.datetime "last_visit_at"
+    t.datetime "last_exit_at"
+    t.integer  "exit_campaign_id"
+    t.datetime "exit_campaign_expires_at"
+    t.boolean  "notified",                 default: false, null: false
+  end
+
+  add_index "memberships", ["business_id"], name: "index_memberships_on_business_id", using: :btree
+  add_index "memberships", ["customer_id"], name: "index_memberships_on_customer_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.string   "buyer_ip",                   null: false
@@ -248,26 +259,18 @@ ActiveRecord::Schema.define(version: 20150708022833) do
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree
   add_index "visits", ["location_id"], name: "index_visits_on_location_id", using: :btree
 
-  create_table "wallets", force: :cascade do |t|
-    t.integer "business_id",             null: false
-    t.integer "customer_id",             null: false
-    t.integer "points",      default: 0, null: false
-  end
-
-  add_index "wallets", ["business_id"], name: "index_wallets_on_business_id", using: :btree
-  add_index "wallets", ["customer_id"], name: "index_wallets_on_customer_id", using: :btree
-
   add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "identities", "customers"
   add_foreign_key "identities", "users"
   add_foreign_key "locations", "greetings"
+  add_foreign_key "memberships", "businesses"
+  add_foreign_key "memberships", "campaigns", column: "exit_campaign_id"
+  add_foreign_key "memberships", "customers"
   add_foreign_key "receipts", "locations"
   add_foreign_key "redemptions", "campaigns"
   add_foreign_key "redemptions", "customers"
   add_foreign_key "redemptions", "locations"
   add_foreign_key "visits", "customers"
   add_foreign_key "visits", "locations"
-  add_foreign_key "wallets", "businesses"
-  add_foreign_key "wallets", "customers"
 end

@@ -12,7 +12,7 @@ RSpec.describe CustomersController, type: :controller do
       @user = FactoryGirl.create(:user)
       sign_in :user, @user
       @business = FactoryGirl.create(:business, user: @user)
-      @all_customers = FactoryGirl.create_list(:customer_with_wallet_without_business, 10, business: @business, status: 'active')
+      @all_customers = FactoryGirl.create_list(:customer_with_membership_without_business, 10, business: @business, status: 'active')
       @active_customers = @all_customers.first(5)
       @inactive_customers = @all_customers.last(5).each { |c| c.status = 'inactive'; c.save }
       FactoryGirl.create_list(:customer, 5)
@@ -95,8 +95,8 @@ RSpec.describe CustomersController, type: :controller do
           context '[Importing an pre-existing customer to the business]' do
             it 'does not notify the customers twice to the same business' do
               # Create customers already in DB for business
-              wes    = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
-              calton = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Calton', last_name: 'Jammies', email: 'cj@cs.com')
+              wes    = FactoryGirl.create(:customer_with_membership_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
+              calton = FactoryGirl.create(:customer_with_membership_without_business, business: @business, first_name: 'Calton', last_name: 'Jammies', email: 'cj@cs.com')
 
               # Import the second time
               post :import, file: @file, notify: true
@@ -107,7 +107,7 @@ RSpec.describe CustomersController, type: :controller do
 
             it 'notifies only the new-to-business customer' do
               # Create customers already in DB
-              our_business_cust   = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
+              our_business_cust   = FactoryGirl.create(:customer_with_membership_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
               other_business_cust = FactoryGirl.create(:customer)
 
               # Import the file
@@ -138,7 +138,7 @@ RSpec.describe CustomersController, type: :controller do
 
         it 'ignores the negative value of points for the new customer' do
           post :import, file: @file
-          expect(Customer.find_by_first_name('C1alton').wallet_for(@business).points).to eq 0
+          expect(Customer.find_by_first_name('C1alton').membership_for(@business).points).to eq 0
         end
 
         context '[Notify new customers]' do

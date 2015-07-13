@@ -39,8 +39,8 @@ RSpec.describe "Customers", type: :feature do
       end
 
       it "lists the customers" do
-        customer = FactoryGirl.create(:customer_with_wallet_without_business, first_name: "John", last_name: "Smith", business: @user.business)
-        customer.wallet = @user.business
+        customer = FactoryGirl.create(:customer_with_membership_without_business, first_name: "John", last_name: "Smith", business: @user.business)
+        customer.membership = @user.business
         customer.set_points(357)
         visit customers_url
         expect(page).to have_content ("Smith, John")

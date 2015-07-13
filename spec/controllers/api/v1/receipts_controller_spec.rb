@@ -9,7 +9,7 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       business = FactoryGirl.create(:business_with_locations)
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
-      FactoryGirl.create(:wallet, business: business, customer: customer)
+      FactoryGirl.create(:membership, business: business, customer: customer)
       @location = business.locations.first
     end
     
