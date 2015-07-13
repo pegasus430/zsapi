@@ -1,4 +1,7 @@
 class Greeting < ActiveRecord::Base
+	enum exit_freq_type: [:days, :weeks, :months]
+	enum welcome_reward_freq: [:daily, :weekly, :monthly]
+
 	DAYS 		= 0
 	WEEKS 	= 1
 	MONTHS 	= 2

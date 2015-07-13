@@ -1,3 +1,10 @@
+7/11/15
+	13:05-
+		The testing is complete! All looks well.
+
+	11:46+
+		Finishing the CSV test noted from yesterday. Then onto greetings! The goal today is to get half of the greetings setup (as per the gantt chart)
+
 7/10/15
 	14:27-
 		Working on the "twice" import mail test. Can't post twice, so ***I need to manually create the users from the valid CSV and then run post.

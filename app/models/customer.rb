@@ -26,9 +26,9 @@ class Customer < ActiveRecord::Base
 
 	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |chunk_row|
 	  	chunk_row.each do |row|
-	  		customer = Customer.find_or_create_with_wallet(row.merge({business: opts[:business]}))
+	  		customer, is_new_to_business = Customer.find_or_create_with_wallet(row.merge({business: opts[:business]}))
 	  		if customer
-	  			newly_imported_customers.push(customer) if customer.persisted?
+	  			newly_imported_customers.push(customer) if is_new_to_business
 	  		end
 	  	end
   	end
@@ -39,16 +39,25 @@ class Customer < ActiveRecord::Base
 
 	def self.find_or_create_with_wallet(opts)
 		# Find or create the customer
-		customer = Customer.create_with(first_name: opts[:first_name], last_name: opts[:last_name]).find_or_create_by(email: opts[:email])
+		customer = Customer.create_with(
+			first_name: opts[:first_name], 
+			last_name:  opts[:last_name]
+		).find_or_create_by(email: opts[:email])
 
 		# Find or create the wallet
 		if customer.valid?
-			wallet = Wallet.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business])
+			is_new_to_business = false
+
+			wallet = Wallet.create_with(points: 0).find_or_create_by(customer: customer, business: opts[:business]) do |w|
+				# The block of "find_or_create_by" only gets executed if the object is new
+				# So, we set this to true so we know that it had already existed
+				is_new_to_business = true
+			end
 			wallet.increment!(:points, opts[:points]) if opts[:points] > 0
 
-			customer
+			[customer, is_new_to_business]
 		else
-			false
+			[false, false]
 		end
 	end
 

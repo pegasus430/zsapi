@@ -92,17 +92,27 @@ RSpec.describe CustomersController, type: :controller do
             clear_mail_deliveries
           end
 
-          context '[Importing the same list twice]' do
-            it 'does not notify the customers twice' do
-              # Import the first time
-              post :import, file: @file, notify: true
-              # expect(ActionMailer::Base.deliveries.size).to eq 2
+          context '[Importing an pre-existing customer to the business]' do
+            it 'does not notify the customers twice to the same business' do
+              # Create customers already in DB for business
+              wes    = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
+              calton = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Calton', last_name: 'Jammies', email: 'cj@cs.com')
 
-              clear_mail_deliveries
-              
               # Import the second time
               post :import, file: @file, notify: true
               expect(ActionMailer::Base.deliveries.size).to eq 0
+
+              clear_mail_deliveries
+            end
+
+            it 'notifies only the new-to-business customer' do
+              # Create customers already in DB
+              our_business_cust   = FactoryGirl.create(:customer_with_wallet_without_business, business: @business, first_name: 'Wes', last_name: 'Foster', email: 'ww@ww.com')
+              other_business_cust = FactoryGirl.create(:customer)
+
+              # Import the file
+              post :import, file: @file, notify: true
+              expect(ActionMailer::Base.deliveries.size).to eq 1
 
               clear_mail_deliveries
             end

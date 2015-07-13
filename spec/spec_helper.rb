@@ -44,6 +44,10 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  # Guard - Allow a "filter" so only specific tests can be ran
+  config.filter_run :focus => true
+  config.run_all_when_everything_filtered = true
+
   # Devise
   config.include Devise::TestHelpers, :type => :controller
 
