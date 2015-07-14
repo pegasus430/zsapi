@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713152632) do
+ActiveRecord::Schema.define(version: 20150714024337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,16 +111,15 @@ ActiveRecord::Schema.define(version: 20150713152632) do
   create_table "greetings", force: :cascade do |t|
     t.string   "welcome_message"
     t.integer  "welcome_reward"
-    t.integer  "welcome_reward_freq", default: 0
     t.string   "exit_message"
-    t.integer  "exit_campaign_id"
-    t.integer  "exit_freq_days"
-    t.integer  "exit_freq_type",      default: 0
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "campaign_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "campaign_wait_time", default: 0, null: false
+    t.integer  "welcome_wait_time",  default: 0, null: false
   end
 
-  add_index "greetings", ["exit_campaign_id"], name: "index_greetings_on_exit_campaign_id", using: :btree
+  add_index "greetings", ["campaign_id"], name: "index_greetings_on_campaign_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -165,9 +164,8 @@ ActiveRecord::Schema.define(version: 20150713152632) do
     t.integer  "business_id",                              null: false
     t.integer  "customer_id",                              null: false
     t.integer  "points",                   default: 0,     null: false
-    t.datetime "last_visit_at"
-    t.datetime "last_exit_at"
-    t.integer  "exit_campaign_id"
+    t.datetime "welcome_reward_valid_at"
+    t.integer  "campaign_id"
     t.datetime "exit_campaign_expires_at"
     t.boolean  "notified",                 default: false, null: false
   end
@@ -250,10 +248,11 @@ ActiveRecord::Schema.define(version: 20150713152632) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
-    t.integer  "customer_id",             null: false
-    t.integer  "location_id",             null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "total",       default: 0
+    t.integer  "customer_id",   null: false
+    t.integer  "location_id",   null: false
+    t.datetime "last_visit_at"
+    t.datetime "last_exit_at"
+    t.integer  "total"
   end
 
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree
@@ -261,11 +260,13 @@ ActiveRecord::Schema.define(version: 20150713152632) do
 
   add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "schedules"
+  add_foreign_key "greetings", "campaigns"
   add_foreign_key "identities", "customers"
   add_foreign_key "identities", "users"
   add_foreign_key "locations", "greetings"
   add_foreign_key "memberships", "businesses"
-  add_foreign_key "memberships", "campaigns", column: "exit_campaign_id"
+  add_foreign_key "memberships", "campaigns"
+  add_foreign_key "memberships", "campaigns"
   add_foreign_key "memberships", "customers"
   add_foreign_key "receipts", "locations"
   add_foreign_key "redemptions", "campaigns"

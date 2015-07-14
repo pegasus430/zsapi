@@ -2,7 +2,8 @@ class RenameWalletsToMemberships < ActiveRecord::Migration
   def up
   	rename_table :wallets, :memberships
 
-  	add_column :memberships, :last_visit_at, :datetime
+    add_column :memberships, :last_visit_at, :datetime
+  	add_column :memberships, :welcome_reward_valid_at, :datetime
   	add_column :memberships, :last_exit_at, :datetime
   	add_column :memberships, :exit_campaign_id, :integer
   	add_column :memberships, :exit_campaign_expires_at, :datetime
@@ -15,11 +16,12 @@ class RenameWalletsToMemberships < ActiveRecord::Migration
   end
 
   def down
-  	remove_foreign_key :memberships, :campaigns, column: :exit_campaign_id
+  	remove_foreign_key :memberships, :campaigns
 
   	remove_column :memberships, :last_visit_at
+    remove_column :memberships, :welcome_reward_valid_at
   	remove_column :memberships, :last_exit_at
-  	remove_column :memberships, :exit_campaign
+  	remove_column :memberships, :exit_campaign_id
   	remove_column :memberships, :exit_campaign_expires_at
   	remove_column :memberships, :notified
 

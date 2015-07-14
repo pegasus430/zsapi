@@ -73,9 +73,13 @@ class Customer < ActiveRecord::Base
 	def membership_for(business_obj)
 		memberships.where(business: business_obj).first
 	end
-	
-	def visit!(location)
-		Visit.create_or_increment(customer: self, location: location)
+
+	def check_in_to!(location)
+		Visit.check_in!(customer: self, location: location)
+	end
+
+	def check_out_from!(location)
+		Visit.check_out!(customer: self, location: location)
 	end
 
 	def visits_for(location)

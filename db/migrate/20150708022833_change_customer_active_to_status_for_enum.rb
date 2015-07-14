@@ -6,6 +6,6 @@ class ChangeCustomerActiveToStatusForEnum < ActiveRecord::Migration
 
   def down
   	remove_column :customers, :status
-  	add_colimn :customers, :active, :boolean, null: false, default: false
+  	add_column :customers, :active, :boolean, null: false, default: false
   end
 end

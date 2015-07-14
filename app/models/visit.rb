@@ -2,15 +2,61 @@ class Visit < ActiveRecord::Base
   belongs_to :customer
   belongs_to :location
 
-  validates_presence_of :updated_at
+  validates_presence_of :total
 
-  before_save { |v| v.updated_at = Time.now }
 
-  def self.create_or_increment(option={})
-  	customer = option[:customer]
-		location = option[:location]
+  def self.check_in!(opts)
+    customer = opts[:customer]
+    location = opts[:location]
 
-  	visit = Visit.find_or_create_by(customer: customer, location: location)
-  	visit.increment!(:total)
+    # Create the visit for the location
+    visit = Visit.find_or_create_by(customer: customer, location: location)
+    visit.last_visit_at = Time.now
+    visit.increment(:total)
+    visit.save
+
+    # Get the greeting
+    greeting   = location.greeting
+    membership = customer.membership_for(location.business)
+
+    # Check if we've waited long enough before returning so we can get the reward
+    if membership.can_receive_welcome_reward?
+      points_earned = greeting.welcome_reward
+    end
+    points_earned ||= 0
+    
+    # Update the membership
+    membership.increment(:points, points_earned )
+    membership.set_new_welcome_reward_valid_at(greeting.welcome_wait_time)
+    membership.save
+
+    # Check if we have a valid exit-campaign to show
+    exit_campaign = membership.exit_campaign_valid? ? membership.campaign : nil
+
+    return {
+      message:        greeting.welcome_message,
+      points_earned:  points_earned,
+      campaign:       exit_campaign
+    }
+  end
+
+
+  def self.check_out!(opts)
+    customer = opts[:customer]
+    location = opts[:location]
+
+    # Get the greeting
+    greeting   = location.greeting
+    membership = customer.membership_for(location.business)
+
+    membership.campaign = greeting.campaign
+    membership.set_new_exit_campaign_expires_at(greeting.campaign_wait_time)
+    membership.save
+
+    return {
+      message:    greeting.exit_message,
+      wait_time:  greeting.campaign_wait_time,
+      campaign:   greeting.campaign
+    }
   end
 end
