@@ -12,13 +12,13 @@
 <p class="alert"><%= alert %></p>
 
 <ul>
-	<li><a href="<%= root_path %>">Dashboard</a></li>
-	<li><a href="<%= edit_business_path %>">Biz Profile</a></li>
-	<li><a href="<%= greetings_path %>">Greetings</a></li>
-	<li><a href="<%= campaigns_path %>">Campaigns</a></li>
-	<li><a href="<%= customers_path %>">Customers</a></li>
-	<li><a href="<%= receipts_path %>">Receipts</a></li>
-	<li><a href="<%= locations_path %>">Locations</a></li>
+	<li><%= link_to 'Dashboard', root_path %></li>
+	<li><%= link_to 'Biz Profile', edit_business_path %></li>
+	<li><%= link_to 'Greetings', greetings_path %></li>
+	<li><%= link_to 'Campaigns', campaigns_path %></li>
+	<li><%= link_to 'Customers', customers_path %></li>
+	<li><%= link_to 'Receipts', receipts_path %></li>
+	<li><%= link_to 'Locations', locations_path %></li>
 </ul>
 
 <%= yield %>
