@@ -1,3 +1,18 @@
+7/15/15
+	
+
+	11:50+
+		Today I'll be working on the locations checklist:
+			- Locations index separate by status
+			- Create forms, show greeting options
+			- Show payment information
+			- Link to TOS
+			- Confirm locations
+			  - Create form
+			  - Link to from index
+			- Single location
+			  - Show overview of stats
+
 7/13/15
 	22:41-
 		What a long day! Memberships setup, greeting on check in and check out, re-structured the greetings, visits, and memberships. All tests implemented and passing!

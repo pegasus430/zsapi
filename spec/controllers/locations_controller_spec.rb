@@ -8,6 +8,29 @@ RSpec.describe LocationsController, type: :controller do
     sign_in @user
   end
 
+  describe 'GET #index' do
+    before :each do
+      FactoryGirl.create_list(:active_location, 2, business: @user.business)
+      FactoryGirl.create_list(:pending_location, 2, business: @user.business)
+      
+      other_business = FactoryGirl.create(:business)
+      FactoryGirl.create_list(:active_location, 2, business: other_business)
+    end
+
+    it 'assigns @active_locations' do
+      get :index
+      expect(assigns(:active_locations).size).to eq 2
+    end
+
+    it 'assigns @pending_locations' do
+      get :index
+      expect(assigns(:pending_locations).size).to eq 2
+    end
+
+  end
+
+
+
   describe "GET #edit" do
     it "assigns @location" do
       get :edit, id: @location

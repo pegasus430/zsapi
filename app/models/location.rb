@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :campaigns
   belongs_to :greeting
 
-  # accepts_nested_attributes_for :notifications, allow_destroy: true
+  # accepts_nested_attributes_for :greetings, allow_destroy: true
 
   validates_presence_of :address, :city, :state, :zipcode
   validates_length_of :state, is: 2
@@ -19,20 +19,15 @@ class Location < ActiveRecord::Base
   geocoded_by :full_address
   after_validation :geocode, on: [:create], if: Proc.new { |l| l.address.present? && l.address2 != 'ignore' }
 
-  def self.active
-  	Location.joins(:beacon)
-  end
-
-  def self.pending
-  	Location.includes(:beacon).where(beacons: {id: nil})
-  end
+  scope :active,  -> { joins(:beacon).where(beacons: {status: Beacon.statuses[:active]}) }
+  scope :pending, -> { joins(:beacon).where('beacons.id IS NULL OR beacons.status = ?', Beacon.statuses[:inactive]) }
 
   def active?
     !beacon.nil? && beacon.active?
   end
 
   def pending?
-  	beacon.nil? || beacon.void?
+  	beacon.nil? || beacon.inactive?
   end
 
   def full_address(params = {})

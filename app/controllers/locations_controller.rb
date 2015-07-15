@@ -4,7 +4,8 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+    @active_locations  = current_user.business.locations.active
+    @pending_locations = current_user.business.locations.pending
   end
 
   # GET /locations/1

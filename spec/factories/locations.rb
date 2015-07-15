@@ -20,9 +20,22 @@ FactoryGirl.define do
 			end
 		end
 
+		# Same as below
 		factory :location_with_beacon do
 			before :create do |l|
-				create(:beacon, location: l)
+				create(:inactive_beacon, location: l)
+			end
+		end
+		#Same as abov
+		factory :pending_location do
+			before :create do |l|
+				create(:inactive_beacon, location: l)
+			end
+		end
+
+		factory :active_location do
+			before :create do |l|
+				create(:active_beacon, location: l)
 			end
 		end
   end

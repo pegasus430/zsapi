@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714024337) do
+ActiveRecord::Schema.define(version: 20150715184652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20150714024337) do
   create_table "beacons", force: :cascade do |t|
     t.integer  "location_id"
     t.string   "uuid"
-    t.boolean  "void",        default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 0, null: false
   end
 
   add_index "beacons", ["location_id"], name: "index_beacons_on_location_id", using: :btree

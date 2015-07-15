@@ -29,14 +29,21 @@ RSpec.describe Beacon, type: :model do
 
 	describe "Methods" do
 		it '#active?' do
-			beacon = FactoryGirl.create(:beacon, void: true)
-			expect(beacon.active?).to be_falsey
+			beacon = FactoryGirl.create(:active_beacon)
+			expect(beacon.active?).to be_truthy
 		end
 
-		it 'activate!' do
-			beacon = FactoryGirl.create(:beacon, void: true)
-			beacon.activate!
-			expect(beacon).to be_active
+		describe 'activate!' do
+			context '[Beacon inactive]' do
+				before :each do
+					@inactive_beacon = FactoryGirl.create(:inactive_beacon)
+				end
+
+				it 'activates the inactive beacon' do
+					@inactive_beacon.activate!
+					expect(@inactive_beacon).to be_active
+				end
+			end
 		end
 
 	end

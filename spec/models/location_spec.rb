@@ -54,10 +54,11 @@ RSpec.describe Location, type: :model do
 
 		it "#active?" do
 			location_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.void = false
+			location_beacon.beacon.status = 'active'
 			expect(location_beacon.active?).to be_truthy
 
 			location_void_beacon = FactoryGirl.create(:location_with_beacon)
+			location_beacon.beacon.status = 'inactive'
 			expect(location_void_beacon.active?).to be_falsey
 
 			location_no_beacon = FactoryGirl.create(:location)
@@ -66,10 +67,11 @@ RSpec.describe Location, type: :model do
 
 		it "#pending?" do
 			location_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.void = false
+			location_beacon.beacon.status = 'active'
 			expect(location_beacon.pending?).to be_falsey
 
 			location_void_beacon = FactoryGirl.create(:location_with_beacon)
+			location_beacon.beacon.status = 'inactive'
 			expect(location_void_beacon.pending?).to be_truthy
 
 			location_no_beacon = FactoryGirl.create(:location)
@@ -89,14 +91,14 @@ RSpec.describe Location, type: :model do
 
 	describe "Scopes" do
 		it ".active" do
-			FactoryGirl.create_list(:location_with_beacon, 3)
-			FactoryGirl.create(:location)
+			FactoryGirl.create_list(:active_location, 3)
+			FactoryGirl.create(:pending_location)
 			expect(Location.active.length).to eq 3
 		end
 
 		it ".pending" do
-			FactoryGirl.create_list(:location_with_beacon, 3)
-			FactoryGirl.create(:location)
+			FactoryGirl.create_list(:active_location, 3)
+			FactoryGirl.create(:pending_location)
 			expect(Location.pending.length).to eq 1
 		end
 	end
