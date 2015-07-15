@@ -1,0 +1,34 @@
+<div class="field">
+	<%= f.label :welcome_message %> <br>
+	<%= f.text_field :welcome_message %>
+</div>
+
+<div class="field">
+	<%= f.label :welcome_reward, 'Check-in reward points' %> <br>
+	<%= f.number_field :welcome_reward %>
+
+	<%= f.label :welcome_wait_time, 'per' %> <br>
+	<%= f.select :welcome_wait_time, %w(day week month) %>
+</div>
+
+<div class="field">
+	<%= f.label :exit_message %> <br>
+	<%= f.text_field :exit_message %>
+</div>
+
+<div>
+	<%= check_box_tag 'attach_campaign' %>
+	Attach a campaign?
+</div>
+
+<fieldset>
+	<div class="field">
+		<%= f.select :campaign, options_from_collection_for_select(@campaigns, 'id', 'title'), prompt: 'Choose a campaign' %>
+	</div>
+
+	Within
+
+	<%= number_field_tag :campaign_wait_time_quantity %>
+	<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
+	(enter 0 for no restriction)
+</fieldset>

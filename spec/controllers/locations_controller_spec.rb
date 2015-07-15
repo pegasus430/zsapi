@@ -98,61 +98,129 @@ RSpec.describe LocationsController, type: :controller do
   end
 
 
-  # describe "GET #new" do
-  #   it "builds a location from the current business" do
-  #     get :new
-  #     expect(assigns(:location)).to eq(Location.new(business: @user.business))
-  #   end
+  describe "GET #new" do
+    it 'builds a location from the current business' do
+      get :new
+      expect(assigns(:location).business).to eq @user.business
+    end
 
-  #   it "renders the new form" do
-  #     get :new
-  #     expect(response).to render_template :new
-  #   end
-  # end
+    it 'gets the list of greetings' do
+      greetings = FactoryGirl.create_list(:greeting, 3, business: @user.business)
+      other_business_greeting = FactoryGirl.create(:greeting, business: FactoryGirl.create(:business))
+      get :new
+      expect(assigns(:greetings)).to eq greetings
+    end
+
+    it 'gets the list of campaigns' do
+      campaigns = FactoryGirl.create_list(:campaign, 3, locations: [@location])
+      other_location_campaigns = FactoryGirl.create(:campaign, locations: [FactoryGirl.create(:location)])
+      get :new
+      expect(assigns(:campaigns)).to eq campaigns
+    end
+  end
+
+
+  describe 'POST #create' do
+    context '[Valid Location/Greeting Params]' do
+      context '[Valid payment details]' do
+        before :each do
+          Stripe.api_key = Rails.configuration.stripe.secret_key
+          @token = Stripe::Token.create(
+            card: {
+              number:     "4242424242424242",
+              exp_month:  6,
+              exp_year:   2016,
+              cvc:        "314"
+            }
+          )
+        end
+
+        it 'creates a payment' do
+          # # Amount in cents
+          # @amount = 500
+
+          # customer = Stripe::Customer.create(
+          #   :email => 'example@stripe.com',
+          #   :card  => params[:stripeToken]
+          # )
+
+          # charge = Stripe::Charge.create(
+          #   :customer    => customer.id,
+          #   :amount      => @amount,
+          #   :description => 'Rails Stripe customer',
+          #   :currency    => 'usd'
+          # )
+
+          # rescue Stripe::CardError => e
+          #   flash[:error] = e.message
+          #   redirect_to charges_path
+          # end
+        end
+
+        it 'creates a beacon'
+        it 'creates the location'
+      end
+
+      context '[Invalid payment details]' do
+        it 'does not create a payment'
+        it 'does not create a beacon'
+        it 'does not create a location'
+        it 'renders the location#new'
+      end
+    end
+
+    context '[Invalid location/greeting params]' do
+      it 'does not create a payment'
+      it 'does not create a beacon'
+      it 'does not create a location'
+      it 'renders the location#new'
+    end
+  end
+
 
   # describe "PUT #update" do
   #   before :each do
-  #     @receipt = FactoryGirl.create(:receipt)
+  #     @location = FactoryGirl.create(:location)
   #   end
 
   #   context "with valid params" do
-  #     it "locates the requested receipt" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt)
-  #       expect(assigns(:receipt)).to eq(@receipt)
+  #     it "locates the requested location" do
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location)
+  #       expect(assigns(:location)).to eq(@location)
   #     end
 
   #     it "changes the attributes on save" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
-  #       @receipt.reload
-  #       expect(@receipt.amount.to_i).to eq 15
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
+  #       @location.reload
+  #       expect(@location.amount.to_i).to eq 15
   #     end
 
   #     it "updates the actioned_on date when saved" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
-  #       @receipt.reload
-  #       expect(@receipt.actioned_on).not_to be_blank
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
+  #       @location.reload
+  #       expect(@location.actioned_on).not_to be_blank
   #     end
 
-  #     it "redirects to the receipts list" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt, amount: 15)
-  #       expect(response).to redirect_to(admin_receipts_url)
+  #     it "redirects to the locations list" do
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
+  #       expect(response).to redirect_to(admin_locations_url)
   #     end
   #   end
 
   #   context "with invalid params" do
-  #     it "locates the requested receipt" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt)
-  #       expect(assigns(:receipt)).to eq(@receipt)
+  #     it "locates the requested location" do
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location)
+  #       expect(assigns(:location)).to eq(@location)
   #     end
 
   #     it "does not change the attributes" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, amount: 15)
-  #       @receipt.reload
-  #       expect(@receipt.amount.to_i).not_to eq 15
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location, amount: 15)
+  #       @location.reload
+  #       expect(@location.amount.to_i).not_to eq 15
   #     end
 
   #     it "re-renders the index template" do
-  #       put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt)
+  #       put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location)
   #       expect(response).to render_template :index
   #     end
   #   end
@@ -160,18 +228,18 @@ RSpec.describe LocationsController, type: :controller do
 
   # describe "DELETE #destroy" do
   #   before :each do
-  #     @receipt = FactoryGirl.create(:receipt)
+  #     @location = FactoryGirl.create(:location)
   #   end
 
-  #   it "destroys the requested receipt" do
+  #   it "destroys the requested location" do
   #     expect {
-  #       delete :destroy, id: @receipt
+  #       delete :destroy, id: @location
   #     }.to change(Receipt, :count).by(-1)
   #   end
 
-  #   it "redirects to the receipts list" do
-  #     delete :destroy, id: @receipt
-  #     expect(response).to redirect_to(admin_receipts_url)
+  #   it "redirects to the locations list" do
+  #     delete :destroy, id: @location
+  #     expect(response).to redirect_to(admin_locations_url)
   #   end
   # end
 

@@ -2,6 +2,7 @@ FactoryGirl.define do
 	
   factory :greeting do
 		campaign
+		business
 		welcome_message				"Hey"
 		welcome_reward				100
 		welcome_wait_time 		{ 1.day.to_i }

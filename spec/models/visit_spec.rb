@@ -28,30 +28,135 @@ RSpec.describe Visit, type: :model do
 
 
 	describe 'Methods' do
-		describe '.create_or_increment' do
+
+		describe '.check_in!' do
 			before :each do
-				skip
+				@business = FactoryGirl.create(:business)
 				@customer = FactoryGirl.create(:customer)
-				@location = FactoryGirl.create(:location)
+				@greeting = FactoryGirl.create(:greeting)
+				@location = FactoryGirl.create(:location, business: @business, greeting: @greeting)
 			end
 
-			context '[Visit does not exist]' do
-				it 'creates the visit' do
-					expect {
-						Visit.create_or_increment(customer: @customer, location: @location)
-					}.to change{Visit.count}.by(1)
-					expect(Visit.last.total).to eq 1
+			context '[Customer is new. Never exited]' do
+				before :each do
+					@membership = FactoryGirl.create(:membership,
+						business: @business,
+						customer: @customer,
+						campaign: nil,
+						welcome_reward_valid_at: nil
+					)
+				end
+				
+				it 'returns the welcome message' do
+					result = @customer.check_in_to!(@location)
+					expect(result[:message]).to eq "Hey"
+				end
+
+				it 'returns the points earned (100)' do
+					result = @customer.check_in_to!(@location)
+					expect(result[:points_earned]).to eq 100
+				end
+
+				it 'returns a nil campaign' do
+					result = @customer.check_in_to!(@location)
+					expect(result[:campaign]).to be_nil
+				end
+
+				it 'adds points earned to customer' do
+					result = @customer.check_in_to!(@location)
+					@membership.reload
+					expect(@membership.points).to eq 600
 				end
 			end
 
-			context '[Visit already exists]' do
-				it 'increments the total of the visit' do
-					FactoryGirl.create(:visit, customer: @customer, location: @location)
-					2.times { Visit.create_or_increment(customer: @customer, location: @location) }
-					expect(Visit.last.total).to eq 2
+
+			context '[Customer returned after exit]' do
+				before :each do
+					@campaign = FactoryGirl.create(:coupon)
+					@membership = FactoryGirl.create(:membership,
+						business: @business,
+						customer: @customer,
+						campaign: @campaign)
 				end
+				
+				it 'returns the exit campaign' do
+					result = @customer.check_in_to!(@location)
+					expect(result[:campaign]).to eq @campaign
+				end
+
+				context '[Before welcome_freq has expired]' do
+					it 'does not award points' do
+						@membership.welcome_reward_valid_at = Date.tomorrow
+						@membership.save
+
+						result = @customer.check_in_to!(@location)
+
+						expect(result[:points_earned]).to eq 0
+					end
+				end
+
+				context '[AFTER welcome_freq has expired]' do
+					it 'awards 100 points' do
+						@membership.welcome_reward_valid_at = Date.yesterday
+						@membership.save
+
+						result = @customer.check_in_to!(@location)
+
+						expect(result[:points_earned]).to eq 100
+					end
+				end
+
 			end
 		end
+
+
+		describe '.check_out!' do
+			before :each do
+				@business = FactoryGirl.create(:business)
+				@customer = FactoryGirl.create(:customer)
+				@greeting = FactoryGirl.create(:greeting)
+				@location = FactoryGirl.create(:location, business: @business, greeting: @greeting)
+				@membership = FactoryGirl.create(:membership,
+					business: @business,
+					customer: @customer
+				)
+			end
+
+			it 'returns the exit message' do
+				result = @customer.check_out_from!(@location)
+				expect(result[:message]).to eq "Goodbye"
+			end
+
+			it 'assigns the exit campaign' do
+				result = @customer.check_out_from!(@location)
+
+				@membership.reload
+				
+				expect(@membership.campaign).not_to be_nil
+			end
+
+			it 'sets the campaign expiration date' do
+				result = @customer.check_out_from!(@location)
+
+				@membership.reload
+
+				expect(@membership.exit_campaign_expires_at.to_date).to eq 3.days.from_now.to_date
+			end
+
+			it 'returns the campaign wait time' do
+				result = @customer.check_out_from!(@location)
+
+				expect(result[:wait_time]).to eq 3.days.to_i
+			end
+
+			it 'returns the new exit campaign' do
+				result = @customer.check_out_from!(@location)
+				
+				expect(result[:campaign]).to be_a Campaign
+			end
+
+		end
+
 	end
 
 end

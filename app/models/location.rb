@@ -9,7 +9,8 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :campaigns
   belongs_to :greeting
 
-  # accepts_nested_attributes_for :greetings, allow_destroy: true
+  accepts_nested_attributes_for :greeting
+  accepts_nested_attributes_for :campaigns
 
   validates_presence_of :address, :city, :state, :zipcode
   validates_length_of :state, is: 2

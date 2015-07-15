@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715184652) do
+ActiveRecord::Schema.define(version: 20150715202343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,8 +117,10 @@ ActiveRecord::Schema.define(version: 20150715184652) do
     t.datetime "updated_at",                     null: false
     t.integer  "campaign_wait_time", default: 0, null: false
     t.integer  "welcome_wait_time",  default: 0, null: false
+    t.integer  "business_id"
   end
 
+  add_index "greetings", ["business_id"], name: "index_greetings_on_business_id", using: :btree
   add_index "greetings", ["campaign_id"], name: "index_greetings_on_campaign_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
@@ -260,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150715184652) do
 
   add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "schedules"
+  add_foreign_key "greetings", "businesses"
   add_foreign_key "greetings", "campaigns"
   add_foreign_key "identities", "customers"
   add_foreign_key "identities", "users"

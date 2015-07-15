@@ -6,12 +6,16 @@ FactoryGirl.define do
     user
 		name 						{ Faker::Company.name }
 		published 			true
-		image 				 	''
+		image 				 	nil
 		primary_color 	"FF0000"
 		secondary_color "0000FF"
 		website 				{ Faker::Internet.url }
 		facebook 				{ Faker::Internet.url('facebook.com') }
 		twitter 				{ Faker::Lorem.characters(10) }
+
+		trait :with_image do
+			image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'receipt.jpg'), 'image/jpeg') }
+		end
 
 		factory :business_with_locations do
 			transient do

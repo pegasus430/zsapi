@@ -1,0 +1,15 @@
+<%= form_for(@greeting) do |f| %>
+  <% if @greeting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@greeting.errors.count, "error") %> prohibited this greeting from being saved:</h2>
+
+      <ul>
+      <% @greeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render 'form_fields', f: f %>
+<% end %>

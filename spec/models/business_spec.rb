@@ -51,7 +51,8 @@ RSpec.describe Business, type: :model do
 		it { should belong_to :user }
 		it { should have_many :locations }
 		it { should have_many :memberships }
-		# it { should have_many(:customers), through: :memberships }
+		it { should have_many :greetings }
+		it { should have_many(:customers), through: :memberships }
 
 		it { should accept_nested_attributes_for :locations }
 	end

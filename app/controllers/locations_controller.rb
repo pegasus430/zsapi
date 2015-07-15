@@ -16,6 +16,8 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = current_user.business.locations.build
+    @greetings = current_user.business.greetings
+    @campaigns = current_user.business.campaigns
   end
 
   # GET /locations/1/edit
@@ -86,6 +88,8 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:business_id, :beacon_id, :title, :address, :address2, :city, :state, :zipcode)
+      params.require(:location).permit(:title, :address, :address2, :city, :state, :zipcode,
+        :greeting_attributes => [:welcome_message, :welcome_reward, :welcome_wait_time, :exit_message, :campaign_id, :campaign_wait_time_quantity, :campaign_wait_time_span]
+      )
     end
 end

@@ -12,14 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :business_id %><br>
-    <%= f.text_field :business_id %>
-  </div>
-  <div class="field">
-    <%= f.label :beacon_id %><br>
-    <%= f.text_field :beacon_id %>
-  </div>
-  <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
@@ -43,7 +35,25 @@
     <%= f.label :zipcode %><br>
     <%= f.text_field :zipcode %>
   </div>
+
+  <fieldset>
+    <h2>Greetings</h2>
+    <div class="field">
+      Select a greeting
+
+    </div>
+
+    <fieldset>
+      <h3>New Greeting</h3>
+      <%= f.fields_for :greetings, @greeting do |builder| %>
+        <%= render 'greetings/form_fields', f: builder %>
+      <% end %>
+    </fieldset>
+  </fieldset>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= link_to 'Terms of Service', 'http://zippyspot.com/terms/' %>
