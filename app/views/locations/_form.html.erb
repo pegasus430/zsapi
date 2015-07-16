@@ -39,8 +39,8 @@
   <fieldset>
     <h2>Greetings</h2>
     <div class="field">
-      Select a greeting
-
+      <%= f.label :greeting %><br>
+      <%= f.select :greeting_id, options_from_collection_for_select(@greetings, 'id', 'title'), prompt: 'Choose a greeting' %>
     </div>
 
     <fieldset>

@@ -49,6 +49,28 @@ RSpec.describe Greeting, type: :model do
 				greeting = FactoryGirl.create(:greeting, welcome_wait_time: 'month')
 				expect(greeting.welcome_wait_time).to eq 1.month.to_i
 			end
+		end	
+
+
+		describe '#generate_campaign_wait_time(hash)' do
+			before :each do
+				@greeting = FactoryGirl.create(:greeting)
+			end
+			
+			it 'saves 3 days' do
+				@greeting.generate_campaign_wait_time!(quantity: 3, span: 'days')
+				expect(@greeting.campaign_wait_time).to eq 3.days.to_i
+			end
+
+			it 'defaults to days if not an accepted span' do
+				@greeting.generate_campaign_wait_time!(quantity: 3, span: 'balls')
+				expect(@greeting.campaign_wait_time).to eq 3.days.to_i
+			end
+
+			it 'defaults to 1 if not an accepted quantity' do
+				@greeting.generate_campaign_wait_time!(quantity: 'ff', span: 'days')
+				expect(@greeting.campaign_wait_time).to eq 1.day.to_i
+			end
 		end		
 	end
 

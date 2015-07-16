@@ -11,7 +11,8 @@
     </div>
   <% end %>
 
-<!-- 
+
+
   <div class="form-row">
     <label>
       <span>Card Number</span>
@@ -35,10 +36,11 @@
     <input type="text" size="4" data-stripe="exp-year"/>
   </div>
 
-  <%#= stripe_javascript_tag %>
- -->
+  <%= stripe_javascript_tag %>
 
 
+
+<!--
   <% if @token %>
     <%= hidden_field_tag 'stripeToken', @token.id %>
   <% else %>
@@ -55,3 +57,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+-->

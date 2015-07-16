@@ -30,6 +30,13 @@ RSpec.describe LocationsController, type: :controller do
   end
 
 
+  describe 'GET #show' do
+    it 'assigns @location' do
+      get :show, id: @location
+      expect(assigns(:location)).to eq @user.locations.where(id: @location.id).first
+    end
+  end
+
 
   describe "GET #edit" do
     it "assigns @location" do
@@ -38,7 +45,7 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     it "renders the edit template if beacon exists" do
-      location_with_beacon = FactoryGirl.create(:location_with_beacon, business: @user.business)
+      location_with_beacon = FactoryGirl.create(:active_location, business: @user.business)
       get :edit, id: location_with_beacon
       expect(response).to render_template :edit
     end
@@ -53,7 +60,6 @@ RSpec.describe LocationsController, type: :controller do
 
 
   describe "PUT #confirm" do
-
     context "[Valid UUID]" do
       before :each do
         FactoryGirl.create(:beacon, location: @location)
@@ -122,51 +128,82 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'POST #create' do
     context '[Valid Location/Greeting Params]' do
-      context '[Valid payment details]' do
+      it 'creates the location' do
+        expect {
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_attributes: FactoryGirl.attributes_for(:greeting))
+        }.to change(Location,:count).by 1
+      end
+
+      context '[Custom greeting created]'do
+        it 'creates the greeting' do
+          expect {
+            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_attributes: FactoryGirl.attributes_for(:greeting))
+          }.to change(Greeting,:count).by 1
+        end
+      end
+
+      context '[Custom greeting title blank]' do
         before :each do
-          Stripe.api_key = Rails.configuration.stripe.secret_key
-          @token = Stripe::Token.create(
-            card: {
-              number:     "4242424242424242",
-              exp_month:  6,
-              exp_year:   2016,
-              cvc:        "314"
-            }
-          )
+          @selected_greeting = FactoryGirl.create(:greeting)
         end
 
-        it 'creates a payment' do
-          # # Amount in cents
-          # @amount = 500
-
-          # customer = Stripe::Customer.create(
-          #   :email => 'example@stripe.com',
-          #   :card  => params[:stripeToken]
-          # )
-
-          # charge = Stripe::Charge.create(
-          #   :customer    => customer.id,
-          #   :amount      => @amount,
-          #   :description => 'Rails Stripe customer',
-          #   :currency    => 'usd'
-          # )
-
-          # rescue Stripe::CardError => e
-          #   flash[:error] = e.message
-          #   redirect_to charges_path
-          # end
+        it 'does not create a new greeting' do
+          expect {
+            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: @selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+          }.to change(Greeting,:count).by 0
         end
 
-        it 'creates a beacon'
-        it 'creates the location'
+        it 'assigns a greeting to the location' do
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: @selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+          expect(@location.greeting.id).to eq @selected_greeting.id
+        end
       end
 
-      context '[Invalid payment details]' do
-        it 'does not create a payment'
-        it 'does not create a beacon'
-        it 'does not create a location'
-        it 'renders the location#new'
-      end
+      # context '[Valid payment details]' do
+      #   before :each do
+      #     Stripe.api_key = Rails.configuration.stripe.secret_key
+      #     @token = Stripe::Token.create(
+      #       card: {
+      #         number:     "4242424242424242",
+      #         exp_month:  6,
+      #         exp_year:   2016,
+      #         cvc:        "314"
+      #       }
+      #     )
+      #   end
+
+      #   it 'creates a payment' do
+      #     # # Amount in cents
+      #     # @amount = 500
+
+      #     # customer = Stripe::Customer.create(
+      #     #   :email => 'example@stripe.com',
+      #     #   :card  => params[:stripeToken]
+      #     # )
+
+      #     # charge = Stripe::Charge.create(
+      #     #   :customer    => customer.id,
+      #     #   :amount      => @amount,
+      #     #   :description => 'Rails Stripe customer',
+      #     #   :currency    => 'usd'
+      #     # )
+
+      #     # rescue Stripe::CardError => e
+      #     #   flash[:error] = e.message
+      #     #   redirect_to charges_path
+      #     # end
+      #   end
+
+      #   it 'creates a beacon'
+      #   it 'creates the location'
+      # end
+
+      # context '[Invalid payment details]' do
+      #   it 'does not create a payment'
+      #   it 'does not create a beacon'
+      #   it 'does not create a location'
+      #   it 'renders the location#new'
+      # end
     end
 
     context '[Invalid location/greeting params]' do

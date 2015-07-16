@@ -22,7 +22,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
-    if @location.beacon.nil?
+    if @location.pending?
       render :confirm
     end
   end
@@ -34,7 +34,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to new_order_path, notice: 'Location was successfully created. Create the payment now' }
+        format.html { redirect_to location_new_payment_path(@location), notice: 'Location was successfully created. Create the payment now' }
       else
         format.html { render :new }
       end
@@ -58,7 +58,7 @@ class LocationsController < ApplicationController
 
   # PUT /location/1/confirm
   def confirm
-    @location = Location.find(params[:location_id])
+    @location = current_user.locations.where(id: params[:location_id]).first
     beacon = @location.beacon
 
     if !beacon.nil? && params[:uuid] == beacon.uuid
@@ -83,12 +83,12 @@ class LocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
-      @location = Location.find(params[:id])
+      @location = current_user.locations.where(id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:title, :address, :address2, :city, :state, :zipcode,
+      params.require(:location).permit(:title, :address, :address2, :city, :state, :zipcode, :greeting_id,
         :greeting_attributes => [:welcome_message, :welcome_reward, :welcome_wait_time, :exit_message, :campaign_id, :campaign_wait_time_quantity, :campaign_wait_time_span]
       )
     end

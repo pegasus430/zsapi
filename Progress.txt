@@ -1,4 +1,7 @@
 7/15/15
+	11:59-
+		Got greetings working in the controller for the most part. Got all the nested attribute selectors setup. Now working on a test that ensures the greeting is assigned to the location when selected from the dropdown. This isn't needed 100%, so I need to move onto something else and note this.
+
 	17:53-
 		Locations index is done, so is the TOS. I'm working on the CREATE tests for the location. The payment form is separate from the location form, so I need to render it in as a partial. Additionally, the payment form needs to be setup to take payments directly on the site. The test already has the Stripe token creator for testing, I just need to setup the form and submit information. Then, I need to finish the CREATE tests for location.
 
