@@ -1,3 +1,14 @@
+7/17/15
+	14:00+
+		Adding a publish button to the business form
+
+7/16/15
+	9:57
+		Got 28/40 article titles setup. Going to conference call with Greg/Issac now
+
+	9:26+
+		Writing the articles for the help docs in teamworkpm
+
 7/15/15
 	11:59-
 		Got greetings working in the controller for the most part. Got all the nested attribute selectors setup. Now working on a test that ensures the greeting is assigned to the location when selected from the dropdown. This isn't needed 100%, so I need to move onto something else and note this.

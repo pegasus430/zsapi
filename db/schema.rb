@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715202343) do
+ActiveRecord::Schema.define(version: 20150717190048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,19 +51,19 @@ ActiveRecord::Schema.define(version: 20150715202343) do
 
   create_table "businesses", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name",                               null: false
-    t.boolean  "published",          default: false
+    t.string   "name",                           null: false
     t.string   "primary_color"
     t.string   "secondary_color"
     t.string   "website"
     t.string   "facebook"
     t.string   "twitter"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "status",             default: 0, null: false
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree

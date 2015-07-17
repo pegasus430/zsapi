@@ -5,7 +5,7 @@ FactoryGirl.define do
   factory :business do
     user
 		name 						{ Faker::Company.name }
-		published 			true
+		status 					'published'
 		image 				 	nil
 		primary_color 	"FF0000"
 		secondary_color "0000FF"

@@ -15,12 +15,6 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <% unless @business.published? %>
-    <div class="field">
-      <%= f.label :published %><br>
-      <%= f.check_box :published %>
-    </div>
-  <% end %>
   <div class="field">
     <%= f.label :image %><br>
     <%= f.file_field :image %>
@@ -85,5 +79,10 @@
 
   <div class="actions">
     <%= f.submit %>
+    
+    <% if @business.unpublished? && !@business.new_record? %>
+      <%= f.submit 'Save and Publish Profile!', name: 'publish' %>
+    <% end %>
+
   </div>
 <% end %>

@@ -32,6 +32,22 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
+    # The user is publishing the business
+    if params[:publish]
+      publish_errors = []
+      %w(location campaign greeting).each do |child|
+        publish_errors.push "Your business must have at least 1 #{child}" unless @business.send("#{child}s").exists?
+      end
+
+      if publish_errors.empty?
+        @business.status = 'published'
+        notice = 'Your store has been saved and published! Your location(s) are now visible in the Zippy Spot app.'
+      else
+        notice = "You're not quite ready to publish your store yet. Your locations, campaigns, and greetings must first be setup."
+      end
+    end
+
+
     respond_to do |format|
       if @business.update(business_params)
 
@@ -45,7 +61,8 @@ class BusinessesController < ApplicationController
           # current_user.post_to_facebook_page(message)
         end
 
-        format.html { redirect_to edit_business_path, notice: 'Business was successfully updated.' }
+
+        format.html { redirect_to edit_business_path, notice: notice || 'Business was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -60,7 +77,7 @@ class BusinessesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
-      params.require(:business).permit(:name, :published, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter, :facebook_page,
+      params.require(:business).permit(:name, :logo_filename, :primary_color, :secondary_color, :website, :facebook, :twitter,
         :locations_attributes => [:address, :address2, :city, :state, :zipcode]
       )
     end
