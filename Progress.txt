@@ -1,4 +1,10 @@
 7/17/15
+	15:36
+		Decided not to store current locations in the session for now. Not necessary at this point
+
+	15:26
+		Adding the current location to the current user's session
+
 	14:00+
 		Adding a publish button to the business form
 
