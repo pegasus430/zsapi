@@ -7,11 +7,11 @@ Rails.application.routes.draw do
       end
     end
 
-    # concern :datable do
-    #   member do
-    #     get 'dated/:start_date/(:end_date)', as: 'dated', constraints: {start_date: /\d{4}-\d{2}-\d{2}/, end_date: /\d{4}-\d{2}-\d{2}/}
-    #   end
-    # end
+    concern :datable do
+      member do
+        get 'dated/:start_date/(:end_date)', as: 'dated', constraints: {start_date: /\d{4}-\d{2}-\d{2}/, end_date: /\d{4}-\d{2}-\d{2}/}
+      end
+    end
 
     # Campaigns
     get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
@@ -33,7 +33,8 @@ Rails.application.routes.draw do
     resources :businesses, only: [:new, :create, :update]
 
     # Receipts
-    resources :receipts
+    resources :receipts, only: [:show]
+    get 'receipts', to: 'receipts#index', as: 'receipts', concerns: :datable
 
     # Greetings
     resources :greetings

@@ -1,4 +1,10 @@
 7/21/15
+	12:31
+		Going to map out the redemptions model
+
+	12:29
+		Finished the receipt show and email items. The index filter is not completed yet because I'm having trouble with the "datable" routing concern. Now, only allowing 1 CC or Mailchimp account per user. --- Cancel that.
+
 	11:18+
 		Finishing the receipts front-end. Index, single, and email link
 
