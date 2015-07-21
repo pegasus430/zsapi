@@ -33,8 +33,9 @@ Rails.application.routes.draw do
     resources :businesses, only: [:new, :create, :update]
 
     # Receipts
-    resources :receipts, only: [:show]
-    get 'receipts', to: 'receipts#index', as: 'receipts', concerns: :datable
+    resources :receipts, only: :show
+    resources :receipts, only: :index, to: 'receipts#index', concerns: :locationable
+    get 'receipts/today', to: 'receipts#index' :receipts, only: :index, to: 'receipts#index', concerns: :locationable
 
     # Greetings
     resources :greetings

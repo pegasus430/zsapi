@@ -2,7 +2,10 @@
 
 <h1>Listing Receipts</h1>
 
-<%= link_to 'New Receipt', new_receipt_path %>
+<strong>Show for location:</strong>
+<%= current_user.locations.each do |l| %>
+  <%#= link_to l.title, location_receipts_url(l.id) %>
+<% end %>
 
 <table>
   <thead>
