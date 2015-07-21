@@ -4,7 +4,7 @@
 
 <strong>Show for location:</strong>
 <%= current_user.locations.each do |l| %>
-  <%#= link_to l.title, location_receipts_url(l.id) %>
+  <%= link_to l.title, location_receipts_url(l.id) %>
 <% end %>
 
 <table>

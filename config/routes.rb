@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
 
   if Rails.env.development? || Rails.env.test?
-    concern :locationable do
-      member do
-        get 'locations/:location_id', as: 'location'
-      end
-    end
 
     concern :datable do
       member do
@@ -13,15 +8,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # Campaigns
-    get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
-    get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
-    resources :campaigns, only: :show,  to: 'campaigns#show',   concerns: :locationable
-    resources :campaigns, except: [:index, :new]
-    
-    # Customers
-    get  '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
-    post '/customers/import',            to: 'customers#import',  as: 'import_customers'
 
     # Beacons
     get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'
@@ -32,15 +18,23 @@ Rails.application.routes.draw do
     get '/business', to: 'businesses#edit', as: 'edit_business'
     resources :businesses, only: [:new, :create, :update]
 
-    # Receipts
-    resources :receipts, only: :show
-    resources :receipts, only: :index, to: 'receipts#index', concerns: :locationable
-    get 'receipts/today', to: 'receipts#index' :receipts, only: :index, to: 'receipts#index', concerns: :locationable
+    # Customers
+    get  '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    post '/customers/import',            to: 'customers#import',  as: 'import_customers'
 
     # Greetings
     resources :greetings
 
-    # Locations
+
+    # All Receipts
+    resources :receipts, only: [:index, :show]
+
+    # All Campaigns
+    get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
+    get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
+    resources :campaigns, except: [:index, :new]
+
+    # Locations and Locationable Routes
     resources :locations do
       get   '/payment/success', to: 'payments#success',   as: 'payment_success'
       get   '/payment/:id',     to: 'payments#show',      as: 'payment', constraints: { id: /[0-9]+/ }
@@ -48,8 +42,12 @@ Rails.application.routes.draw do
       post  '/payment/new',     to: 'payments#create',    as: 'payments'
       put   '/confirm',         to: 'locations#confirm',  as: 'confirm'
 
-      # resources :greetings, only: [:show, :new, :create, :edit, :update]
+      # Locationable routes
+      get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
+      resources :campaigns, only: :show
+      resources :receipts, only: :index, concerns: :datable, action: :index
     end
+
 
     # Users
     devise_for :users, controllers: {

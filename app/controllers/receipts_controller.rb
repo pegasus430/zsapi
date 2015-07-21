@@ -8,15 +8,13 @@ class ReceiptsController < ApplicationController
       receipts = current_user.business.receipts
     end
 
-    if params[:start_date]
-      receipts = receipts.where('purchased_on >= ?', params[:start_date])
+    if params[:start_date] && params[:end_date]
+      receipts = receipts.where(purchased_on: params[:start_date]..params[:end_date])
+    elsif params[:start_date]
+      receipts = receipts.where(purchased_on: params[:start_date])
     end
 
-    if params[:end_date]
-      receipts = receipts.where('purchased_on <= ?', params[:end_date])
-    end
-
-    @receipts = receipts
+    @approved_receipts = receipts.approved
   end
 
 

@@ -1,4 +1,7 @@
 7/21/15
+	17:01-
+		Got the index results filtered and datable for the receipts! I also moved around the campaigns so that they are referenced as /location/:loca_id/campaigns -- this is all in a new branch called "locations_with_sub_resources". Merging to dev branch
+
 	12:31
 		Going to map out the redemptions model
 
