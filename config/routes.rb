@@ -7,6 +7,12 @@ Rails.application.routes.draw do
       end
     end
 
+    # concern :datable do
+    #   member do
+    #     get 'dated/:start_date/(:end_date)', as: 'dated', constraints: {start_date: /\d{4}-\d{2}-\d{2}/, end_date: /\d{4}-\d{2}-\d{2}/}
+    #   end
+    # end
+
     # Campaigns
     get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
     get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
