@@ -10,8 +10,8 @@ FactoryGirl.define do
 		campaign_wait_time		{ 3.days.to_i }
 
 		factory :invalid_greeting do
-			welcome_message nil
-			exit_message 		nil
+			welcome_message ''
+			exit_message 		''
 		end
   end
 

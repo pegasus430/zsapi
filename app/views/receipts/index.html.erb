@@ -2,36 +2,26 @@
 
 <h1>Listing Receipts</h1>
 
+<%= link_to 'New Receipt', new_receipt_path %>
+
 <table>
   <thead>
     <tr>
-      <th>Location</th>
-      <th>Purchased on</th>
+      <th>ID</th>
+      <th>Image</th>
+      <th>Date</th>
       <th>Amount</th>
-      <th>Approved on</th>
-      <th>Rejected on</th>
-      <th>Reject reason</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @receipts.each do |receipt| %>
       <tr>
-        <td><%= receipt.location %></td>
+        <td><%= receipt.id %></td>
+        <td><%= link_to 'View Receipt', receipt %></td>
         <td><%= receipt.purchased_on %></td>
         <td><%= receipt.amount %></td>
-        <td><%= receipt.approved_on %></td>
-        <td><%= receipt.rejected_on %></td>
-        <td><%= receipt.reject_reason %></td>
-        <td><%= link_to 'Show', receipt %></td>
-        <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-        <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Receipt', new_receipt_path %>

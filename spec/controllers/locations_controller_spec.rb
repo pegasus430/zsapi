@@ -143,19 +143,17 @@ RSpec.describe LocationsController, type: :controller do
       end
 
       context '[Custom greeting title blank]' do
-        before :each do
-          @selected_greeting = FactoryGirl.create(:greeting)
-        end
-
         it 'does not create a new greeting' do
+          selected_greeting = FactoryGirl.create(:greeting)
           expect {
-            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: @selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
           }.to change(Greeting,:count).by 0
         end
 
         it 'assigns a greeting to the location' do
-          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: @selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
-          expect(@location.greeting.id).to eq @selected_greeting.id
+          selected_greeting = FactoryGirl.create(:greeting, business: @location.business)
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+          expect(@location.greeting.id).to eq selected_greeting.id
         end
       end
 

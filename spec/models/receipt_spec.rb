@@ -39,9 +39,9 @@ RSpec.describe Receipt, type: :model do
 			end
 
 			it "#status" do
-				expect( @untouched.status ).to eq Receipt::UNTOUCHED
-				expect( @approved.status ).to eq Receipt::APPROVED
-				expect( @rejected.status ).to eq Receipt::REJECTED
+				expect( @untouched.status ).to eq 'untouched'
+				expect( @approved.status ).to eq 'approved'
+				expect( @rejected.status ).to eq 'rejected'
 			end
 
 			it "#untouched?" do

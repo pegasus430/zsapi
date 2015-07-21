@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :campaigns
   belongs_to :greeting
 
-  accepts_nested_attributes_for :greeting, reject_if: proc { |a| a['welcome_message'].blank? }
+  accepts_nested_attributes_for :greeting, reject_if: proc { |a| a['welcome_message'].blank? || a['welcome_message'].nil? }
   accepts_nested_attributes_for :campaigns
 
   validates_presence_of :address, :city, :state, :zipcode

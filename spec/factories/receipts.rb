@@ -5,18 +5,18 @@ FactoryGirl.define do
 		amount 					15
 		purchased_on 		{ 2.days.ago }
 		image 					{ fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'receipt.jpg'), 'image/jpeg') }
-		status					Receipt::UNTOUCHED
+		status					'untouched'
 
 
 		factory :receipt_approved do
 			actioned_on 	{ Date.today }
-			status Receipt::APPROVED
+			status 'approved'
 		end
 
 
 		factory :receipt_rejected do
 			actioned_on 	{ Date.today }
-			status Receipt::REJECTED
+			status 'rejected'
 			reject_reason "You are so mean"
 		end
 
@@ -26,7 +26,6 @@ FactoryGirl.define do
 				receipt.location = create(:location)
 			end
 		end
-
 
 		factory :invalid_receipt do
 			amount 					nil
