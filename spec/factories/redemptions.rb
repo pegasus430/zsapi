@@ -3,6 +3,7 @@ FactoryGirl.define do
     campaign
 		customer
 		location
-		created_at { 2.hours.ago }
+		created_at 	{ 2.hours.ago }
+		status    	'pending'
   end
 end

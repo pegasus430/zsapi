@@ -61,6 +61,12 @@ RSpec.describe Receipt, type: :model do
 				expect( @approved.rejected? ).to be_falsey
 				expect( @rejected.rejected? ).to be_truthy
 			end
+
+			it '#reward_points' do
+				receipt = FactoryGirl.create(:receipt_approved, amount: 44.63)
+
+				expect(receipt.reward_points).to eq 44
+			end
 		end
 
 		describe "Scopes" do

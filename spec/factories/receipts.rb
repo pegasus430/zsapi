@@ -2,6 +2,7 @@ FactoryGirl.define do
 
   factory :receipt do
     location
+    redemption
 		amount 					15
 		purchased_on 		{ 2.days.ago }
 		image 					{ fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'receipt.jpg'), 'image/jpeg') }

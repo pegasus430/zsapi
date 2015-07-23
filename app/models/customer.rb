@@ -83,7 +83,11 @@ class Customer < ActiveRecord::Base
 	end
 
 	def visits_for(location)
-		visits.where(location: location).first.total rescue 0
+		visits.where(location: location)
+	end
+
+	def total_visits_for(location)
+		visits_for(location).first.total rescue 0
 	end
 
 

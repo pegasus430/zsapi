@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_location
   	if params[:location_id]
-  		@current_location = Location.find(params[:location_id])
+  		@current_location = current_user.business.locations.find(params[:location_id])
   	end
   end
 end

@@ -1,0 +1,17 @@
+<% unless campaigns.empty? %>
+  <div id="campaign-cards">
+    <% campaigns.each do |campaign| %>
+      <div class="panel">
+        <%= campaign.type_of %><br>
+        <%= link_to campaign.title, campaign %><br>
+        <%= campaign.locations_string %><br>
+        <%= campaign.schedule.title %><br>
+        <%= yesno(campaign.featured) %><br>
+        <%= link_to 'Edit', edit_campaign_path(campaign) %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+<% else %>
+  <h3>No campaigns today!</h3>
+<% end %>

@@ -8,7 +8,7 @@ class Campaign < ActiveRecord::Base
 
   validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
 
-  has_attached_file :image, :styles => { :medium => "500x500" }
+  has_attached_file :image, :styles => { index: '207x170', :medium => "500x500" }
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   scope :valid_for, ->(date) {

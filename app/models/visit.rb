@@ -24,6 +24,7 @@ class Visit < ActiveRecord::Base
       points_earned = greeting.welcome_reward
     end
     points_earned ||= 0
+
     
     # Update the membership
     membership.increment(:points, points_earned )
@@ -32,6 +33,7 @@ class Visit < ActiveRecord::Base
 
     # Check if we have a valid exit-campaign to show
     exit_campaign = membership.exit_campaign_valid? ? membership.campaign : nil
+
 
     return {
       message:        greeting.welcome_message,

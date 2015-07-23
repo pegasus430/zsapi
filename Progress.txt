@@ -1,3 +1,11 @@
+7/23/15
+	15:06+
+		Adding in more front-end modules to be ready for the design integration. Starting with the dashboard.
+
+7/22/15
+	14:44+
+		Mapping out the redemptions model
+
 7/21/15
 	17:01-
 		Got the index results filtered and datable for the receipts! I also moved around the campaigns so that they are referenced as /location/:loca_id/campaigns -- this is all in a new branch called "locations_with_sub_resources". Merging to dev branch

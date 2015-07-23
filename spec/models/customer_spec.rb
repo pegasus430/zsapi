@@ -119,29 +119,37 @@ RSpec.describe Customer, type: :model do
 		end
 
 		describe "Visits" do
-			it "#visit!" do
+			it "#check_in_to!(location)" do
 				location = FactoryGirl.create(:location_with_business)
 				customer = FactoryGirl.create(:customer_with_membership_without_business, business: location.business)
-				expect{customer.visit!(location)}.to change{Visit.count}.by(1)
+				expect{customer.check_in_to!(location)}.to change{Visit.count}.by(1)
 			end
 
 			context '[Has visits]' do
-				it '#visits_for' do
-					customer = FactoryGirl.create(:customer)
-					location2 = FactoryGirl.create(:location)
-					location3 = FactoryGirl.create(:location)
-					2.times { customer.visit!(location2) }
-					3.times { customer.visit!(location3) }
-					expect(customer.visits_for(location2)).to eq 2
-					expect(customer.visits_for(location3)).to eq 3
+				before :each do
+					@business = FactoryGirl.create(:business)
+					@customer = FactoryGirl.create(:customer_with_membership_without_business, business: @business)
+					@location2 = FactoryGirl.create(:location, business: @business)
+					@location3 = FactoryGirl.create(:location, business: @business)
+					2.times { @customer.check_in_to!(@location2) }
+					3.times { @customer.check_in_to!(@location3) }
+				end
+
+				it '#total_visits_for' do
+					expect(@customer.total_visits_for(@location2)).to eq 2
+					expect(@customer.total_visits_for(@location3)).to eq 3
 				end
 			end
 
 			context '[No visits]' do
-				it '#visits_for' do
-					customer = FactoryGirl.create(:customer)
-					location = FactoryGirl.create(:location)
-					expect(customer.visits_for(location)).to eq 0
+				before :each do
+					@business = FactoryGirl.create(:business)
+					@customer = FactoryGirl.create(:customer_with_membership_without_business, business: @business)
+					@location = FactoryGirl.create(:location)
+				end
+
+				it '#total_visits_for' do
+					expect(@customer.total_visits_for(@location)).to eq 0
 				end
 			end
 		end

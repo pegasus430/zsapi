@@ -1,2 +1,24 @@
-<h1>Pages#dashboard DASHBOARD</h1>
-<p>Find me in app/views/pages/dashboard.html.erb</p>
+<h1>Dashboard</h1>
+
+<% unless current_user.business.published? %>
+	<%= render 'shared/getting_started' %>
+<% end %>
+
+<h3>Today's campaigns</h3>
+<%= link_to 'New Campaign', new_campaign_url %>
+
+<%= select_tag 'location_select', options_from_collection_for_select( current_user.business.locations, 'id', 'title' ) %>
+
+<% unless @todays_campaigns.empty? %>
+	<%= render 'campaigns/card_index', campaigns: @todays_campaigns %>
+	<%= link_to 'View all Campaigns', campaigns_url %>
+<% end %>
+
+<h3>Stats</h3>
+<ul>
+	<li>Active Campaigns: <%= @stats[:active_campaigns] %></li>
+	<li>Today Checkins: <%= @stats[:today][:checkins] %></li>
+	<li>Yesterday Checkins: <%= @stats[:yesterday][:checkins] %></li>
+	<li>Todays Redemptions: <%= @stats[:today][:redemptions] %></li>
+	<li>Yesterdays Redemptions: <%= @stats[:yesterday][:redemptions] %></li>
+</ul>
