@@ -50,6 +50,33 @@ RSpec.describe Campaign, type: :model do
 				expect(campaign.locations_string).to eq "None"
 			end
 		end
+
+
+		describe 'most_popular_location' do
+			context '[has redemptions for location]' do
+				it 'returns the most popular location' do
+					customer = FactoryGirl.create(:customer)
+					campaign = FactoryGirl.create(:campaign)
+					most_popular_location = FactoryGirl.create(:location, campaigns: [campaign])
+					other_location = FactoryGirl.create(:location, campaigns: [campaign])
+					FactoryGirl.create_list(:redemption, 2, customer: customer, campaign: campaign, location: other_location)
+					FactoryGirl.create_list(:redemption, 5, customer: customer, campaign: campaign, location: most_popular_location)
+
+					expect(campaign.most_popular_location.title).to eq most_popular_location.title
+				end
+			end
+
+			context '[does not have a redemption for location]' do
+				it 'returns nil' do
+					customer = FactoryGirl.create(:customer)
+					campaign = FactoryGirl.create(:campaign)
+					most_popular_location = FactoryGirl.create(:location, campaigns: [campaign])
+					other_location = FactoryGirl.create(:location, campaigns: [campaign])
+
+					expect(campaign.most_popular_location).to be_nil
+				end
+			end
+		end
 	end
 
 
@@ -97,7 +124,6 @@ RSpec.describe Campaign, type: :model do
 
 
 	describe 'Schedule Scopes' do
-		before { skip }
 
 		describe '.valid_for(date)' do
 			before :each do
@@ -108,111 +134,111 @@ RSpec.describe Campaign, type: :model do
 			context '[Every monday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_monday)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-15".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-22".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-23".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-15".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-22".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-23".to_date).size).to eq 0
 				end
 			end
 
 			context '[every other monday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_other_monday)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-15".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-08".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-15".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-08".to_date).size).to eq 0
 				end
 			end
 
 			context '[every tue and thur]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_tue_and_thur)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-09".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-18".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-19".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-09".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-18".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-19".to_date).size).to eq 0
 				end
 			end
 
 			context '[always]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_always)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-03".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-05".to_date).size).to eq 1
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-03".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-05".to_date).size).to eq 1
 				end
 			end
 
 			context '[first day of month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_first_day_of_month)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-08-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-09-02".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-08-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-09-02".to_date).size).to eq 0
 				end
 			end
 
 			context '[Last day of the month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_last_day_of_month)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-30".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-07-31".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-08-29".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-30".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-07-31".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-08-29".to_date).size).to eq 0
 				end
 			end
 
 			context '[every day except sunday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_day_except_sunday)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-05".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-07".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-05".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-07".to_date).size).to eq 0
 				end
 			end
 
 			context '[months with 5 weeks]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_months_with_5_weeks)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-06-29".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-07-30".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-03-28".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-06-29".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-07-30".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-03-28".to_date).size).to eq 0
 				end
 			end
 
 			context '[when tue is first day of month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_when_tue_is_first_day_of_month)
-					FactoryGirl.create(:campaign, schedule: sched)
-					expect(Campaign.active.valid_for("2015-09-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-12-01".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-06-01".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched)
+					expect(Campaign.valid_for("2015-09-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-12-01".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 0
 				end
 			end
 
 			context '[may 6th through 8th]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_always)
-					FactoryGirl.create(:campaign, schedule: sched, start_at: "2015-05-06".to_date, end_at: "2015-05-08".to_date)
-					expect(Campaign.active.valid_for("2015-05-06".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-05-07".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-05-08".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-05-09".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched, start_at: "2015-05-06".to_date, end_at: "2015-05-08".to_date)
+					expect(Campaign.valid_for("2015-05-06".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-05-07".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-05-08".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-05-09".to_date).size).to eq 0
 				end
 			end
 
 			context '[may 5th only]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_always)
-					FactoryGirl.create(:campaign, schedule: sched, start_at: "2015-05-05".to_date, end_at: "2015-05-05".to_date )
-					expect(Campaign.active.valid_for("2015-05-05".to_date).size).to eq 1
-					expect(Campaign.active.valid_for("2015-05-04".to_date).size).to eq 0
-					expect(Campaign.active.valid_for("2015-05-06".to_date).size).to eq 0
+					FactoryGirl.create(:active_campaign, schedule: sched, start_at: "2015-05-05".to_date, end_at: "2015-05-05".to_date )
+					expect(Campaign.valid_for("2015-05-05".to_date).size).to eq 1
+					expect(Campaign.valid_for("2015-05-04".to_date).size).to eq 0
+					expect(Campaign.valid_for("2015-05-06".to_date).size).to eq 0
 				end
 			end
 		end

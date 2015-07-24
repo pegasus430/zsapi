@@ -1,4 +1,7 @@
 7/24/15
+	15:07
+		Got the campaigns index and show done. Working on the campaign form now
+
 	13:42
 		Completed the greetings front-end. Moving on the campaigns now
 

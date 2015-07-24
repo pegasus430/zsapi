@@ -1,18 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 Show for location:<br>
-<%= current_user.locations.each do |l| %>
+<%= current_user.locations.active.each do |l| %>
   <%= link_to l.title, location_campaign_url(@campaign.id, l.id) %>
 <% end %>
 
-<p>
-  <strong>Type of:</strong>
-  <%= @campaign.type_of %>
-</p>
+<h2><%= @campaign.title %></h2>
+<i><%= @campaign.schedule.title %></i>
 
 <p>
-  <strong>Title:</strong>
-  <%= @campaign.title %>
+  <strong>Most popular location:</strong>
+  <%= @campaign.most_popular_location.title %>
 </p>
 
 <p>

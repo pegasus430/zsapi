@@ -1,13 +1,17 @@
 class Location < ActiveRecord::Base
   belongs_to :business
+  belongs_to :greeting
+  
   has_one :beacon
   has_one :payment
   has_one :user, through: :business
+
   has_many :customers, through: :visits
   has_many :receipts
   has_many :visits
+  has_many :redemptions
+  
   has_and_belongs_to_many :campaigns
-  belongs_to :greeting
 
   accepts_nested_attributes_for :greeting, reject_if: proc { |a| a['welcome_message'].blank? || a['welcome_message'].nil? }
   accepts_nested_attributes_for :campaigns

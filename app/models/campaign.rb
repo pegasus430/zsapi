@@ -7,6 +7,7 @@ class Campaign < ActiveRecord::Base
 
   belongs_to :schedule
   has_and_belongs_to_many :locations
+  has_many :redemptions
 
   validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
 
@@ -17,7 +18,7 @@ class Campaign < ActiveRecord::Base
   	# Add '99' (the last day criteria) to the query if 'date.day' is equal to the last day of the month
   	add_last_day = (date.day == date.end_of_month.day) ? Schedule::LAST_DAY : nil
 
-		includes(:schedule).where("
+		active.includes(:schedule).where("
 			( start_at <= ? AND (end_at IS NULL OR end_at >= ? ) )
 			AND schedules.days_of_week && '{0, ?}'::INT[]
 			AND schedules.weeks_of_month && '{0, ?}'::INT[]
@@ -29,6 +30,11 @@ class Campaign < ActiveRecord::Base
 			'{' + [0, date.day, add_last_day].compact.join(',') + '}'
 		).references(:schedule)
   }
+
+
+  def most_popular_location
+    locations.find( redemptions.group(:location_id).count.keys.sort.first ) rescue nil
+  end
 
 
 end
