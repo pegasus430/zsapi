@@ -1,4 +1,7 @@
 7/24/15
+	16:07-
+		Added the **untested facebook post-to-wall-with-image method in the campaign controller.
+
 	15:59
 		Added the image uploading capability to twitter when posting a campaign (not tested). Now adding to facebook. Once these are done, the campaign form will be pretty much completed. **Except for adding the schedule title/select
 

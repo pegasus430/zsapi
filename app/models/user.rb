@@ -114,12 +114,16 @@ class User < ActiveRecord::Base
     twitter_client.update(message) if twitter
   end
 
-  def tweet_image(message, image)
+  def tweet_with_image(message, image)
     twitter_client.update_with_media(message, File.new(image_path)) if twitter
   end
 
   def post_to_facebook_page(message)
-  	facebook_page_client.put_wall_post(message) if facebook_page_client
+    facebook_page_client.put_wall_post(message) if facebook_page_client
+  end
+
+  def post_to_facebook_page_with_image(message, image_url)
+    facebook_page_client.put_wall_post(message, picture: image_url) if facebook_page_client
   end
 
   def publish_to_all_social_connections(message)

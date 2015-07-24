@@ -29,14 +29,18 @@ class CampaignsController < ApplicationController
 
         if params[:twitter]
           if @campaign.image.path
-            current_user.tweet_image( social_message, @campaign.image.path )
+            current_user.tweet_with_image( social_message, @campaign.image.path )
           else
             current_user.tweet( social_message )
           end
         end
 
         if params[:facebook]
-          current_user.post_to_facebook_page( social_message )
+          if @campaign.image.path
+            current_user.post_to_facebook_page_with_image( social_message, @campaign.image.url )
+          else
+            current_user.post_to_facebook_page( social_message )
+          end
         end
         # End social
 
