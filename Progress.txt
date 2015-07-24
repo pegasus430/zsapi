@@ -1,4 +1,7 @@
 7/24/15
+	15:59
+		Added the image uploading capability to twitter when posting a campaign (not tested). Now adding to facebook. Once these are done, the campaign form will be pretty much completed. **Except for adding the schedule title/select
+
 	15:07
 		Got the campaigns index and show done. Working on the campaign form now
 

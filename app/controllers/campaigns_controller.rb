@@ -23,7 +23,22 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
-        current_user.publish_to_all_social_connections("Posted")
+
+        # Social
+        social_message = "Posted a new campaign"
+
+        if params[:twitter]
+          if @campaign.image.path
+            current_user.tweet_image( social_message, @campaign.image.path )
+          else
+            current_user.tweet( social_message )
+          end
+        end
+
+        if params[:facebook]
+          current_user.post_to_facebook_page( social_message )
+        end
+        # End social
 
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }

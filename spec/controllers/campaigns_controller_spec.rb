@@ -45,6 +45,14 @@ RSpec.describe CampaignsController, type: :controller do
     end
 
 
+    describe 'POST #create' do
+      it 'uploads the file' do
+        # post :create, campaign: FactoryGirl.attributes_for(:campaign_with_image)
+
+      end
+    end
+
+
     describe "GET #show" do
       it 'renders the show template' do
         get :show
