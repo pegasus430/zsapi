@@ -1,20 +1,13 @@
 <%= form_for(@business, multipart: true) do |f| %>
-  <% if @business.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@business.errors.count, "error") %> prohibited this business from being saved:</h2>
+  <%= form_errors_for @business %>
 
-      <ul>
-      <% @business.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<h3>Essential info</h3>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+<h3>Style options</h3>
   <div class="field">
     <%= f.label :image %><br>
     <%= f.file_field :image %>
@@ -28,18 +21,24 @@
     <%= f.text_field :secondary_color %>
   </div>
   <div class="field">
+    <%= link_to 'Preview your mobile business page', '#' %>
+  </div>
+
+<h3>Social settings</h3>
+  <div class="field">
     <%= f.label :website %><br>
     <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.label :facebook %><br>
-    <%= f.text_field :facebook %>
   </div>
   <div class="field">
     <%= f.label :twitter %><br>
     <%= f.text_field :twitter %>
   </div>
+  <div class="field">
+    <%= f.label :facebook %><br>
+    <%= f.text_field :facebook %>
+  </div>
 
+<h3>Integrations</h3>
   <div class="field">
     <%= connect_identity_link("facebook") %><br>
     <%= connect_identity_link("twitter") %><br>
@@ -56,10 +55,10 @@
     </div>
   <% end %>
 
-
+<!--
   <% if current_user.mailchimp_lists %>
     <div class="field">
-    <strong>Select a list</strong><br>
+    <strong>Select a mailchimp list</strong><br>
       <% current_user.mailchimp_lists['data'].each do |list| %>
         <%= list %><br>
       <% end %>
@@ -75,7 +74,7 @@
       <% end %>
     </div>
   <% end %>
-
+-->
 
   <div class="actions">
     <%= f.submit %>

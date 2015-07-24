@@ -1,4 +1,6 @@
 class Campaign < ActiveRecord::Base
+  include Locationable
+
   enum type_of: [:coupon, :reward, :special]
   enum discount_type: [:amount, :percent]
   enum status: [:inactive, :active, :featured]
@@ -28,13 +30,5 @@ class Campaign < ActiveRecord::Base
 		).references(:schedule)
   }
 
-
-  def locations_string
-    if locations.size > 0
-      locations.order('title ASC').map(&:title).join(', ')
-    else
-      "None"
-    end
-  end
 
 end

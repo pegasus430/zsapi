@@ -28,7 +28,17 @@
 
 	Within
 
-	<%= number_field_tag :campaign_wait_time_quantity %>
+	<%= f.number_field :campaign_wait_time_quantity %>
 	<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
 	(enter 0 for no restriction)
 </fieldset>
+
+<div class="field">
+	<i>(not completed in controller. might not add this into the final design because it would overwrite locations that already have a location set)</i><br>
+
+	<%= f.label :locations %>
+	<% current_user.locations.active.each do |location| %>
+	  <%= f.check_box :locations, { :multiple => true }, location.id, nil %>
+	  <%= location.title %>
+	<% end %>
+</div>

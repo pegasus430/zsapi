@@ -7,7 +7,7 @@ Show:
 <%= link_to 'Active', customers_url(status: 'active') %> |
 <%= link_to 'Inactive', customers_url(status: 'inactive') %><br><br>
 
-Export: 
+Export (on click, show modal with list of lists to use): 
 <%= link_to 'To Excel', customers_url(status: params[:status], format: 'xls') %>
 <% if current_user.mailchimp %>
   | <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>

@@ -18,11 +18,6 @@ RSpec.describe Greeting, type: :model do
 	  		expect(@greeting).not_to be_valid
 		  end
 	 	end
-
-	 	it 'must have more that 1 freq day if exit campaign is selected' do
-	 		campaign = FactoryGirl.create(:coupon)
-	 		expect(FactoryGirl.build(:greeting, campaign: campaign, campaign_wait_time: 0)).not_to be_valid
-	 	end
 	end
 
 
@@ -53,25 +48,41 @@ RSpec.describe Greeting, type: :model do
 
 
 		describe '#generate_campaign_wait_time(hash)' do
-			before :each do
-				@greeting = FactoryGirl.create(:greeting)
-			end
-			
 			it 'saves 3 days' do
-				@greeting.generate_campaign_wait_time!(quantity: 3, span: 'days')
-				expect(@greeting.campaign_wait_time).to eq 3.days.to_i
+				greeting = FactoryGirl.create(:greeting, campaign_wait_time_quantity: 3, campaign_wait_time_span: 'days')
+				expect(greeting.campaign_wait_time).to eq 3.days.to_i
 			end
 
 			it 'defaults to days if not an accepted span' do
-				@greeting.generate_campaign_wait_time!(quantity: 3, span: 'balls')
-				expect(@greeting.campaign_wait_time).to eq 3.days.to_i
+				greeting = FactoryGirl.create(:greeting, campaign_wait_time_quantity: 3, campaign_wait_time_span: 'decades')
+				expect(greeting.campaign_wait_time).to eq 3.days.to_i
 			end
 
 			it 'defaults to 1 if not an accepted quantity' do
-				@greeting.generate_campaign_wait_time!(quantity: 'ff', span: 'days')
-				expect(@greeting.campaign_wait_time).to eq 1.day.to_i
+				greeting = FactoryGirl.create(:greeting, campaign_wait_time_quantity: 'three', campaign_wait_time_span: 'days')
+				expect(greeting.campaign_wait_time).to eq 1.day.to_i
 			end
 		end		
+
+		describe '#assigned_to_location?' do
+			before :each do
+				@greeting = FactoryGirl.create(:greeting)
+			end
+
+			context '[Attached to locations]' do
+				it 'returns true' do
+					location = FactoryGirl.create(:location, greeting: @greeting)
+					expect(@greeting.assigned_to_location?).to be_truthy
+				end
+			end
+
+			context '[Not attached to a location]' do
+				it 'returns false' do
+					expect(@greeting.assigned_to_location?).to be_falsey
+				end
+			end
+		end
+
 	end
 
 

@@ -17,7 +17,7 @@ RSpec.describe GreetingsController, type: :controller do
     end
 
     it 'builds a new greeting onto the current location' do
-      expect(assigns(:greeting).location).to eq @location
+      expect(assigns(:greeting).business).to eq @user.business
     end
   end
 

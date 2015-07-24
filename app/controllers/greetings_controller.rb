@@ -1,11 +1,16 @@
 class GreetingsController < ApplicationController
   before_action :set_greeting, only: [:edit, :update, :show]
 
+  def index
+    @greetings = current_user.business.greetings
+  end
+
   def show
   end
 
   def new
-    @greeting = @current_location.build_greeting
+    @greeting = current_user.business.greetings.build
+    @campaigns = current_user.business.campaigns
   end
 
   def edit
@@ -37,7 +42,7 @@ class GreetingsController < ApplicationController
 
   private
     def set_greeting
-      @greeting = Greeting.find(params[:id])
+      @greeting = current_user.business.greetings.find(params[:id])
     end
 
     def greeting_params
