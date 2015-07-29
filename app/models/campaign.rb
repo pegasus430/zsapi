@@ -33,7 +33,7 @@ class Campaign < ActiveRecord::Base
 
 
   def most_popular_location
-    locations.find( redemptions.group(:location_id).count.keys.sort.first ) rescue nil
+    locations.find( redemptions.group(:location_id).count.max_by{|k,v| v}.first ) rescue nil
   end
 
 
