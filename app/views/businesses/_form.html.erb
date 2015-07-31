@@ -1,87 +1,241 @@
-<%= form_for(@business, multipart: true) do |f| %>
+<!-- Business profile FORM Start -->
+<%= form_for(@business, multipart: true, html: {class: 'business-profile-form form'} ) do |f| %>
   <%= form_errors_for @business %>
 
-<h3>Essential info</h3>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-<h3>Style options</h3>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.file_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :primary_color %><br>
-    <%= f.text_field :primary_color %>
-  </div>
-  <div class="field">
-    <%= f.label :secondary_color %><br>
-    <%= f.text_field :secondary_color %>
-  </div>
-  <div class="field">
-    <%= link_to 'Preview your mobile business page', '#' %>
-  </div>
-
-<h3>Social settings</h3>
-  <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.label :twitter %><br>
-    <%= f.text_field :twitter %>
-  </div>
-  <div class="field">
-    <%= f.label :facebook %><br>
-    <%= f.text_field :facebook %>
-  </div>
-
-<h3>Integrations</h3>
-  <div class="field">
-    <%= connect_identity_link("facebook") %><br>
-    <%= connect_identity_link("twitter") %><br>
-    <%= connect_identity_link("mailchimp") %><br>
-    <%= connect_identity_link("constantcontact") %><br>
-  </div>
-
-  <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
-    <div class="field">
-    <strong>Select a page for this business</strong><br>
-      <% current_user.facebook_pages.each do |page| %>
-        <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
-      <% end %>
+  <div class="container">
+    <div class="row content-head essentialInfoTitle">
+      <div class="col-md-12 col-sm-12">
+        <h4>ESSENTIAL INFO</h4>
+      </div>
     </div>
-  <% end %>
-
-<!--
-  <% if current_user.mailchimp_lists %>
-    <div class="field">
-    <strong>Select a mailchimp list</strong><br>
-      <% current_user.mailchimp_lists['data'].each do |list| %>
-        <%= list %><br>
-      <% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="">
+          <div class="row">
+            <%= f.label :name, 'NAME OF BUSINESS', class: 'col-md-3' %>
+            <div class="col-md-9">
+              <%= f.text_field :name, class: 'businessName' %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
 
+  <div class="dark-wrap">
+    <div class="container logo-image mobileCenterText">
 
-  <% if current_user.constantcontact_lists %>
-    <div class="field">
-    <strong>Select a list</strong><br>
-      <% current_user.constantcontact_lists.each do |list| %>
-        <%= list.id %> - <%= list.name %> (<%= list.contact_count %>)<br>
-      <% end %>
+      <div class="row content-head styleOptionsTitle">
+        <div class="col-md-12 col-sm-12">
+          <h4>STYLE OPTIONS</h4>
+        </div>        
+      </div>
+
+      <div class="row">
+        <label class="col-md-3 col-sm-12 businessLogo">
+        BUSINESS LOGO
+      </label>
+        <div class="col-md-9">
+          <div class="imgPlaceHolder">
+            <%= image_tag('ico/ico-image-temp.svg') %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-3  col-md-9 col-sm-12">
+          <span class="document-image-frame">
+              <a href="#" class="upload-campaign-image">CHANGE LOGO</a>
+              <%= f.file_field :image, accept: "image/*", style: "display:none", onchange: "handleFilesLogo(this)" %>
+              <%= f.hidden_field :image, class: "campaignImage logoImage", name: "logoImage" %>
+            </span>
+        </div>
+      </div>
+
+      <div class="separator"></div>
+      <div class="row contPaleteColors">
+        <%= f.label 'COLORS DETECTED', class: 'col-md-3 col-sm-12' %>
+        <div class="col-md-9 paleteColors">
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+        </div>
+      </div>
+        <div class="separator"></div>
+        <div class="row">
+          <%= f.label :name, 'PRIMARY COLOR', class: 'col-md-3 col-sm-12' %>
+          <div class="col-md-9">
+            <%= f.text_field :primary_color, id: 'colorPicker1', placeholder: '#FFF' %>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
+          <%= f.label :name, 'SECONDARY COLOR', class: 'col-md-3 col-sm-12' %>
+          <div class="col-md-9">
+            <%= f.text_field :secondary_color, id: 'colorPicker2', placeholder: '#FFF' %>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
+          <div class=" col-md-offset-3 col-md-9 col-xs-12 preview">
+            <a href="#preview-popup" class="preview-campaign open-popup-link" >PREVIEW YOUR MOBILE BUSINESS PAGE</a>
+          </div>
+        </div>
     </div>
-  <% end %>
--->
-
-  <div class="actions">
-    <%= f.submit %>
+  </div>
+  <div class="container">
+    <div class="row content-head socialSettingsTitle">
+      <div class="col-md-12 col-sm-12">
+        <h4>SOCIAL SETTINGS</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+        <%= f.label :website, 'WEBSITE' %>
+      </div>
+      <div class="col-md-9 ">
+        <%= f.text_field :website, class: 'website', placeholder: 'http://' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+        <%= f.label :twitter, 'TWITTER URL' %>
+      </div>
+      <div class="col-md-9 ">
+        <%= f.text_field :twitter, class: 'twitterUrl', placeholder: 'http://' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+        <%= f.label :facebook, 'FACEBOOK URL' %>
+      </div>
+      <div class="col-md-9 ">
+        <%= f.text_field :facebook, class: 'facebookUrl', placeholder: 'http://' %>
+      </div>
+    </div>
     
+  </div>
+  <div class="dark-wrap">
+    <div class="container campaign-image">
+      <div class="row  content-head integrationsTitle">
+        <div class="col-md-3 col-sm-12">
+          <h4>INTEGRATIONS</h4>
+        </div>
+      </div>  
+      <div class="row">
+        
+        <div class="col-md-9 col-md-offset-3 mobileSocialCentered">
+          <div class="socialBox">
+            <div class="facebookImg" >
+              <%= image_tag('facebook.png') %>
+            </div>
+            <%#= connect_identity_link("facebook") %>
+            <a class="connected open-popup-link" href="#share-popup" >Connected</a>
+          </div>
+          <div class="socialBox">
+            <div class="twitterImg" >
+              <%= image_tag('twitter.png') %>
+            </div>
+            <%#= connect_identity_link("twitter") %>
+            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+          </div>
+          <div class="socialBox">
+            <div class="mailchimpImg" >
+              <%= image_tag('mailchimp.png') %>
+            </div>
+            <%#= connect_identity_link("mailchimp") %>
+            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+          </div>
+          <div class="socialBox">
+            <div class="constantContactImg" >
+              <%= image_tag('constantcontact.png') %>
+            </div>
+            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <%= f.button %>
+
     <% if @business.unpublished? && !@business.new_record? %>
-      <%= f.submit 'Save and Publish Profile!', name: 'publish' %>
+      <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
+    <% end %>
+  </div>
+  <% end%>
+
+
+
+
+    <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+      <div class="field">
+      <strong>Select a page for this business</strong><br>
+        <% current_user.facebook_pages.each do |page| %>
+          <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
+        <% end %>
+      </div>
     <% end %>
 
+  <!--
+    <% if current_user.mailchimp_lists %>
+      <div class="field">
+      <strong>Select a mailchimp list</strong><br>
+        <% current_user.mailchimp_lists['data'].each do |list| %>
+          <%= list %><br>
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <% if current_user.constantcontact_lists %>
+      <div class="field">
+      <strong>Select a list</strong><br>
+        <% current_user.constantcontact_lists.each do |list| %>
+          <%= list.id %> - <%= list.name %> (<%= list.contact_count %>)<br>
+        <% end %>
+      </div>
+    <% end %>
+  -->
+
+
+
+
+
+  <!-- Business profile FORM End -->
+
+  <!-- Social POPUP! -->
+  <div id="share-popup" class="white-popup mfp-hide">
+      
+      <div class="container">
+        <textarea name="shareText">@ZIPPYSPOT is ready to Roll!</textarea>
+    </div>
+    <div class="footer">
+      <div class="facebookBox"></div>
+      <div class="twitterBox"></div>
+      <button class="share-btn">SHARE NOW!</button>
+    </div>
   </div>
-<% end %>
+  <!-- Social POPUP end -->
+
+  <!-- Preview POPUP! -->
+  <div id="preview-popup" class="white-popup mfp-hide">
+      <div class="container">
+        <div class="mobileTemplate">
+          <div class="previewHeader">
+            <%= image_tag('ico/ico-image-temp.svg') %>
+          </div>
+          <div class="content">
+            <h1>ACME Coffee</h1>
+            <p>123 Sesame St. New York, NY 11211</p>
+          </div>
+          <div class="socialFooter">
+            <a class="chains" href="#"></a>
+            <a class="facebook" href="#"></a>
+            <a class="twitter" href="#"></a>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- Preview POPUP end -->

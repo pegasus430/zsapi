@@ -1,3 +1,60 @@
-// Place all the styles related to the Locations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.locations {
+  margin: 50px 0;
+  @media (max-width: 768px) {
+    margin: 0px;
+    margin-bottom: 20px;
+  }
+  h4 { 
+    font-size: 16px;
+    color: #4a4a4a;
+    margin: 0px;
+    font-weight: 400;
+  }
+  img { 
+    max-height: 150px;
+    margin: 0 auto;
+    padding: 25px;
+    height: auto;
+    max-height: 150px;
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .border-top {
+    padding-top: 10px;
+    border-top: 1px solid #c0c0c0;
+    vertical-align: top;
+    line-height: 30px;
+  }
+  .number-green {
+    color: $businesses-color;
+    font-size: 26px;
+    font-weight: 300;
+    padding-right: 5px;
+  }
+
+  .location-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.05);
+    transition: all 0.5s ease 0s;
+    border: 2px solid #fff;
+    background: #f9f9fa;
+  }
+  .location-wrap:hover {
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: .4s;
+    cursor: pointer;
+  }
+  .column {
+    margin-bottom: 20px;
+  }
+}
+
+.location-form{
+  button{
+    margin-bottom: 30px;
+    /*left: 0px;*/
+  }
+}

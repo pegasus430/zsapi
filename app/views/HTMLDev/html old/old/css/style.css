@@ -1,0 +1,27 @@
+/*
+    place extra stylesheet here
+*/
+
+.left{float:left;}
+.right{float:right;}
+.clear{clear:both;}
+
+body{	background:#333; padding: 0; margin: 0; font-family: Arial, Verdana;}
+
+#header {background:#1f2123; padding: 20px}
+	#header .right {color:#fff; padding-top: 25px;}
+
+#container {background:#eee; padding:100px 0;}
+#content {padding:20px; width:60%; margin: 0 auto;}
+	#documentTitle {padding:20px; color:#333; background: #fff; border:1px solid #ccc;}
+
+#footer {text-align: center; line-height: 45px; background: #333; color: #eee; font-size: 12px;}
+	#footer a {color:#0081c5;}
+
+h2 {background:#333; color:#fff; padding:10px; margin:20px 0 20px;}
+.ImageContainer {background: #fff; padding:10px;}
+.Notes {display: block; background: #ffe; padding:10px;}
+
+.ImageContainer img {
+    border: solid 2px #999;
+}

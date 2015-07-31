@@ -1,37 +1,55 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Push Greetings" } %>
 
-<h1>Greetings</h1>
+  <div class="container greetings">
 
-<%= link_to 'New Greeting', new_greeting_path %><br><br>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 newGreetingButton ">
+        <%= link_to 'New Greeting', new_greeting_path, class: 'new-cap' %>
+      </div>
+    </div>
 
+    <% if @greetings %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Active</th>
-      <th>Welcome Msg.</th>
-      <th>Exit Msg.</th>
-      <th>Attached Campaign</th>
-      <th>Assigned Locations</th>
-      <th>Share Reward</th>
-      <th>Options</th>
-    </tr>
-  </thead>
+      <div class="table-responsive">
+        <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+          <thead>
+            <tr>
+              <th class="first"></th>
+              <th data-align="left" data-sortable="true">Welcome Msg.</th>
+              <th data-align="left" data-sortable="true">Reward</th>
+              <th data-align="left" data-sortable="true">Exit Msg.</th>
+              <th data-align="left" data-sortable="true">Attached Campaign</th>
+              <th data-align="left" data-sortable="true">Assigned Locations</th>
+              <th data-align="left" data-sortable="false">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @greetings.each do |greeting| %>
+              <tr>
+                <td><%= active_circle(greeting.assigned_to_location?) %></td>
+                <td><%= link_to greeting.welcome_message, edit_greeting_path(greeting) %></td>
+                <td><%= greeting.welcome_reward %></td>
+                <td><%= link_to greeting.exit_message, edit_greeting_path(greeting) %></td>
+                <td><%= link_to greeting.campaign.title, greeting.campaign %></td>
+                <td><%= greeting.locations_string %></td>
+                <td>
+                  <%= link_to 'edit', edit_greeting_path(greeting), class: 'edit' %>
+                  <%= link_to 'delete', greeting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-  <tbody>
-    <% @greetings.each do |greeting| %>
-      <tr>
-        <td><%= yesno(greeting.assigned_to_location?) %></td>
-        <td><%= link_to greeting.welcome_message, greeting %></td>
-        <td><%= link_to greeting.exit_message, greeting %></td>
-        <td><%= link_to greeting.campaign.title, greeting.campaign %></td>
-        <td><%= greeting.locations_string %></td>
-        <td><%= greeting.share_reward %></td>
-        <td>
-          <%= link_to 'Edit', edit_greeting_path(greeting) %> |
-          <%= link_to 'Delete', greeting, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% else %>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3 id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</h3>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>

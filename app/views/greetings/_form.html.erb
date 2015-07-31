@@ -1,7 +1,7 @@
-<%= form_for(@greeting) do |f| %>
+<%= form_for(@greeting, html: {class: 'notify-form'}) do |f| %>
   <%= form_errors_for @greeting %>
 
   <%= render 'form_fields', f: f %>
 
-  <%= f.submit %>
+  <%= f.button %>
 <% end %>

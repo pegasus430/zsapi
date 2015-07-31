@@ -2,7 +2,7 @@ module Locationable
 	extend ActiveSupport::Concern
 	
   def assigned_to_location?
-    locations.exists?  
+    locations.exists?
   end
 
 	def locations_string

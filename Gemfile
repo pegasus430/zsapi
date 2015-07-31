@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -34,6 +34,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'smarter_csv'                         # Simple CSV importing
   gem 'stripe-rails'                        # Stripe integration
   gem 'week_of_month'                       # Week of month methods
+  gem 'less-rails-bootstrap'                # Bootstrap LESS
+  gem 'font-awesome-rails'                  # Font-awesome
 
   # Identities++
     gem 'omniauth'

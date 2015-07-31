@@ -1,44 +1,88 @@
-<div class="field">
-	<%= f.label :welcome_message %> <br>
-	<%= f.text_field :welcome_message %>
-</div>
+	<!-- NOTIFY/GREETINGS FORM Start -->
+	<div class="container">
 
-<div class="field">
-	<%= f.label :welcome_reward, 'Check-in reward points' %> <br>
-	<%= f.number_field :welcome_reward %>
+		<div class="row content-head">
+			<div class="col-md-12 col-sm-12">
+				<h4>CREATE NEW GREETING</h4>
+			</div>
+		</div>
 
-	<%= f.label :welcome_wait_time, 'per' %> <br>
-	<%= f.select :welcome_wait_time, %w(day week month) %>
-</div>
+		<div class="row">
+			<div class="col-md-12">
+				
+				<div class="welcome-message">
+					<div class="row">
+						<%= f.label :welcome_message, 'Welcome Message', class: 'col-md-3' %>
+						<div class="col-md-9">
+							<%= f.text_field :welcome_message, placeholder: 'Drank coffee today?' %>
 
-<div class="field">
-	<%= f.label :exit_message %> <br>
-	<%= f.text_field :exit_message %>
-</div>
+							<span>Check-in Reward Points</span>
+							<%= f.number_field :welcome_reward, class: 'points-input', placeholder: 'ie: 100' %>
 
-<div>
-	<%= check_box_tag 'attach_campaign' %>
-	Attach a campaign?
-</div>
+							<span>per</span>
+							<%= f.select :welcome_wait_time, %w(day week month) %>
+						</div>
 
-<fieldset>
-	<div class="field">
-		<%= f.select :campaign, options_from_collection_for_select(@campaigns, 'id', 'title'), prompt: 'Choose a campaign' %>
+						<div class="field-info">
+							<div class="fi-content">
+								<p>For your primary location.<br>Additional Locations can be added laer.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="exit-message">
+					<div class="row">
+						<%= f.label :exit_message, 'Exit Message', class: 'col-md-3' %>
+						<div class="col-md-9">
+							<%= f.text_field :exit_message, placeholder: 'Have a great day!' %>
+
+							<div class="cbox">
+								<input type="checkbox" data-toggle="collapse" data-target="#collapseCampaign">
+								<label>Attach a Campaign?</label>
+							</div>
+
+							<div class="collapse" id="collapseCampaign">
+							  <%= f.collection_select :campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace' %>
+
+								<span>Within</span>
+								<div class="withAdvice">
+									<%= f.number_field :campaign_wait_time_quantity, class:'input-days', default: 3 %>
+									<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
+									<p class="textAdvice">(enter 0 for no restriction)</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="field-info">
+							<div class="fi-content">
+								<p>For your primary location.<br>Additional Locations can be added later.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="assign-message">
+					<div class="row">
+						<%= f.label :something, 'Assign to location', class: 'col-md-3' %>
+						<div class="col-md-9">
+							<% current_user.locations.active.where(greeting: nil).each do |location| %>
+								<div class="cbox">
+								  <%= f.check_box :locations, { :multiple => true }, location.id, nil %>
+								  <%= f.label location.title %>
+								</div>
+							<% end %>
+						</div>
+						<div class="field-info">
+							<div class="fi-content">
+								<p>(not completed in controller. might not add this into the final design because it would overwrite locations that already have a location set)</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
-
-	Within
-
-	<%= f.number_field :campaign_wait_time_quantity %>
-	<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
-	(enter 0 for no restriction)
-</fieldset>
-
-<div class="field">
-	<i>(not completed in controller. might not add this into the final design because it would overwrite locations that already have a location set)</i><br>
-
-	<%= f.label :locations %>
-	<% current_user.locations.active.each do |location| %>
-	  <%= f.check_box :locations, { :multiple => true }, location.id, nil %>
-	  <%= location.title %>
-	<% end %>
-</div>
+	<!-- NOTIFY/GREETINGS FORM End -->

@@ -1,11 +1,15 @@
-<% if object.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(object.errors.count, "error") %> prevented the form from being saved:</h2>
-
-    <ul>
-    <% object.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
+<% content_for :form_errors do %>
+	<% if object.errors.any? %>
+		<div class="message warning-message warning-message2">
+			<div class="col-md-1"><i><%= image_tag('ico/ico_warning.svg') %></i></div>
+			<div class="col-md-2"><strong>Warning!</strong></div>
+			<div class="col-md-9">
+				<%= pluralize(object.errors.count, "error") %> prevented the form from being saved:<br>
+		    <% object.errors.full_messages.each do |message| %>
+		      <%= message %><br>
+		    <% end %>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	<% end %>
 <% end %>

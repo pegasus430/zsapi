@@ -1,39 +1,174 @@
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
 <head>
-  <title>Zippyspot</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="keywords" content="HTML5 Template" />
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>ZippySpot | <%= @html_title || "Admin Panel" %></title>
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	
+
+	<!-- Custom Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,900' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,700,400italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+	<!-- CSS -->
+	<%= stylesheet_link_tag 'application', params[:controller], media: 'all', 'data-turbolinks-track' => true %>
+
+	<!-- CSRF -->
+	<%= csrf_meta_tags %>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
 </head>
-<body>
 
-<div id="container">
-	<div id="left-menu">
-		<ul>
-			<li><%= link_to 'Dashboard', root_url %></li>
-			<li><%= link_to 'Biz Profile', edit_business_url %></li>
-			<li><%= link_to 'Greetings', greetings_url %></li>
-			<li><%= link_to 'Campaigns', campaigns_url %></li>
-			<li><%= link_to 'Customers', customers_url %></li>
-			<li><%= link_to 'Receipts', receipts_url %></li>
-			<li><%= link_to 'Locations', locations_url %></li>
-		</ul>
+<body id="home" class="<%= [params[:controller], params[:action]].join(' ') %>">
+
+<div id="wrapper">
+
+
+	<!-- NAV / VERTICAL SIDEMENU Start -->
+	<div class="db-header " id="db-header">
+		<div class="logo">
+			<%= link_to image_tag('logo_zippy.png'), root_url %>
+		</div>
+		<div class="db-navbar">
+			<ul>
+				<li id="dashboard">
+					<%= link_to(root_url) do %>
+						<i><%= image_tag('ico/ico_dash.svg') %></i>
+						<span>Dashboard</span>
+					<% end %>
+				</li>
+				<li id="business">
+					<%= link_to(edit_business_url) do %>
+						<i><%= image_tag('ico/ico_bizProfile.svg') %></i>
+						<span>Biz Profile</span>
+					<% end %>
+				</li>
+				<li id="greetings">
+					<%= link_to(greetings_url) do %>
+						<i><%= image_tag('ico/ico-notifications.svg') %></i>
+						<span>Greetings</span>
+					<% end %>
+				</li>
+				<li id="campaigns">
+					<%= link_to(campaigns_url) do %>
+						<i><%= image_tag('ico/icon-campaign.svg') %></i>
+						<span>Campaigns</span>
+					<% end %>
+				</li>
+				<li id="customers">
+					<%= link_to(customers_url) do %>
+						<i><%= image_tag('ico/icon-customers.svg') %></i>
+						<span>Customers</span>
+					<% end %>
+				</li>
+				<li id="receipts">
+					<%= link_to(receipts_url) do %>
+						<i><%= image_tag('ico/icon-receipt.svg') %></i>
+						<span>Receipts</span>
+					<% end %>
+				</li>
+				<li id="locations">
+					<%= link_to(locations_url) do %>
+						<i><%= image_tag('ico/icon-location.svg') %></i>
+						<span>Locations</span>
+					<% end %>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- NAV / VERTICAL SIDEMENU End -->
+
+	<!-- HEADER Start -->
+	<div class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-xs-3">
+					<div class="nav-trigger"></div>
+					<div class="welcome">
+						<%= current_user.business.name %>
+					</div>
+					<div class="battery-status full hidden-xs">
+						<div class="ico"><%= image_tag('ico/ico_storeBattery.svg') %></div>
+						<ul class="battery-ui">
+							<li>Location Name 1 <span><em class="bg-color2" style="width:25%"></em></span></li>
+							<li>Location Name 2 <span><em class="bg-color3" style="width:50%"></em></span></li>
+							<li>Location Name 3 <span><em style="width:100%"></em></span></li>
+							<li>Location Name 4 <span><em class="bg-color3" style="width:50%"></em></span></li>
+							<li>Location Name 5 <span><em class="bg-color2" style="width:25%"></em></span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-9 profile-head">
+					<div class="profile">
+						<div class="battery-status full visible-xs">
+							<div class="ico"><%= image_tag('ico/ico_storeBattery.svg') %></div>
+							<ul class="battery-ui">
+								<li>Location Name 1 <span><em class="bg-color2" style="width:25%"></em></span></li>
+								<li>Location Name 2 <span><em class="bg-color3" style="width:50%"></em></span></li>
+								<li>Location Name 3 <span><em style="width:100%"></em></span></li>
+								<li>Location Name 4 <span><em class="bg-color3" style="width:50%"></em></span></li>
+								<li>Location Name 5 <span><em class="bg-color2" style="width:25%"></em></span></li>
+							</ul>
+						</div>
+						<%= image_tag('profile.png', class: 'profile-pic') %>
+						<span>Adam Ostyanko</span>
+						<ul class="profile-ui">
+							<li><a href="profile.php"><%= image_tag('ico/icon-profile.svg') %> Profile</a></li>
+							<li><a href="#"><%= image_tag('ico/icon-heart.svg') %> Help</a></li>
+							<li><a href="#"><%= image_tag('ico/icon-logout.svg') %> Log Out</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- HEADER End -->
+
+	<!-- PAGE HEADER Start -->
+	<div class="page-head">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h4><%= yield :page_title %></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE HEADER End -->
+
+	<%= render('shared/progress_steps') %>
+
+	<%= yield :form_errors %>
+
+
+	<%= yield %>
+
 	</div>
 
-	<div id="content-area">
-		<div id="error">
-			<p class="notice"><%= notice %></p>
-			<p class="alert"><%= alert %></p>
-		</div>
 
-		<div id="content">
-			<%= yield %>
-		</div>
-	</div>
 
-	<div class="clear"></div>
-</div>
+	<%= javascript_include_tag 'application', params[:controller], 'data-turbolinks-track' => true %>
 
 </body>
 </html>

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     post '/customers/import',            to: 'customers#import',  as: 'import_customers'
 
     # Greetings
-    resources :greetings
+    resources :greetings, except: [:show]
 
 
     # All Receipts

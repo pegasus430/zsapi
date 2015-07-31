@@ -1,3 +1,235 @@
-// Place all the styles related to the Campaigns controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.campaign-form{
+  .cbox{
+    margin-top: 33px;
+    label{
+      color: #4a4a4a;
+      font-weight: bold;
+    }
+    
+  }
+  .campaign-image{
+    h4{
+      font-size: 26px;
+      color: #000;
+      margin-bottom: 0px;
+      margin-top: 43px;
+      font-weight: 400;
+    }
+    .subtitle{
+      font-size: 13px;
+      padding: 0px;
+      color:#a3a3a3;
+    }
+    .document-image-frame{
+      float: left;
+      .upload-campaign-image{
+        font-family: 'Roboto', Sans-serif !important;
+        background-repeat: no-repeat;
+        background-color: #FFF;
+        background-image: image-url('ico/ico_browse.png');
+        background-position-y:center;
+        background-position-x: 20px; 
+        margin-top: 43px;
+        display: block;
+        -webkit-border-radius: 40px;
+        -moz-border-radius: 40px;
+        border-radius: 40px;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 10px 33px 10px 55px ;
+        color: #4a4a4a;
+      }
+    }
+    .choose-image, .crop-image{
+      font-family: 'Roboto', Sans-serif !important;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      float: left;
+      border: 1px solid #4a4a4a;
+      margin-top: 43px;
+      display: block;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      border-radius: 40px;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: bold;
+      padding: 10px 42px ;
+      color: #4a4a4a;
+      margin-left: 10px;
+    }
+    .choose-image:hover, .crop-image:hover, .upload-campaign-image:hover {
+      /*opacity: 0.7;*/
+      transition: .4s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    .imgPlaceHolder{
+      min-height: 127px ;
+      min-width: 127px ;
+      /*background: image-url('img-placeholder.png') center center no-repeat;*/
+      display: block;
+      width: auto;
+      float: left;
+      margin-left: 20px;
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+  .cbox.checkbox-inline{
+    float: left;
+    padding-left: 0;
+    input{
+      margin-left: 0px;
+    }
+  }
+  .selectOptions{
+    top: 44px;
+    span:hover{
+      background: #eee;
+    }
+  }
+  option:first {
+    color: #999;
+  }
+  label{
+    width: 100%;
+    max-width: 215px;
+  }
+  .socialBox{
+    width: 81px;
+    margin-top: 97px;
+    margin-right: 31px;
+    float: left;
+    .cbox{
+      label{
+        margin-left: 15px;
+      }
+      input[type="checkbox"]{
+        left: 24px !important;
+      }
+    }
+
+		//WES
+    .default_socialImg{
+    	width: 81px;
+    	height: 84px;
+    	background: image-url('facebook.png') center center no-repeat;
+    	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    .facebookImg{
+    	@extend .default_socialImg
+      background-image: image-url('facebook.png');
+    }
+    .twitterImg{
+    	@extend .default_socialImg
+      background-image: image-url('twitter.png');
+    }
+    .instagramImg{
+    	@extend .default_socialImg
+      background-image: image-url('instagram.png');
+    }
+  }
+}
+
+
+/* DATE PICKER STYLES */
+.customDaySelector{
+  display: none;
+}
+.customDaySelector.active{
+  display: block;
+}
+.datepicker.dropdown-menu{
+  z-index: 9999 !important;
+}
+.input-group{
+  position: inherit; 
+  .form-control{
+    width: 126px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+  }
+  .input-group-addon{
+    margin-left: 20px;
+    background: image-url('ico/ico_calendar.png') center center no-repeat !important;
+    border: none;
+    width: 37px;
+    height: 43px;
+    .glyphicon{
+      display: none;
+    }
+  }
+}
+
+/* CAMPAIGN */
+
+span.subtitle{
+  color: #a3a3a3;
+  font-size: 16px;
+}
+
+h4.normal{
+  font-size: 17px !important;
+  color: #4a4a4a;
+  font-weight: light;
+  margin: 20px 0;
+}
+
+/* CAMPAIGNS */
+
+.campaigns-selector{
+  div.view{
+    font-size: 15px;
+    color: #4a4a4a;
+    margin-right: 15px;
+    width: 50px;
+    float: left;
+    margin-top: 10px;
+    font-weight: 500;
+  } 
+}
+
+
+/* Day picker */
+
+.datepicker.datepicker-inline{
+  border: solid 1px #979797;
+  padding: 15px;
+  width: 234px;
+  height: 180px;
+  margin-bottom: 30px;
+  position: absolute;
+  table{
+    background-color: #FFF;
+    thead{
+      display: none;
+    }
+    .cw, .disabled.day{
+      display: none;
+    }
+    td{
+      border: solid 1px #eee;
+      color: #838d8f;
+      font-size: 12px;
+    }
+    td:hover, td.active.active,td.active.active:hover{
+      color: #FFF;
+      background-color: #838d8f !important;
+      border: solid 1px #eee;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+    }
+
+  }
+
+}

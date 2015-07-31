@@ -1,3 +1,17 @@
-// Place all the styles related to the Greetings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.notify-form{
+  padding: 35px 0 120px;
+  
+}
+
+.exit-message {
+  margin-bottom: 65px;
+}
+
+.input-days {
+  width: 55px !important;
+  height: 45px;
+  border: none !important;
+  padding: 0px !important;
+  text-align: center;
+  margin-right: 15px;
+}

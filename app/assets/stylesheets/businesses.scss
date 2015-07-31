@@ -1,3 +1,154 @@
-// Place all the styles related to the Businesses controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+*= require cropper
+*= require jquery.minicolors
+*/
+@import 'settings';
+
+.business-profile-form{
+  label.businessLogo{
+    margin-top: 28px;
+  }
+  .imgPlaceHolder{
+    min-height: 100px ;
+    min-width: 140px ;
+    /*background: image-url('ico/ico-image-temp.svg') center center no-repeat;*/
+    display: block;
+    width: auto;
+    float: left;
+    margin-left: 20px;
+    border: solid 1px #979797;
+    img{
+      width: 100%;
+    }
+  }
+  .upload-campaign-image, .preview-campaign{
+    letter-spacing: 1px;
+    font-family: 'Roboto', Sans-serif !important;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    float: left;
+    border: 1px solid #4a4a4a;
+    margin-top: 23px;
+    display: block;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: bold;
+    padding: 10px 30px ;
+    color: #4a4a4a;
+  }
+  .preview{
+    background-image: image-url('mobile-preview.png');
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    padding-left: 75px;
+  }
+  .preview-campaign{
+    letter-spacing: 1px;
+    background-image: image-url('ico/ico_browse.png');
+    background-position: 20px center;
+    padding-left: 55px;
+    margin-bottom:  8px;
+  }
+
+  .preview-campaign:hover, .upload-campaign-image:hover{
+
+    background-color: #FFF;
+    transition: .4s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .colorPicker{
+    width: 206px;
+  }
+  .contPaleteColors{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .paleteColors{
+      div.color{
+        width: 40px;
+        height: 40px;
+        border: solid 2px #979797;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        float: left;
+        margin-right: 10px;
+        cursor: image-url('eyeDropCursor.png') 0 55, default;
+      }
+    }
+  }
+
+  .socialBox{
+    float: left;
+    width: 20%;
+    div {
+      width: 100%;
+      
+      img{
+        display: block;
+        margin: 20px auto;
+        width: 81px;
+        height: 84px;
+      }
+    }
+    a{
+      left: 0;
+      background: transparent;
+      color: #4a4a4a;
+      border: 1px solid #4a4a4a;
+      padding: 0px 22px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      margin: 50px auto 0;
+      display: table;
+      border-radius: 22px;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      position: relative;
+      transition: .4s;
+
+    }
+    a.connected, a:hover{
+      background: #FFF;
+      transition: .4s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+  }
+  .publish{
+    background: $businesses-color;
+    padding: 0px 45px;
+  }
+
+}
+.minicolors{
+  cursor: pointer;
+  padding-right: 105px;
+  background: image-url('ico/ico-eyedropper.png') no-repeat right 5px;
+  .minicolors-input{
+    height: 45px;
+    width: 105px;
+    padding: 12px 17px !important;
+  }
+  .minicolors-sprite.minicolors-swatch{
+    right: 50px !important;
+    height: 45px;
+    top: 0;
+    width: 45px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    .minicolors-swatch-color{
+      
+      border: solid 2px #979797;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="42px" viewBox="0 0 21 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>Input  + Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feGaussianBlur stdDeviation="0" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feComposite in="shadowBlurInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.07 0" in="shadowInnerInner1" type="matrix" result="shadowMatrixInner1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feGaussianBlur stdDeviation="0" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feComposite in="shadowBlurInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.07 0" in="shadowInnerInner1" type="matrix" result="shadowMatrixInner1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="StyleGuide" sketch:type="MSArtboardGroup" transform="translate(-762.000000, -199.000000)">
+            <g id="Input--+-Icon" sketch:type="MSLayerGroup" transform="translate(762.000000, 199.000000)">
+                <rect id="Input-" fill="#4CD9BA" filter="url(#filter-1)" sketch:type="MSShapeGroup" x="0" y="0" width="21" height="21" rx="4"></rect>
+                <path d="M16.7242372,3.50068264 C15.7711572,4.15407626 14.5299367,5.51313499 13.7098446,6.37561456 C12.0696603,8.10057372 10.4959701,9.90394011 8.94444444,11.7334422 L5.84139321,8.54488138 L4.66666667,9.90394011 C6.37334485,11.9163925 8.21301094,14.0856593 9.72020725,16.3333333 C11.648532,12.5959218 14.7959125,7.23809414 17.5,4.4154337 C17.4113414,4.20634775 17.0345423,3.47454689 16.7242372,3.50068264 Z" id="Icon" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+                <rect id="Input-" fill="#D8D8D8" filter="url(#filter-2)" sketch:type="MSShapeGroup" x="0" y="21" width="21" height="21" rx="4"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

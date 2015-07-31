@@ -1,0 +1,105 @@
+.profile-progress {
+  background: #6aa725;
+  padding: 22px 0 16px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  position: relative;
+  z-index: 998;
+  .container {
+    position: relative;
+  }
+}
+.profile-progress-head {
+  margin-bottom: 20px;
+  span {
+    margin-left: -35px;
+    margin-right: 5px;
+    position: relative;
+    top: -6px;
+    img {
+      width: 40px;
+    }
+  }
+  em {
+    color: #fff;
+    font-style: normal;
+    font-size: 27px;
+
+   $businesses-color: #0ab58f;
+    letter-spacing: -1.1px;
+    font-weight: 400;
+    margin: -1px auto 0;
+    display: table;
+    position: relative;
+    display: inline-block;
+  }
+}
+.profile-progress-list {
+  ul {
+    li {
+      float: left;
+      font-size: 14px;
+      color: #FFF;
+      font-weight: 500;
+      margin-right: 4.5%;
+      opacity: 0.5;
+      position: relative;
+
+    }
+    li:after {
+      content: "";
+      background: image-url('ico/right_arrow.svg') no-repeat;
+      width: 9px;
+      height: 16px;
+      position: absolute;
+      top: 0px;
+      left: -22px;
+    }
+    li.active:before {
+      content: "\f00c";
+      font-family: 'FontAwesome';
+      position: absolute;
+      top: 0px;
+      left: -25px;
+      font-size: 15px;
+    }
+    li:first-child:after {
+      display: none;
+    }
+    li.active {
+      opacity: 1;
+    }
+    li:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+.profile-progress-bar {
+  width: 124px;
+  float: right;
+  position: absolute;
+  top: 3px;
+  right: 15px;
+  h5 {
+    margin: 0 0 8px;
+    color: #FFF;
+    font-family: 'Roboto Condensed';
+    font-size: 16px;
+    text-align: right;
+  }
+  span {
+    width: 124px;
+    height: 7px;
+    display: table;
+    background: rgba(255,255,255,0.6);
+    position: relative;
+    em {
+      width: 25%;
+      height: 7px;
+      display: table;
+      background: #fff;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+  }
+}

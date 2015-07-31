@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="17px" viewBox="0 0 20 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_warning</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Alerts" sketch:type="MSArtboardGroup" transform="translate(-171.000000, -253.000000)">
+            <g id="Dialog_Warning-MultiLine" sketch:type="MSLayerGroup" transform="translate(150.000000, 227.000000)">
+                <g id="ico_warning" transform="translate(20.000000, 25.000000)" sketch:type="MSShapeGroup">
+                    <path d="M0,0 L13.8823529,0 L13.8823529,14.0651163 L0,14.0651163 L0,0 Z" id="Shape"></path>
+                    <path d="M1,17.7023256 L20.0882353,17.7023256 L10.5441176,1 L1,17.7023256 L1,17.7023256 Z M11.4117647,15.0651163 L9.67647059,15.0651163 L9.67647059,13.3069767 L11.4117647,13.3069767 L11.4117647,15.0651163 L11.4117647,15.0651163 Z M11.4117647,11.5488372 L9.67647059,11.5488372 L9.67647059,8.03255814 L11.4117647,8.03255814 L11.4117647,11.5488372 L11.4117647,11.5488372 Z" id="Shape" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

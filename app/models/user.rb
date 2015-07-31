@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
 
  	## TWITTER
  	def twitter
-    identities.where(provider: "twitter").first
+    @twitter ||= identities.where(provider: "twitter").first
+    @twitter
   end
 
   def twitter_client
@@ -40,18 +41,21 @@ class User < ActiveRecord::Base
   ## FACEBOOK
   # The facebook identity
   def facebook
-    identities.where(provider: "facebook").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @facebook ||= identities.where(provider: "facebook").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @facebook
   end
 
   # The facebook API client via Koala
   def facebook_client
     @facebook_client ||= Koala::Facebook::API.new(facebook.access_token) if facebook.access_token
+    @facebook_client
   end
 
   # Gets the list of facebook pages
   def facebook_pages
   	begin
       @facebook_pages ||= facebook_client.get_connections('me', 'accounts') if facebook_client
+      @facebook_pages
     rescue Exception => e
       facebook.destroy if facebook
     end
@@ -60,11 +64,13 @@ class User < ActiveRecord::Base
   # Sets up a facebook page client for page posting to pages
   def facebook_page_client
   	@facebook_page_client ||= Koala::Facebook::API.new(facebook.page_token) if facebook.page_token
+    @facebook_page_client
   end
 
   # Returns the chosen facebook page object
   def facebook_page
-  	facebook_page_client.get_object("me") if facebook_page_client
+  	@facebook_page ||= facebook_page_client.get_object("me") if facebook_page_client
+    @facebook_page
   end
 
   # Saves the facebook page token to the identity via page_id
@@ -82,30 +88,36 @@ class User < ActiveRecord::Base
 
   ## MAILCHIMP
   def mailchimp
-    identities.where(provider: "mailchimp").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @mailchimp ||= identities.where(provider: "mailchimp").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @mailchimp
   end
 
   def mailchimp_client
     @mailchimp_client ||= Gibbon::API.new( mailchimp.access_token ) if mailchimp
+    @mailchimp_client
   end
 
   def mailchimp_lists
-  	mailchimp_client.lists.list(start: 0, limit: 5) if mailchimp_client
+  	@mailchimp_lists ||= mailchimp_client.lists.list(start: 0, limit: 5) if mailchimp_client
+    @mailchimp_lists
   end
 
 
 
   ## CONSTANT CONTACT
   def constantcontact
-    identities.where(provider: "constantcontact").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @constantcontact ||= identities.where(provider: "constantcontact").where('expires_at >= ? OR expires_at IS NULL', Time.now).first
+    @constantcontact
   end
 
   def constantcontact_client
     @constantcontact_client ||= ConstantContact::Api.new( Rails.configuration.x.CONSTANTCONTACT_APP_ID, constantcontact.access_token ) if constantcontact
+    @constantcontact_client
   end
 
   def constantcontact_lists
-  	constantcontact_client.get_lists if constantcontact_client
+  	@constantcontact_lists ||= constantcontact_client.get_lists if constantcontact_client
+    @constantcontact_lists
   end
 
 

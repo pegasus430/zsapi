@@ -1,3 +1,17 @@
+7/30/15
+	11:34
+		The index page went smoothly (**although the new button isn't styled). Working on the form now.
+
+	09:30+
+		Starting in on the greetings page. Today needs to be a lot of work!
+
+7/29/15
+	21:19-
+		Integrated most of the design and assets. It wasn't easy! Also found a few Firefox bugs and reported them to Artur. **Tomorrow I will start on the greeting page. Once all pages are integrated with the new design, I will start testing functionality (forms and whatnot).
+
+	14:32+
+		Integrating the design into the app. After all is said and done, will begin integrating each section page by page.
+
 7/24/15
 	16:07-
 		Added the **untested facebook post-to-wall-with-image method in the campaign controller.
