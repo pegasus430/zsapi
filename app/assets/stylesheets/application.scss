@@ -553,8 +553,7 @@ span.selectOption {
 .battery-status {
   display: inline-block;
   position: relative;
-}
-.battery-status.full {
+
   .ico {
     width: 42px;
     height: 42px;
@@ -564,12 +563,13 @@ span.selectOption {
     transition: .5s;
     position: relative;
     top: -8px;
+  
+    &.active ,
+    &:hover {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+      transition: .5s;
+    }
   }
-}
-.battery-status.full .ico.active ,
-.battery-status.full .ico:hover {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
-  transition: .5s;
 }
 
 .profile {
@@ -1263,7 +1263,9 @@ input[type="radio"]:checked + label {
   background: #8A8E9C;
 }
 
-.bg-color6, .badge.bg-color6{
+.bg-color6, .badge.bg-color6,
+body.campaigns .page-head,
+body.campaigns .bagde{
   background: $campaigns-color;
 }
 
@@ -1280,56 +1282,57 @@ body.customers .page-head {
   display: table;
   position: relative;
   margin: 18px 0 5px;
-}
-input[type="checkbox"] {
-  display: block;
-  position: absolute;
-  top: -33px;
-  left: -9px;
-  z-index: 9999;
-  width: 40px;
-  height: 40px;
-  opacity: 0;
 
-	& + label {
-	  background: image-url('cbox.svg') no-repeat bottom left;
-	  padding: 0px;
-	  position: relative;
-	  top: -20px;
-	  display: table;
-	  color: #797778;
-	  text-transform: none;
-	  font-size: 15px;
-	  font-weight: 400;
-	  display: table;
-	  height: 21px;
-	  margin-bottom: -12px;
-	  vertical-align: middle;
-	  cursor: pointer;
-	  padding-left: 33px;
-	  width: 100%;
-	  line-height: 19px;
+  input[type="checkbox"] {
+    display: block;
+    position: absolute;
+    top: -33px;
+    left: -9px;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
 
-	  &.dark{
-		  background: image-url('cbox-dark.png') no-repeat bottom left;
-	  }
-	}
+  	& + label {
+  	  background: image-url('cbox.svg') no-repeat bottom left;
+  	  padding: 0px;
+  	  position: relative;
+  	  top: -20px;
+  	  display: table;
+  	  color: #797778;
+  	  text-transform: none;
+  	  font-size: 15px;
+  	  font-weight: 400;
+  	  display: table;
+  	  height: 21px;
+  	  margin-bottom: -12px;
+  	  vertical-align: middle;
+  	  cursor: pointer;
+  	  padding-left: 33px;
+  	  width: 100%;
+  	  line-height: 19px;
 
-	&:checked + label{
-	  background: image-url('cbox.svg') no-repeat top left;
+  	  &.dark{
+  		  background: image-url('cbox-dark.png') no-repeat bottom left;
+  	  }
+  	}
 
-	  &.dark{
-		  background: image-url('cbox-dark.png') no-repeat top left;
-		}
-	}
-}
+  	&:checked + label{
+  	  background: image-url('cbox.svg') no-repeat top left;
 
-input[type="checkbox"] + label,
-input[type="checkbox"]:checked + label {
-  -webkit-transition: background-color 0.4s linear;
-  -o-transition: background-color 0.4s linear;
-  -moz-transition: background-color 0.4s linear;
-  transition: background-color 0.4s linear;
+  	  &.dark{
+  		  background: image-url('cbox-dark.png') no-repeat top left;
+  		}
+  	}
+  }
+
+  input[type="checkbox"] + label,
+  input[type="checkbox"]:checked + label {
+    -webkit-transition: background-color 0.4s linear;
+    -o-transition: background-color 0.4s linear;
+    -moz-transition: background-color 0.4s linear;
+    transition: background-color 0.4s linear;
+  }
 }
 
 .input-number{
@@ -1996,7 +1999,7 @@ a.new-cap {
   overflow: auto;
   overflow-x: hidden;
 }
-.input-days {
+input.input-days {
   width: 35px !important;
   padding: 0 !important;
   text-align: center;

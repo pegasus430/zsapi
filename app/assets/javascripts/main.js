@@ -21,58 +21,7 @@ $( document ).ready(function(){
             updatePreview();
         });
 
-    }
-
-
-
-    /* SHOW CUSTOM DAYS SELECTOR */
-    $('.daysOfTheMonth .radio').click(function(e){
-        if($('.customDays').find('input').is(':checked')){
-            $('.customDaySelector').addClass('active');
-        }else{
-            $('.customDaySelector').removeClass('active');
-        }
-    });
-
-
-
-
-
-
-    // DATE PICKER!
-    if ($('.input-group.date').length) {
-        $('.input-group.date').datepicker({
-            autoclose: true,
-            orientation: 'top',
-            todayHighlight: true
-        });
-    }
-
-    // DAYs PICKER
-    if ($('.customDaySelector').length) {
-        $('.customDaySelector').datepicker({
-            startDate: "05/01/2016",
-            endDate: "05/31/2016",
-            multidate: true,
-            multidateSeparator: ",",
-            calendarWeeks: true,
-            todayHighlight: true
-        });
-        $('.customDaySelector').on("changeDate", function(event) {
-            var dates = new Array();
-            var day = new Array();
-            aux = "";
-            dates = $('.customDaySelector').datepicker('getFormattedDate').split(',');
-            for (var i = dates.length - 1; i >= 0; i--) {
-                day = dates[i].split('/');
-                aux = aux + day[1]+"," ;
-            };
-            $("#customDaySelector_input").val( aux );
-        });
-    }
-
-
-    
+    }   
 
    
 
@@ -258,38 +207,3 @@ $( document ).ready(function(){
 
     });
 });
-
-
-
-function dateSorter(a, b) {
-    var auxA =Array();
-    var auxB =Array();
-    auxA = a.split('/'); 
-    auxB = b.split('/');
-    if(parseInt(auxA[0]) == parseInt(auxB[0]) && parseInt(auxA[1]) == parseInt(auxB[1]) && parseInt(auxA[2]) == parseInt(auxB[2]) ){
-        return 0;
-    }
-    if(parseInt(auxA[2]) != parseInt(auxB[2])){ 
-        if( parseInt(auxA[2]) > parseInt(auxB[2]) ){
-            return 1; 
-        }else{
-            return -1; 
-        }
-    }else{
-        if(parseInt(auxA[0]) != parseInt(auxB[0]) ){ 
-            if( parseInt(auxA[0]) > parseInt(auxB[0]) ){
-                return 1; 
-            }else{
-                return -1; 
-            }
-        }else{
-            if ( parseInt(auxA[1]) > parseInt(auxB[1]) ) {
-                return 1; 
-            }else{
-                return -1;
-            }
-        }
-        
-    }
-    
-}

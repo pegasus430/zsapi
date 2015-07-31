@@ -1,3 +1,5 @@
+//= require cropper
+
 .campaign-form{
   .cbox{
     margin-top: 33px;
@@ -24,11 +26,7 @@
       float: left;
       .upload-campaign-image{
         font-family: 'Roboto', Sans-serif !important;
-        background-repeat: no-repeat;
-        background-color: #FFF;
-        background-image: image-url('ico/ico_browse.png');
-        background-position-y:center;
-        background-position-x: 20px; 
+        background: #fff image-url('ico/ico_browse.png') no-repeat 20px center;
         margin-top: 43px;
         display: block;
         -webkit-border-radius: 40px;
@@ -120,15 +118,15 @@
     }
 
     .facebookImg{
-    	@extend .default_socialImg
+    	@extend .default_socialImg;
       background-image: image-url('facebook.png');
     }
     .twitterImg{
-    	@extend .default_socialImg
+    	@extend .default_socialImg;
       background-image: image-url('twitter.png');
     }
     .instagramImg{
-    	@extend .default_socialImg
+    	@extend .default_socialImg;
       background-image: image-url('instagram.png');
     }
   }
@@ -154,7 +152,7 @@
     border-radius: 4px;
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
-    webkit-box-shadow: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
   }

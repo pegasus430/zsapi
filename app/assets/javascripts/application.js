@@ -57,38 +57,85 @@ jQuery(document).ready(function($){
 
 	// PROFILE
 	$(".profile").click(function(event) {
-	    $(".profile-ui").toggleClass("active");
-	    $(".profile-pic").toggleClass("active");
-	    $(".battery-ui").removeClass("active");
-	    $(".ico").removeClass("active");
-	     event.stopPropagation();
+	  $(".profile-ui").toggleClass("active");
+	  $(".profile-pic").toggleClass("active");
+	  $(".battery-ui").removeClass("active");
+	  $(".ico").removeClass("active");
+	   event.stopPropagation();
 	});
 
 	$('html').click(function() {
-	    $(".profile-ui").removeClass("active");
-	    $(".profile-pic").removeClass("active");
+	  $(".profile-ui").removeClass("active");
+	  $(".profile-pic").removeClass("active");
 	});
 
 
 	// BATTERY
 	$(".battery-status").click(function(event) {
-	    $(".battery-ui").toggleClass("active");
-	    $(".ico").toggleClass("active");
-	    $(".profile-ui").removeClass("active");
-	    $(".profile-pic").removeClass("active");
-	    event.stopPropagation();
+	  $(".battery-ui").toggleClass("active");
+	  $(".ico").toggleClass("active");
+	  $(".profile-ui").removeClass("active");
+	  $(".profile-pic").removeClass("active");
+	  event.stopPropagation();
 	});
 
 	$('html').click(function() {
-	    $(".battery-ui").removeClass("active");
-	    $(".ico").removeClass("active");
+	  $(".battery-ui").removeClass("active");
+	  $(".ico").removeClass("active");
 	});
 
 	$(".battery-ui").mouseleave(function(){
-	    setTimeout(
-	      function() 
-	      {
-	        $(".battery-ui").removeClass("active");
-	      }, 3000);
+	  setTimeout(
+	    function() 
+	    {
+	    $(".battery-ui").removeClass("active");
+	    }, 3000);
 	});
+
+
+
+	//open Popup
+	if ($('.open-popup-link').length) {
+	    $('.open-popup-link').magnificPopup({
+	      type:'inline',
+	      midClick: true,
+	      removalDelay: 500,
+	      mainClass: 'mfp-fade'
+	    });
+	};
 });
+
+
+
+function dateSorter(a, b) {
+  var auxA =Array();
+  var auxB =Array();
+  auxA = a.split('/'); 
+  auxB = b.split('/');
+  if(parseInt(auxA[0]) == parseInt(auxB[0]) && parseInt(auxA[1]) == parseInt(auxB[1]) && parseInt(auxA[2]) == parseInt(auxB[2]) ){
+    return 0;
+  }
+  if(parseInt(auxA[2]) != parseInt(auxB[2])){ 
+    if( parseInt(auxA[2]) > parseInt(auxB[2]) ){
+      return 1; 
+    }else{
+      return -1; 
+    }
+  }else{
+    if(parseInt(auxA[0]) != parseInt(auxB[0]) ){ 
+      if( parseInt(auxA[0]) > parseInt(auxB[0]) ){
+        return 1; 
+      }else{
+        return -1; 
+      }
+    }else{
+      if ( parseInt(auxA[1]) > parseInt(auxB[1]) ) {
+        return 1; 
+      }else{
+        return -1;
+      }
+    }
+    
+  }
+  
+}

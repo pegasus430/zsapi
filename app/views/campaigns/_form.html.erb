@@ -1,72 +1,217 @@
-<%= form_for(@campaign, multipart: true) do |f| %>
+<!-- NOTIFY/GREETINGS FORM Start -->
+<%= form_for(@campaign, multipart: true, html: {class: 'campaign-form form'}) do |f| %>
   <%= form_errors_for @campaign %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_amount %><br>
-    <%= f.text_field :discount_amount %>
-  </div>
-  <div class="field">
-    <%= f.label :discount_type %><br>
-    <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type) %>
-  </div>
-  <div class="field">
-    <%= f.label :share_reward %><br>
-    <%= f.number_field :share_reward %>
-  </div>
-  <div class="field">
-    <%= f.label 'Valid Location(s)' %><br>
-    <% @locations.each do |l| %>
-      <%= f.check_box :locations, {multiple: true}, l.id %> <%= l.title %><br>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.file_field :image %><br>
-    <%= link_to 'Crop', '#' %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.select :status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status) %>
-  </div>
-
-  
-  <fieldset>
-    <div class="field">
-      <%= f.label :start_at %><br>
-      <%= f.datetime_select :start_at %>
+  <div class="container">
+    <div class="row content-head">
+      <div class="col-md-12 col-sm-12">
+        <h4>CREATE/EDIT A NEW REWARD</h4>
+      </div>
+      
     </div>
-    <div class="field">
-      <%= f.label :end_at %><br>
-      <%= radio_button_tag 'end_at_selector', 'specific' %>
-      <%= f.datetime_select :end_at %><br><br>
+    <div class="row">
+      <div class="col-md-12">
+        
+        <div class="row">
+          <label class="col-md-3">COUPON TITLE</label>
+          <div class="col-md-9">
+            <%= f.text_field :title, id: 'couponTitle' %>
+          </div>
+        </div>
+        <div class="separator"></div>
 
-      <%= radio_button_tag 'end_at_selector', 'from_now' %> in
-      <%= text_field_tag 'from_now_number' %>
-      <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %><br><br>
+        <div class="row">
+          <label class="col-md-3 ">DISCOUNT</label>
+          <div class="col-md-9">
+            <%= f.text_field :discount_amount, class: 'input-number input-inline' %>
+            <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type, prompt: 'Choose', class: 'mobileFullWidth') %>
+          </div>
+        </div>
+        <div class="separator"></div>
 
-      <%= radio_button_tag 'end_at_selector', 'never' %> Never
+        <div class="row">
+          <label class="col-md-3 ">SHARING REWARD</label>
+          <div class="col-md-9">
+            <%= f.number_field :share_reward, class: 'input-number input-inline', placeholder: 3 %>
+          </div>
+        </div>
+        <div class="separator"></div>
+
+        <div class="row">
+          <label class="col-md-3">VALID LOCATION (S)</label>
+          <div class="col-md-9" id="validLocation">
+            <% @locations.each do |l| %>
+              <div class="cbox">
+                <%= f.check_box :locations, {multiple: true, id: "location_#{l.id}"}, l.id %>
+                <label for="location_<%= l.id %>"><%= l.title %></label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+
+  <div class="dark-wrap">
+    <div class="container campaign-image">
+      <div class="row">
+        <div class="col-md-4 col-sm-12 mobileCenterText">
+          <h4>CAMPAIGN IMAGE</h4>
+          <label class="subtitle">* High quality JPG or PNG only</label>
+        </div>
+        <div class="col-md-8 col-sm-12">
+          <span class="document-image-frame">
+                  <a href="#" id="campaignImage" class="upload-campaign-image">Browse</a>
+                  <%= f.file_field :image, style: 'display:none', onchange: 'handleFiles(this)' %>
+                  <%= hidden_field_tag 'campaignImage', class: 'campaignImage' %>
+              </span>
+              <a href="#" class="choose-image">CHOOSE FROM GALLERY</a>
+        </div>
+        </div>
+        <div class="row tempHideOnMobile">
+          <div class="col-md-offset-4 col-md-8">
+            <div class="imgPlaceHolder">
+              <%= image_tag 'img-placeholder.png' %>
+            </div>
+          </div>
+        </div>
+        <div class="row tempHideOnMobile">
+          <div class="col-md-offset-4 col-md-8">
+            <a href="#crop-image-popup" id="cropImage" class="crop-image open-crop-popup-link">CROP ME</a>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row content-head">
+      <div class="col-md-12 col-sm-12">
+        <h4>CAMPAIGN SCHEDULE</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-3">CAMPAIGN STATUS</label>
+      <div class="col-md-9">
+        <%= f.select :status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status) %>
+      </div>
+    </div>
+    <div class="separator"></div>
+    
+    <div class="row">
+      <div class="col-md-3 ">
+        <label>STARTS</label>
+      </div>
+      <div class="col-md-9 ">
+        <div class="input-group date">
+          <%= f.text_field :start_at, id: 'campaignStart', class: 'form-control' %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="separator"></div>
+
+    <div class="row">
+      <div class="col-md-3 ">
+        <label>EXPIRES</label>
+      </div>
+      <div class="col-md-6 "  id="campaignExpires" >
+        
+        <div class="radio" >
+            <input type="radio" name="end_at_selector" id="optionsRadios1" value="specific">
+            <label for="optionsRadios1">Specific Date</label>
+            <div class="input-group date">
+              <input type="text" class="form-control">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+        </div>
+
+        <div class="radio">
+          <input type="radio" name="end_at_selector" id="optionsRadios2" value="from_now">
+          <label for="optionsRadios2">In</label>
+          <%= text_field_tag 'from_now_number', '', class: 'input-days', placeholder: '3' %>
+          <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
+        </div>
+
+        <div class="radio allWidth">
+          <input type="radio" name="end_at_selector" id="optionsRadios3" value="never">
+          <label for="optionsRadios3">Never</label>
+        </div>
+        
+      </div>
+    </div>
+    <div class="separator"></div>
 
     <%# f.fields_for @schedule do |builder| %>
       <%= render 'schedules/form' %>
     <%# end %>
 
-  </fieldset>
-
-
-  <div class="field">
-    <% if current_user.facebook %>
-      <%= check_box_tag 'facebook', {}, '1' %> Publish to facebook?<br>
-    <% end %>
-    <% if current_user.twitter %>
-      <%= check_box_tag 'twitter', {}, '1' %> Publish to twitter?<br>
-    <% end %>
+    <div class="row timeBetweenContainer">
+      <div class="col-md-3">
+        <label>MIN TIME BETWEEN USE</label>
+      </div>
+      <div class="col-md-9 timeBetween"  id="campaignTimeBetween">
+        <input type="text" class="input-days input-inline mobileNoTop" placeholder="3">
+        <select class="">
+          <option value="day">day</option>
+          <option value="week">week</option>
+          <option value="month">month</option>
+        </select>
+      </div>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="dark-wrap">
+    <div class="container campaign-image">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <h4>SYNDICATION</h4>
+        </div>
+        <div class="col-md-5 col-sm-12 mobileSocialCentered" id="campaignSyndication">
+
+          <% if current_user.facebook %>
+            <div class="socialBox">
+              <label class="facebookImg" for="facebookBox">
+              </label>
+              <div class="cbox">
+                <%= check_box_tag 'facebook', '1', true, id: 'facebookBox' %>
+                <label class="dark"></label>
+              </div>
+            </div>
+          <% end %>
+
+          <% if current_user.twitter %>
+            <div class="socialBox">
+              <label class="twitterImg" for="twitterBox">
+              </label>
+              <div class="cbox">
+                <%= check_box_tag 'twitter', '1', true, id: 'twitterBox' %>
+                <label class="dark"></label>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    
+      <%= f.button %>
+    </div>
   </div>
 <% end %>
+
+  <!-- NOTIFY/GREETINGS FORM End -->
+
+
+
+  <!-- CROP IMG POPUP! -->
+    <div id="crop-image-popup" class="white-popup mfp-hide">
+      <span class="title">Crop Image</span>
+        
+      <div class="container">
+        <%= image_tag 'img-placeholder.png' %>
+      </div>
+
+      <button class="crop-btn">Crop</button>
+    </div>
+    <!-- CROP IMG POPUP end -->

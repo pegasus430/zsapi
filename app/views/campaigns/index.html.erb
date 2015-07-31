@@ -1,47 +1,108 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Campaigns" } %>
 
-<h1>Campaigns</h1>
+  <div class="container">
 
-<%= link_to 'New Campaign', new_campaign_path %><br><br>
+    <% if @campaigns %>
 
-Status:
-<%= link_to 'All', campaigns_url(status: 'all', type: params[:type]) %> |
-<%= link_to 'Featured', campaigns_url(status: 'featured', type: params[:type]) %> |
-<%= link_to 'Active', campaigns_url(status: 'active', type: params[:type]) %> |
-<%= link_to 'Inactive', campaigns_url(status: 'inactive', type: params[:type]) %><br>
-Type:
-<%= link_to 'All', campaigns_url(type: 'all', status: params[:status]) %>
-<%= link_to 'Coupons', campaigns_url(type: 'coupon', status: params[:status]) %>
-<%= link_to 'Rewards', campaigns_url(type: 'reward', status: params[:status]) %>
-<%= link_to 'Specials', campaigns_url(type: 'special', status: params[:status]) %>
+      <!-- CAMPAIGNS start -->
+      <div class="row content-head">
+        <div class="col-md-4 col-sm-12">
+          <h4>Your Campaigns</h4>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <%= link_to 'New Campaign', '#new-campaign-popup', class: 'new-cap open-popup-link' %>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <%= render 'shared/location_selector' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7 campaigns-selector">
+          <div class="view">VIEW</div>
+          <select class="selectBox2">
+            <% %w(all featured active inactive).each do |w| %>
+              <option id="<%= campaigns_url(status: w, type: params[:type]) %>"><%= w.capitalize %></option>
+            <% end %>
+          </select>
+          
+          <select class="selectBox2">
+            <% %w(all coupon reward special).each do |w| %>
+              <option id="<%= campaigns_url(type: w, status: params[:status]) %>"><%= w.capitalize %></option>
+            <% end %>
+          </select>
+          
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+          <thead>
+            <tr>
+              <th class="first"></th>
+              <th data-align="left" data-sortable="true">Title</th>
+              <th data-align="left" data-sortable="true">Location</i></th>
+              <th data-align="left" data-sortable="true">Valid</th>
+              <th data-align="left" data-sortable="true">Featured?</th>
+              <th data-align="left" data-sortable="false">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @campaigns.each do |c| %>
+              <tr>
+                <td><%= type_of_circle(c.type_of) %></td>
+                <td><%= link_to c.title, c %></td>
+                <td><%= c.locations_string %></td>
+                <td><%= c.schedule.title %></td>
+                <td><%= yesno(c.featured) %></td>
+                <td>
+                  <%= link_to 'edit', edit_campaign_path(c), class: 'edit' %>
+                  <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- CAMPAIGNS end -->
 
-<br><br>
+      <!-- NEW CAMPAIGNS POPUP! -->
+      <div id="new-campaign-popup" class="white-popup mfp-hide new-campaign ro">
+        <span class="title">Select a Campaign</span>
 
-<table>
-  <thead>
-    <tr>
-      <th>Type of</th>
-      <th>Title</th>
-      <th>Location</th>
-      <th>Valid</th>
-      <th>Featured?</th>
-      <th>Options</th>
-    </tr>
-  </thead>
+          <div>
+            <%= link_to new_campaign_url('coupon') do %>
+              <%= image_tag 'percent.png', class: 'percent' %>
+              <h4>New Coupon</h4>
+              <span>Ex: Get 10% Off an Item</span>
+            <% end %>
+          </div>
 
-  <tbody>
-    <% @campaigns.each do |campaign| %>
-      <tr>
-        <td><%= campaign.type_of %></td>
-        <td><%= link_to campaign.title, campaign %></td>
-        <td><%= campaign.locations_string %></td>
-        <td><%= campaign.schedule.title %></td>
-        <td><%= yesno(campaign.featured) %></td>
-        <td>
-          <%= link_to 'Edit', edit_campaign_path(campaign) %> |
-          <%= link_to 'Delete', campaign, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <div>
+            <%= link_to new_campaign_url('coupon') do %>
+              <%= image_tag 'cup.png', class: 'cup' %>
+              <h4>New Reward</h4>
+              <span>Ex: Redeem your points</span>
+            <% end %>
+          </div>
+
+          <div class="last">
+            <%= link_to new_campaign_url('coupon') do %>
+              <%= image_tag 'star.png', class: 'star' %>
+              <h4>New Special</h4>
+              <span>Ex: Half-Price Wednesdays</span>
+            <% end %>
+          </div>
+      </div>
+      <!-- NEW CAMPAIGNS POPUP end -->
+
+      <% else %>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3 id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</h3>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>

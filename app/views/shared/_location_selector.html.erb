@@ -1,0 +1,6 @@
+<select class="fullWidth">
+	<% current_user.locations.each do |l| %>
+	  <option value="<%= l.id %>"><%= l.title %></option>
+  <% end %>
+  	<option value="0">+ New Location</option>
+</select>

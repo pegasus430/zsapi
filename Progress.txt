@@ -1,3 +1,12 @@
+7/31/15
+	16:03-
+		Got the greeing index and most of the form page done. Just need to get a few of the input field fixed. **Then all I need to do is test the form. **Also, I need to get paperclip to work with the cropped image!
+
+		Tomorrow, I will finish the form and single page (with highcharts). Then move onto customers!
+
+	11:00+
+		Working on everything campaigns today!	
+
 7/30/15
 	11:34
 		The index page went smoothly (**although the new button isn't styled). Working on the form now.
