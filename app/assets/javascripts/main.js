@@ -199,11 +199,4 @@ $( document ).ready(function(){
         });
     });
 
-    // NAVBAR ACT
-    $(".nav-trigger").click(function() {
-        $("#home").toggleClass("active");
-        $(".header").toggleClass("active");
-        $(".db-header").toggleClass("active");
-
-    });
 });

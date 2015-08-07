@@ -1,4 +1,40 @@
+8/6/15
+	19:39-
+		Almost finished with campaign page. Need to fix the progress list steps
+
+	19:15+
+		Working on campaign sched form
+
+	18:11-
+
+	17:20+
+		Finalizing the campaign schedule form
+
+	14:29-
+		Campaign form almost done. Once complete, do older already-done forms.
+
+	14:10+
+
+	13:50-
+
+	12:28+
+		Finishing the work on the campaign form's markup and styles. This will bleed into past and future forms.
+
+8/5/15
+	16:53+
+		Looking over the campaign form.
+
 7/31/15
+	19:33-
+		The styles are all jacked up. What needs to be done is: **
+			1) Look in the form for all classes that are used by the form
+			2) Remove them!
+			3) Make it work in the styles.
+			4) Rinse and repeat for all forms.
+
+	19:14+
+		Fixing the small style issues on campaigns form (input fields too wide).
+
 	16:03-
 		Got the greeing index and most of the form page done. Just need to get a few of the input field fixed. **Then all I need to do is test the form. **Also, I need to get paperclip to work with the cropped image!
 

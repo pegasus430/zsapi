@@ -12,7 +12,6 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new(type_of: params[:type])
-    @locations = current_user.locations
   end
 
   def edit
@@ -20,6 +19,7 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign = Campaign.new(campaign_params)
+
 
     respond_to do |format|
       if @campaign.save
