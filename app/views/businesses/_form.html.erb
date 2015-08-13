@@ -87,6 +87,7 @@
 
         <div class="row">
           <div class="col-md-offset-3 col-md-9 col-xs-12 preview">
+            <%= link_to 'PREVIEW YOUR MOBILE PAGE', '#', class: 'preview-campaign', data: {toggle: 'modal', target: '#previewModal'} %>
             <a href="#preview-popup" class="preview-campaign open-popup-link" >PREVIEW YOUR MOBILE BUSINESS PAGE</a>
           </div>
         </div>
@@ -226,6 +227,44 @@
     </div>
   </div>
   <!-- Social POPUP end -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Mobile Preview</h4>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="container">
+                <div class="mobileTemplate">
+                  <div class="previewHeader">
+                    <%= image_tag('ico/ico-image-temp.svg') %>
+                  </div>
+                  <div class="content">
+                    <h1>ACME Coffee</h1>
+                    <p>123 Sesame St. New York, NY 11211</p>
+                  </div>
+                  <div class="socialFooter">
+                    <a class="chains" href="#"></a>
+                    <a class="facebook" href="#"></a>
+                    <a class="twitter" href="#"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
   <!-- Preview POPUP! -->
   <div id="preview-popup" class="white-popup mfp-hide">
