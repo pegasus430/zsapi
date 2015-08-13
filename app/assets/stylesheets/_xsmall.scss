@@ -483,3 +483,10 @@ input.input-days {
 form{
   label {text-align: left;}
 }
+
+
+.modal{
+  a.item{
+    margin-bottom: $row-gutter;
+  }
+}
