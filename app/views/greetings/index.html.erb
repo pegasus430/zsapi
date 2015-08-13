@@ -3,7 +3,7 @@
   <div class="container greetings">
 
     <div class="row">
-      <div class="col-md-6 col-sm-12 newGreetingButton ">
+      <div class="col-xs-12 newGreetingButton ">
         <%= link_to 'New Greeting', new_greeting_path, class: 'new-cap' %>
       </div>
     </div>
@@ -33,8 +33,8 @@
                 <td><%= link_to greeting.campaign.title, greeting.campaign %></td>
                 <td><%= greeting.locations_string %></td>
                 <td>
-                  <%= link_to 'edit', edit_greeting_path(greeting), class: 'edit' %>
-                  <%= link_to 'delete', greeting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
+                  <%= link_to 'edit', edit_greeting_path(greeting), class: 'option edit' %>
+                  <%= link_to 'delete', greeting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
                 </td>
               </tr>
             <% end %>
@@ -45,7 +45,7 @@
       <% else %>
 
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-xs-12">
             <h3 id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</h3>
           </div>
         </div>

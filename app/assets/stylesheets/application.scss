@@ -103,7 +103,7 @@ a, a:hover, a:active {
     }
   }
   em {
-    color: #fff;
+    color: $color-white;
     font-style: normal;
     font-size: 35px;
     letter-spacing: -1.1px;
@@ -121,7 +121,7 @@ a, a:hover, a:active {
 }
 
 .form-content {
-  background: #fff;
+  background: $color-white;
   padding: 56px 130px 60px 50px;
   position: relative;
 
@@ -136,7 +136,6 @@ a, a:hover, a:active {
 
   div {
     label {
-      text-align: right;
       padding-right: 19px;
       text-transform: uppercase;
       font-size: 15px;
@@ -176,7 +175,7 @@ a, a:hover, a:active {
     display: table;
     border: none;
     border-radius: 22px;
-    color: #fff;
+    color: $color-white;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 800;
@@ -196,29 +195,9 @@ a, a:hover, a:active {
 	}
 }
 
-.row>div.withAdvice{
-  margin-bottom: 35px;
-}
-.withAdvice{
-  position: relative;
-  display: initial;
-
-  @media (max-width: 768px) {
-  	width: 100%;
-  	float: left;
-  }
-
-  .textAdvice{
-    color: #a3a3a3;
-    font-size: 15px;
-    position: absolute;
-    right: 0;
-    width: 172px;
-
-    @media (max-width: 768px) {
-    	bottom: auto !important;
-    }
-  }
+.textAdvice{
+  color: #a3a3a3;
+  font-size: 15px;
 }
 
 span.selected {
@@ -238,7 +217,7 @@ span.selected {
   z-index: 8888;
 
 	&.active {
-	  background: #fff;
+	  background: $color-white;
 	  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	}
 }
@@ -268,7 +247,7 @@ div.selectOptions {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   overflow: hidden;
-  background: #fff;
+  background: $color-white;
   display: none;
   padding-bottom: 8px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -298,7 +277,7 @@ span.selectOption {
 
 .fi-content {
   width: 208px;
-  background: #fff;
+  background: $color-white;
   padding: 20px 25px;
   border-radius: 4px;
   position: absolute;
@@ -463,7 +442,7 @@ span.selectOption {
 	  border-left: 5px solid #33b1fd;
 	  padding: 0px 25px 0px 65px !important;
 	  transition: .4s;
-	  color:#fff;
+	  color:$color-white;
 	}
 
 	li:first-child.active a,
@@ -506,6 +485,7 @@ span.selectOption {
 	}
 }
 
+// GOOD
 .container {
   width: 100%;
   max-width: 900px;
@@ -519,7 +499,7 @@ span.selectOption {
 .header {
   height: 72px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.2);
-  background: #FFF none repeat scroll 0% 0%;
+  background: $color-white none repeat scroll 0% 0%;
   padding: 23px 20px;
   position: fixed;
   top: 0;
@@ -572,7 +552,7 @@ span.selectOption {
   .ico {
     width: 42px;
     height: 42px;
-    background: #fff;
+    background: $color-white;
     border-radius: 50%;
     padding: 4px;
     transition: .5s;
@@ -640,7 +620,7 @@ span.selectOption {
       color: #828d93;
       font-size: 13px;
       font-weight: 500;
-      background: #fff;
+      background: $color-white;
       display: table;
       width: 100%;
       img {
@@ -706,12 +686,12 @@ span.selectOption {
 
 .graph-wrap, .dark-wrap {
   background: #dddce1;
-  padding: $row-gutter 0;
+  // padding: $row-gutter 0;
 }
 
 // WES
 .default_round-button{
-	background: #fff image-url('ico/ico_plus.png') no-repeat 23px center;
+	background: $color-white image-url('ico/ico_plus.png') no-repeat 23px center;
 	padding: 0px 25px 0 50px;
 	height: 32px;
 	line-height: 32px;
@@ -765,8 +745,8 @@ a.new-cap {
   border: 1px solid #99999b;
 
 	&:hover {
-	  background-color: #fff;
-	  border-color: #fff;
+	  background-color: $color-white;
+	  border-color: $color-white;
 	  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	}
 }
@@ -787,14 +767,14 @@ a.new-cap {
   min-height:300px;
 }
 .cw-wrap {
-  background: #fff;
+  background: $color-white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.13), 0 2px 4px rgba(0,0,0,0.13);
   transition: .4s;
   position: relative;
   overflow: hidden;
 
 	&:hover {
-	  background: #fff;
+	  background: $color-white;
 	  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	  transition: .4s;
 	  cursor: pointer;
@@ -836,7 +816,7 @@ a.new-cap {
     font-size: 16px;
     line-height: 24px;
     span {
-      color: #fff;
+      color: $color-white;
       font-size: 15px;
       text-align: center;
       font-weight: 600;
@@ -877,7 +857,7 @@ a.new-cap {
   padding: 20px;
   opacity: 0;
   visibility: hidden;
-  background: #fff;
+  background: $color-white;
   z-index: 999;
   li {
     color: #848c8f;
@@ -933,7 +913,7 @@ a.new-cap {
   width: 100%;
   max-width: 590px;
   margin: 0 auto;
-  background: #fff;
+  background: $color-white;
   padding: 40px 50px;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -983,7 +963,7 @@ a.new-cap {
     display: table;
     border: none;
     border-radius: 22px;
-    color: #fff;
+    color: $color-white;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 800;
@@ -1002,7 +982,7 @@ a.new-cap {
   background: transparent;
   box-shadow: none;
   input {
-    background: #fff;
+    background: $color-white;
   }
 }
 .forgot-pass {
@@ -1071,7 +1051,7 @@ a.new-cap {
   background: $greetings-color;
   padding: 2px 0 5px;
   h4 {
-    color: #fff;
+    color: $color-white;
     font-size: 60px;
     text-align: center;
     font-weight: 200;
@@ -1083,20 +1063,24 @@ a.new-cap {
   div {
     label {
       display: block;
-      text-align: right;
       padding-right: 19px;
       text-transform: uppercase;
       font-size: 15px;
       color: $label-color;
       line-height: 47px;
       font-weight: 500;
+
+      &.inline{
+        display: inline-block;
+        padding-right: 0;
+      }
     }
     .row {
       position: relative;
     }
   }
   input {
-    background: #fff;
+    background: $color-white;
     width: 100%;
     height: 44px;
     border-radius: 3px;
@@ -1123,7 +1107,7 @@ a.new-cap {
     display: table;
     border: none;
     border-radius: 22px;
-    color: #fff;
+    color: $color-white;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 800;
@@ -1205,9 +1189,6 @@ input[type="radio"]:checked + label {
 
 
 
-.points-input {
-  width: 93px !important;
-}
 .customGreeting{
   margin-top: 100px;
   display: none;
@@ -1220,7 +1201,7 @@ input[type="radio"]:checked + label {
   margin-top: 50px;
   span{
     font-size: 30px;
-    color: #FFF;
+    color: $color-white;
     font-weight: light !important;
     padding: 20px 28px;
     width: 49%;
@@ -1231,9 +1212,6 @@ input[type="radio"]:checked + label {
       text-align: right;
     }
   }
-}
-.welcome-message {
-  margin-bottom: 100px;
 }
 
 .badge {
@@ -1464,21 +1442,21 @@ body.customers .page-head {
       width:50px;
     }
     th{
-      color: #FFF;
+      color: $color-white;
       font-weight: 500;
     }
   }
   tbody{
     td{
       vertical-align:middle !important;
-      text-aling: center !important;
+      text-align: center !important;
       color: #777777;
       .circle{
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
         font-size: 11px;
-        color: #FFF;
+        color: $color-white;
         padding: 2px 5px;
         margin-left: 7px;
 
@@ -1502,31 +1480,30 @@ body.customers .page-head {
         background: transparent;
         padding: 0px 6px;
       }
-      .edit{
+
+      .option{
         text-indent: -9999px;
-        background:image-url('ico/icon-edit-btn.svg') center center no-repeat;
         display: block;  
         width:20px;
         height:20px;
         float: left;
-        border:0px;
+        
+        &.edit{
+          background:image-url('ico/icon-edit-btn.svg') center center no-repeat;
+          border:0px;
 
-      	&:hover{
-	        background:image-url('ico/ico_edit_over.png') center center no-repeat;
-	      }
-	    }
-      .delete{
-        text-indent: -9999px;
-        background:image-url('btn-delete.png') center center no-repeat;
-        display: block;
-        width:20px;
-        height:20px;
-        float:left;
-        margin-right: 10px;
+        	&:hover{
+  	        background-image:image-url('ico/ico_edit_over.png');
+  	      }
+  	    }
+        &.delete{
+          background:image-url('btn-delete.png') center center no-repeat;
+          margin-right: 10px;
 
-	      &:hover{
-	        background:image-url('btn-delete_over.png') center center no-repeat;
-	      }
+  	      &:hover{
+  	        background-image:image-url('btn-delete_over.png');
+  	      }
+        }
       }
     }
   }
@@ -1578,14 +1555,8 @@ body.customers .page-head {
 
 
 .table-responsive {
-  border: 0px !important;
-  padding-bottom: 20px;
-  .new-location {
-    
-    @media (min-width: 768px) {
-      bottom: -60px;
-    }
-  }
+  border: 0px;
+  padding-bottom: $row-gutter;
   a {
     color: inherit;
   }
@@ -1606,9 +1577,4 @@ body.customers .page-head {
   td.last { 
     width: 150px;
   }
-}
-
-.newGreetingButton{
-  margin-top: 70px;
-  /*margin-bottom: -55px;*/
 }

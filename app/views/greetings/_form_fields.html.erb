@@ -2,7 +2,7 @@
 	<div class="container">
 
 		<div class="row content-head">
-			<div class="col-md-12 col-sm-12">
+			<div class="col-xs-12">
 				<h4>CREATE NEW GREETING</h4>
 			</div>
 		</div>
@@ -10,75 +10,84 @@
 		<div class="row">
 			<div class="col-md-12">
 				
-				<div class="welcome-message">
-					<div class="row">
-						<%= f.label :welcome_message, 'Welcome Message', class: 'col-md-3' %>
-						<div class="col-md-9">
-							<%= f.text_field :welcome_message, placeholder: 'Drank coffee today?' %>
+				<div class="row bb">
+					<div class="col-xs-5 col-sm-3">
+						<%= f.label :welcome_message, 'Welcome Message' %>
+					</div>
+					<div class="col-xs-7 col-sm-9">
+						<%= f.text_field :welcome_message, placeholder: 'Drank coffee today?' %>
+					</div>
+					<%= field_info "This message will be shown to customers as they enter your store." %>
+				</div>
 
-							<span>Check-in Reward Points</span>
-							<%= f.number_field :welcome_reward, class: 'points-input', placeholder: 'ie: 100' %>
-
-							<span>per</span>
-							<%= f.select :welcome_wait_time, %w(day week month) %>
-						</div>
-
-						<div class="field-info">
-							<div class="fi-content">
-								<p>For your primary location.<br>Additional Locations can be added laer.</p>
+				<div class="row bb">
+					<div class="col-xs-5 col-sm-3">
+						<%= f.label :welcome_reward, "Check-in Points" %>
+					</div>
+					<div class="col-xs-7 col-sm-9">
+						<div class="row">
+							<div class="col-xs-12 col-sm-5">
+								<%= f.number_field :welcome_reward, placeholder: 'ie: 100' %>
+							</div>
+							<div class="col-xs-5 col-sm-2">
+								<%= f.label "per", class: "inline" %>
+							</div>
+							<div class="col-xs-7 col-sm-5">
+								<%= f.select :welcome_wait_time, %w(day week month) %>
 							</div>
 						</div>
+						<%= field_info "Customers can be awarded points for checking into your store on a daily, weekly, or monthly basis." %>
 					</div>
 				</div>
 
-				<div class="exit-message">
+				<div class="row">
+					<div class="col-xs-5 col-sm-3">
+						<%= f.label :exit_message, 'Exit Message' %>
+					</div>
+					<div class="col-xs-7 col-sm-9">
+						<%= f.text_field :exit_message, placeholder: 'Have a great day!' %>
+					</div>
+					<%= field_info "This message is shown to customers as they exit your store." %>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="cbox">
+							<input type="checkbox" data-toggle="collapse" data-target="#collapseCampaign">
+							<label>Attach a Campaign?</label>
+						</div>
+					</div>
+					<%= field_info "You can display a special campaign to your customers as they exit to entice them to return." %>
+				</div>
+
+				<div class="collapse" id="collapseCampaign">
 					<div class="row">
-						<%= f.label :exit_message, 'Exit Message', class: 'col-md-3' %>
-						<div class="col-md-9">
-							<%= f.text_field :exit_message, placeholder: 'Have a great day!' %>
+						<div class="col-xs-5 col-sm-3">
+							<%= f.label :campaign_id, 'Campaign' %>
+						</div>
+						<div class="col-xs-7 col-sm-9">
+						  <%= f.collection_select :campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace' %>
+					  </div>
+					</div>
 
-							<div class="cbox">
-								<input type="checkbox" data-toggle="collapse" data-target="#collapseCampaign">
-								<label>Attach a Campaign?</label>
-							</div>
-
-							<div class="collapse" id="collapseCampaign">
-							  <%= f.collection_select :campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace' %>
-
-								<span>Within</span>
-								<div class="withAdvice">
-									<%= f.number_field :campaign_wait_time_quantity, class:'input-days', default: 3 %>
+					<div class="row">
+						<div class="col-xs-5 col-sm-3">
+							<%= f.label 'Valid for' %>
+						</div>
+						<div class="col-xs-7 col-sm-9">
+							<div class="row">
+								<div class="col-xs-5">
+									<%= f.number_field :campaign_wait_time_quantity, default: 3 %>
+								</div>
+								<div class="col-xs-7">
 									<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
+								</div>
+								<div class="col-xs-12">
 									<p class="textAdvice">(enter 0 for no restriction)</p>
 								</div>
 							</div>
-						</div>
-
-						<div class="field-info">
-							<div class="fi-content">
-								<p>For your primary location.<br>Additional Locations can be added later.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="assign-message">
-					<div class="row">
-						<%= f.label :something, 'Assign to location', class: 'col-md-3' %>
-						<div class="col-md-9">
-							<% current_user.locations.active.where(greeting: nil).each do |location| %>
-								<div class="cbox">
-								  <%= f.check_box :locations, { :multiple => true }, location.id, nil %>
-								  <%= f.label location.title %>
-								</div>
-							<% end %>
-						</div>
-						<div class="field-info">
-							<div class="fi-content">
-								<p>(not completed in controller. might not add this into the final design because it would overwrite locations that already have a location set)</p>
-							</div>
-						</div>
+					  </div>
+					  <%= field_info "A customer must return to your store within the assigned timeframe to receive the campaign." %>
 					</div>
 				</div>
 

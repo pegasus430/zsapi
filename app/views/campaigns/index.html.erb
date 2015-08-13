@@ -6,31 +6,34 @@
 
       <!-- CAMPAIGNS start -->
       <div class="row content-head">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-xs-12 col-sm-4 col-md-3">
           <h4>Your Campaigns</h4>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-xs-6 col-sm-5 col-md-6">
           <%= link_to 'New Campaign', '#new-campaign-popup', class: 'new-cap open-popup-link' %>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-xs-6 col-sm-3">
           <%= render 'shared/location_selector' %>
         </div>
       </div>
+
       <div class="row">
-        <div class="col-md-7 campaigns-selector">
-          <div class="view">VIEW</div>
+        <div class="col-xs-2 col-sm-1 campaigns-selector">
+          <div class="view">View</div>
+        </div>
+        <div class="col-xs-5 col-sm-3 col-md-2">
           <select class="selectBox2">
             <% %w(all featured active inactive).each do |w| %>
               <option id="<%= campaigns_url(status: w, type: params[:type]) %>"><%= w.capitalize %></option>
             <% end %>
           </select>
-          
+        </div>
+        <div class="col-xs-5 col-sm-3 col-md-2">
           <select class="selectBox2">
             <% %w(all coupon reward special).each do |w| %>
               <option id="<%= campaigns_url(type: w, status: params[:status]) %>"><%= w.capitalize %></option>
             <% end %>
           </select>
-          
         </div>
       </div>
       
@@ -55,8 +58,8 @@
                 <td><%= c.schedule.title %></td>
                 <td><%= yesno(c.featured) %></td>
                 <td>
-                  <%= link_to 'edit', edit_campaign_path(c), class: 'edit' %>
-                  <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
+                  <%= link_to 'edit', edit_campaign_path(c), class: 'option edit' %>
+                  <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
                 </td>
               </tr>
             <% end %>
@@ -65,33 +68,38 @@
       </div>
       <!-- CAMPAIGNS end -->
 
-      <!-- NEW CAMPAIGNS POPUP! -->
-      <div id="new-campaign-popup" class="white-popup mfp-hide new-campaign ro">
-        <span class="title">Select a Campaign</span>
 
-          <div>
-            <%= link_to new_campaign_url('coupon') do %>
+      <!-- NEW CAMPAIGNS POPUP! -->
+      <div id="new-campaign-popup" class="white-popup mfp-hide new-campaign clearfix">
+        <div class="row">
+          <div class="col-xs-12 title">Select a Campaign</div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
               <%= image_tag 'percent.png', class: 'percent' %>
               <h4>New Coupon</h4>
               <span>Ex: Get 10% Off an Item</span>
             <% end %>
           </div>
 
-          <div>
-            <%= link_to new_campaign_url('coupon') do %>
+          <div class="col-xs-12 col-sm-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
               <%= image_tag 'cup.png', class: 'cup' %>
               <h4>New Reward</h4>
               <span>Ex: Redeem your points</span>
             <% end %>
           </div>
 
-          <div class="last">
-            <%= link_to new_campaign_url('coupon') do %>
+          <div class="col-xs-12 col-sm-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
               <%= image_tag 'star.png', class: 'star' %>
               <h4>New Special</h4>
               <span>Ex: Half-Price Wednesdays</span>
             <% end %>
           </div>
+        </div>
       </div>
       <!-- NEW CAMPAIGNS POPUP end -->
 

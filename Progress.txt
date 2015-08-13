@@ -1,4 +1,23 @@
+8/13/15
+	14:11+
+		Back to working on the campaign modals
+
+	13:14-
+		Finished the greetings index. Working on the campain modal popup. It's a mess. ** I need to remove unnecessary styles concerning '.white-popup' in the responsive and popups.scss files.
+
+	12:15
+		Completed the greetings form. Now working on the campaigns and greetings index to make sure its squared away
+
+	09:54+
+		Working on the greetings form
+
 8/6/15
+	22:09-
+		Fixed the business and campaign forms. Next is the greetings! ** When I return, I need to find/replace labels and divs from the campaign form and put it into the greetings. After that, move onto building new form pages and add in the new updates. Should all go smooth now!
+
+	20:15+
+		Working on the campaigns page and then going to the business form page
+
 	19:39-
 		Almost finished with campaign page. Need to fix the progress list steps
 

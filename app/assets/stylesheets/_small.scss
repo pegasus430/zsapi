@@ -82,10 +82,10 @@ label.businessLogo{
 }
 
 .white-popup{
-  width: 100% !important;
+  width: 900px;
   height: auto;
-  padding: 20px 17px !important;
-  float: left;
+  padding: 0;
+  float: none;
   .container{
     width: 100% !important;
     height: auto;
@@ -106,4 +106,8 @@ label.businessLogo{
 
 .row.bb{
   border: 0;
+}
+
+form{
+  label{text-align: right;}
 }

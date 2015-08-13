@@ -4,17 +4,12 @@
 @import 'settings';
 
 .business-profile-form{
-  label.businessLogo{
-    margin-top: 28px;
-  }
   .imgPlaceHolder{
-    min-height: 100px ;
-    min-width: 140px ;
-    /*background: image-url('ico/ico-image-temp.svg') center center no-repeat;*/
+    min-height: 100px;
+    min-width: 140px;
     display: block;
     width: auto;
     float: left;
-    margin-left: 20px;
     border: solid 1px #979797;
     img{
       width: 100%;

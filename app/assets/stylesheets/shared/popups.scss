@@ -9,7 +9,6 @@
   background: #edecf0;
   padding: 20px 57px;
   width: 900px;
-  height: 460px;
   margin: 20px auto;
   span.title{
   text-align: center;
@@ -258,48 +257,35 @@
 /* NEW CAMPAIGN POPUP */
 
 #new-campaign-popup.white-popup {
-  
-  div{
-  background:#FFF;
-  float:left;
-  width:245px;
-  height: 310px;
-  margin-right: 24px;
-  a{
+  a.item{
+    background:$color-white;
+    padding: $row-gutter 0;
+    display: block;
+    margin-top: $row-gutter;
+    text-align: center;
+
     img{
-      margin: 53px auto 33px;
       display:block;
+      margin: 0 auto $row-gutter/2;
     }
-    img.star{
-      margin: 48px auto 24px;
-    }
-    img.cup{
-      margin: 55px auto 26px;
-    }
+
     h4{
-      display: block;
-      width: 100%;
       text-align: center;
       font-size: 25px;
       color: #000;
       margin-top: 0px;
     }
     span{
-      display: block;
-      width: 100%;
       text-align: center;
       font-size: 17px;
       color: #717171;
     }
-  }
-  }
-  div:hover {
-    transition: .4s;
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
-  div.last{
-  margin-right: 0px;
+
+    &:hover {
+      transition: .4s;
+      background-color: #fff;
+      border-color: #fff;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
   }
 }

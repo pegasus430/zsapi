@@ -459,10 +459,6 @@ input.input-days {
   margin-top: 0px !important;
 }
 
-.mobileMarginBottom{
-  margin-bottom: 20px;
-}
-
 .contPaleteColors{
   .paleteColors{
     width: 280px;
@@ -482,4 +478,8 @@ input.input-days {
   margin-bottom: $row-gutter / 2;
   padding-bottom: $row-gutter / 2;
   border-bottom: 1px solid #ddd;
+}
+
+form{
+  label {text-align: left;}
 }
