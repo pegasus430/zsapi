@@ -6,7 +6,7 @@
 }
 .white-popup {
   position: relative;
-  background: #edecf0;
+  background: $modal-background-color;
   padding: 20px 57px;
   width: 900px;
   margin: 20px auto;
@@ -95,7 +95,7 @@
 #preview-popup.white-popup{
   height: 626px;
   width: 434px ;
-  background: #edecf0 image-url('mobileTemplate.png') center center no-repeat;
+  background: $modal-background-color image-url('mobileTemplate.png') center center no-repeat;
   .container{
     width: 255px !important;
     margin: 0 auto !important;
@@ -256,13 +256,29 @@
 
 /* NEW CAMPAIGN POPUP */
 
-#new-campaign-popup.white-popup {
+.modal {
+  .modal-header{
+    background-color:$modal-background-color;
+    border-bottom: 0;
+  }
+
+  .modal-title{
+    font-size: 25px;
+    text-align: center;
+  }
+
+  .modal-body {background: $modal-background-color;  padding: 0 $row-gutter $row-gutter}
+
+  .modal-content {width: 900px;}
+  
+
+  // CAMPAIGN ITEMS
   a.item{
     background:$color-white;
     padding: $row-gutter 0;
     display: block;
-    margin-top: $row-gutter;
     text-align: center;
+    height: 315px;
 
     img{
       display:block;
