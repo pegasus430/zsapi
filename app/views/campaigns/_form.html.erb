@@ -4,9 +4,9 @@
 
   <div class="container">
 
-    <div class="row content-head">
+    <div class="row">
       <div class="col-xs-12">
-        <h4>Create/Edit a New Record</h4>
+        <h2>Create/Edit a New Record</h2>
       </div>
     </div>
 
@@ -60,18 +60,20 @@
     <div class="container campaign-image">
 
       <div class="row">
-        <div class="col-sm-6 col-md-4 mobileCenterText">
-          <h4>CAMPAIGN IMAGE</h4>
-          <label class="subtitle">* High quality JPG or PNG only</label>
+        <div class="col-xs-6 col-md-4">
+          <h2>CAMPAIGN IMAGE</h2>
+          <span class="subtitle">* High quality JPG or PNG only</span>
         </div>
-        <div class="col-sm-6 col-md-8">
-          <span class="document-image-frame">
-            <a href="#" id="campaignImage" class="upload-campaign-image">Browse</a>
-            <%= f.file_field :image, style: 'display:none', onchange: 'handleFiles(this)' %>
-            <%= hidden_field_tag 'campaignImage', class: 'campaignImage' %>
-          </span>
-          <br>
-          <a href="#" class="choose-image">OR CHOOSE FROM GALLERY</a>
+        <div class="col-xs-6 col-md-8">
+          <div class="file-upload">
+            <a href="#" id="campaignImage" class="btn btn-browse upload-trigger">Change Logo</a>
+            <%= f.file_field :image, accept: "image/*", class: "file_field" %>
+            <span>Choose a file</span>
+            <%= hidden_field_tag 'theImage', class: 'theImage' %>
+          </div>
+          <div>
+            <a href="#" class="btn btn-default">OR CHOOSE FROM GALLERY</a>
+          </div>
         </div>
       </div>
 
@@ -83,16 +85,16 @@
 
       <div class="row hidden-xs">
         <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-          <a href="#crop-image-popup" id="cropImage" class="crop-image open-crop-popup-link">CROP ME</a>
+          <%= link_to 'CROP ME', '#', class: 'btn btn-default', data: {toggle: 'modal', target: '#cropImageModal'} %>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container">
-    <div class="row content-head">
+    <div class="row">
       <div class="col-xs-12">
-        <h4>CAMPAIGN SCHEDULE</h4>
+        <h2>CAMPAIGN SCHEDULE</h2>
       </div>
     </div>
 
@@ -213,7 +215,7 @@
         </div>
       </div>
 
-      <div class="mobileSocialCentered" id="campaignSyndication">
+      <div id="campaignSyndication">
 
         <div class="row">
           <% if current_user.facebook %>
@@ -242,14 +244,14 @@
         </div>
 
         </div>
-      </div>
     
-      <div class="row">
-        <div class="col-xs-12">
-          <%= f.button %>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <%= f.button %>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
 <% end %>
@@ -258,14 +260,29 @@
 
 
 
-  <!-- CROP IMG POPUP! -->
-    <div id="crop-image-popup" class="white-popup mfp-hide">
-      <span class="title">Crop Image</span>
-        
-      <div class="container">
-        <%= image_tag 'img-placeholder.png' %>
-      </div>
+  <!-- Modal -->
+  <div class="modal fade" id="cropImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Live Image Crop</h4>
+        </div>
 
-      <button class="crop-btn">Crop</button>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12 text-center" id="crop_image_container">
+              <%= image_tag 'img-placeholder.png' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-default" id="crop_btn">Crop</button>
+        </div>
+
+      </div>
     </div>
-    <!-- CROP IMG POPUP end -->
+  </div>
+
+

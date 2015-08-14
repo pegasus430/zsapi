@@ -3,8 +3,11 @@
   <div class="container greetings">
 
     <div class="row">
-      <div class="col-xs-12 newGreetingButton ">
-        <%= link_to 'New Greeting', new_greeting_path, class: 'new-cap' %>
+      <div class="col-xs-12 col-sm-4">
+        <h2>Your Greetings</h2>
+      </div>
+      <div class="col-xs-6 col-sm-8">
+        <%= link_to 'New Greeting', new_greeting_path, class: 'btn btn-new' %>
       </div>
     </div>
 

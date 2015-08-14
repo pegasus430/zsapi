@@ -3,22 +3,18 @@
   <%= form_errors_for @business %>
 
   <div class="container">
-    <div class="row content-head">
+    <div class="row">
       <div class="col-xs-12">
-        <h4>ESSENTIAL INFO</h4>
+        <h2>ESSENTIAL INFO</h2>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-xs-12 col-sm-3">
-            <%= f.label :name, 'NAME OF BUSINESS' %>
-          </div>
-          <div class="col-xs-12 col-sm-9">
-            <%= f.text_field :name, class: 'businessName' %>
-          </div>
-        </div>
+      <div class="col-xs-5 col-sm-3">
+        <%= f.label :name, 'NAME OF BUSINESS' %>
+      </div>
+      <div class="col-xs-7 col-sm-9">
+        <%= f.text_field :name, class: 'businessName' %>
       </div>
     </div>
   </div>
@@ -26,13 +22,13 @@
   <div class="dark-wrap">
     <div class="container">
 
-      <div class="row content-head">
-        <div class="col-md-12 col-sm-12">
-          <h4>STYLE OPTIONS</h4>
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>STYLE OPTIONS</h2>
         </div>        
       </div>
 
-      <div class="row">
+      <div class="row mb">
         <div class="col-xs-12 col-sm-3">
           <label>BUSINESS LOGO</label>
         </div>
@@ -45,11 +41,12 @@
 
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-9">
-          <span class="document-image-frame">
-            <a href="#" class="upload-campaign-image">CHANGE LOGO</a>
-            <%= f.file_field :image, accept: "image/*", style: "display:none", onchange: "handleFilesLogo(this)" %>
-            <%= f.hidden_field :image, class: "campaignImage logoImage", name: "logoImage" %>
-          </span>
+          <div class="file-upload">
+            <a href="#" class="btn btn-browse upload-trigger">Change Logo</a>
+            <%= f.file_field :image, accept: "image/*", class: "file_field", onchange: "handleUploadedLogo(this)" %>
+            <span>Choose a file</span>
+            <%= f.hidden_field :image, class: "theImage" %>
+          </div>
         </div>
       </div>
 
@@ -58,7 +55,7 @@
         <div class="col-xs-12 col-sm-3">
           <%= f.label 'COLORS DETECTED' %>
         </div>
-        <div class="col-md-9 paleteColors">
+        <div class="col-xs-12 col-sm-9 paleteColors">
           <div class="color"></div>
           <div class="color"></div>
           <div class="color"></div>
@@ -68,7 +65,7 @@
       </div>
 
         <div class="row">
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-5 col-sm-3">
             <%= f.label :name, 'PRIMARY COLOR' %>
           </div>
           <div class="col-xs-7 col-sm-9">
@@ -77,7 +74,7 @@
         </div>
 
         <div class="row">
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-5 col-sm-3">
             <%= f.label :name, 'SECONDARY COLOR' %>
           </div>
           <div class="col-xs-7 col-sm-9">
@@ -93,10 +90,11 @@
         </div>
     </div>
   </div>
+
   <div class="container">
-    <div class="row content-head socialSettingsTitle">
-      <div class="col-md-12 col-sm-12">
-        <h4>SOCIAL SETTINGS</h4>
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>SOCIAL SETTINGS</h2>
       </div>
     </div>
     <div class="row">
@@ -126,10 +124,10 @@
   </div>
 
   <div class="dark-wrap">
-    <div class="container campaign-image">
-      <div class="row content-head integrationsTitle">
-        <div class="col-xs-12 col-sm-3">
-          <h4>INTEGRATIONS</h4>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>INTEGRATIONS</h2>
         </div>
       </div>
 

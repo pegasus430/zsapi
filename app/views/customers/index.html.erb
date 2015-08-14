@@ -1,57 +1,132 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Customers" } %>
 
-<h1>Listing Customers</h1>
+  <% if @customers %>
+  
+    <div class="container">
 
-Show: 
-<%= link_to 'All', customers_url(status: 'all') %> |
-<%= link_to 'Active', customers_url(status: 'active') %> |
-<%= link_to 'Inactive', customers_url(status: 'inactive') %><br><br>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h2>Your Customers</h2>
+        </div>
+        <div class="col-xs-12 col-sm-6 text-right">
+          <a href="#" class="btn btn-import">Import</a>
+          <div class="btn-group">
+            <button type="button" class="btn btn-export dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Export <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% if current_user.mailchimp %>
+                <li>
+                  <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
+                </li>
+              <% end %>
 
-Export (on click, show modal with list of lists to use): 
-<%= link_to 'To Excel', customers_url(status: params[:status], format: 'xls') %>
-<% if current_user.mailchimp %>
-  | <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
-<% end %>
-<% if current_user.constantcontact %>
-  | <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
-<% end %><br><br>
+              <% if current_user.constantcontact %>
+                <li>
+                  <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
+                </li>
+              <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Points</th>
-      <th>Active</th>
-      <th>Contacted</th>
-    </tr>
-  </thead>
+              <li>
+                <%= link_to 'To Excel', customers_url(status: params[:status], format: 'xls') %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-  <tbody>
-    <% @customers.each do |customer| %>
-      <tr>
-        <td><%= customer.name_reversed %></td>
-        <td><%= customer.email %></td>
-        <td><%= customer.points(current_user.business) %></td>
-        <td><%= customer.active %></td>
-        <td><%= customer.contacted %></td>
-      </tr>
+      <div class="row filter-options">
+        <div class="col-xs-2 col-sm-1">
+          <h4>VIEW</h4>
+        </div>
+        <div class="col-xs-5 col-sm-3 col-md-2">
+          <select>
+            <% %w(all active inactive).each do |w| %>
+              <option id="<%= customers_url(status: w) %>"><%= w.capitalize %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+          <thead>
+            <tr>
+              <th class="first">Active</th>
+              <th data-align="left" data-sortable="true">Name</i></th>
+              <th data-align="left" data-sortable="true">Email</th>
+              <th data-align="left" data-sortable="true">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+              <tr>
+                <td><%= active_circle(customer.active?) %></td>
+                <td><%= customer.name_reversed %></td>
+                <td><%= customer.email %></td>
+                <td><%= customer.membership_for(current_user.business).points %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div> <!-- end container -->
+
+
+    <div class="dark-wrap">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h2>Import Customers</h2>
+          </div>
+        </div>
+
+        <%= form_tag import_customers_path, multipart: true, html: {class: "notify-form"} do %>
+          <div class="row mb">
+            <div class="col-xs-5 col-sm-3">
+              <h5>UPLOAD YOUR CVS FILE:</h5>
+            </div>
+            <div class="col-xs-7 col-sm-9">
+              <div class="file-upload">
+                <a href="#" class="btn btn-browse upload-trigger">Browse</a>
+                <%= file_field_tag :file, class: "file_field" %>
+                <span>Choose a file</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="cbox dark">
+                <%= check_box_tag :notify %>
+                <%= label_tag :notify, "Notify newly imported users of new rewards system?" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb">
+            <div class="col-xs-12">
+              <%= text_area_tag :message, "", class: "form-control", rows: 3, placeholder: "Tags are available: {FIRST_NAME}, {LAST_NAME}, {EMAIL}, {REWARD_POINTS}, etc." %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <%= button_tag "Process CSV", class: "btn btn-submit" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% else %>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</p>
+        </div>
+      </div>
+
     <% end %>
-  </tbody>
-</table>
 
-<br><br>
-
-<h2>Import Customers</h2>
-
-<%= form_tag import_products_path, multipart: true do %>
-  <%= file_field_tag :file %>
-
-  <div class="field">
-    <%= check_box_tag :notify %>
-    <%= label_tag :import, "Notify newly imported users of new rewards system?" %><br><br>
-
-    <%= text_area_tag :message %>
   </div>
-  <%= submit_tag "Import" %>
-<% end %>

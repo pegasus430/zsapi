@@ -45,7 +45,7 @@ jQuery(document).ready(function($){
 
 
 	// UPLOAD IMAGE ON THE GO!
-	if ($('.upload-campaign-image').length) {
+	if ($('.upload-campaign-image, .upload-trigger').length) {
 	    $('.upload-campaign-image').click(function() {
 	        $(this).next('input[type="file"]').trigger('click');
 	        return false;

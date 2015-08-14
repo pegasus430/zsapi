@@ -1,4 +1,14 @@
+8/14/15
+	12:48
+		Make many new changes to CSS. Now working on getting the campaign crop window all sorted out. Then I'll fix the uploads for the customer and business pages as well.
+
 8/13/15
+	21:13-
+		Completely re-did the buttons UI in CSS. And also got working dropdowns for the buttons! ** Change the HTML for the already-completed pages to use the new buttons. Then, set the campaign browse button to work the same as the cutomers browse button PLUS add the handle separately for the campaigns. After this, buttons should all be good!
+
+	15:18
+		Got the modals working. Got the modal implemented into the business page but it is not working. ** I'll do this when I add in the real modal preview. Working on the customers pages now.
+
 	14:11+
 		Back to working on the campaign modals
 

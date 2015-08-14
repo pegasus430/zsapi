@@ -1,97 +1,92 @@
 	<!-- NOTIFY/GREETINGS FORM Start -->
 	<div class="container">
 
-		<div class="row content-head">
+		<div class="row">
 			<div class="col-xs-12">
-				<h4>CREATE NEW GREETING</h4>
+				<h2>CREATE NEW GREETING</h2>
+			</div>
+		</div>
+
+		<div class="row bb">
+			<div class="col-xs-5 col-sm-3">
+				<%= f.label :welcome_message, 'Welcome Message' %>
+			</div>
+			<div class="col-xs-7 col-sm-9">
+				<%= f.text_field :welcome_message, placeholder: 'Drank coffee today?' %>
+			</div>
+			<%= field_info "This message will be shown to customers as they enter your store." %>
+		</div>
+
+		<div class="row bb">
+			<div class="col-xs-5 col-sm-3">
+				<%= f.label :welcome_reward, "Check-in Points" %>
+			</div>
+			<div class="col-xs-7 col-sm-9">
+				<div class="row">
+					<div class="col-xs-12 col-sm-5">
+						<%= f.number_field :welcome_reward, placeholder: 'ie: 100' %>
+					</div>
+					<div class="col-xs-5 col-sm-2">
+						<%= f.label "per", class: "inline" %>
+					</div>
+					<div class="col-xs-7 col-sm-5">
+						<%= f.select :welcome_wait_time, %w(day week month) %>
+					</div>
+				</div>
+				<%= field_info "Customers can be awarded points for checking into your store on a daily, weekly, or monthly basis." %>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-12">
-				
-				<div class="row bb">
-					<div class="col-xs-5 col-sm-3">
-						<%= f.label :welcome_message, 'Welcome Message' %>
-					</div>
-					<div class="col-xs-7 col-sm-9">
-						<%= f.text_field :welcome_message, placeholder: 'Drank coffee today?' %>
-					</div>
-					<%= field_info "This message will be shown to customers as they enter your store." %>
-				</div>
+			<div class="col-xs-5 col-sm-3">
+				<%= f.label :exit_message, 'Exit Message' %>
+			</div>
+			<div class="col-xs-7 col-sm-9">
+				<%= f.text_field :exit_message, placeholder: 'Have a great day!' %>
+			</div>
+			<%= field_info "This message is shown to customers as they exit your store." %>
+		</div>
 
-				<div class="row bb">
-					<div class="col-xs-5 col-sm-3">
-						<%= f.label :welcome_reward, "Check-in Points" %>
-					</div>
-					<div class="col-xs-7 col-sm-9">
-						<div class="row">
-							<div class="col-xs-12 col-sm-5">
-								<%= f.number_field :welcome_reward, placeholder: 'ie: 100' %>
-							</div>
-							<div class="col-xs-5 col-sm-2">
-								<%= f.label "per", class: "inline" %>
-							</div>
-							<div class="col-xs-7 col-sm-5">
-								<%= f.select :welcome_wait_time, %w(day week month) %>
-							</div>
-						</div>
-						<%= field_info "Customers can be awarded points for checking into your store on a daily, weekly, or monthly basis." %>
-					</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="cbox">
+					<input id="attach" type="checkbox" data-toggle="collapse" data-target="#collapseCampaign">
+					<label for="attach">Attach a Campaign?</label>
 				</div>
+			</div>
+			<%= field_info "You can display a special campaign to your customers as they exit to entice them to return." %>
+		</div>
 
-				<div class="row">
-					<div class="col-xs-5 col-sm-3">
-						<%= f.label :exit_message, 'Exit Message' %>
-					</div>
-					<div class="col-xs-7 col-sm-9">
-						<%= f.text_field :exit_message, placeholder: 'Have a great day!' %>
-					</div>
-					<%= field_info "This message is shown to customers as they exit your store." %>
+		<div class="collapse" id="collapseCampaign">
+			<div class="row">
+				<div class="col-xs-5 col-sm-3">
+					<%= f.label :campaign_id, 'Campaign' %>
 				</div>
+				<div class="col-xs-7 col-sm-9">
+				  <%= f.collection_select :campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace' %>
+			  </div>
+			</div>
 
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="cbox">
-							<input type="checkbox" data-toggle="collapse" data-target="#collapseCampaign">
-							<label>Attach a Campaign?</label>
-						</div>
-					</div>
-					<%= field_info "You can display a special campaign to your customers as they exit to entice them to return." %>
+			<div class="row">
+				<div class="col-xs-5 col-sm-3">
+					<%= f.label 'Valid for' %>
 				</div>
-
-				<div class="collapse" id="collapseCampaign">
+				<div class="col-xs-7 col-sm-9">
 					<div class="row">
-						<div class="col-xs-5 col-sm-3">
-							<%= f.label :campaign_id, 'Campaign' %>
+						<div class="col-xs-5">
+							<%= f.number_field :campaign_wait_time_quantity, default: 3 %>
 						</div>
-						<div class="col-xs-7 col-sm-9">
-						  <%= f.collection_select :campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace' %>
-					  </div>
-					</div>
-
-					<div class="row">
-						<div class="col-xs-5 col-sm-3">
-							<%= f.label 'Valid for' %>
+						<div class="col-xs-7">
+							<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
 						</div>
-						<div class="col-xs-7 col-sm-9">
-							<div class="row">
-								<div class="col-xs-5">
-									<%= f.number_field :campaign_wait_time_quantity, default: 3 %>
-								</div>
-								<div class="col-xs-7">
-									<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
-								</div>
-								<div class="col-xs-12">
-									<p class="textAdvice">(enter 0 for no restriction)</p>
-								</div>
-							</div>
-					  </div>
-					  <%= field_info "A customer must return to your store within the assigned timeframe to receive the campaign." %>
+						<div class="col-xs-12">
+							<p class="textAdvice">(enter 0 for no restriction)</p>
+						</div>
 					</div>
-				</div>
-
+			  </div>
+			  <%= field_info "A customer must return to your store within the assigned timeframe to receive the campaign." %>
 			</div>
 		</div>
+
 	</div>
 	<!-- NOTIFY/GREETINGS FORM End -->

@@ -1,10 +1,6 @@
-
 html{
   width: 100%;
   overflow-x: hidden;
-}
-.separator{
-  display: block;
 }
 
 .message {
@@ -12,16 +8,6 @@ html{
   height: auto;
   line-height: 20px;
   padding: 10px;
-  .col-md-1 {
-    width:100%;
-  }
-  .col-md-2 {
-    width: 100%;
-    text-align:left;
-  }
-  .col-md-9 {
-    width: 100%;
-  }
 }
 .message.warning-message2 {
   height: auto;
@@ -77,9 +63,6 @@ html{
 .business-profile-form .socialBox a{
   margin-top: 20px;
 }
-.notify-form{
-  padding: 53px 0 70px;
-}
 .form-content {
   padding: 86px 56px 60px 50px;
   padding: 56px 56px 60px 50px;
@@ -125,11 +108,7 @@ html{
     display: none;
   }
 }
-.container {
-  width: 100%;
-  max-width: 400px !important;
-  margin: 0 auto;
-}
+
 .db-navbar {
   li {
     a {
@@ -172,14 +151,7 @@ html{
   right: 65px;
   top: 6px;
 }
-.content-head {
-  h4 {
-    margin: 5px 0px 40px;
-  }
-}
-a.new-cap {
-  margin: 10px auto;
-}
+
 
 
 .grid-item {
@@ -278,9 +250,6 @@ input.input-days {
   .preview{
     background-position-y: 23px;
   }
-  label.businessLogo{
-    margin-top: 0px;
-  }
   .socialBox{
     float: left;
     width: 128px !important;
@@ -353,28 +322,10 @@ input.input-days {
     margin: 10px auto;
     display: block;
   }
-  .choose-image {
-    float: none !important;
-    margin: 10px auto !important;
-    display: block !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    width: 162px;
-  }
   .imgPlaceHolder{
     float: none !important;
     margin: 10px auto !important;
     display: block !important;
-  }
-  .crop-image{
-    float: none !important;
-    margin: 10px auto !important;
-    display: block !important;
-    width: 162px;
-    text-align:center;
-  }
-  .cbox.pull-left{
-    margin-right: 20px ;
   }
 }
 
@@ -388,12 +339,6 @@ input.input-days {
 .profile-ui::after, .battery-ui::after{
   right: 20px;
   left: auto;
-}
-
-.campaigns-selector{
-  div.view{
-    width: 100%;
-  }  
 }
 
 .db-navbar li a{
@@ -413,16 +358,6 @@ input.input-days {
 
 .tempHideOnMobile{
   display: none;
-}
-.mobileSocialCentered{
-  width: 318px;
-  margin: 0px auto;
-}
-.mobileFullWidth{
-  width: 100% !important;
-}
-.mobileCenterText{
-  text-align: center !important;
 }
 .extraSpace{
   margin-bottom: 20px;
