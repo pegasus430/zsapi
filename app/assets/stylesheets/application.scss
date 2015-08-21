@@ -1406,16 +1406,6 @@ body.customers .page-head {
 }
 
 
-/* Your Locations */
-
-.your-locations {
-  td { 
-    min-width: 80px;
-  }
-  td.last { 
-    width: 150px;
-  }
-}
 
 
 
@@ -1479,6 +1469,7 @@ h2 {
       width: 100%;
       line-height: 19px;
 
+      .dark-wrap &,
       &.dark{
         background: image-url('cbox-dark.png') no-repeat bottom left;
       }
@@ -1487,6 +1478,7 @@ h2 {
     &:checked + label{
       background: image-url('cbox.svg') no-repeat top left;
 
+      .dark-wrap &,
       &.dark{
         background: image-url('cbox-dark.png') no-repeat top left;
       }

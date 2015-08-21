@@ -2,180 +2,122 @@
 <%= form_for(@business, multipart: true, html: {class: 'business-profile-form form'} ) do |f| %>
   <%= form_errors_for @business %>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h2>ESSENTIAL INFO</h2>
-      </div>
-    </div>
+  <%= wrapper do %>
+    <%= section_header 'Essential Info' %>
 
-    <div class="row">
-      <div class="col-xs-5 col-sm-3">
-        <%= f.label :name, 'NAME OF BUSINESS' %>
-      </div>
-      <div class="col-xs-7 col-sm-9">
-        <%= f.text_field :name, class: 'businessName' %>
-      </div>
-    </div>
-  </div>
-
-  <div class="dark-wrap">
-    <div class="container">
-
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>STYLE OPTIONS</h2>
-        </div>        
-      </div>
-
-      <div class="row mb">
-        <div class="col-xs-12 col-sm-3">
-          <label>BUSINESS LOGO</label>
-        </div>
-        <div class="col-xs-12 col-sm-9">
-          <div class="imgPlaceHolder">
-            <%= image_tag('ico/ico-image-temp.svg') %>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-9">
-          <div class="file-upload">
-            <a href="#" class="btn btn-browse upload-trigger">Change Logo</a>
-            <%= f.file_field :image, accept: "image/*", class: "file_field", onchange: "handleUploadedLogo(this)" %>
-            <span>Choose a file</span>
-            <%= f.hidden_field :image, class: "theImage" %>
-          </div>
-        </div>
-      </div>
+    <%= fr 'Name of Business', f.text_field(:name, class: 'businessName') %>
+  <% end %>
 
 
-      <div class="row contPaleteColors">
-        <div class="col-xs-12 col-sm-3">
-          <%= f.label 'COLORS DETECTED' %>
-        </div>
-        <div class="col-xs-12 col-sm-9 paleteColors">
-          <div class="color"></div>
-          <div class="color"></div>
-          <div class="color"></div>
-          <div class="color"></div>
-          <div class="color"></div>
-        </div>
-      </div>
+  <%= wrapper :dark do %>
+    <%= section_header "Style Options" %>
 
-        <div class="row">
-          <div class="col-xs-5 col-sm-3">
-            <%= f.label :name, 'PRIMARY COLOR' %>
-          </div>
-          <div class="col-xs-7 col-sm-9">
-            <%= f.text_field :primary_color, id: 'colorPicker1', placeholder: '#FFF' %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-xs-5 col-sm-3">
-            <%= f.label :name, 'SECONDARY COLOR' %>
-          </div>
-          <div class="col-xs-7 col-sm-9">
-            <%= f.text_field :secondary_color, id: 'colorPicker2', placeholder: '#FFF' %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-offset-3 col-md-9 col-xs-12 preview">
-            <%= link_to 'PREVIEW YOUR MOBILE PAGE', '#', class: 'preview-campaign', data: {toggle: 'modal', target: '#previewModal'} %>
-            <a href="#preview-popup" class="preview-campaign open-popup-link" >PREVIEW YOUR MOBILE BUSINESS PAGE</a>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h2>SOCIAL SETTINGS</h2>
+    <%= fr "Business Logo", row: "row mb" do %>
+      <div class="imgPlaceHolder">
+        <%= image_tag('ico/ico-image-temp.svg') %>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-5 col-sm-3">
-        <%= f.label :website, 'WEBSITE' %>
-      </div>
-      <div class="col-xs-7 col-sm-9">
-        <%= f.text_field :website, class: 'website', placeholder: 'http://' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-5 col-sm-3">
-        <%= f.label :twitter, 'TWITTER URL' %>
-      </div>
-      <div class="col-xs-7 col-sm-9">
-        <%= f.text_field :twitter, class: 'twitterUrl', placeholder: 'http://' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-5 col-sm-3">
-        <%= f.label :facebook, 'FACEBOOK URL' %>
-      </div>
-      <div class="col-xs-7 col-sm-9">
-        <%= f.text_field :facebook, class: 'facebookUrl', placeholder: 'http://' %>
-      </div>
-    </div>
-  </div>
-
-  <div class="dark-wrap">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>INTEGRATIONS</h2>
-        </div>
-      </div>
-
-      <div class="row">
-        
-        <div class="col-md-9 col-md-offset-3 mobileSocialCentered">
-          <div class="socialBox">
-            <div class="facebookImg" >
-              <%= image_tag('facebook.png') %>
-            </div>
-            <%#= connect_identity_link("facebook") %>
-            <a class="connected open-popup-link" href="#share-popup" >Connected</a>
-          </div>
-          <div class="socialBox">
-            <div class="twitterImg" >
-              <%= image_tag('twitter.png') %>
-            </div>
-            <%#= connect_identity_link("twitter") %>
-            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-          </div>
-          <div class="socialBox">
-            <div class="mailchimpImg" >
-              <%= image_tag('mailchimp.png') %>
-            </div>
-            <%#= connect_identity_link("mailchimp") %>
-            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-          </div>
-          <div class="socialBox">
-            <div class="constantContactImg" >
-              <%= image_tag('constantcontact.png') %>
-            </div>
-            <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-          </div>
-        </div>
-      </div>
-    
-    </div>
-    <%= f.button %>
-
-    <% if @business.unpublished? && !@business.new_record? %>
-      <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
     <% end %>
-  </div>
-  <% end%>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-9">
+        <div class="file-upload">
+          <a href="#" class="btn btn-browse upload-trigger">Change Logo</a>
+          <%= f.file_field :image, accept: "image/*", class: "file_field", onchange: "handleUploadedLogo(this)" %>
+          <span>Choose a file</span>
+          <%= f.hidden_field :image, class: "theImage" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row contPaleteColors">
+      <div class="col-xs-12 col-sm-3">
+        <%= f.label 'COLORS DETECTED' %>
+      </div>
+      <div class="col-xs-12 col-sm-9 paleteColors">
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+      </div>
+    </div>
+
+    <%= fr "Primary Color" do %>
+      <%= f.text_field :primary_color, id: 'colorPicker1', placeholder: '#FFF' %>
+    <% end %>
+
+    <%= fr "Secondary Color" do %>
+      <%= f.text_field :secondary_color, id: 'colorPicker2', placeholder: '#FFF' %>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-offset-3 col-md-9 col-xs-12 preview">
+        <%= link_to 'PREVIEW YOUR MOBILE PAGE', '#', class: 'preview-campaign', data: {toggle: 'modal', target: '#previewModal'} %>
+        <a href="#preview-popup" class="preview-campaign open-popup-link" >PREVIEW YOUR MOBILE BUSINESS PAGE</a>
+      </div>
+    </div>
+  <% end %> <%# -wrapper dark %>
 
 
+  <%= wrapper do %>
+    <%= section_header "Social Settings" %>
+    <%= fr "WEBSITE", f.text_field(:website, class: 'website', placeholder: 'http://') %>
+    <%= fr "TWITTER URL", f.text_field(:twitter, class: 'twitterUrl', placeholder: 'http://') %>
+    <%= fr "'FACEBOOK URL", f.text_field(:facebook, class: 'facebookUrl', placeholder: 'http://') %>
+  <% end %>
 
 
+  <%= wrapper :dark do %>
+    <%= section_header "Integrations" %>
+
+    <div class="row">
+      <div class="col-md-9 col-md-offset-3 mobileSocialCentered">
+        <div class="socialBox">
+          <div class="facebookImg" >
+            <%= image_tag('facebook.png') %>
+          </div>
+          <%#= connect_identity_link("facebook") %>
+          <a class="connected open-popup-link" href="#share-popup" >Connected</a>
+        </div>
+        <div class="socialBox">
+          <div class="twitterImg" >
+            <%= image_tag('twitter.png') %>
+          </div>
+          <%#= connect_identity_link("twitter") %>
+          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+        </div>
+        <div class="socialBox">
+          <div class="mailchimpImg" >
+            <%= image_tag('mailchimp.png') %>
+          </div>
+          <%#= connect_identity_link("mailchimp") %>
+          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+        </div>
+        <div class="socialBox">
+          <div class="constantContactImg" >
+            <%= image_tag('constantcontact.png') %>
+          </div>
+          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.button %>
+      </div>
+      <div class="col-xs-12 text-center">
+        <% if @business.unpublished? && !@business.new_record? %>
+          <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %> <%# -wrapper dark %>
+
+<% end %> <%# -form %>
+
+    
     <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
       <div class="field">
       <strong>Select a page for this business</strong><br>

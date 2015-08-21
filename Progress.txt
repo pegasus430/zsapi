@@ -1,4 +1,32 @@
+8/20/15
+	21:52-
+		Finished all of the forms and indexes with the new app helpers! ** Next, work on the location UUID and add the content_for headers into the controllers.
+
+	20:43+
+		Finishing the locations form.
+
+	19:55-
+		Adding in a bunch of helpers for the form fields and whatnot. Making things seem a lot clearer. After I'm finished with the locations form, I'm going to retro-add these helpers into existing forms.
+
+	15:08-
+		Going to meet with client (garret). Just added the FR app helper method which types out the form rows for me. Using it to implement the locations form.
+
+	14:45
+		Index done
+
+	14:12+
+		Working on the location pages (index, new, single, and uuid pages)
+
+	13:31-
+		Finished the receipts page. ** Need to test the modal popup window once a receipt exists.
+
+	12:30+
+		Setting up the receipt pages
+
 8/14/15
+	14:48-
+		Implemented jcrop on campaigns page. Not working yet. ** Skip cropping for now and complete all the form and index pages. Come back to cropping at the end.
+
 	12:48
 		Make many new changes to CSS. Now working on getting the campaign crop window all sorted out. Then I'll fix the uploads for the customer and business pages as well.
 

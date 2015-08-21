@@ -1,4 +1,4 @@
-#= require cropper/cropper
+#= require jquery.Jcrop
 #= require shared/files
 
 handleUploadedImage = (fileInput) ->
@@ -7,7 +7,7 @@ handleUploadedImage = (fileInput) ->
   imageType = /image.*/
 
   if !file || !file.type.match(imageType)
-  	return
+    return
 
   # Create the image element
   crop_img = document.createElement('img')
@@ -28,7 +28,7 @@ handleUploadedImage = (fileInput) ->
   placeholder_img = document.createElement('img')
   placeholder_img.classList.add 'obj'
   placeholder_img.file = file
-  $('.imgPlaceHolder').html placeholder_img
+  $('#image_preview').html placeholder_img
   reader2 = new FileReader
   reader2.onload = ((aImg) ->
     (e) ->
@@ -39,30 +39,54 @@ handleUploadedImage = (fileInput) ->
   reader2.readAsDataURL file
 
 
+# Show the preview
+# Handle the live coordinates of the image crop
+showImagePreview = (coords) ->
+  console.log coords
+  
+  rx = coords.w
+  ry = coords.h
+
+  $('#image_preview img').css
+    width:  Math.round(rx) + 'px',
+    height: Math.round(ry) + 'px',
+    left:   '-' + Math.round(rx * coords.x) + 'px',
+    top:    '-' + Math.round(ry * coords.y) + 'px'
+
+
+
+# START JQUERY
 (($) ->
-
-	$('.file_field').change ->
-		handleUploadedImage this
-		return
-
-
   # Load the cropper when the modal shows
   $('#cropImageModal').on 'show.bs.modal', (e) ->
-  	alert 'hey'
-  	$('#crop_image_container img').cropper
-      aspectRatio: 1 / 1
-      checkImageOrigin: true
-      responsive: true
-      modal: true
-      crop: (data) ->
-        #console.log(data);
-        # Output the result data for cropping image.
-        return
+    $('#crop_image_container img').Jcrop {
+      onChange: showImagePreview,
+      onSelect: showImagePreview,
+      aspectRatio: 1.217
+    }
+
+
+  $('.file_field').change ->
+    handleUploadedImage this
+
 
   # Close the modal and set the IMG when crop is saved
   $('#crop_btn').click (e) ->
-		$('.imgPlaceHolder img').attr 'src', $('#crop_image_container img').cropper('getCroppedCanvas').toDataURL('image/jpeg', 1.0)
-		$('#cropImageModal').modal 'hide'
+    $('#cropImageModal').modal 'hide'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   ###SHOW CUSTOM DAYS SELECTOR ###
@@ -77,20 +101,20 @@ handleUploadedImage = (fileInput) ->
   # DATE PICKER!
   if $('.input-group.date').length
     $('.input-group.date').datepicker
-      autoclose: 			true
-      orientation: 		'top'
+      autoclose:      true
+      orientation:    'top'
       todayHighlight: true
 
 
   # DAYs PICKER
   if $('.customDaySelector').length
     $('.customDaySelector').datepicker
-      startDate: 					'05/01/2016'
-      endDate: 						'05/31/2016'
-      multidate: 					true
+      startDate:          '05/01/2016'
+      endDate:            '05/31/2016'
+      multidate:          true
       multidateSeparator: ','
-      calendarWeeks: 			true
-      todayHighlight: 		true
+      calendarWeeks:      true
+      todayHighlight:     true
 
     $('.customDaySelector').on 'changeDate', (event) ->
       dates = new Array

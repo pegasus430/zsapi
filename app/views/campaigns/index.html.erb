@@ -1,123 +1,120 @@
 <% content_for(:page_title) { "Campaigns" } %>
 
-  <div class="container">
-
-    <% if @campaigns %>
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-4">
-          <h2>Your Campaigns</h2>
-        </div>
-        <div class="col-xs-6 col-sm-5">
-          <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
-        </div>
-        <div class="col-xs-6 col-sm-3">
-          <%= render 'shared/location_selector' %>
-        </div>
+<%= wrapper do %>
+  <% if @campaigns %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <h2>Your Campaigns</h2>
       </div>
-
-      <div class="row filter-options">
-        <div class="col-xs-2 col-sm-1">
-          <h4>View</h4>
-        </div>
-        <div class="col-xs-5 col-sm-3 col-md-2">
-          <select class="selectBox2">
-            <% %w(all featured active inactive).each do |w| %>
-              <option id="<%= campaigns_url(status: w, type: params[:type]) %>"><%= w.capitalize %></option>
-            <% end %>
-          </select>
-        </div>
-        <div class="col-xs-5 col-sm-3 col-md-2">
-          <select class="selectBox2">
-            <% %w(all coupon reward special).each do |w| %>
-              <option id="<%= campaigns_url(type: w, status: params[:status]) %>"><%= w.capitalize %></option>
-            <% end %>
-          </select>
-        </div>
+      <div class="col-xs-6 col-sm-5">
+        <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
       </div>
-      
-      <div class="table-responsive">
-        <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
-          <thead>
+      <div class="col-xs-6 col-sm-3">
+        <%= render 'shared/location_selector' %>
+      </div>
+    </div>
+
+    <div class="row filter-options">
+      <div class="col-xs-2 col-sm-1">
+        <h4>View</h4>
+      </div>
+      <div class="col-xs-5 col-sm-3 col-md-2">
+        <select class="selectBox2">
+          <% %w(all featured active inactive).each do |w| %>
+            <option id="<%= campaigns_url(status: w, type: params[:type]) %>"><%= w.capitalize %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-xs-5 col-sm-3 col-md-2">
+        <select class="selectBox2">
+          <% %w(all coupon reward special).each do |w| %>
+            <option id="<%= campaigns_url(type: w, status: params[:status]) %>"><%= w.capitalize %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    
+    <div class="table-responsive">
+      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="first"></th>
+            <th data-align="left" data-sortable="true">Title</th>
+            <th data-align="left" data-sortable="true">Location</i></th>
+            <th data-align="left" data-sortable="true">Valid</th>
+            <th data-align="left" data-sortable="true">Featured?</th>
+            <th data-align="left" data-sortable="false">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @campaigns.each do |c| %>
             <tr>
-              <th class="first"></th>
-              <th data-align="left" data-sortable="true">Title</th>
-              <th data-align="left" data-sortable="true">Location</i></th>
-              <th data-align="left" data-sortable="true">Valid</th>
-              <th data-align="left" data-sortable="true">Featured?</th>
-              <th data-align="left" data-sortable="false">Options</th>
+              <td><%= type_of_circle(c.type_of) %></td>
+              <td><%= link_to c.title, c %></td>
+              <td><%= c.locations_string %></td>
+              <td><%= c.schedule.title %></td>
+              <td><%= yesno(c.featured) %></td>
+              <td>
+                <%= link_to 'edit', edit_campaign_path(c), class: 'option edit' %>
+                <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% @campaigns.each do |c| %>
-              <tr>
-                <td><%= type_of_circle(c.type_of) %></td>
-                <td><%= link_to c.title, c %></td>
-                <td><%= c.locations_string %></td>
-                <td><%= c.schedule.title %></td>
-                <td><%= yesno(c.featured) %></td>
-                <td>
-                  <%= link_to 'edit', edit_campaign_path(c), class: 'option edit' %>
-                  <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <!-- CAMPAIGNS end -->
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- CAMPAIGNS end -->
 
 
-      <!-- Modal -->
-      <div class="modal fade" id="newCampaignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Select a Campaign Type</h4>
-            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="newCampaignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Select a Campaign Type</h4>
+          </div>
 
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-xs-12 col-md-4">
-                  <%= link_to new_campaign_url('coupon'), class: "item" do %>
-                    <%= image_tag 'percent.png', class: 'percent' %>
-                    <h4>New Coupon</h4>
-                    <span>Ex: Get 10% Off an Item</span>
-                  <% end %>
-                </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-12 col-md-4">
+                <%= link_to new_campaign_url('coupon'), class: "item" do %>
+                  <%= image_tag 'percent.png', class: 'percent' %>
+                  <h4>New Coupon</h4>
+                  <span>Ex: Get 10% Off an Item</span>
+                <% end %>
+              </div>
 
-                <div class="col-xs-12 col-md-4">
-                  <%= link_to new_campaign_url('coupon'), class: "item" do %>
-                    <%= image_tag 'cup.png', class: 'cup' %>
-                    <h4>New Reward</h4>
-                    <span>Ex: Redeem your points</span>
-                  <% end %>
-                </div>
+              <div class="col-xs-12 col-md-4">
+                <%= link_to new_campaign_url('coupon'), class: "item" do %>
+                  <%= image_tag 'cup.png', class: 'cup' %>
+                  <h4>New Reward</h4>
+                  <span>Ex: Redeem your points</span>
+                <% end %>
+              </div>
 
-                <div class="col-xs-12 col-md-4">
-                  <%= link_to new_campaign_url('coupon'), class: "item" do %>
-                    <%= image_tag 'star.png', class: 'star' %>
-                    <h4>New Special</h4>
-                    <span>Ex: Half-Price Wednesdays</span>
-                  <% end %>
-                </div>
+              <div class="col-xs-12 col-md-4">
+                <%= link_to new_campaign_url('coupon'), class: "item" do %>
+                  <%= image_tag 'star.png', class: 'star' %>
+                  <h4>New Special</h4>
+                  <span>Ex: Half-Price Wednesdays</span>
+                <% end %>
               </div>
             </div>
-
           </div>
+
         </div>
       </div>
-
-
-      <% else %>
-
-        <div class="row">
-          <div class="col-md-12">
-            <p id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</p>
-          </div>
-        </div>
-
-      <% end %>
-
     </div>
+
+
+  <% else %><%# !campaigns %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</p>
+      </div>
+    </div>
+
+  <% end %> <%# campaigns? %>
+<% end %> <%# wrapper %>

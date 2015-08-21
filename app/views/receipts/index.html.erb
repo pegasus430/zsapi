@@ -1,30 +1,69 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Receipts" } %>
 
-<h1>Listing Receipts</h1>
+<%= wrapper do %>
+  <% if @approved_receipts %>
 
-<strong>Show for location:</strong>
-<%= current_user.locations.each do |l| %>
-  <%= link_to l.title, location_receipts_url(l.id) %>
-<% end %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-9">
+        <h2>Verified Receipts</h2>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <%= render 'shared/location_selector' %>
+      </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Image</th>
-      <th>Date</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
+    <div class="row filter-options">
+      <div class="col-xs-2 col-sm-1">
+        <h4>View</h4>
+      </div>
+      <div class="col-xs-10 col-sm-11">
+        <select class="selectBox2">
+          <% %w(all today 30_days).each do |w| %>
+            <option id="<%= receipts_url(span: w) %>"><%= w.humanize.capitalize %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
 
-  <tbody>
-    <% @approved_receipts.each do |receipt| %>
-      <tr>
-        <td><%= receipt.id %></td>
-        <td><%= link_to 'View Receipt', receipt %></td>
-        <td><%= receipt.purchased_on %></td>
-        <td><%= receipt.amount %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="table-responsive">
+      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="first" data-align="left" data-sortable="true">ID</th>
+            <th data-align="left" data-sortable="true">Image</th>
+            <th data-align="left" data-sortable="true" data-sorter="dateSorter">Date</th>
+            <th data-align="left" data-sortable="true">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @approved_receipts.each do |receipt| %>
+            <tr>
+              <td><%= receipt.id %></td>
+              <td><%= link_to 'View Receipt', receipt, data: {toggle: 'modal', target: '#viewReceiptnModal'} %>
+              <td><%= receipt.purchased_on %></td>
+              <td><%= receipt.amount %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewReceiptModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+  <% else %> <%# !receipts %>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p id="no-data">There are no approved receipts available to show.</p>
+      </div>
+    </div>
+
+  <% end %> <%# receipts? %>
+<% end %> <%# -wrapper %>

@@ -1,35 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title">Receipt #<%= @receipt.id %></h4>
+</div>
+<div class="modal-body">
+  
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <img src="">
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <table>
+        <tr>
+          <td>Receipt ID:</td>
+          <td><%= @receipt.id %></td>
+        </tr>
+        <tr>
+          <td>Location:</td>
+          <td><%= @receipt.location.title %></td>
+        </tr>
+        <tr>
+          <td>Purchased on:</td>
+          <td><%= @receipt.purchased_on %></td>
+        </tr>
+        <tr>
+          <td>Amount:</td>
+          <td><%= @receipt.amount %></td>
+        </tr>
+        <tr>
+          <td>Approved on:</td>
+          <td><%= @receipt.actioned_on %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<p>
-  <strong>Receipt ID:</strong>
-  <%= @receipt.id %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @receipt.location.title %>
-</p>
-
-<p>
-  <strong>Purchased on:</strong>
-  <%= @receipt.purchased_on %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @receipt.amount %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @receipt.status %>
-</p>
-
-<p>
-  <strong>Approved on:</strong>
-  <%= @receipt.actioned_on %>
-</p>
-
-<%= link_to 'Report a problem', "mailto:support@zippyspot.com?subject=Receipt Issue [#{@receipt.id}]" %>
-
-<%= link_to 'Back', receipts_path %>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= link_to 'Report a problem', "mailto:support@zippyspot.com?subject=Receipt Issue [#{@receipt.id}]", class: "btn btn-primary" %>
+</div>

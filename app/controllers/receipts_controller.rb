@@ -19,12 +19,13 @@ class ReceiptsController < ApplicationController
 
 
   def show
+    render layout: false
   end
 
   
   private
     def set_receipt
-      @receipt = current_user.business.receipts.where(id: params[:id]).first
+      @receipt = current_user.business.receipts.find(params[:id])
     end
 
     def receipt_params

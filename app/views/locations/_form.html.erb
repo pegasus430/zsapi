@@ -1,59 +1,80 @@
-<%= form_for(@location) do |f| %>
-  <% if @location.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+<%= form_for(@location, html: {class: 'form'}) do |f| %>
+  <%= form_errors_for @location %>
 
-      <ul>
-      <% @location.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= wrapper do %>
+    <%= section_header 'Create a Location' %>
+
+    <%= fr "Location Title", f.text_field(:title) %>
+    <%= fr "Address", f.text_field(:address) %>
+    <%= fr "", f.text_field(:address2) %>
+
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-3">
+        <%= f.text_field :city, placeholder: "City" %>
+      </div>
+      <div class="col-xs-3">
+        <%= f.text_field :state, placeholder: "State" %>
+      </div>
+      <div class="col-xs-3">
+        <%= f.text_field :zipcode, placeholder: "Zipcode" %>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :address2 %><br>
-    <%= f.text_field :address2 %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :zipcode %><br>
-    <%= f.text_field :zipcode %>
-  </div>
+  
+  <%= wrapper :dark do %>
+    <%= section_header 'Greetings' %>
+      <%= fr 'Select a Greeting' do %>
+        <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message'), prompt: 'Choose a greeting') %>
+      <% end  %>
 
-  <fieldset>
-    <h2>Greetings</h2>
-    <div class="field">
-      <%= f.label :greeting %><br>
-      <%= f.select :greeting_id, options_from_collection_for_select(@greetings, 'id', 'title'), prompt: 'Choose a greeting' %>
+      <%= fr '' do %>
+        <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      <% end %>
+
+      <div class="collapse" id="collapseGreeting">
+        <%= f.fields_for :greetings, @greeting do |builder| %>
+          <%= render 'greetings/form_fields', f: builder %>
+        <% end %>
+      </div>
+  <% end %>
+
+
+  <%= wrapper do %>
+    <%= section_header 'Payment Information' %>
+    <%= fr 'Name on Card', text_field_tag(:card_name) %>
+    <%= fr 'Card Number', text_field_tag(:card_number) %>
+    <div class="row">
+      <div class="col-xs-3">
+        <label>Expiration</label>
+      </div>
+      <div class="col-xs-3">
+        <%= text_field_tag :card_exp %>
+      </div>
+      <div class="col-xs-3">
+        <label>CVC Code</label>
+      </div>
+      <div class="col-xs-3">
+        <%= text_field_tag :card_cvc %>
+      </div>
+    </div>
+    <%= fr '' do %>
+      <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://zippyspot.com/terms/')) %>
+    <% end  %>
+
+
+    <div class="row">
+      <div class="col-xs-12 payment">
+        <span class="paymentText">TOTAL PAYMENT:</span>
+        <span class="paymentAmount">$10000</span>
+      </div>
     </div>
 
-    <fieldset>
-      <h3>New Greeting</h3>
-      <%= f.fields_for :greetings, @greeting do |builder| %>
-        <%= render 'greetings/form_fields', f: builder %>
-      <% end %>
-    </fieldset>
-  </fieldset>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.button %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Terms of Service', 'http://zippyspot.com/terms/' %>
+  <% end %> <%# -wrapper %>
+<% end %> <%# -form %>

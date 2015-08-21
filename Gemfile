@@ -36,6 +36,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'week_of_month'                       # Week of month methods
   gem 'less-rails-bootstrap'                # Bootstrap LESS
   gem 'font-awesome-rails'                  # Font-awesome
+  gem 'jcrop-rails-v2'
 
   # Identities++
     gem 'omniauth'
