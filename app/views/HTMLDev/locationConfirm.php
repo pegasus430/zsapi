@@ -1,20 +1,4 @@
-<?php 
-$title = "";
-$menuActive = "dash";
-include('header.php'); ?>
 
-
-	<!-- PAGE HEADER Start -->
-	<div class="page-head bg-color3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h4>Locations</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- PAGE HEADER End -->
 
 	<div class="container locationAdded">
 		<div class="row">

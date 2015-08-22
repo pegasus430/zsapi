@@ -8,5 +8,6 @@ class Beacon < ActiveRecord::Base
 
   def activate!
     active!
+    location.active! if location.pending?
   end
 end

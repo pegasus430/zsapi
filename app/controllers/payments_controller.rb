@@ -5,6 +5,9 @@ class PaymentsController < ApplicationController
   def show
   end
 
+  def success
+  end
+
   # GET /payments/new
   def new
     if Rails.env == 'test'
@@ -26,22 +29,26 @@ class PaymentsController < ApplicationController
   # POST /payments.json
   def create
     @location = current_user.business.locations.find(params[:location_id])
-    @payment = Payment.new(location: @location, status: Payment::PROCESSING)
+    @payment = Payment.new(location: @location)
     @payment.buyer_ip = request.remote_ip
 
     charge_error = nil
 
-    if @payment.valid?
+    if @payment.valid? && params[:agree]
       begin
-        customer = Stripe::Customer.create(
-          :email => current_user.email,
-          :card  => params[:stripeToken])
+        stripe_customer = current_user.find_or_create_stripe_customer(
+          :card  => params[:stripeToken]
+        )
 
-        charge = Stripe::Charge.create(
-          :customer    => customer.id,
-          :amount      => Rails.configuration.x.BEACON_COST,
-          :description => Rails.configuration.x.BEACON_DESCRIPTION,
-          :currency    => 'usd')
+        # This is for individual charges
+        # charge = Stripe::Charge.create(
+        #   :customer    => stripe_customer.id,
+        #   :amount      => Rails.configuration.x.BEACON_COST,
+        #   :description => Rails.configuration.x.BEACON_DESCRIPTION,
+        #   :currency    => 'usd')
+
+        # Assign the customer to a plan
+        stripe_customer.subscriptions.create(plan: params[:sub_plan])
 
       rescue Stripe::CardError => e
         charge_error = e.message
@@ -54,10 +61,10 @@ class PaymentsController < ApplicationController
         @payment.transaction_id = charge.id
         @payment.save
         PaymentMailer.beacon_creation_email(@payment).deliver_now
-        redirect_to url_for(controller: 'payments', action: 'success', location_id: @location.id)
+        render :success
       end
     else
-      flash[:alert] = 'One or more errors in your payment'
+      flash[:alert] = 'You must agree to the Terms of Service'
       render :new
     end
   end

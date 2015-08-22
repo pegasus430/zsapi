@@ -18,6 +18,21 @@ class User < ActiveRecord::Base
  	end
 
 
+  def find_or_create_stripe_customer(opts={})
+    if stripe_id.blank?
+      opts.reverse_merge!(
+        email: email
+      )
+      stripe_customer = Stripe::Customer.create opts
+      update_attribute!(:stripe_id, stripe_customer.id)
+    else
+      stripe_customer = Stripe::Customer.retrieve stripe_id
+    end
+
+    stripe_customer
+  end
+
+
  	## TWITTER
  	def twitter
     @twitter ||= identities.where(provider: "twitter").first

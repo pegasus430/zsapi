@@ -1,3 +1,13 @@
+8/21/15
+	19:29-
+		Stripe integration is coming together nicely. Now I just need to ensure that new stripe customer gets subscribed to the plan. After that, I need to ensure that the page gets redirected and the admin notified. This will lead into styling the success page, the admin beacon create page, and the user confirm pages.
+
+	13:12-
+		Took payment info off of the locations form and set it up on its own payment form. I also added a status to the locations to easily handle active/pending. Right now I'm working on getting the stripe form setup, which is actually quite easy! Just need to test it and see if it works. After that, we should have everything we need to init the beacon creation process.
+
+	10:37+
+		Finishing out the UUID and confirmation screens for locations
+
 8/20/15
 	21:52-
 		Finished all of the forms and indexes with the new app helpers! ** Next, work on the location UUID and add the content_for headers into the controllers.

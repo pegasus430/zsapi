@@ -1,4 +1,6 @@
 class Location < ActiveRecord::Base
+  enum status: [:pending, :active, :locked]
+
   belongs_to :business
   belongs_to :greeting
   
@@ -23,17 +25,6 @@ class Location < ActiveRecord::Base
 
   geocoded_by :full_address
   after_validation :geocode, on: [:create], if: Proc.new { |l| l.address.present? && l.address2 != 'ignore' }
-
-  scope :active,  -> { joins(:beacon).where(beacons: {status: Beacon.statuses[:active]}) }
-  scope :pending, -> { joins(:beacon).where('beacons.id IS NULL OR beacons.status = ?', Beacon.statuses[:inactive]) }
-
-  def active?
-    !beacon.nil? && beacon.active?
-  end
-
-  def pending?
-  	beacon.nil? || beacon.inactive?
-  end
 
   def full_address(params = {})
   	if params[:multiline]

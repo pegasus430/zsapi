@@ -977,6 +977,7 @@ span.selectOption {
   }
 }
 
+form,
 .form,
 .notify-form {
   div {
@@ -1083,14 +1084,10 @@ input[type="radio"]:checked + label {
 
 
 
-
-.customGreeting{
-  margin-top: 100px;
-  display: none;
-}
 .terms{
   margin-top: 50px;
 }
+
 .payment{
   background: #8a8e9c;
   margin-top: 50px;

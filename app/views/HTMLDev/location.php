@@ -1,19 +1,4 @@
-<?php 
-$title = "";
-$menuActive = "location";
-include('header.php'); ?>
 
-	<!-- PAGE HEADER Start -->
-	<div class="page-head bg-color3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h4>Locations</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- PAGE HEADER End -->
 
 	<!-- HEADER Start -->
 	<div class="header">

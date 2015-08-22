@@ -30,12 +30,11 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    @location = Location.new(location_params)
+    @location = current_user.business.locations.build(location_params)
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to location_new_payment_path(@location), notice: 'Location was successfully created. Create the payment now' }
-      else
+        format.html { redirect_to location_new_payment_path(@location), notice: 'Location was successfully created. Create the payment now' }      else
         format.html { render :new }
       end
     end

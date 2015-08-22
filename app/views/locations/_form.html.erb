@@ -24,50 +24,18 @@
   
   <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
-      <%= fr 'Select a Greeting' do %>
-        <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message'), prompt: 'Choose a greeting') %>
-      <% end  %>
-
-      <%= fr '' do %>
-        <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
-      <% end %>
-
-      <div class="collapse" id="collapseGreeting">
-        <%= f.fields_for :greetings, @greeting do |builder| %>
-          <%= render 'greetings/form_fields', f: builder %>
-        <% end %>
-      </div>
-  <% end %>
-
-
-  <%= wrapper do %>
-    <%= section_header 'Payment Information' %>
-    <%= fr 'Name on Card', text_field_tag(:card_name) %>
-    <%= fr 'Card Number', text_field_tag(:card_number) %>
-    <div class="row">
-      <div class="col-xs-3">
-        <label>Expiration</label>
-      </div>
-      <div class="col-xs-3">
-        <%= text_field_tag :card_exp %>
-      </div>
-      <div class="col-xs-3">
-        <label>CVC Code</label>
-      </div>
-      <div class="col-xs-3">
-        <%= text_field_tag :card_cvc %>
-      </div>
-    </div>
-    <%= fr '' do %>
-      <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://zippyspot.com/terms/')) %>
+    <%= fr 'Select a Greeting' do %>
+      <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message'), prompt: 'Choose a greeting') %>
     <% end  %>
 
+    <%= fr '' do %>
+      <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+    <% end %>
 
-    <div class="row">
-      <div class="col-xs-12 payment">
-        <span class="paymentText">TOTAL PAYMENT:</span>
-        <span class="paymentAmount">$10000</span>
-      </div>
+    <div class="collapse" id="collapseGreeting">
+      <%= f.fields_for :greetings, @greeting do |builder| %>
+        <%= render 'greetings/form_fields', f: builder %>
+      <% end %>
     </div>
 
     <div class="row">
@@ -76,5 +44,5 @@
       </div>
     </div>
 
-  <% end %> <%# -wrapper %>
+  <% end %> <%# -wrapper dark %>
 <% end %> <%# -form %>

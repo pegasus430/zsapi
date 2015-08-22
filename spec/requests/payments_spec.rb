@@ -11,19 +11,35 @@ RSpec.describe "Payments", type: :feature do
     end
 
     describe "POST /locations/1/payment/new" do
-    	before :each do
-    		Stripe.api_key = Rails.configuration.stripe.secret_key
-    		@token = Stripe::Token.create(
-    		  :card => {
-    		    :number => "4242424242424242",
-    		    :exp_month => 6,
-    		    :exp_year => 2016,
-    		    :cvc => "314"
-    		  },
-    		)
+
+#     # This test is for when using stripe.js (because it is simply a button to click)
+#    	before :each do
+#    		Stripe.api_key = Rails.configuration.stripe.secret_key
+#    		@token = Stripe::Token.create(
+#    		  :card => {
+#    		    :number => "4242424242424242",
+#    		    :exp_month => 6,
+#    		    :exp_year => 2016,
+#    		    :cvc => "314"
+#    		  },
+#    		)
+#        visit "/locations/#{@location.id}/payment/new"
+#        click_button 'Create Payment' #stripeToken is in a hidden field
+#    	end
+
+      before :each do
+        Stripe.api_key = Rails.configuration.stripe.secret_key
+        
         visit "/locations/#{@location.id}/payment/new"
-        click_button 'Create Payment' #stripeToken is in a hidden field
-    	end
+          choose "monthly"
+          fill_in "card_name",   with: "Timmy Tester"
+          fill_in "card_number", with: "4242424242424242"
+          fill_in "card_exp_m",  with: "12"
+          fill_in "card_exp_y",  with: "2100"
+          fill_in "card_cvc",    with: "123"
+          check "agree"
+          click_button 'Create Subscription' #stripeToken is in a hidden field
+      end
 
       it "redirects to the success page" do 
         expect(page).to have_http_status(200)

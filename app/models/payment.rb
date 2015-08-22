@@ -1,10 +1,7 @@
 require 'securerandom'
 
 class Payment < ActiveRecord::Base
-	# Statuses
-	PROCESSING 	= 0
-	SHIPPED 		= 1
-	RECEIVED 		= 2
+  enum status: [:processing, :shipped, :received]
 
   belongs_to :location
   has_one :business, through: :location
