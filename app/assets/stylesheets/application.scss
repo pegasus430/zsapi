@@ -1191,51 +1191,6 @@ body.customers .page-head {
   display:none;
 }
 
-/* LOCATION ADDED STYLES */
-
-.locationAdded{
-  h2, p{
-    text-align: center !important;
-    color: $label-color;
-    font-weight: 500;
-  }
-  h2{
-    font-size: 44px;
-    margin: 36px 0 0;
-  }
-  p{
-    font-size: 16px;
-    color: #333333;
-    margin: 40px auto;
-    max-width: 719px;
-
-    line-height: 25px;
-  }
-  .thumbUp{
-    margin-top: 46px;
-    img{
-      display: block;
-      margin: 0px auto;
-    }
-  }
-  .form{
-    button{
-      left: 0;
-      margin-bottom: 20px;
-    }
-  }
-  a.bottomLink{
-    width: 100%;
-    display: block;
-    text-align: center;
-    color: #4a90e2;
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 20px;
-
-  }
-
-}
 
 
 /* FIRST INDEX STYLES */
@@ -1569,7 +1524,7 @@ form button{
   @extend .btn-submit;
 }
 
-.row.mb {margin-bottom: $row-gutter/2;}
+.mb {margin-bottom: $row-gutter/2;}
 
 .file-upload{
   a{

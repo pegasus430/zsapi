@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
         email: email
       )
       stripe_customer = Stripe::Customer.create opts
-      update_attribute!(:stripe_id, stripe_customer.id)
+      update_attribute(:stripe_id, stripe_customer.id)
     else
       stripe_customer = Stripe::Customer.retrieve stripe_id
     end

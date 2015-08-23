@@ -21,7 +21,9 @@ class PaymentsController < ApplicationController
         },
       )
     end
+
     @location = current_user.business.locations.find(params[:location_id])
+    @stripe_plans = Stripe::Plan.all
     @payment = Payment.new
   end
 
@@ -32,33 +34,26 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(location: @location)
     @payment.buyer_ip = request.remote_ip
 
-    charge_error = nil
+    card_error = nil
 
     if @payment.valid? && params[:agree]
       begin
+        # Load stripe customer
         stripe_customer = current_user.find_or_create_stripe_customer(
           :card  => params[:stripeToken]
         )
 
-        # This is for individual charges
-        # charge = Stripe::Charge.create(
-        #   :customer    => stripe_customer.id,
-        #   :amount      => Rails.configuration.x.BEACON_COST,
-        #   :description => Rails.configuration.x.BEACON_DESCRIPTION,
-        #   :currency    => 'usd')
-
         # Assign the customer to a plan
-        stripe_customer.subscriptions.create(plan: params[:sub_plan])
-
+        subscription = stripe_customer.subscriptions.create(plan: params[:sub_plan])
       rescue Stripe::CardError => e
-        charge_error = e.message
+        card_error = e.message
       end
 
-      if charge_error
-        flash[:alert] = charge_error
+      if card_error || subscription.id.blank?
+        flash[:alert] = card_error
         render :new
       else
-        @payment.transaction_id = charge.id
+        @payment.transaction_id = subscription.id
         @payment.save
         PaymentMailer.beacon_creation_email(@payment).deliver_now
         render :success

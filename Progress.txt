@@ -1,3 +1,10 @@
+8/22/15
+	20:48-
+		The payment are awesome. I have some of the confirmation page for UUID setup, but it needs finished. So, ** finish the UUID page, then setup the admin beacon creation page. After that, test admin beacon creation and the UUID confirmation.
+
+	20:37
+		Payments work just fine! The user can now order and place a subscription.
+
 8/21/15
 	19:29-
 		Stripe integration is coming together nicely. Now I just need to ensure that new stripe customer gets subscribed to the plan. After that, I need to ensure that the page gets redirected and the admin notified. This will lead into styling the success page, the admin beacon create page, and the user confirm pages.

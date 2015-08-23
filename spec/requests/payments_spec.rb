@@ -43,7 +43,7 @@ RSpec.describe "Payments", type: :feature do
 
       it "redirects to the success page" do 
         expect(page).to have_http_status(200)
-        expect(page).to have_content "SUCCESS"
+        expect(page).to have_content "placed!"
       end
 
       it "creates a new payment" do

@@ -49,7 +49,7 @@
             <td><%= location.id %></td>
             <td><%= link_to location.title, location %></td>
             <td>
-              <% if location.beacon.blank? %>
+              <% if location.payment.blank? %>
                 <%= link_to 'Purchase a Beacon', location_new_payment_path(location) %>
               <% else %>
                 <%= link_to 'Confirm Beacon Code', location_confirm_path(location) %>

@@ -6,32 +6,16 @@
     <%= section_header 'Purchase a Beacon' %>
 
     <%= fr "Choose a Subscription" do %>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="radio">
-            <input type="radio" name="sub_plan" id="premonthly" value="Pre-24" data-stripe: "plan">
-            <label for="premonthly">Pre-Order Special! Pay Monthly @ $24.99/mo</label>
+      <% @stripe_plans.data.each do |plan| %>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="radio">
+              <input type="radio" name="sub_plan" id="<%= plan.id %>" value="<%= plan.id %>">
+              <label for="<%= plan.id %>"><%= plan.name %></label>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="radio">
-            <input type="radio" name="sub_plan" id="monthly" value="002" data-stripe: "plan">
-            <label for="monthly">Pay Monthly ($34.99/mo)</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="radio">
-            <input type="radio" name="sub_plan" id="annually" value="001" data-stripe: "plan">
-            <label for="annually">Pay Annually ($29.99/mo)</label>
-          </div>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %> <%# -wrapper %>
   
