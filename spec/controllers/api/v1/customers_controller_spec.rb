@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CustomersController, type: :controller do
+  before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
-  before(:each) { controller.stub(:api_key_valid).and_return(true) }
-
+  # POST /sign_in
+  # Receive:
+  #   customer[ first_name, last_name, email, social_type,
+  #             social_id, social_token, social_friends
+  #           ]
+  # Return: JSON [customer_data]
   describe 'POST #sign_in' do
     context '[Customer email exists]' do
       before :each do
@@ -13,7 +18,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
       
       it 'finds the customer and updates the information' do
         @customer.reload
-        expect(@customer.active).to be_truthy
+        expect(@customer.active?).to be_truthy
       end
 
       it 'saved the friend IDs' do
@@ -42,7 +47,9 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
 
-
+  # POST /sign_out
+  # Receive: -
+  # Return: 200
   describe 'POST #sign_out' do
     context '[Customer token exists]' do
       before :each do
@@ -75,16 +82,18 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
 
-
+  # POST /notification_token
+  # Receive: notification_token
+  # Return: 200
   describe 'POST #notification_token' do
-    context '[Customer token exists]' do
+    context '[Customer social token exists]' do
       before :each do
         @customer = FactoryGirl.create(:facebook_customer, notification_token: 'AAA')
         controller.stub(:current_customer).and_return(@customer)
         post :notification_token, version: 1, notification_token: 'BBB'
       end
       
-      it 'finds the customer and removes the token' do
+      it 'finds the customer and replaces the token' do
         @customer.reload
         expect(@customer.notification_token).to eq 'BBB'
       end
@@ -94,7 +103,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
       end
     end
 
-    context '[Customer token does not exist]' do
+    context '[Customer social token does not exist]' do
       before :each do
         FactoryGirl.create(:facebook_customer, social_token: nil)
         post :notification_token, version: 1, notification_token: 'BBB'
@@ -107,22 +116,24 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
 
-
-  describe 'GET #fetch' do
-    context '[Customer token exists]' do
+  # GET /profile
+  # Receive: -
+  # Return: JSON [customer_data]
+  describe 'GET #show' do
+    context '[Customer social token exists]' do
       it 'returns the customer object' do
         @customer = FactoryGirl.create(:facebook_customer)
         controller.stub(:current_customer).and_return(@customer)
-        get :fetch, version: 1
+        get :show, version: 1
         expect(response).to be_singular_resource
       end
     end
 
-    context '[Customer token does not exist]' do
+    context '[Customer social token does not exist]' do
       it 'returns an error' do
         @customer = FactoryGirl.create(:facebook_customer, social_token: nil)
         controller.stub(:current_customer).and_return(nil)
-        get :fetch, version: 1
+        get :show, version: 1
         expect(response).to be_api_error
       end
     end

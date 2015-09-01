@@ -1,7 +1,6 @@
 <% content_for(:page_title) { "Receipts" } %>
 
 <%= wrapper do %>
-  <% if @approved_receipts %>
 
     <div class="row">
       <div class="col-xs-12 col-sm-9">
@@ -25,6 +24,7 @@
       </div>
     </div>
 
+  <% unless @approved_receipts.blank? %>
     <div class="table-responsive">
       <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
         <thead>
@@ -59,10 +59,9 @@
 
   <% else %> <%# !receipts %>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <p id="no-data">There are no approved receipts available to show.</p>
-      </div>
+    <div id="no-records">
+      <h2>No Receipts!</h2>
+      <p>There are no approved receipts available to show.</p>
     </div>
 
   <% end %> <%# receipts? %>

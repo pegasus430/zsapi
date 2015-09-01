@@ -1,3 +1,66 @@
+8/31/15 (2:25)
+	21:06-
+		Added the referrer creation into the share link show action.
+
+	20:20+
+		Creating the API to log a referral.
+
+	16:17-
+		Got the share links all setup and ready to go. **Need to create the REFERRAL once a customer views the link.
+
+	15:15
+		Got the redemptions all tested and ready.
+
+	14:38+
+		Setting up the redemptions creation test
+
+8/30/15
+	20:54-
+		Got the redemption API setup. Now need to ensure it flows with the actual redemption (referral) process.
+
+	17:18+ (not logging time)
+		Working on the campaign redemption process for the API.
+
+8/29/15
+	21:23-
+		Setup the referral and share link models. Also, I've written down how a referrer will be credited. ** I need to rename "customer" to "referrer" in the Referral table to prevent confusion. I might consider doing this to other models as well in order to keep the confusion at a minimum.
+
+	19:34+
+		Working on the campaign API.
+
+8/28/15
+	15:10
+		Receipt all done! Now moving onto the campaigns
+
+	13:11
+		Completed the locations API (**might need to add a way to fetch businesses). Now moving onto the receipts API
+
+	12:49
+		Completed the customers API and tested. Now moving onto the locations API.
+
+	09:30+
+		Working on the API. Getting customers done first.
+
+8/27/15
+	21:34
+		Got the login/reg/pass pages all integrated, as well as the user account page!
+
+	16:52-
+		Got the form errors done! Login is working, just need to fix the remember me and alignment. After that, set the other devise pages. Then add yelp, tonight!
+
+	14:01
+		WOW, got distracted. The logout button didn't work because the link JS was jacked up, so I ended up converting the location and account menus in the header to use bootstrap's dropdowns.
+
+	10:27+
+		Setting up the login/register/password/logout pages.
+
+8/26/15
+	16:37-
+		Got the entire UUID confirmation process finished. ** Need to fix alerts/notices to show along with the normal object errors.
+
+	10:00+
+		Working on the beacon UUID page, which leads into the admin beacon creation page. This page will lay the foundatio for the login/register pages, which I will be doing next.
+
 8/22/15
 	20:48-
 		The payment are awesome. I have some of the confirmation page for UUID setup, but it needs finished. So, ** finish the UUID page, then setup the admin beacon creation page. After that, test admin beacon creation and the UUID confirmation.

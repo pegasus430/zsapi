@@ -1,3 +1,21 @@
-// Place all the styles related to the Beacons controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'settings';
+
+table {
+	margin: $row-gutter auto;
+	width: 100%;
+	max-width:$bare-form-width;
+
+
+	th, td{
+		padding: $row-gutter/2;
+	}
+
+	th{
+		background: $table-head-color;
+		color:$color-white;
+	}
+
+	td{
+		background:$color-white;
+	}
+}

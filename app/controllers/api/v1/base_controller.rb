@@ -1,9 +1,11 @@
-class ApiBaseController < RocketPants::Base
-	before_action :authenticate_tokens
-	before_action :require_api_key!
-	before_action :require_customer!
+class Api::V1::BaseController < RocketPants::Base
+	before_action :authenticate_tokens 	# Get the customer from the API headers
+	before_action :require_api_key! 		# Ensure we have the correct API key
+	before_action :require_customer! 		# Ensure we have a customer loaded (if required)
 
-	def api_key_valid
+	version 1
+
+	def api_key_valid?
 		@api_key_valid === true
 	end
 
@@ -11,15 +13,13 @@ class ApiBaseController < RocketPants::Base
 		@current_customer || nil
 	end
 
-
 	def require_api_key!
-		error! :unauthenticated unless api_key_valid
+		error! :unauthenticated unless api_key_valid?
 	end
 
 	def require_customer!
 		error! :unauthenticated if current_customer.nil?
 	end
-
 
 	def authenticate_tokens
 	  customer = authenticate_with_http_token do |token, options|
@@ -29,8 +29,9 @@ class ApiBaseController < RocketPants::Base
 
 	  		# Check for social token
 	  		if options[:social_token] && options[:id]
-		    	customer = Customer.find_by_id( options[:id] )
+		    	customer = Customer.find_by_id(options[:id])
 		
+					# Compare the customer's social token with what was provided
 			    if customer && Devise.secure_compare(customer.social_token, options[:social_token])
 		      	customer
 		    	else

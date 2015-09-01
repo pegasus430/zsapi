@@ -1,6 +1,12 @@
-class Api::V1::CampaignsController < ApiBaseController
+class Api::V1::CampaignsController < Api::V1::BaseController
 
-	# GET :location_id
+	# POST /campaigns/redeem
+	# Receive:
+	#   receipt[
+	#     campaign_id   # The campaign we're redeeming
+	#     location_id   # The location ID of where the customer is
+	#   ]
+	# Return: 200
 	def index
 		loc = Campaign.near([params[:lat], params[:lon]], 1)
 

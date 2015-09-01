@@ -1,7 +1,6 @@
 <% content_for(:page_title) { "Campaigns" } %>
 
 <%= wrapper do %>
-  <% if @campaigns %>
     <div class="row">
       <div class="col-xs-12 col-sm-4">
         <h2>Your Campaigns</h2>
@@ -34,6 +33,7 @@
       </div>
     </div>
     
+  <% unless @campaigns.blank? %>
     <div class="table-responsive">
       <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
         <thead>
@@ -110,10 +110,9 @@
 
   <% else %><%# !campaigns %>
 
-    <div class="row">
-      <div class="col-md-12">
-        <p id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</p>
-      </div>
+    <div id="no-records">
+      <h2>No campaigns!</h2>
+      <p>There are no approved campaigns available to show.</p>
     </div>
 
   <% end %> <%# campaigns? %>

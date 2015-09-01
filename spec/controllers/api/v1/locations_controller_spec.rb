@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::LocationsController, type: :controller do
-  
-  before(:each) { controller.stub(:api_key_valid).and_return(true) }
+  before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
   before :all do 
     Geocoder.configure(:lookup => :test)
@@ -49,7 +48,15 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
     addresses.each { |address| Geocoder::Lookup::Test.add_stub(address[0], address[1])}
   end
 
-  describe 'GET #fetch' do
+
+  # GET /:id
+  # Receive:
+  #   id: ID of location
+  # Return:
+  #   [ :title, :address, :address2, :city, :state, :zipcode,
+  #     :latitude, :longitude, :status, :points, :visits
+  #   ]
+  describe 'GET #show' do
     before :each do
       @location = FactoryGirl.create(:location_with_business)
       customer = FactoryGirl.create(:facebook_customer)
@@ -60,14 +67,14 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
     context '[Customer token exists]' do
       context '[Location exists]' do
         it 'returns the location' do
-          get :fetch, version: 1, id: @location.id
+          get :show, version: 1, id: @location.id
           expect(response).to be_singular_resource
         end
       end
 
       context '[Location does not exists]' do
         it 'returns with an error' do
-          get :fetch, version: 1, id: 55
+          get :show, version: 1, id: 55
           expect(response).to be_api_error
         end
       end
@@ -75,16 +82,26 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   end
 
 
+  # GET /near/:lat|:lon
+  # Receive:
+  #   lat, lon: Position of customer
+  # Return:
+  #   [ :title, :address, :address2, :city, :state, :zipcode, 
+  #     :latitude, :longitude, :status, :distance
+  #   ]
+  #   limit = 20
   describe 'GET #fetch_nearby' do
     before :each do
-      @mcdonalds = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
-      @waffle_house = FactoryGirl.create(:location_with_business, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @mcdonalds      = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @waffle_house   = FactoryGirl.create(:location_with_business, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
+      
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
+      
       @mcd_membership = FactoryGirl.create(:membership, customer: customer, business: @mcdonalds.business)
-      @wh_membership = FactoryGirl.create(:membership, customer: customer, business: @waffle_house.business)
-      @ts_membership = FactoryGirl.create(:membership, customer: customer, business: @titans_stadium.business)
+      @wh_membership  = FactoryGirl.create(:membership, customer: customer, business: @waffle_house.business)
+      @ts_membership  = FactoryGirl.create(:membership, customer: customer, business: @titans_stadium.business)
     end
     
     context '[Customer token exists]' do
@@ -93,7 +110,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       end
 
       it 'limits the radius to 1 mile' do
-        expect(JSON.parse(response.body)['response'].size).to eq 2 #Shouldn't include nashville
+        expect(response.parsed_body['response'].size).to eq 2 #Shouldn't include nashville
       end
 
       it 'returns the nearby location' do
@@ -102,6 +119,14 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
     end
   end
 
+
+  # GET /map/:lat|:lon|:distance
+  # Receive: [lat, lon, distance]
+  #   lat/lon = Position of center of map
+  #   distance = Max distance to search (in map square)
+  # Return: [ :title, :address, :address2, :city, :state, :zipcode, 
+  #           :latitude, :longitude, :status, :distance
+  #         ]
   describe 'GET #fetch_map' do
     before :each do
       @mcdonalds = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')

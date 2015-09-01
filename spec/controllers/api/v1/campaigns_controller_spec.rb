@@ -2,7 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::CampaignsController, type: :controller do
 
-  describe 'POST #sign_in' do
+  # POST /campaigns/redeem
+  # Receive:
+  #   campaign[
+  #     id              # Campaign ID
+  #     location_id     # Campaign ID
+  #   ]
+  # Return: 200
+  describe 'POST #redeem' do
     context '[Campaign email exists]' do
       before :each do
         @campaign = FactoryGirl.create(:campaign)

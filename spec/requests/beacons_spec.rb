@@ -59,7 +59,7 @@ RSpec.describe "Beacons", type: :feature do
             end
 
             it "sets the payment status to SHIPPED" do
-              expect(Payment.last.status).to eq Payment::SHIPPED
+              expect(Payment.last.shipped?).to be_truthy
             end
 
             it "emails the customer who created the location" do

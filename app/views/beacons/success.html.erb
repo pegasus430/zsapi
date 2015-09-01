@@ -1,8 +1,8 @@
-<h1>Success!</h1>
-
-Beacon was successfully created. Ship this beacon to:
-
-<p>
-	<%= @payment.location.business.name %><br>
-	<%= @payment.location.full_address multiline: true %>
-</p>
+<div id="no-records">
+	<h2>Beacon Configured!</h2>
+	<p>Please ship this beacon to the following address:</p>
+	<p>
+		<%= @payment.location.business.name %><br>
+		<%= raw @payment.location.full_address multiline: true %>
+	</p>
+</div>

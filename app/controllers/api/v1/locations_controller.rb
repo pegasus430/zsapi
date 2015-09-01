@@ -1,11 +1,12 @@
-class Api::V1::LocationsController < ApiBaseController
+class Api::V1::LocationsController < Api::V1::BaseController
 
 	# GET :id
-	def fetch
+	def show
 		loc = Location.find(params[:id])
 		
 		if loc
 			expose({
+				business:   loc.business,
 				title: 			loc.title,
 				address: 		loc.address,
 				address2: 	loc.address2,
@@ -14,8 +15,8 @@ class Api::V1::LocationsController < ApiBaseController
 				zipcode: 		loc.zipcode,
 				latitude: 	loc.latitude,
 				longitude: 	loc.longitude,
-				active: 		loc.active?,
-				points: 		current_customer.points(loc.business_id),
+				status: 		loc.status,
+				points: 		current_customer.membership_for(loc.business_id).points,
 				visits: 		current_customer.visits_for(loc)
 			})
 		else
@@ -28,7 +29,18 @@ class Api::V1::LocationsController < ApiBaseController
 		loc = Location.near([params[:lat], params[:lon]], 1).limit(20)
 
 		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :distance]
+			collection loc, include: :business, only: [
+				:title,
+				:address,
+				:address2,
+				:city,
+				:state,
+				:zipcode,
+				:latitude,
+				:longitude,
+				:status,
+				:distance
+			]
 		else
 			error! :invalid_resource, loc.errors
 		end
@@ -43,7 +55,18 @@ class Api::V1::LocationsController < ApiBaseController
 		loc = Location.within_bounding_box(box)
 
 		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active]
+			collection loc, include: :business, only: [
+				:title,
+				:address,
+				:address2,
+				:city,
+				:state,
+				:zipcode,
+				:latitude,
+				:longitude,
+				:status,
+				:distance
+			]
 		else
 			error! :invalid_resource, loc.errors
 		end
@@ -53,25 +76,5 @@ class Api::V1::LocationsController < ApiBaseController
  	private
  		def valid_params
       params.require(:location).permit(:location_id, :image)
- 		end
-
- 		def expose_location(loc)
- 			if loc
- 				expose({
- 					title: 			loc.title,
- 					address: 		loc.address,
- 					address2: 	loc.address2,
- 					city: 			loc.city,
- 					state: 			loc.state,
- 					zipcode: 		loc.zipcode,
- 					latitude: 	loc.latitude,
- 					longitude: 	loc.longitude,
- 					active: 		loc.active?,
- 					points: 		current_customer.points(loc.business_id),
- 					visits: 		current_customer.visits_for(loc)
- 				})
- 			else
- 				error! :invalid_resource, loc.errors
- 			end
  		end
 end

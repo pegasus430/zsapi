@@ -1,9 +1,10 @@
-class Api::V1::CustomersController < ApiBaseController
+class Api::V1::CustomersController < Api::V1::BaseController
 	skip_before_action :require_customer!
 	before_action :require_customer!, except: [:sign_in]
 
 
-	# POST :first_name, :last_name, :email, :social_id, :social_type, :social_token
+	# Signs the customer in by updating the social_token
+	# and social_type
 	def sign_in
 		customer = Customer.find_by_email(params[:customer][:email])
 
@@ -19,33 +20,36 @@ class Api::V1::CustomersController < ApiBaseController
 			end
 		end
 
-		expose customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_token]
+		# This calls the 'profile' action in this controller
+		# Returns the customer data
+		show
 	end
 
 
-	# POST
+	# Signs the customer out by removing the social elements
 	def sign_out
 		current_customer.social_token = nil
+		current_customer.social_type  = nil
 		current_customer.save
 	end
 
 
-	# POST :notification_token
+	# Updates the notification_token for the current customer
 	def notification_token
 		current_customer.notification_token = params[:notification_token]
 		current_customer.save
 	end
 
-
-  def fetch
-		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_friends]
+	# Returns the current_customer in JSON
+  def show
+		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
  	end
 
 
  	private
  		def customer_params
  			params[:customer][:social_friends] ||= []
- 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name, social_friends: []).merge(active: true)
+ 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name, social_friends: []).merge(status: 'active')
  		end
 
 end

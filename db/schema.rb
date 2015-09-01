@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821233916) do
+ActiveRecord::Schema.define(version: 20150830022035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150821233916) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "status",             default: 0, null: false
+    t.string   "yelp_url"
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree
@@ -85,6 +86,8 @@ ActiveRecord::Schema.define(version: 20150821233916) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "status",             default: 0,     null: false
+    t.string   "pos"
+    t.string   "description"
   end
 
   add_index "campaigns", ["schedule_id"], name: "index_campaigns_on_schedule_id", using: :btree
@@ -217,6 +220,18 @@ ActiveRecord::Schema.define(version: 20150821233916) do
   add_index "redemptions", ["customer_id"], name: "index_redemptions_on_customer_id", using: :btree
   add_index "redemptions", ["location_id"], name: "index_redemptions_on_location_id", using: :btree
 
+  create_table "referrals", force: :cascade do |t|
+    t.integer  "referrer_id",   null: false
+    t.integer  "campaign_id",   null: false
+    t.integer  "share_link_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "referrals", ["campaign_id"], name: "index_referrals_on_campaign_id", using: :btree
+  add_index "referrals", ["referrer_id"], name: "index_referrals_on_referrer_id", using: :btree
+  add_index "referrals", ["share_link_id"], name: "index_referrals_on_share_link_id", using: :btree
+
   create_table "schedules", force: :cascade do |t|
     t.string  "title",                        null: false
     t.integer "days_of_week",   default: [0],              array: true
@@ -227,6 +242,17 @@ ActiveRecord::Schema.define(version: 20150821233916) do
   add_index "schedules", ["day_numbers"], name: "index_schedules_on_day_numbers", using: :gin
   add_index "schedules", ["days_of_week"], name: "index_schedules_on_days_of_week", using: :gin
   add_index "schedules", ["weeks_of_month"], name: "index_schedules_on_weeks_of_month", using: :gin
+
+  create_table "share_links", force: :cascade do |t|
+    t.integer  "campaign_id"
+    t.integer  "customer_id"
+    t.string   "code",        null: false
+    t.datetime "created_at",  null: false
+  end
+
+  add_index "share_links", ["campaign_id"], name: "index_share_links_on_campaign_id", using: :btree
+  add_index "share_links", ["code"], name: "index_share_links_on_code", using: :btree
+  add_index "share_links", ["customer_id"], name: "index_share_links_on_customer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -281,6 +307,11 @@ ActiveRecord::Schema.define(version: 20150821233916) do
   add_foreign_key "redemptions", "campaigns"
   add_foreign_key "redemptions", "customers"
   add_foreign_key "redemptions", "locations"
+  add_foreign_key "referrals", "campaigns"
+  add_foreign_key "referrals", "customers", column: "referrer_id"
+  add_foreign_key "referrals", "share_links"
+  add_foreign_key "share_links", "campaigns"
+  add_foreign_key "share_links", "customers"
   add_foreign_key "visits", "customers"
   add_foreign_key "visits", "locations"
 end

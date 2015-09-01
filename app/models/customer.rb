@@ -5,6 +5,8 @@ class Customer < ActiveRecord::Base
 	has_many :memberships
 	has_many :visits
 	has_many :locations, through: :visits
+	has_many :redemptions
+	has_many :receipts, through: :redemptions
 
 	validates_presence_of :first_name, :last_name, :email
 	validates_uniqueness_of :email
@@ -15,7 +17,7 @@ class Customer < ActiveRecord::Base
 		CSV.generate(options) do |csv|
 			csv << ["First Name","Last Name", "Email", "Points", "Status"]
 			all.each do |customer|
-				csv << [customer.first_name, customer.last_name, customer.email, customer.points(business), customer.status]
+				csv << [customer.first_name, customer.last_name, customer.email, customer.membership_for(current_user.business).points, customer.status]
 			end
 		end
 	end
@@ -88,6 +90,14 @@ class Customer < ActiveRecord::Base
 
 	def total_visits_for(location)
 		visits_for(location).first.total rescue 0
+	end
+
+	def friends
+		Customer.where(status: 'active', social_id: social_friends).where.not(id: id).all
+	end
+
+	def friend_feed
+		Redemption.where(customer: friends.map(&:id)).to_a
 	end
 
 

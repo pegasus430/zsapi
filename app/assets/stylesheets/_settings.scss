@@ -1,3 +1,6 @@
+@import "bourbon";
+
+// COLORS
 $businesses-color: #0ab58f;
 $campaigns-color: #34b1fc;
 $customers-color: #ed1c24;
@@ -11,9 +14,40 @@ $error-background-color: #ff0141;
 $background-color: #edecf1;
 $label-color: #4a4a4a;
 $modal-background-color: #edecf0;
+$table-head-color: #8a8e9c;
+$header-font-color: #2f2f2f;
 
 $button-font-color: #3b3c40;
 
-$row-gutter: 40px;
-
 $color-white: #fff;
+
+
+
+// SIZING
+$row-gutter: 40px;
+$bare-form-width: 590px;
+$header-height: rem(118);
+$nav-collapsed-width: 75px;
+
+
+
+
+
+
+// MIXINS
+@mixin box-shadow($top: 0, $left: 3px, $blur: 6px, $color: rgba(0,0,0,0.16), $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin border-radius($radius){
+	@include border-top-radius($radius);
+	@include border-bottom-radius($radius);
+}

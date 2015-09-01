@@ -1,23 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ReceiptsController, type: :controller do
+  before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
-  before(:each) { controller.stub(:api_key_valid).and_return(true) }
-
+  # POST /
+  # Receive:
+  #   receipt[
+  #     redemption_id   # The associated redemption
+  #     location_id     # Of where the receipt was obtained
+  #     image           # The receipt image
+  #   ]
+  # Return: 200
   describe 'POST #create' do
     before :each do
       business = FactoryGirl.create(:business_with_locations)
       customer = FactoryGirl.create(:facebook_customer)
+      @location = business.locations.first
+      campaign = FactoryGirl.create(:campaign, locations: [@location])
       controller.stub(:current_customer).and_return(customer)
       FactoryGirl.create(:membership, business: business, customer: customer)
-      @location = business.locations.first
+      @redemption = FactoryGirl.create(:redemption, campaign: campaign, customer: customer, location: @location)
     end
     
     context '[Customer token exists]' do
       context '[Valid image file]' do
         before :each do
           file = fixture_file_upload('files/receipt.jpg', 'image/jpeg')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file}
+          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
         end
 
         it 'uploads the file' do
@@ -32,7 +41,7 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       context '[Fake image file]' do
         before :each do
           file = fixture_file_upload('files/fake.jpg', 'image/jpeg')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file}
+          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
         end
 
         it 'does not upload file' do
@@ -47,7 +56,7 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       context '[Not an image file]' do
         before :each do
           file = fixture_file_upload('files/notimage.txt', 'text/plain')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file}
+          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
         end
 
         it 'does not upload file' do
@@ -60,4 +69,49 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       end
     end
   end
+
+
+  # GET /:status
+  # Receive:
+  #   status  # (untouched, approved, rejected)
+  # Return: JSON [all_receipt_data]
+  describe 'GET #index' do
+    context '[Receipts exist]' do
+      before :each do
+        business = FactoryGirl.create(:business_with_locations)
+        @location = business.locations.first
+        campaign = FactoryGirl.create(:campaign, locations: [@location])
+
+        customer = FactoryGirl.create(:facebook_customer)
+        controller.stub(:current_customer).and_return(customer)
+
+        redemption = FactoryGirl.create(:redemption, customer: customer, location: @location, campaign: campaign)
+
+        FactoryGirl.create(:receipt, location: @location, redemption: redemption)
+        FactoryGirl.create(:receipt_approved, location: @location, redemption: redemption)
+        FactoryGirl.create(:receipt_rejected, location: @location, redemption: redemption)
+      end
+
+      it 'returns the untouched receipts' do
+        get :index, version: 1, status: 'untouched'
+        expect(response).to be_collection_resource
+      end
+      
+      it 'returns the approved receipts' do
+        get :index, version: 1, status: 'approved'
+        expect(response).to be_collection_resource
+      end
+
+      it 'returns the rejected receipts' do
+        get :index, version: 1, status: 'rejected'
+        expect(response).to be_collection_resource
+      end
+
+      it 'returns the rejected receipts' do
+        get :index, version: 1, status: 'balls'
+        expect(response).to be_collection_resource
+      end
+    end
+  end
+
 end

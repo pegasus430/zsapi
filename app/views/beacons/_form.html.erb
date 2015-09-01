@@ -1,28 +1,22 @@
 <%= form_for(@beacon, key: @key) do |f| %>
-  <% if @beacon.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@beacon.errors.count, "error") %> prohibited this beacon from being saved:</h2>
+  <%= form_errors_for @beacon %>
 
-      <ul>
-      <% @beacon.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.text_field :uuid, placeholder: "Beacon UUID" %>
+      <i class="fa fa-barcode"></i>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :uuid, 'UUID' %><br>
-    <%= f.text_field :uuid %>
   </div>
 
-
-  <div class="field">
-    <%= label_tag :uuid_confirm %><br>
-    <%= text_field_tag :uuid_confirm %>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.text_field :uuid_confirmation, placeholder: "Beacon UUID (again)" %>
+      <i class="fa fa-barcode"></i>
+    </div>
   </div>
-  
-  <div class="actions">
-    <%= f.submit 'Create beacon' %>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <%= f.button "Create the Beacon" %>
+    </div>
   </div>
 <% end %>

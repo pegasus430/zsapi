@@ -51,21 +51,6 @@ jQuery(document).ready(function($){
 	}
 
 
-	// PROFILE
-	$(".profile").click(function(event) {
-	  $(".profile-ui").toggleClass("active");
-	  $(".profile-pic").toggleClass("active");
-	  $(".battery-ui").removeClass("active");
-	  $(".ico").removeClass("active");
-	   event.stopPropagation();
-	});
-
-	$('html').click(function() {
-	  $(".profile-ui").removeClass("active");
-	  $(".profile-pic").removeClass("active");
-	});
-
-
 	// BATTERY
 	$(".battery-status").click(function(event) {
 	  $(".battery-ui").toggleClass("active");

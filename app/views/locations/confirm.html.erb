@@ -1,23 +1,27 @@
-<%= form_for(@location, url: location_confirm(@location)) do |f| %>
-  <% if @location.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+<% content_for(:page_title) { "Locations" } %>
 
-      <ul>
-      <% @location.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= wrapper do %>
+  <%= form_for(@location, url: location_confirm_url(@location)) do |f| %>
+    <%= form_errors_for @location %>
+
+    <div id="location-confirm">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <%= image_tag "UUIDLocation.png" %>
+
+          <h2>Confirm Your Location</h2>
+
+          <p>Please enter the UUID code found on your new iBeacon device.</p>
+
+          <%= text_field_tag :uuid %>
+
+          <%= f.button "Activate This Location" %>
+
+          <a href="#">What is a UUID code?</a>
+          <a href="#">I haven't received my iBeacon</a>
+        </div>
+      </div>
     </div>
-  <% end %>
 
-  <p>Please enter the UUID code found on your new iBeacon device</p>
-
-  <div class="field">
-    <%= label_tag :uuid, 'UUID' %><br>
-    <%= text_field_tag :uuid %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% end %> <%# -form %>
+<% end %> <%# -wrapper %>

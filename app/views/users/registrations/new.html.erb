@@ -1,41 +1,42 @@
-<h1>Sign up</h1>
-
-<h2>Your information</h2>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Create Your Zippy Spot Account</h4>
+  </div>
+</div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true %>
-  </div>
+  <%= fr "Your Name" do %>
+    <div class="row">
+      <div class="col-xs-6">
+        <%= f.text_field :first_name, placeholder: "First", autofocus: true %>
+      </div>
+      <div class="col-xs-6">
+        <%= f.text_field :last_name, placeholder: "Last" %>
+      </div>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
+  <%= fr "Email", f.email_field(:email) %>
+  <%= fr "Password", f.password_field(:password, autocomplete: "off") %>
+  <% if @validatable %>
+    <%= fr "" do %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %>
+  <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
+  <%= fr "Confirm", f.password_field(:password_confirmation, autocomplete: "off") %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="row">
+    <div class="col-xs-12 text-center mb">
+      <%= f.button "Proceed to Email Verification" %>
+    </div>
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<div class="row mb">
+  <div class="col-xs-12 text-center">
+    or <%= link_to "Log in", new_session_path(resource_name) %><br />
+  </div>
+</div>

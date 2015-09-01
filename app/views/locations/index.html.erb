@@ -19,9 +19,6 @@
             <td><%= location.id %></td>
             <td><%= link_to location.title, location %></td>
             <td>
-              <%= link_to 'Edit', edit_location_path(location) %>
-            </td>
-            <td>
               <%= link_to 'edit', edit_location_path(location), class: 'option edit' %>
               <%= link_to 'delete', location, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
             </td>
@@ -30,16 +27,18 @@
       </tbody>
     </table>
   </div>
+<% end %>
 
 
+<%= wrapper :dark do %>
   <%= section_header "Pending Locations" %>
-
   <div class="table-responsive">
     <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
       <thead>
         <tr>
           <th data-align="left" data-sortable="true" class="first">ID</th>
           <th data-align="left" data-sortable="true">Title</th>
+          <th data-align="left" data-sortable="true">Beacon Status</th>
           <th data-align="left" data-sortable="true">Options</th>
         </tr>
       </thead>
@@ -50,9 +49,20 @@
             <td><%= link_to location.title, location %></td>
             <td>
               <% if location.payment.blank? %>
+                Not Ordered
+              <% else %>
+                <%= location.payment.status.humanize %>
+              <% end %>
+            </td>
+            <td>
+              <% if location.payment.blank? %>
                 <%= link_to 'Purchase a Beacon', location_new_payment_path(location) %>
               <% else %>
-                <%= link_to 'Confirm Beacon Code', location_confirm_path(location) %>
+                <% if location.payment.processing? %>
+                  Please wait for your beacon to be shipped.
+                <% else %>
+                  Received your beacon? <%= link_to 'Activate It!', location %>
+                <% end %>
               <% end %>
             </td>
           </tr>

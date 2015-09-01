@@ -1,6 +1,6 @@
 <% content_for(:page_title) { "Customers" } %>
 
-<% if @customers %>
+<% unless @customers.blank? %>
   <%= wrapper do %>
     <div class="row">
       <div class="col-xs-12 col-sm-6">
@@ -108,10 +108,10 @@
 <% else %> <%# !customers %>
 
   <%= wrapper do %>
-    <div class="row">
-      <div class="col-xs-12">
-        <p id="no-data">Push Greeting allow you to make a first and last impression each time a customer visits your store.</p>
-      </div>
+
+    <div id="no-records">
+      <h2>No customers!</h2>
+      <p>There are no customers available to show.</p>
     </div>
   <% end %> <%# -wrapper %>
 

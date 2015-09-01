@@ -38,6 +38,13 @@ FactoryGirl.define do
 				create(:active_beacon, location: l)
 			end
 		end
+
+		## TRAITS
+		trait :with_campaign do
+			after :create do |l|
+				create(:campaign, locations: [l])
+			end
+		end
   end
 
 end

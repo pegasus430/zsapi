@@ -1,47 +1,38 @@
 class BeaconsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :validate_key, only: [:new, :create]
+  layout "bare_application"
 
-  # GET /beacons/:key
+  # GET /beacon/:key
   def new
-    @beacon = @payment.location.build_beacon
-    @location = @payment.location
-    @business = @location.business
   end
 
-  # POST /beacons
-  # POST /beacons.json
+  # POST /beacon/:key
   def create
-    if params[:beacon][:uuid] != params[:uuid_confirm]
-      return render :new, alert: "The two UUID codes you entered do not match. Please confirm and try again."
+    if params[:beacon][:uuid] != params[:uuid_confirmation]
+      flash[:alert] = "Your UUID does not match!"
+      return render :new
     end
 
-    @beacon = @payment.location.build_beacon(beacon_params)
+    @beacon = Beacon.new(beacon_params)
+    @beacon.location = @payment.location
 
-    respond_to do |format|
-      if @beacon.save
-        @payment.status = Payment::SHIPPED
-        @payment.save
+    if @beacon.save
+      @payment.shipped!
 
-        format.html { render :success }
-        PaymentMailer.beacon_shipped_email(@payment).deliver_now
-        # format.json { render :show, status: :created, location: @beacon }
-      else
-        format.html { render :success }
-        format.html { redirect_to new_beacon_path(@payment.key) }
-        # format.json { render json: @beacon.errors, status: :unprocessable_entity }
-      end
+      PaymentMailer.beacon_shipped_email(@payment).deliver_now
+      render :success
+    else
+      render :new
     end
   end
 
-
+  # GET /beacon/success
   def success
-
   end
 
 
   private
-
     def beacon_params
       params.require(:beacon).permit(:uuid)
     end
@@ -51,6 +42,10 @@ class BeaconsController < ApplicationController
       if @payment.nil?
         @invalid = true
         render :new
+      else
+        @beacon = @payment.location.build_beacon
+        @location = @payment.location
+        @business = @location.business
       end
     end
 end

@@ -5,6 +5,7 @@ class Receipt < ActiveRecord::Base
   belongs_to :redemption
 
   validates_presence_of :location_id
+  validates_presence_of :redemption_id
   validates_presence_of :amount, :purchased_on, on: [:update]
   validates_presence_of :reject_reason, if: "status == 'rejected'"
 

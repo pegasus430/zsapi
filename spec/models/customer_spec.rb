@@ -52,13 +52,6 @@ RSpec.describe Customer, type: :model do
 			expect( @customer.name_reversed ).to eq "Foster, Wes"
 		end
 
-		it "#active?" do
-			@customer.active!
-			expect(@customer.active?).to be_truthy
-			@customer.inactive!
-			expect(@customer.active?).to be_falsey
-		end
-
 		describe "Points" do
 			before :each do
 				@business = FactoryGirl.create(:business)
@@ -197,6 +190,50 @@ RSpec.describe Customer, type: :model do
 				#verify
 				@customer.reload
 				expect(@customer.social_friends).to eq ['john@smith.com','james@jo.com']
+			end
+		end
+	end
+
+
+	describe '#friends' do
+		context '[Has friends]' do
+			before :each do
+				# Creates a customer with 4 friends (11,12,13,14)
+				@customer = FactoryGirl.create(:facebook_customer, :with_friends)
+			end
+
+			it 'returns the friends' do
+				expect(@customer.friends.size).to eq 4
+			end
+		end
+
+		context '[No friends]' do
+			it 'returns nothing' do
+				customer = FactoryGirl.create(:facebook_customer)
+				expect(customer.friends).to eq []
+			end
+		end
+	end
+
+
+	describe '#friend_feed' do
+		context '[Has friends]' do
+			before :each do
+				# Creates a customer with 4 friends (11,12,13,14)
+				@customer = FactoryGirl.create(:facebook_customer, :with_friends)
+				business = FactoryGirl.create(:business)
+				location = FactoryGirl.create(:location, business: business)
+				campaign = FactoryGirl.create(:campaign, locations: [location])
+				
+				@customer.friends.each do |friend|
+					FactoryGirl.create(:membership, customer: friend, business: business)
+					FactoryGirl.create(:redemption, customer: friend, location: location, campaign: campaign)
+				end
+			end
+
+			it 'returns the friends feed in order of redemption' do
+				feed = @customer.friend_feed
+				expect(feed.size).to eq 4
 			end
 		end
 	end

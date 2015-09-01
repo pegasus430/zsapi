@@ -1,17 +1,57 @@
 module ApplicationHelper
+
+	# Left-menu nav items
+	# :ID is used for div ID and image filenames (ico/ico-:ID.ext)
+	def nav_menu_items
+		[
+			{id: "dashboard", url: "root_url", 					label: "Dashboard"},
+			{id: "business", 	url: "edit_business_url", label: "Biz Profile"},
+			{id: "greeting", 	url: "greetings_url", 		label: "Greetings"},
+			{id: "campaign", 	url: "campaigns_url", 		label: "Campaigns"},
+			{id: "customer", 	url: "customers_url", 		label: "Customers"},
+			{id: "receipt", 	url: "receipts_url", 			label: "Receipts"},
+			{id: "location", 	url: "locations_url", 		label: "Locations"}
+		]
+	end
+
+	# Return Y/N for boolean input
 	def yesno(boolean)
 		raw boolean ? 'Y' : 'N'
 	end
 
+	# An alias for the method below (when displaying notices)
+	def flash_notices
+		form_errors_for
+	end
+	
+	# Displays object errors
+	def form_errors_for(object=nil)
+		if object.nil?
+			if flash[:alert]
+				type = "bg-warning"
+			elsif flash[:notice]
+				type = "bg-notice"
+			elsif flash[:success]
+				type = "bg-success"
+			end
+		else
+			type = "bg-warning" if object.errors.any?
+		end
+
+		render('shared/form_errors', object: object, type: type) if type
+	end
+
+
+
+	## HTML HELPERS ##
+
+	# The circle icon (usually for active/inactive)
 	def active_circle(boolean)
 		active = boolean ? 'active' : 'disabled'
 		content_tag :span, '', class: "circle #{active}"
 	end
 
-	def form_errors_for(object)
-		render 'shared/form_errors', object: object
-	end
-
+	# Displays the (i) icon in form rows
 	def field_info(message)
 		content_tag :div, class: "field-info" do
 			content_tag :div, class: "fi-content" do
@@ -19,10 +59,6 @@ module ApplicationHelper
 			end
 		end
 	end
-
-
-
-	# HTML HELPERS
 
 	# Wrapper
 	# Creates the wrapper (:light or :dark) for page sections

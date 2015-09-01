@@ -46,6 +46,15 @@ FactoryGirl.define do
 			type_of 					'special'
 			sequence(:title) 	{ |n| "Special \##{n}"}
 		end
+
+
+		## TRAITS
+		trait :with_location do
+			after :create do |c|
+				create(:location, campaigns: [c])
+			end
+		end
+
 	end
 
 end

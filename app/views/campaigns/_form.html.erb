@@ -19,6 +19,11 @@
       </div>
     </div>
 
+    <%= fr "Description", f.text_field(:description) %>
+      <%= fr "", "100 characters max." %>
+      
+    <%= fr "POS Code", f.text_field(:pos) %>
+
     <div class="row">
       <div class="col-xs-5 col-sm-3">
         <label>DISCOUNT</label>

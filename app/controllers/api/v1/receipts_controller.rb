@@ -1,6 +1,6 @@
-class Api::V1::ReceiptsController < ApiBaseController
+class Api::V1::ReceiptsController < Api::V1::BaseController
 
-	# POST receipt: {:location_id, :image}
+	# Create a new receipt with the given params
 	def create
 		receipt = Receipt.new(valid_params)
 		unless receipt.save
@@ -8,9 +8,15 @@ class Api::V1::ReceiptsController < ApiBaseController
 		end
 	end
 
+	# Shows the receipts and status
+	def index
+		receipts = current_customer.receipts.where(status: params[:status]).all
+		collection receipts
+	end
+
 
  	private
  		def valid_params
-      params.require(:receipt).permit(:location_id, :image)
+      params.require(:receipt).permit(:redemption_id, :location_id, :image)
  		end
 end

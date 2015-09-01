@@ -4,7 +4,7 @@ class Beacon < ActiveRecord::Base
   belongs_to :location
   has_one :payment, through: :location
 
-  validates_presence_of :uuid
+  validates :uuid, presence: true
 
   def activate!
     active!

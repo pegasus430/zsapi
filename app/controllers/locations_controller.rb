@@ -11,6 +11,7 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show
+    render 'confirm' if @location.pending?
   end
 
   # GET /locations/new
@@ -57,7 +58,7 @@ class LocationsController < ApplicationController
 
   # PUT /location/1/confirm
   def confirm
-    @location = current_user.locations.where(id: params[:location_id]).first
+    @location = current_user.locations.find(params[:location_id])
     beacon = @location.beacon
 
     if !beacon.nil? && params[:uuid] == beacon.uuid
@@ -65,7 +66,8 @@ class LocationsController < ApplicationController
       @location.reload
       redirect_to @location, notice: 'Your location has been confirmed!'
     else
-      redirect_to @location, alert: 'The UUID code you entered is invalid. Please try again.'
+      @location.errors.add(:beacon, "The UUID code you entered is invalid. Please try again.")
+      render 'confirm'
     end
   end
 

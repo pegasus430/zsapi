@@ -1,0 +1,20 @@
+@import 'settings';
+
+#location-confirm{
+  text-align: center;
+
+  img{
+    margin-bottom: $row-gutter;
+  }
+
+  input[type="text"] {
+    display: block;
+    width:50%;
+    margin: 0 auto;
+  }
+
+  a{
+    display: block;
+    margin-top: $row-gutter/2;
+  }
+}
