@@ -40,7 +40,7 @@ module Zippyspot
     config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
 
     # Custom
-    config.x.API_SECRET_KEY             = "90f3a14f1a7025cb374e4d91cb007d2e"
+    config.x.API_SECRET_KEY             = "4s8d3e2z1s8w75ab374e4d91cb007d2e"
     config.x.BEACON_COST                = 3999 #total cents
     config.x.BEACON_DESCRIPTION         = "A new beacon for you!"
     config.x.FACEBOOK_APP_ID            = "809663465807807"
