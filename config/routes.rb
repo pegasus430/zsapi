@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  apipie
   if Rails.env.development? || Rails.env.test?
 
     concern :datable do
@@ -81,27 +82,36 @@ Rails.application.routes.draw do
   ## API
   namespace :api do
     api versions: 1, module: "v1" do
+      # Customer actions
       post '/customers/sign_in',            to: 'customers#sign_in'
       post '/customers/sign_out',           to: 'customers#sign_out'
+      post '/customers/check_in',           to: 'customers#check_in'
+      post '/customers/check_out',          to: 'customers#check_out'
       post '/customers/notification_token', to: 'customers#notification_token'
       get '/customers/profile',             to: 'customers#show'
       get '/customers/feed',                to: 'customers#feed'
 
-      get '/locations/:id',                     to: 'locations#show'
-      # get '/locations/:id/campaigns',           to: 'locations#fetch_campaigns'
-      get '/locations/near/:lat|:lon',          to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
-      get '/locations/map/:lat|:lon|:distance', to: 'locations#fetch_map'
+      # Finds a location via UUID
+      get '/beacons/:uuid/location',            to: 'locations#show', defaults: {id: nil}
 
+      # Locations
+      get '/locations/:id',                     to: 'locations#show', defaults: {uuid: nil}
+      get '/locations/:id/campaigns',           to: 'campaigns#index'
+      get '/locations/near/:lat/:lon',          to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
+      get '/locations/map/:lat/:lon/:distance', to: 'locations#fetch_map'
+
+      # Campaigns
+      resources :campaigns, only: [:show]
+
+      # Receipts
       post '/receipts',           to: 'receipts#create'
-      get  '/receipts/:status',   to: 'receipts#index'
+      get  '/receipts/:status',   to: 'receipts#index', defaults: {status: 'untouched'}
 
+      # Redemptions
       resources :redemptions, only: [:index, :create]
+
+      # Referrals
       resources :share_links, only: [:show, :create]
-
-      # get '/locations/:location_id/campaigns', to: 'campaigns#index'
-
-      # post '/campaigns/:id/redeem', to: 'campaigns#redeem'
-
     end
   end
 

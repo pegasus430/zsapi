@@ -1,45 +1,106 @@
 class Api::V1::CampaignsController < Api::V1::BaseController
+	resource_description do
+	  short 'These are the coupons, rewards, and specials'
+	  meta campaign: Campaign.column_names
+	end
 
-	# POST /campaigns/redeem
-	# Receive:
-	#   receipt[
-	#     campaign_id   # The campaign we're redeeming
-	#     location_id   # The location ID of where the customer is
-	#   ]
-	# Return: 200
+	#####
+  api!
+  desc "Retreive all campaigns related to a given location"
+  error code: 404, desc: "Location not found"
+  param :id, :number, desc: "ID of Location", required: true
+  example <<-EOS
+  {
+    "count" => 1,
+    "response" => Array [
+      Hash {
+        "id" => ,
+        "type_of" => ,#coupon, reward, special
+        "title" => ,
+        "discount_amount" => ,
+        "discount_type" => ,#percent, amount
+        "share_reward" => ,
+        "image_file_name" => ,
+        "schedule" => Hash { Schedule Object },
+        "start_at" => ,#datetime
+        "end_at" => ,#datetime
+        "created_at" => ,#datetime
+        "status" => ,#inactive, active, featured
+        "pos" => ,#the UPC for generating barcodes
+        "description" => #
+      },
+      # ...
+    ]
+  }
+  EOS
 	def index
-		loc = Campaign.near([params[:lat], params[:lon]], 1)
-
-		if loc
-			collection loc, only: [:title, :address, :address2, :city, :state, :zipcode, :latitude, :longitude, :active, :points, :visits]
+		location = Location.find(params[:id])
+		unless location.nil?
+			campaigns = location.campaigns#.valid_for(Date.today)
+			
+			collection campaigns, include: :schedule, only: exposed_campaign
 		else
-			error! :invalid_resource, loc.errors
+			error! :not_found
 		end
 	end
 
 
- 	private
- 		def valid_params
-      params.require(:campaign).permit(:campaign_id, :image)
- 		end
+	#####
+	api!
+	desc "Retreive a specific campaign"
+	error code: 404, desc: "Campaign not found"
+	param :id, :number, desc: "ID of Campaign", required: true
+	response_params = Campaign.column_names.join ', '
+	example <<-EOS
+	{
+	  "response" => Hash {
+      "id" => ,
+      "type_of" => ,#coupon, reward, special
+      "title" => ,
+      "discount_amount" => ,
+      "discount_type" => ,#percent, amount
+      "share_reward" => ,
+      "image_file_name" => ,
+      "schedule" => Hash { Schedule Object },
+      "start_at" => ,#datetime
+      "end_at" => ,#datetime
+      "created_at" => ,#datetime
+      "status" => ,#inactive, active, featured
+      "pos" => ,#the UPC for generating barcodes
+      "description" => #
+    }
+	}
+	EOS
+	def show
+		campaign = Campaign.find(params[:id])
+		unless campaign.nil?
+			expose campaign, only: exposed_campaign
+		else
+			error! :not_found
+		end
+	end
 
- 		def expose_campaign(loc)
- 			if loc
- 				expose({
- 					title: 			loc.title,
- 					address: 		loc.address,
- 					address2: 	loc.address2,
- 					city: 			loc.city,
- 					state: 			loc.state,
- 					zipcode: 		loc.zipcode,
- 					latitude: 	loc.latitude,
- 					longitude: 	loc.longitude,
- 					active: 		loc.active?,
- 					points: 		@current_customer.points(loc.business_id),
- 					visits: 		@current_customer.visits_for(loc)
- 				})
- 			else
- 				error! :invalid_resource, loc.errors
- 			end
- 		end
+
+	private
+
+		def exposed_campaign
+			[
+				:id,
+				:type_of,
+				:title,
+				:discount_amount,
+				:discount_type,
+				:share_reward,
+				:image_file_name,
+				:featured,
+				:schedule,
+				:start_at,
+				:end_at,
+				:created_at,
+				:status,
+				:pos,
+				:description
+			]
+		end
+
 end

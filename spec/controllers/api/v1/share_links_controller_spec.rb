@@ -5,8 +5,6 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
 
 
   # GET /share_link/:id
-  # Receive: -
-  # Return: [campaign_data]
   describe 'GET #show' do
     before :each do
       customer = FactoryGirl.create(:customer)
@@ -51,8 +49,6 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
 
 
   # POST /share_link
-  # Receive: redemption[campaign, location]
-  # Return: 200
   describe 'POST #create' do
     before :each do
       @customer = FactoryGirl.create(:customer)

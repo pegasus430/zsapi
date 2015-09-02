@@ -40,11 +40,17 @@ class Customer < ActiveRecord::Base
 
 
 	def self.find_or_create_with_membership(opts)
-		# Find or create the customer
-		customer = Customer.create_with(
-			first_name: opts[:first_name], 
-			last_name:  opts[:last_name]
-		).find_or_create_by(email: opts[:email])
+		# Include the customer object if we already know it exists
+		if opts[:customer].is_a? Customer
+			customer = opts[:customer]
+		else
+			# Find or create the customer by email
+			# (must also include first/last name)
+			customer = Customer.create_with(
+				first_name: opts[:first_name], 
+				last_name:  opts[:last_name]
+			).find_or_create_by(email: opts[:email])
+		end
 
 		# Find or create the membership
 		if customer.valid?
@@ -57,9 +63,13 @@ class Customer < ActiveRecord::Base
 			end
 			membership.increment!(:points, opts[:points]) if opts[:points] > 0
 
-			[customer, is_new_to_business]
+			{
+				customer: customer,
+				membership: membership,
+				is_new_to_business: is_new_to_business
+			}
 		else
-			[false, false]
+			false
 		end
 	end
 
@@ -73,7 +83,12 @@ class Customer < ActiveRecord::Base
 	end
 
 	def membership_for(business_obj)
-		memberships.where(business: business_obj).first
+		membership = memberships.where(business: business_obj).first
+		if membership.nil?
+			new_membership = Customer.find_or_create_with_membership(customer: self, points: 0, business: business_obj)
+			membership = new_membership[:membership]
+		end
+		membership
 	end
 
 	def check_in_to!(location)

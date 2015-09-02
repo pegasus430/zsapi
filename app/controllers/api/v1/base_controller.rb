@@ -1,4 +1,15 @@
 class Api::V1::BaseController < RocketPants::Base
+	# Add APIPIE support
+	extend Apipie::DSL::Controller
+	resource_description do
+		api_version "1.0"
+		formats ['json']
+	  # param 'Authentication: token', String, 				desc: "HEADER param: The Secret API Key", required: true
+	  # param 'Authentication: id', :number, 					desc: "HEADER param: The ID of the customer in the session.", required: true
+	  # param 'Authentication: social_token', String, desc: "HEADER param: The social_token of the customer in the session.", required: true
+	  error code: 401, desc: "Unauthorized - Returned when authentication can't be achieved via login or missing/expired api token"
+	end
+
 	before_action :authenticate_tokens 	# Get the customer from the API headers
 	before_action :require_api_key! 		# Ensure we have the correct API key
 	before_action :require_customer! 		# Ensure we have a customer loaded (if required)

@@ -50,12 +50,6 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
 
 
   # GET /:id
-  # Receive:
-  #   id: ID of location
-  # Return:
-  #   [ :title, :address, :address2, :city, :state, :zipcode,
-  #     :latitude, :longitude, :status, :points, :visits
-  #   ]
   describe 'GET #show' do
     before :each do
       @location = FactoryGirl.create(:location_with_business)
@@ -70,6 +64,14 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
           get :show, version: 1, id: @location.id
           expect(response).to be_singular_resource
         end
+
+        context "[Using UUID to find location]" do
+          it "returns the location" do
+            beacon = FactoryGirl.create(:active_beacon, location: @location)
+            get :show, version: 1, uuid: beacon.uuid
+            expect(response).to be_singular_resource
+          end
+        end
       end
 
       context '[Location does not exists]' do
@@ -83,13 +85,6 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
 
 
   # GET /near/:lat|:lon
-  # Receive:
-  #   lat, lon: Position of customer
-  # Return:
-  #   [ :title, :address, :address2, :city, :state, :zipcode, 
-  #     :latitude, :longitude, :status, :distance
-  #   ]
-  #   limit = 20
   describe 'GET #fetch_nearby' do
     before :each do
       @mcdonalds      = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
@@ -121,12 +116,6 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
 
 
   # GET /map/:lat|:lon|:distance
-  # Receive: [lat, lon, distance]
-  #   lat/lon = Position of center of map
-  #   distance = Max distance to search (in map square)
-  # Return: [ :title, :address, :address2, :city, :state, :zipcode, 
-  #           :latitude, :longitude, :status, :distance
-  #         ]
   describe 'GET #fetch_map' do
     before :each do
       @mcdonalds = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')

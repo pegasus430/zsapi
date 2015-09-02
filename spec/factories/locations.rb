@@ -45,6 +45,14 @@ FactoryGirl.define do
 				create(:campaign, locations: [l])
 			end
 		end
+
+		trait :with_business do
+			after :create do |l|
+				b = create(:business)
+				l.business = b
+				l.save
+			end
+		end
   end
 
 end

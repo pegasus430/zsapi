@@ -49,7 +49,7 @@ RSpec.describe Visit, type: :model do
 				
 				it 'returns the welcome message' do
 					result = @customer.check_in_to!(@location)
-					expect(result[:message]).to eq "Hey"
+					expect(result[:welcome_message]).to eq "Hey"
 				end
 
 				it 'returns the points earned (100)' do
@@ -124,7 +124,7 @@ RSpec.describe Visit, type: :model do
 
 			it 'returns the exit message' do
 				result = @customer.check_out_from!(@location)
-				expect(result[:message]).to eq "Goodbye"
+				expect(result[:exit_message]).to eq "Goodbye"
 			end
 
 			it 'assigns the exit campaign' do

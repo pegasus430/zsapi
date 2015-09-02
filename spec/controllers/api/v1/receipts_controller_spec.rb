@@ -4,13 +4,6 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
   before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
   # POST /
-  # Receive:
-  #   receipt[
-  #     redemption_id   # The associated redemption
-  #     location_id     # Of where the receipt was obtained
-  #     image           # The receipt image
-  #   ]
-  # Return: 200
   describe 'POST #create' do
     before :each do
       business = FactoryGirl.create(:business_with_locations)
@@ -72,9 +65,6 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
 
 
   # GET /:status
-  # Receive:
-  #   status  # (untouched, approved, rejected)
-  # Return: JSON [all_receipt_data]
   describe 'GET #index' do
     context '[Receipts exist]' do
       before :each do

@@ -36,9 +36,9 @@ class Visit < ActiveRecord::Base
 
 
     return {
-      message:        greeting.welcome_message,
-      points_earned:  points_earned,
-      campaign:       exit_campaign
+      welcome_message:  greeting.welcome_message,
+      points_earned:    points_earned,
+      campaign:         exit_campaign
     }
   end
 
@@ -56,9 +56,9 @@ class Visit < ActiveRecord::Base
     membership.save
 
     return {
-      message:    greeting.exit_message,
-      wait_time:  greeting.campaign_wait_time,
-      campaign:   greeting.campaign
+      exit_message: greeting.exit_message,
+      wait_time:    greeting.campaign_wait_time,
+      campaign:     greeting.campaign
     }
   end
 end

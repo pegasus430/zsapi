@@ -1,3 +1,47 @@
+9/2/15
+	17:37
+		API docs are done! Now just making them static
+
+	15:32+
+		Finishing the API docs within 30 mins so I can get it over with. I can do the super clean DRY stuff later if needed.
+
+	15:22-
+		Almost completed! Taking a small break.
+
+	13:53+
+		Continuing with the api formatting and completing the api for app partner.
+
+	13:21-
+		Finalizing format of api docs before I add it to everything.
+
+	11:27+
+		Continuing work on API docs
+
+	10:47-
+		APIPIE is working. Next I'm going to add in the api details.
+
+	10:24+
+		Trying to get APIPIE to work.
+
+9/1/14
+	16:26-
+		Apipie did not work. Looking into another method.
+
+	15:58
+		Got the location-by-UUID done! Now working on API docs for App PArtner (gem time!)
+
+	15:19
+		Added campaigns index (for location), and tested the visit API calls. Now going to make locations retrievable by UUID
+
+	14:40+
+		Adding tests to checkin/out api calls.
+
+	13:00-
+		Got the check in/out setup for the customer controller. Now implementing tests (seems backwards! :) 
+
+	12:00+
+		Adding additional API endpoints to complete the process. Namely, the checkin/out and greetings.
+
 8/31/15 (2:25)
 	21:06-
 		Added the referrer creation into the share link show action.

@@ -4,8 +4,6 @@ RSpec.describe Api::V1::RedemptionsController, type: :controller do
   before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
   # GET /redemptions
-  # Receive: -
-  # Return: [r data, camp data, loc data]
   describe 'GET #index' do
     it 'returns redempetions with limited association data' do
       customer = FactoryGirl.create(:customer)
@@ -20,8 +18,6 @@ RSpec.describe Api::V1::RedemptionsController, type: :controller do
   end
 
   # POST /redemptions
-  # Receive: redemption[campaign, location]
-  # Return: 200
   describe 'POST #create' do
     it 'creates a redemption' do
       customer = FactoryGirl.create(:customer)

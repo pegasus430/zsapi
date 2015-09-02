@@ -4,11 +4,6 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   before(:each) { controller.stub(:api_key_valid?).and_return(true) }
 
   # POST /sign_in
-  # Receive:
-  #   customer[ first_name, last_name, email, social_type,
-  #             social_id, social_token, social_friends
-  #           ]
-  # Return: JSON [customer_data]
   describe 'POST #sign_in' do
     context '[Customer email exists]' do
       before :each do
@@ -26,8 +21,8 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
         expect(@customer.social_friends).to eq ["1","2","3"]
       end
 
-      it 'returns the customer object' do
-        expect(response).to be_singular_resource
+      it 'returns 200 ok' do
+        expect(response.status).to eq 200
       end
     end
 
@@ -40,16 +35,14 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
         expect(Customer.all.count).to eq 1
       end
 
-      it 'returns the customer object' do
-        expect(response).to be_singular_resource
+      it 'returns 200 ok' do
+        expect(response.status).to eq 200
       end
     end
   end
 
 
   # POST /sign_out
-  # Receive: -
-  # Return: 200
   describe 'POST #sign_out' do
     context '[Customer token exists]' do
       before :each do
@@ -83,8 +76,6 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
 
 
   # POST /notification_token
-  # Receive: notification_token
-  # Return: 200
   describe 'POST #notification_token' do
     context '[Customer social token exists]' do
       before :each do
@@ -112,6 +103,42 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
       it 'returns an error' do
         expect(response).to be_api_error
       end
+    end
+  end
+
+
+  # POST /customers/check_in
+  describe 'POST #check_in' do
+    it "returns the JSON data" do
+      customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
+      business = FactoryGirl.create(:business, :with_location)
+      location = business.locations.first
+
+      post :check_in, version: 1, location_id: location.id
+
+      expect(response).to be_singular_resource
+    end
+  end
+
+
+  # POST /customers/check_out
+  # Receive: [location_id]
+  # Return: [
+  #   welcome_message,
+  #   points_earned,
+  #   special_campaign
+  # ]
+  describe 'POST #check_out' do
+    it "returns the JSON data" do
+      customer = FactoryGirl.create(:facebook_customer)
+      controller.stub(:current_customer).and_return(customer)
+      business = FactoryGirl.create(:business, :with_location)
+      location = business.locations.first
+
+      post :check_out, version: 1, location_id: location.id
+
+      expect(response).to be_singular_resource
     end
   end
 

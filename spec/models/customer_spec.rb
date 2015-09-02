@@ -59,15 +59,26 @@ RSpec.describe Customer, type: :model do
 				@membership = FactoryGirl.create(:membership, business: @business, customer: @customer, points: 500)
 			end
 
-			it "#membership_for(@business)" do
-				expect(@customer.membership_for(@business).points).to eq 500
+			context '[Membership exists]' do
+				it "#membership_for(@business)" do
+					expect(@customer.membership_for(@business).points).to eq 500
+				end
+			end
+
+			context '[Membership does not exist]' do
+				it "#membership_for(@business)" do
+					business = FactoryGirl.create(:business)
+					customer = FactoryGirl.create(:customer)
+					expect(customer.membership_for(business).points).to eq 0
+				end
 			end
 
 
 			describe '.find_or_create_with_membership' do
 				context '[Customer does not exist]' do
 					before :each do
-						@customer, @is_new_to_business = Customer.find_or_create_with_membership(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
+						new_membership = Customer.find_or_create_with_membership(FactoryGirl.attributes_for(:customer).merge({points: 500, business: @business}))
+						@customer = new_membership[:customer]
 					end
 
 					it 'creates the customer' do
@@ -82,7 +93,8 @@ RSpec.describe Customer, type: :model do
 			 	context '[Customer exist but does not have membership with business]' do
 			 		before :each do
 			 			@other_business = FactoryGirl.create(:business)
-			 			@found_customer, @is_new_to_business = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 500, business: @other_business}))
+			 			new_membership = Customer.find_or_create_with_membership(customer: @customer, points: 500, business: @other_business)
+			 			@found_customer = new_membership[:customer]
 			 		end
 
 			 		it 'finds the customer' do
@@ -96,7 +108,8 @@ RSpec.describe Customer, type: :model do
 
 			 	context '[Customer exist and has membership with business]' do
 			 		before :each do
-			 			@found_customer, @is_new_to_business = Customer.find_or_create_with_membership(@customer.attributes.slice('first_name', 'last_name', 'email').symbolize_keys!.merge({points: 250, business: @business}))
+			 			new_membership = Customer.find_or_create_with_membership(customer: @customer, points: 250, business: @business)
+			 			@found_customer = new_membership[:customer]
 			 		end
 
 			 		it 'finds the customer' do

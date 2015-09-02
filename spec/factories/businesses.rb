@@ -27,6 +27,14 @@ FactoryGirl.define do
 			end
 		end
 
+
+		##TRAITS
+		trait :with_location do
+			after(:create) do |b|
+				create(:location, business: b)
+			end
+		end
+
   end
 
 end
