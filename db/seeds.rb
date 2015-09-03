@@ -28,7 +28,7 @@ businesses = Business.create!([
     secondary_color:  '000000',
     website:          'http://getthatyummycoffee.com',
     facebook:         'fbyummy',
-    yelp:             'http://yelp.com/mypage',
+    yelp_url:         'http://yelp.com/mypage',
     twitter:          'GetCoffee'
   }
 ])
