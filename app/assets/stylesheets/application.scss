@@ -294,24 +294,25 @@ span.selectOption {
 
 // FIELD ICON
 .field-info {
-  font-family: serif;
-  width: em(24);
-  height: em(24);
-  text-align: center;
-  line-height: em(24);
-  // background: image-url('info.svg') no-repeat center center;
-  position: absolute;
-  right: -25px;
-  top: 12px;
-  @include border-radius(em(12));
+  $icon-size: em(24);
+
+  @include border-radius($icon-size/2);
   border:1px solid $border-color;
   color:$border-color;
+  font-family: serif;
   font-style: italic;
+  height: $icon-size;
+  line-height: $icon-size;
+  position: absolute;
+  right: -25px;
+  text-align: center;
+  top: 12px;
+  width: $icon-size;
 
   &:hover{
-    color: $color-tooltip-font;
-    border-color: $color-tooltip-font;
     background:$color-white;
+    border-color: $color-tooltip-font;
+    color: $color-tooltip-font;
   }
 }
 
@@ -319,11 +320,11 @@ span.selectOption {
   border-bottom-color:$color-white !important;
 }
 .tooltip-inner {
-  background: $color-white;
-  width: 208px;
-  padding: $row-gutter/2;
   @include box-shadow();
+  background: $color-white;
   color: $color-tooltip-font;
+  padding: $row-gutter/2;
+  width: em(250);
 }
 // END FIELD ICON
 
