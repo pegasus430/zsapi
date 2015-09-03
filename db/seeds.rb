@@ -7,6 +7,9 @@ require 'factory_girl_rails'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+FactoryGirl.create(:admin, email: "wes@wesfed.com", password: "abcd1234")
+
+# The factories below should only be created during API testing
 user = FactoryGirl.create(:user_with_business)
 business = user.business
 greeting = FactoryGirl.create(:greeting)

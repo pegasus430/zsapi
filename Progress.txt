@@ -1,3 +1,7 @@
+9/3/15
+	09:55+
+		Uploading to heroku and testing curl
+
 9/2/15
 	18:01-
 		API docs are done! Next I need to fix the seeds file to include factorgy girl. That way I can reset the heroku DB and ensure that the CURL commands work for the API. Then, send to app partner.
