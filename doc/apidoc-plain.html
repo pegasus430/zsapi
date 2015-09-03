@@ -1,0 +1,1218 @@
+  <h4><a href='#campaigns'>Campaigns</a></h4>
+  <ul>
+      <li><a href='#campaigns-index'>index</a></li>
+      <li><a href='#campaigns-show'>show</a></li>
+  </ul>
+  <h4><a href='#customers'>Customers</a></h4>
+  <ul>
+      <li><a href='#customers-sign_in'>sign_in</a></li>
+      <li><a href='#customers-sign_out'>sign_out</a></li>
+      <li><a href='#customers-check_in'>check_in</a></li>
+      <li><a href='#customers-check_out'>check_out</a></li>
+      <li><a href='#customers-notification_token'>notification_token</a></li>
+      <li><a href='#customers-show'>show</a></li>
+  </ul>
+  <h4><a href='#locations'>Locations</a></h4>
+  <ul>
+      <li><a href='#locations-show'>show</a></li>
+      <li><a href='#locations-fetch_nearby'>fetch_nearby</a></li>
+      <li><a href='#locations-fetch_map'>fetch_map</a></li>
+  </ul>
+  <h4><a href='#receipts'>Receipts</a></h4>
+  <ul>
+      <li><a href='#receipts-create'>create</a></li>
+      <li><a href='#receipts-index'>index</a></li>
+  </ul>
+  <h4><a href='#redemptions'>Redemptions</a></h4>
+  <ul>
+      <li><a href='#redemptions-index'>index</a></li>
+      <li><a href='#redemptions-create'>create</a></li>
+  </ul>
+  <h4><a href='#share_links'>Share links</a></h4>
+  <ul>
+      <li><a href='#share_links-show'>show</a></li>
+      <li><a href='#share_links-create'>create</a></li>
+  </ul>
+
+
+
+  <hr/>
+
+  <div>
+    <h2 id="campaigns">
+      <a href='#campaigns'>Campaigns</a><br>
+      <small>These are the coupons, rewards, and specials</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="campaigns-index">
+      <a href='#campaigns'>Campaigns</a> / <a href='#campaigns-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/locations/:id/campaigns
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Retreive all campaigns related to a given location</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 1,
+  &quot;response&quot; =&gt; Array [
+    Hash {
+      &quot;id&quot; =&gt; ,
+      &quot;type_of&quot; =&gt; ,#coupon, reward, special
+      &quot;title&quot; =&gt; ,
+      &quot;discount_amount&quot; =&gt; ,
+      &quot;discount_type&quot; =&gt; ,#percent, amount
+      &quot;share_reward&quot; =&gt; ,
+      &quot;image_file_name&quot; =&gt; ,
+      &quot;schedule&quot; =&gt; Hash { Schedule Object },
+      &quot;start_at&quot; =&gt; ,#datetime
+      &quot;end_at&quot; =&gt; ,#datetime
+      &quot;created_at&quot; =&gt; ,#datetime
+      &quot;status&quot; =&gt; ,#inactive, active, featured
+      &quot;pos&quot; =&gt; ,#the UPC for generating barcodes
+      &quot;description&quot; =&gt; #
+    },
+    # ...
+  ]
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            Location not found
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>ID of Location</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="campaigns-show">
+      <a href='#campaigns'>Campaigns</a> / <a href='#campaigns-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/campaigns/:id
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Retreive a specific campaign</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;response&quot; =&gt; Hash {
+     &quot;id&quot; =&gt; ,
+     &quot;type_of&quot; =&gt; ,#coupon, reward, special
+     &quot;title&quot; =&gt; ,
+     &quot;discount_amount&quot; =&gt; ,
+     &quot;discount_type&quot; =&gt; ,#percent, amount
+     &quot;share_reward&quot; =&gt; ,
+     &quot;image_file_name&quot; =&gt; ,
+     &quot;schedule&quot; =&gt; Hash { Schedule Object },
+     &quot;start_at&quot; =&gt; ,#datetime
+     &quot;end_at&quot; =&gt; ,#datetime
+     &quot;created_at&quot; =&gt; ,#datetime
+     &quot;status&quot; =&gt; ,#inactive, active, featured
+     &quot;pos&quot; =&gt; ,#the UPC for generating barcodes
+     &quot;description&quot; =&gt; #
+   }
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            Campaign not found
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>ID of Campaign</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="customers">
+      <a href='#customers'>Customers</a><br>
+      <small>The people who use the mobile app</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="customers-sign_in">
+      <a href='#customers'>Customers</a> / <a href='#customers-sign_in'>sign_in</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/customers/sign_in
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Signs the customer in by updating the social_token and social_type</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">200 OK</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>customer </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+    </li>
+    <ul>
+    <li>
+      <strong>email </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Email address of customer</p>
+
+    </li>
+    
+    <li>
+      <strong>social_token </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The social token returns by Facebook/Google+</p>
+
+    </li>
+    
+    <li>
+      <strong>social_type </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: facebook, google+.</p>
+ ]
+      </small>
+      
+<p>The type of social account connected</p>
+
+    </li>
+    
+    <li>
+      <strong>social_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The social ID</p>
+
+    </li>
+    
+    <li>
+      <strong>first_name </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Customer&#39;s first name</p>
+
+    </li>
+    
+    <li>
+      <strong>last_name </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Customer&#39;s last name</p>
+
+    </li>
+    
+    <li>
+      <strong>social_friends </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be an array of any type</p>
+ ]
+      </small>
+      
+<p>An array of the customer&#39;s social friends. Example: [1,4,5,6]</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="customers-sign_out">
+      <a href='#customers'>Customers</a> / <a href='#customers-sign_out'>sign_out</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/customers/sign_out
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Signs the customer out by removing the social elements</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">200 OK</pre>
+
+
+      </div>
+      <hr/>
+
+      <h3 id="customers-check_in">
+      <a href='#customers'>Customers</a> / <a href='#customers-check_in'>check_in</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/customers/check_in
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Checks in the customer to a location</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;response&quot; =&gt; {
+    &quot;welcome_message&quot;, 		# The welcome greeting
+    &quot;points_earned&quot;, 		# The amount of points earned for checking in
+    &quot;special_campaign&quot; =&gt; { 	# The exit campaign from their prior checkout (if available)
+      #Campaign Meta
+    }
+  }
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>location_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the location</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="customers-check_out">
+      <a href='#customers'>Customers</a> / <a href='#customers-check_out'>check_out</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/customers/check_out
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Checks OUT the customer FROM a location and returns the exit message</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;response&quot; =&gt; {
+    &quot;exit_message&quot;, 		# The exit greeting
+    &quot;wait_time&quot;, 		# The amount time until the special campaign expires
+    &quot;special_campaign&quot; =&gt; { 	# The exit campaign that can be redeemed on their next check in
+      #Campaign Meta
+    }
+  }
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>location_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the location</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="customers-notification_token">
+      <a href='#customers'>Customers</a> / <a href='#customers-notification_token'>notification_token</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/customers/notification_token
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Updates the notification_token for the current customer</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">200 OK</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>notification_token </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The notification token to be stored</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="customers-show">
+      <a href='#customers'>Customers</a> / <a href='#customers-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/customers/profile
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Returns the current_customer in JSON</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;response&quot; =&gt; Hash {
+    first_name,
+    last_name,
+    email,
+    social_id,
+    social_type,
+    social_friends,
+    notification_token
+   }
+}
+</pre>
+
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="locations">
+      <a href='#locations'>Locations</a><br>
+      <small>The individual locations of a business</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="locations-show">
+      <a href='#locations'>Locations</a> / <a href='#locations-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/beacons/:uuid/location
+            <br>
+            <small></small>
+          </h4>
+          <h4>
+              GET /api/:version/locations/:id
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Returns a location object and includes information relevant to the current
+customer.</p>
+
+<p>There are two ways to retreive data for a single location, by inputting the
+beacon&#39;s UUID, or by inputting the location&#39;s ID. Use the proper
+route depending on what you&#39;re trying to do.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 0,
+  &quot;response&quot; =&gt; Array[
+    Hash {
+      &quot;id&quot; =&gt; ,
+      &quot;business&quot; =&gt; Hash { Business Object },
+      &quot;title&quot; =&gt; ,
+      &quot;address&quot; =&gt; ,
+      &quot;address2&quot; =&gt; ,
+      &quot;city&quot; =&gt; ,
+      &quot;state&quot; =&gt; ,
+      &quot;zipcode&quot; =&gt; ,
+      &quot;latitude&quot; =&gt; ,
+      &quot;longitude&quot; =&gt; ,
+      &quot;status&quot; =&gt; ,
+      &quot;points&quot; =&gt; , 	# The current customer&#39;s points for this location
+      &quot;visits&quot; =&gt;   	# The number of checkins for the current customer at this location
+    },
+    # ...
+  ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The location ID. <strong>Required</strong> <strong>if:</strong> Using the
+ID route</p>
+
+    </li>
+    
+    <li>
+      <strong>uuid </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The beacon&#39;s UUID. <strong>Required</strong> <strong>if:</strong> Using
+the UUID route</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="locations-fetch_nearby">
+      <a href='#locations'>Locations</a> / <a href='#locations-fetch_nearby'>fetch_nearby</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/locations/near/:lat/:lon
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Returns nearby locations according to the given coordinates</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 0,
+  &quot;response&quot; =&gt; Array[
+    Hash {
+      &quot;id&quot; =&gt; ,
+      &quot;business&quot; =&gt; Hash { Business Object },
+      &quot;title&quot; =&gt; ,
+      &quot;address&quot; =&gt; ,
+      &quot;address2&quot; =&gt; ,
+      &quot;city&quot; =&gt; ,
+      &quot;state&quot; =&gt; ,
+      &quot;zipcode&quot; =&gt; ,
+      &quot;latitude&quot; =&gt; ,
+      &quot;longitude&quot; =&gt; ,
+      &quot;status&quot; =&gt; ,
+      &quot;distance&quot; =&gt; 
+    },
+    # ...
+  ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>lat </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Latitude of start</p>
+
+    </li>
+    
+    <li>
+      <strong>lon </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>longitude of start</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="locations-fetch_map">
+      <a href='#locations'>Locations</a> / <a href='#locations-fetch_map'>fetch_map</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/locations/map/:lat/:lon/:distance
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Returns locations in a given map square (according to distance limit)</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 0,
+  &quot;response&quot; =&gt; Array[
+    Hash {
+      &quot;id&quot; =&gt; ,
+      &quot;business&quot; =&gt; Hash { Business Object },
+      &quot;title&quot; =&gt; ,
+      &quot;address&quot; =&gt; ,
+      &quot;address2&quot; =&gt; ,
+      &quot;city&quot; =&gt; ,
+      &quot;state&quot; =&gt; ,
+      &quot;zipcode&quot; =&gt; ,
+      &quot;latitude&quot; =&gt; ,
+      &quot;longitude&quot; =&gt; ,
+      &quot;status&quot; =&gt; ,
+      &quot;distance&quot; =&gt; 
+    },
+    # ...
+  ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>lat </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Latitude of center of map</p>
+
+    </li>
+    
+    <li>
+      <strong>lon </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Longitude of center of map</p>
+
+    </li>
+    
+    <li>
+      <strong>distance </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>Distance from center of map (in miles)</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="receipts">
+      <a href='#receipts'>Receipts</a><br>
+      <small>Receipts are associated with redemptions and are uploaded by the customer for approval</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="receipts-create">
+      <a href='#receipts'>Receipts</a> / <a href='#receipts-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/receipts
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Create a new receipt with the given params</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">200 OK</pre>
+
+          <h4>Errors</h4>
+            422
+            Invalid receipt params were given (or invalid image).
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>receipt </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+    </li>
+    <ul>
+    <li>
+      <strong>redemption_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The associated redemption_id</p>
+
+    </li>
+    
+    <li>
+      <strong>location_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The location_id of where the redempetion was made (MAY REMOVE THIS)</p>
+
+    </li>
+    
+    <li>
+      <strong>image </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be File.</p>
+ ]
+      </small>
+      
+<p>The receipt image</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="receipts-index">
+      <a href='#receipts'>Receipts</a> / <a href='#receipts-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/receipts/:status
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Shows the receipts and status</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 1,
+  response =&gt; Array[
+    Hash {
+       &quot;id&quot; =&gt; ,
+       &quot;purchased_on&quot; =&gt; ,#is updated by the admin
+       &quot;amount&quot; =&gt; ,#is 0 until admin sets amount
+       &quot;reject_reason&quot; =&gt; ,#is blank unless rejected
+       &quot;created_at&quot; =&gt; ,#when the receipt was uploaded initially
+       &quot;status&quot; =&gt; ,
+       &quot;actioned_on&quot; =&gt; ,#when the receipt was approved/rejected
+       &quot;image_file_name&quot; =&gt; ,
+       &quot;location&quot; =&gt; Hash {Location Data}
+    }
+  ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>status </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: untouched, approved, rejected.</p>
+ ]
+      </small>
+      
+<p>The status of the receipts shown</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="redemptions">
+      <a href='#redemptions'>Redemptions</a><br>
+      <small>Redemptions are what the customer created upon every redeemed campaign.</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="redemptions-index">
+      <a href='#redemptions'>Redemptions</a> / <a href='#redemptions-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/redemptions
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>List the current user&#39;s redemptions</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;count&quot; =&gt; 1,
+  response =&gt; Array[
+    Hash {
+       &quot;id&quot; =&gt; ,
+       &quot;campaign&quot; =&gt; Hash {&quot;title&quot; =&gt; &quot;&quot;}
+       &quot;location&quot; =&gt; Hash {&quot;title&quot; =&gt; &quot;&quot;}
+    }
+  ]
+}
+</pre>
+
+
+      </div>
+      <hr/>
+
+      <h3 id="redemptions-create">
+      <a href='#redemptions'>Redemptions</a> / <a href='#redemptions-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/redemptions
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>List the current user&#39;s redemptions</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">200 OK</pre>
+
+          <h4>Errors</h4>
+            422
+            Invalid redemption parameters. Redemption did not save
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>redemption </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+    </li>
+    <ul>
+    <li>
+      <strong>campaign_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The campaign ID</p>
+
+    </li>
+    
+    <li>
+      <strong>location_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The location ID</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="share_links">
+      <a href='#share_links'>Share links</a><br>
+      <small>When a customer shares a campaign, a share link is created.</small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="share_links-show">
+      <a href='#share_links'>Share links</a> / <a href='#share_links-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/:version/share_links/:id
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Returns the campaign via the share link (code) provided</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  response =&gt; Hash {Campaign Data}
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The share link&#39;s ID (code)</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="share_links-create">
+      <a href='#share_links'>Share links</a> / <a href='#share_links-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/:version/share_links
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Create a new share link for a campaign and return the URL</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+  &quot;response&quot; =&gt; Hash{
+    &quot;url&quot; =&gt; #the complete URL of the share link
+  }
+}
+</pre>
+
+          <h4>Errors</h4>
+            422
+            Invalid parameters. Link was not created
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>share_link </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+    </li>
+    <ul>
+    <li>
+      <strong>campaign_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the campaign being shared</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>

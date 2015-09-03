@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Zippyspot 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Campaigns
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Campaigns
+    <br>
+    <small>These are the coupons, rewards, and specials</small>
+  </h1>
+</div>
+
+
+  <h2>Metadata</h2>
+  <pre class="prettyprint lang-yaml">:campaign:
+- id
+- type_of
+- title
+- discount_amount
+- discount_type
+- share_reward
+- image_file_name
+- image_content_type
+- image_file_size
+- image_updated_at
+- featured
+- schedule_id
+- start_at
+- end_at
+- created_at
+- updated_at
+- status
+- pos
+- description
+</pre>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/campaigns/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/:version/locations/:id/campaigns
+          </a>
+          <br>
+          <small></small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+<p>Retreive all campaigns related to a given location</p>
+
+
+
+  <h3>Errors</h3>
+    404
+    Location not found
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">{
+  &quot;count&quot; =&gt; 1,
+  &quot;response&quot; =&gt; Array [
+    Hash {
+      &quot;id&quot; =&gt; ,
+      &quot;type_of&quot; =&gt; ,#coupon, reward, special
+      &quot;title&quot; =&gt; ,
+      &quot;discount_amount&quot; =&gt; ,
+      &quot;discount_type&quot; =&gt; ,#percent, amount
+      &quot;share_reward&quot; =&gt; ,
+      &quot;image_file_name&quot; =&gt; ,
+      &quot;schedule&quot; =&gt; Hash { Schedule Object },
+      &quot;start_at&quot; =&gt; ,#datetime
+      &quot;end_at&quot; =&gt; ,#datetime
+      &quot;created_at&quot; =&gt; ,#datetime
+      &quot;status&quot; =&gt; ,#inactive, active, featured
+      &quot;pos&quot; =&gt; ,#the UPC for generating barcodes
+      &quot;description&quot; =&gt; #
+    },
+    # ...
+  ]
+}
+</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>ID of Location</p>
+
+        <br>
+        Value: 
+<p>Must be a number.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/campaigns/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/:version/campaigns/:id
+          </a>
+          <br>
+          <small></small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+<p>Retreive a specific campaign</p>
+
+
+
+  <h3>Errors</h3>
+    404
+    Campaign not found
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">{
+  &quot;response&quot; =&gt; Hash {
+     &quot;id&quot; =&gt; ,
+     &quot;type_of&quot; =&gt; ,#coupon, reward, special
+     &quot;title&quot; =&gt; ,
+     &quot;discount_amount&quot; =&gt; ,
+     &quot;discount_type&quot; =&gt; ,#percent, amount
+     &quot;share_reward&quot; =&gt; ,
+     &quot;image_file_name&quot; =&gt; ,
+     &quot;schedule&quot; =&gt; Hash { Schedule Object },
+     &quot;start_at&quot; =&gt; ,#datetime
+     &quot;end_at&quot; =&gt; ,#datetime
+     &quot;created_at&quot; =&gt; ,#datetime
+     &quot;status&quot; =&gt; ,#inactive, active, featured
+     &quot;pos&quot; =&gt; ,#the UPC for generating barcodes
+     &quot;description&quot; =&gt; #
+   }
+}
+</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>ID of Campaign</p>
+
+        <br>
+        Value: 
+<p>Must be a number.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer></footer>
+  </div>
+  <script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>
