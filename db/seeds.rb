@@ -23,11 +23,12 @@ businesses = Business.create!([
   {
     user_id:          users[0].id,
     name:             "My business",
-    published:        true,
+    status:           'published',
     primary_color:    'ffffff',
     secondary_color:  '000000',
     website:          'http://getthatyummycoffee.com',
     facebook:         'fbyummy',
+    yelp:             'http://yelp.com/mypage',
     twitter:          'GetCoffee'
   }
 ])
@@ -87,5 +88,22 @@ customers = Customer.create!([
     first_name:   "James",
     last_name:    "Madison",
     email:        "sonimad@gmail.com",
+  }
+])
+
+schedule = Schedule.create!(title: "Every day")
+
+campaigns = Campaign.create!([
+  {
+    schedule_id:      schedule.id,
+    type_of:           'coupon',
+    title:             "5% off",
+    discount_amount:   5,
+    discount_type:     'percent',
+    share_reward:      100,
+    status:            'active',
+    start_at:          Date.yesterday,
+    end_at:            nil,
+    locations:         locations
   }
 ])

@@ -1,5 +1,8 @@
 9/3/15
-	09:55+
+	11:27-
+		Got the docs uploaded and everything looking good. Next I need to set up the dummy data, then I can move onto something else.
+
+	10:00+
 		Uploading to heroku and testing curl
 
 9/2/15
