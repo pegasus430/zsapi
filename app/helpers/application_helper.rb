@@ -53,11 +53,7 @@ module ApplicationHelper
 
 	# Displays the (i) icon in form rows
 	def field_info(message)
-		content_tag :div, class: "field-info" do
-			content_tag :div, class: "fi-content" do
-				content_tag :p, message
-			end
-		end
+		link_to("i", '#', class: "field-info", data: {toggle: "tooltip", placement: "bottom"}, title: message)
 	end
 
 	# Wrapper
@@ -102,15 +98,14 @@ module ApplicationHelper
 		})
 
 		content_tag :div, class: opts[:row] do
+			info = field_info(opts[:info]) if opts[:info]
 			concat(content_tag(:div, label_tag(label), class: opts[:col1]))
 			
 			if block_given?
-				concat(content_tag(:div, capture(&block), class: opts[:col2]))
+				concat(content_tag(:div, capture(&block) + info, class: opts[:col2]))
 			else
-				concat(content_tag(:div, raw(input_or_opts_with_block), class: opts[:col2]))
+				concat(content_tag(:div, raw(input_or_opts_with_block) + info, class: opts[:col2]))
 			end
-
-			concat(field_info(opts[:info])) if opts[:info]
 		end
 	end
 
