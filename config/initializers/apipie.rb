@@ -2,7 +2,8 @@ Apipie.configure do |config|
   config.app_name                = "Zippyspot"
   config.api_base_url            = "/api/1"
   config.doc_base_url            = "/apidoc"
-  config.use_cache = Rails.env.production?
+  # config.use_cache = Rails.env.production?
+  # config.cache_dir = File.join(Rails.root, "doc", "apidoc")
   # where is your API defined?
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
   # config.markup = Apipie::Markup::Markdown.new
