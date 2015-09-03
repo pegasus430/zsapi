@@ -2,8 +2,6 @@ class Api::V1::BaseController < RocketPants::Base
 	# Add APIPIE support
 	extend Apipie::DSL::Controller
 	resource_description do
-		desc "heer"
-		short "gere"
 		api_version "1.0"
 		formats ['json']
 	  # param 'Authentication: token', String, 				desc: "HEADER param: The Secret API Key", required: true
