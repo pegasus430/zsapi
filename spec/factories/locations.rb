@@ -53,6 +53,12 @@ FactoryGirl.define do
 				l.save
 			end
 		end
+
+		trait :with_beacon do
+			before :create do |l|
+				create(:active_beacon, location: l)
+			end
+		end
   end
 
 end

@@ -1,6 +1,6 @@
 9/2/15
-	17:37
-		API docs are done! Now just making them static
+	18:01-
+		API docs are done! Next I need to fix the seeds file to include factorgy girl. That way I can reset the heroku DB and ensure that the CURL commands work for the API. Then, send to app partner.
 
 	15:32+
 		Finishing the API docs within 30 mins so I can get it over with. I can do the super clean DRY stuff later if needed.
