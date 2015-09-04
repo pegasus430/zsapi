@@ -1,4 +1,10 @@
 9/4/15
+	18:24-(:12)
+		I removed some unnecessary JS and vendor scripts. When I return, continue editing the main JS/CSS files to clean them out. Then work on jCrop
+
+	18:12+
+		The next step is to integrate jCrop, make the cropping work, and make the backend work with paperclip.
+
 	14:00-(1:20)
 		The progress steps are all done! **Possibly need to move the progress step data from application_helper to its own helper for cleanliness.
 

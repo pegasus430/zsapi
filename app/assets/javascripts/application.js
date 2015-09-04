@@ -1,14 +1,21 @@
+// jQuery
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mobile.custom
+
+// Bootstrap gem
 //= require twitter/bootstrap
+
+// Select elements
 //= require select/jquery.selectBox
+
+// Masonry for campaign display
 // require masonry/masonry.pkgd
-// require highcharts/highcharts
-// require highcharts/exporting
+
+// Bootstrap datepicker
 //= require datepicker/bootstrap-datepicker
+
 //= require bootstrap-table
-//= require popup/jquery.magnific-popup.min
 // require cropper/cropper
 // require minicolors/jquery.minicolors
 // require color-thief/color-thief
@@ -19,21 +26,17 @@
 
 
 jQuery(document).ready(function($){
-	/* CUSTOM DROP DOWN */
+	// Init selectBox
 	$('select').selectBox({'mobile':true});
 
-
-
-	// NAVBAR ACT
+	// Navbar Collapsing
 	$(".nav-trigger").click(function() {
 	    $("#home").toggleClass("active");
 	    $(".header").toggleClass("active");
 	    $(".db-header").toggleClass("active");
 	});
 
-
-
-	/* SWIPE TO OPEN MENU */
+	// Swipe to open menu
 	if ( $(!".minicolors").length > 0 )
 	{
 		$('body').on("swipeleft",function(){
@@ -50,44 +53,8 @@ jQuery(document).ready(function($){
 		});
 	}
 
-
-	// BATTERY
-	$(".battery-status").click(function(event) {
-	  $(".battery-ui").toggleClass("active");
-	  $(".ico").toggleClass("active");
-	  $(".profile-ui").removeClass("active");
-	  $(".profile-pic").removeClass("active");
-	  event.stopPropagation();
-	});
-
-	$('html').click(function() {
-	  $(".battery-ui").removeClass("active");
-	  $(".ico").removeClass("active");
-	});
-
-	$(".battery-ui").mouseleave(function(){
-	  setTimeout(
-	    function() 
-	    {
-	    $(".battery-ui").removeClass("active");
-	    }, 3000);
-	});
-
-
-
-	//open Popup
-	if ($('.open-popup-link').length) {
-	    $('.open-popup-link').magnificPopup({
-	      type:'inline',
-	      midClick: true,
-	      removalDelay: 500,
-	      mainClass: 'mfp-fade'
-	    });
-	};
-
-	  $('[data-toggle="tooltip"]').tooltip({html: true})
-
-
+	// Tooltip menus
+  $('[data-toggle="tooltip"]').tooltip({html: true})
 });
 
 

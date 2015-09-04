@@ -1,15 +1,4 @@
 $( document ).ready(function(){
-    /* HIDDE/SHOW GRETINGS */
-    if ($('#greetingSelector').length) {
-        $('#greetingSelector').change(function () {
-            if ($(this).val() == 'new') {
-                $('.customGreeting').show();
-            }else{
-                $('.customGreeting').hide();
-            }
-        });
-    };
-
     /* PREVIEW CAMPAIGN*/
     if($('.preview-campaign').length){
         $('input').change(function(){
@@ -24,18 +13,6 @@ $( document ).ready(function(){
     }   
 
    
-
-    // OPEN AJAX POPUP!
-    if ($('.simple-ajax-popup-align-top').length) {
-        $('.simple-ajax-popup-align-top').magnificPopup({
-          type: 'ajax',
-          alignTop: true,
-          overflowY: 'scroll' // as we know that popup content is tall we set scroll overflow by default to avoid jump
-        });
-    }
-
-    
-    
     // MASONRY
     $('.grid').masonry({
         itemSelector: '.grid-item',
@@ -45,18 +22,7 @@ $( document ).ready(function(){
 
 
 
-    //Export UI
-    $(".open-export-ui").click(function(event) {
-        event.preventDefault();
-        $(".export-ui").toggleClass("active");
-         event.stopPropagation();
-    });
-
-    $('html').click(function() {
-        $(".export-ui").removeClass("active");
-    });
-
-
+  
     // HIGHCHART JS - AREA CHART
     $(function() {
         $('#area-chart').highcharts({
