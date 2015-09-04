@@ -15,13 +15,13 @@
           <ul class="dropdown-menu">
             <% if current_user.mailchimp %>
               <li>
-                <%= link_to 'Save to Mailchimp list', customers_url(status: params[:status], export: 'mc') %>
+                <%= link_to 'Save to Mailchimp list', '#', data: {toggle: 'modal', target: '#mailchimpModal'} %>
               </li>
             <% end %>
 
             <% if current_user.constantcontact %>
               <li>
-                <%= link_to 'Save to Constant Contact list', customers_url(status: params[:status], export: 'cc') %>
+                <%= link_to 'Save to Constant Contact list', '#', data: {toggle: 'modal', target: '#constantcontactModal'} %>
               </li>
             <% end %>
 
@@ -104,6 +104,29 @@
       </div>
     <% end %> <%# -form %>
   <% end %> <%# -dark wrapper %>
+
+
+  <%# MAILCHIMP MODAL %>
+  <% if current_user.mailchimp_lists %>
+    <%= modal :small, id: "mailchimpModal", title: "Select a Mailchimp List", body: capture { %>
+      <ul>
+        <% current_user.mailchimp_lists['data'].each do |list| %>
+          <li><%= link_to list['name'], customers_url(status: params[:status], export: 'mc', list: list['id']) %></li>
+        <% end %>
+      </ul>
+    <% } %>
+  <% end %>
+
+  <%# CCONTACT MODAL %>
+  <% if current_user.constantcontact_lists %>
+    <%= modal :small, id: "constantcontactModal", title: "Select a Constant Contact List", body: capture { %>
+      <ul>
+        <% current_user.constantcontact_lists.each do |list| %>
+          <li><%= link_to list.name, customers_url(status: params[:status], export: 'cc', list: list.id) %></li>
+        <% end %>
+      </ul>
+    <% } %>
+  <% end %>
 
 <% else %> <%# !customers %>
 

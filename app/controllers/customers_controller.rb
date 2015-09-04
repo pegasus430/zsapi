@@ -2,13 +2,13 @@ class CustomersController < ApplicationController
   before_action :set_customer_list, only: :index
 
   def index
-    if params[:export]
+    if params[:export] && params[:list]
       mailchimp_export        if params[:export] == 'mc'
       constantcontact_export  if params[:export] == 'cc'
     else
       respond_to do |format|
         format.html
-        format.xls { send_data @customers.to_csv(col_sep: "\t")}
+        format.xls { send_data @customers.to_csv(business: current_user.business, csv: {col_sep: "\t"}) }
       end
     end
   end
@@ -25,7 +25,8 @@ class CustomersController < ApplicationController
       end
     end
 
-    redirect_to customers_url, notice: "#{@newly_imported_customers.size} customers have been imported successfully!"
+    redirect_to customers_url,
+      notice: pluralize(@newly_imported_customers.size, "customer") + " have been imported successfully!"
   end
 
 
@@ -37,7 +38,8 @@ class CustomersController < ApplicationController
 
     def mailchimp_export
       batch_export = []
-      list_id = '177bc6a041' #temp
+      list_id = params[:list]
+      # list_id = '177bc6a041' #temp
 
       @customers.each do |cust|
         batch_export.push({
@@ -51,13 +53,15 @@ class CustomersController < ApplicationController
         batch: batch_export
       )
 
-      redirect_to customers_url(status: params[:status]), notice: "#{add_subscribers['add_count']} new subscribers have been emailed to request to be subscribed to your Mailchimp list!"
+      redirect_to customers_url(status: params[:status]),
+        notice: pluralize(add_subscribers['add_count'], "new subscriber") + " have been emailed to request to be subscribed to your Mailchimp list!"
     end
 
 
     def constantcontact_export
       import_data = []
-      lists = ['2021204636'] #temp
+      lists = [params[:list]]
+      # lists = ['2021204636'] #temp
       column_names = ["EMAIL","FIRST NAME","LAST NAME"]
 
       @customers.each do |cust|
@@ -77,6 +81,7 @@ class CustomersController < ApplicationController
       # REPONSE:
       # contact_count, error_count, id (id of the activity), type ("ADD_CONTACTS")
 
-      redirect_to customers_url(status: params[:status]), notice: "#{add_subscribers.contact_count} new subscribers have been emailed to request to be subscribed to your constantcontact list!"
+      redirect_to customers_url(status: params[:status]),
+        notice: pluralize(add_subscribers.contact_count, "new subscriber") + " have been emailed to request to be subscribed to your constantcontact list!"
     end
 end

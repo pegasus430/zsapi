@@ -14,9 +14,78 @@ module ApplicationHelper
 		]
 	end
 
+	# Progress step data
+	def progress_steps
+		steps = [
+			{
+				name: "Setup Business Profile",
+				url: edit_business_url,
+				info: "Fill out as much as you can on your business profile.",
+				check_if: !(current_user.business.primary_color.blank?),
+				required: true
+			},
+			{
+				name: "Confirm Locations",
+				url: locations_url,
+				info: "You must confirm a beacon for at least 1 location.",
+				check_if: current_user.locations.active.size > 0,
+				required: true
+			},
+			{
+				name: "Create Campaigns",
+				url: campaigns_url,
+				info: "You must create at least 1 campaign for any of your confirmed locations.",
+				check_if: current_user.business.campaigns.active.size > 0,
+				required: true
+			},
+			{
+				name: "Create Greetings",
+				url: greetings_url,
+				info: "At least one of your locations should have a greeting assigned to it.",
+				check_if: current_user.business.greetings.size > 0,
+				required: true
+			},
+			{
+				name: "Import Customers",
+				url: customers_url,
+				info: "This is optional, however, you may want to import customers from an existing rewards system.",
+				check_if: current_user.business.customers.size > 0,
+				required: false
+			},
+			{
+				name: "Go Live!",
+				url: edit_business_url,
+				info: "Your store will not be visible on the ZippySpot app until it is published.",
+				check_if: current_user.business.published?,
+				required: true
+			}
+		]
+
+		total_required_steps = 0
+		total_completed_required_steps = 0
+		steps.each do |st|
+			if st[:required] === true
+				total_required_steps += 1
+				total_completed_required_steps += 1 if st[:check_if] === true
+			end
+		end
+		percent = (100 / total_required_steps) * total_completed_required_steps
+
+		{steps: steps, percent: percent}
+	end
+
 	# Return Y/N for boolean input
 	def yesno(boolean)
 		raw boolean ? 'Y' : 'N'
+	end
+
+	# Show a check or X (used in progress steps)
+	def check_or_x(bool, items_completed=nil)
+		unless items_completed.nil?
+			items_completed += 1
+		end
+		icon = (bool) ? "fa-check" : "fa-times"
+		content_tag(:i, "", class: "fa #{icon}")
 	end
 
 	# An alias for the method below (when displaying notices)

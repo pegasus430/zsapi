@@ -1,4 +1,16 @@
 9/4/15
+	14:00-(1:20)
+		The progress steps are all done! **Possibly need to move the progress step data from application_helper to its own helper for cleanliness.
+
+	12:40+
+		Working on the green steps (checked/unchecked) and percent.
+
+	12:00-(:55)
+		Completed the mc/cc export popupts. ** Need to style these modals!. Also fixed a problem with the xls export.
+
+	11:05+
+		Adding the mailchimp/cc export list selection
+
 	10:18-(1:00)
 		All (i) done
 

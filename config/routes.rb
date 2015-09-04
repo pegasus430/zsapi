@@ -20,8 +20,8 @@ Rails.application.routes.draw do
     resources :businesses, only: [:new, :create, :update]
 
     # Customers
-    get  '/customers/:status/(:export)', to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
-    post '/customers/import',            to: 'customers#import',  as: 'import_customers'
+    get  '/customers/:status/(:export/:list)',  to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    post '/customers/import',                   to: 'customers#import',  as: 'import_customers'
 
     # Greetings
     resources :greetings, except: [:show]

@@ -13,11 +13,11 @@ class Customer < ActiveRecord::Base
 
 	serialize :social_friends, Array
 
-	def self.to_csv(options = {})
-		CSV.generate(options) do |csv|
-			csv << ["First Name","Last Name", "Email", "Points", "Status"]
+	def self.to_csv(opts={})
+		CSV.generate(opts[:csv]) do |csv|
+			csv << ["First Name", "Last Name", "Email", "Points", "Status"]
 			all.each do |customer|
-				csv << [customer.first_name, customer.last_name, customer.email, customer.membership_for(current_user.business).points, customer.status]
+				csv << [customer.first_name, customer.last_name, customer.email, customer.membership_for(opts[:business]).points, customer.status]
 			end
 		end
 	end

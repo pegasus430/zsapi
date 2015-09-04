@@ -1,4 +1,5 @@
-<!-- PROFILE PROGRESS start -->
+<% unless current_user.business.published? %>
+
 	<div class="profile-progress">
 		<div class="container">
 
@@ -6,35 +7,26 @@
 				<span><%= image_tag('ico_finger.png') %></span>
 				<em>Let's Get Started!</em>
 			</div>
+
+
+			<ul class="list-inline profile-progress-list">
+				<%# progress_steps is defined in the application_helper %>
+				<% progress_steps[:steps].each do |st| %>
+					<li>
+						<%= check_or_x st[:check_if] %>
+						<%= link_to st[:name], st[:url], data: {toggle: "tooltip", placement: "top"}, title: st[:info] %>
+					</li>
+				<% end %>
+			</ul>
 	
 			<div class="profile-progress-bar hidden-xs">
-				<h5>25% Done</h5>
+				<h5><%= progress_steps[:percent] %>% Done</h5>
 				<span>
-					<em></em>
+					<em style="width: <%= progress_steps[:percent] %>%"></em>
 				</span>
 			</div>
 
-			<ul class="list-inline profile-progress-list">
-				<li class="checked">
-					<a href="#"><i class="fa fa-check"></i> Setup Business Profile</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-chevron-right"></i> Confirm Locations</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-chevron-right"></i> Create Campaigns</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-chevron-right"></i> Create Greetings</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-chevron-right"></i> Import Customers</a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-chevron-right"></i> Go Live!</a>
-				</li>
-			</ul>
-
 		</div>
 	</div>
-	<!-- PROFILE PROGRESS end -->
+
+<% end %>

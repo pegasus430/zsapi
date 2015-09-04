@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
 
 
   ## DEVISE ##
-
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
     flash[:success] = "You have been logged out successfully!"
