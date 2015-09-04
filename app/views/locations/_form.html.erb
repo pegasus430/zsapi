@@ -4,7 +4,9 @@
   <%= wrapper do %>
     <%= section_header 'Create a Location' %>
 
-    <%= fr "Location Title", f.text_field(:title) %>
+    <%= fr "Location Title", f.text_field(:title),
+      info: "The name of this location. If the name is the same as other locations, simply enter the street name to differentiate it." %>
+
     <%= fr "Address", f.text_field(:address) %>
     <%= fr "", f.text_field(:address2) %>
 
@@ -24,7 +26,8 @@
   
   <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
-    <%= fr 'Select a Greeting' do %>
+    <%= fr 'Select a Greeting',
+      info: "A greeting contains your location's welcome and exit messages. You may reuse greetings, or create a new one." do %>
       <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message'), prompt: 'Choose a greeting') %>
     <% end  %>
 

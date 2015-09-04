@@ -304,16 +304,22 @@ span.selectOption {
   height: $icon-size;
   line-height: $icon-size;
   position: absolute;
-  right: -25px;
+  left: em(-25);
   text-align: center;
-  top: 12px;
+  top: em(13);
   width: $icon-size;
+
+  .dark-wrap & {
+    border-color: $dark-border-color;
+    color: $dark-border-color;
+  }
 
   &:hover{
     background:$color-white;
     border-color: $color-tooltip-font;
     color: $color-tooltip-font;
   }
+
 }
 
 .tooltip.bottom .tooltip-arrow{
@@ -1147,12 +1153,6 @@ body.campaigns .bagde{
 .bg-color8,
 body.customers .page-head {
   background: $customers-color;
-}
-
-.input-number{
-  width: 140px!important;
-  padding: 10px 15px !important;
-  margin-right: 20px;
 }
 
 .profile-form {

@@ -1,0 +1,23 @@
+<div class="modal fade" id="<%= id %>" tabindex="-1" role="dialog" aria-labelledby="<%= id %>">
+  <div class="modal-dialog <%= size %>" role="document">
+    <div class="modal-content">
+      <% if title %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><%= title %></h4>
+        </div>
+      <% end %>
+
+      <div class="modal-body">
+        <%= body %>
+      </div>
+
+      <% if footer %>
+        <div class="modal-footer">
+          <%= footer %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

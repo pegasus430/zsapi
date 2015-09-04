@@ -1,14 +1,52 @@
+9/4/15
+	10:18-(1:00)
+		All (i) done
+
+	09:18+
+		Adding form (i) icons
+
 9/3/15
-	13:24+
+	22:15-22:38 (:23)
+		Got the modal setup (not pretty) and added in the images for gallery. **Need to update the gallery CSS to make it look nice. Also need to make them clickable.
+
+
+	21:11- (:41)
+		Next on the list is to: Finish the modal partial, then add the images from the campaign gallery, then finish the i icon for the campaign page. After that, finish the other pages' i icons.
+
+	20:30+
+		Camp form still. Also, adding the images directory to the "choose from gallery" modal
+
+	19:19- (0:14)
+		Need to fix ID for cbox, then I should be near the end of the campaign form page.
+
+	19:05+ 
+		Working on campaign form page as before
+
+	16:50- (0:20)
+		Working on the form page (using <%= fr %>) and then adding icons to it, and other, pages.
+
+	16:30+
+		Adding (i) to all form elements
+
+	15:20- (0:20)
+		issac call done
+
+	15:00 (1:16)
+		doing 20 minute issac call
+
+	14:48
+		Icons are done! Now adding them throughout all of the forms.
+
+	13:44+
 		Updating form (i) help icons
 
-	11:27-
+	11:27- (1:27)
 		Got the docs uploaded and everything looking good. Next I need to set up the dummy data, then I can move onto something else.
 
 	10:00+
 		Uploading to heroku and testing curl
 
-9/2/15
+9/2/15 (5:46)
 	18:01-
 		API docs are done! Next I need to fix the seeds file to include factorgy girl. That way I can reset the heroku DB and ensure that the CURL commands work for the API. Then, send to app partner.
 
@@ -33,7 +71,7 @@
 	10:24+
 		Trying to get APIPIE to work.
 
-9/1/14
+9/1/14 (2:44)
 	16:26-
 		Apipie did not work. Looking into another method.
 

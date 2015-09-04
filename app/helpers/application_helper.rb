@@ -75,12 +75,15 @@ module ApplicationHelper
 	# The headers shown above each section in a form or page
 	def section_header(text, opts={})
 		opts.reverse_merge!({
-
+			row: "row section-header",
+			col: "col-xs-12",
+			desc: ""
 		})
 
 		content_tag :div, class: opts[:row] do
 		  content_tag :div, class: opts[:col] do
-		  	content_tag :h2, text
+		  	concat(content_tag :h2, text)
+		  	concat(content_tag :p, opts[:desc]) if opts[:desc]
 		  end
 		end
 	end
@@ -111,7 +114,7 @@ module ApplicationHelper
 
 	# Styled Checkbox
 	# Creates a styled checkbox
-	def cbox(name, label, opts={})
+	def cbox(name, label=nil, opts={})
 		opts.reverse_merge!({
 			checkbox: {
 				value: 		1,
@@ -121,8 +124,21 @@ module ApplicationHelper
 		})
 
 		content_tag :div, class: "cbox" do
-			check_box_tag(name, opts[:checkbox][:value], opts[:checkbox][:checked], opts[:checkbox]) + label_tag(name, raw(label), opts[:label])
+			check_box_tag(name, opts[:checkbox].slice(:value), opts[:checkbox].slice(:checked), opts[:checkbox]) + label_tag(name, raw(label), opts[:label])
 		end
+	end
+
+
+	# Modal
+	def modal(size, opts={})
+		opts.reverse_merge!({
+			id: "",
+			title: "default title"
+		})
+
+		size = (size == :large) ? "modal-lg" : "modal-sm"
+
+		render 'shared/modal', id: opts[:id], size: size, title: opts[:title], body: opts[:body], footer: opts[:footer]
 	end
 
 end

@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :load_image_gallery, only: [:new, :edit]
 
   def index
     @campaigns = current_user.business.campaigns
@@ -82,5 +83,9 @@ class CampaignsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
       params.require(:campaign).permit(:type_of, :title, :discount_amount, :discount_type, :share_reward, :image, :status, :frequency_id, :start_at, :end_at, :locations)
+    end
+
+    def load_image_gallery
+      @gallery_images = Dir.glob("app/assets/images/campaign_gallery/*.jpg")
     end
 end
