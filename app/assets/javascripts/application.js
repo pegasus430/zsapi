@@ -1,25 +1,18 @@
-// jQuery
+// Assets
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mobile.custom
 
-// Bootstrap gem
+// Gem
 //= require twitter/bootstrap
 
-// Select elements
+// Vendor
 //= require select/jquery.selectBox
-
-// Masonry for campaign display
-// require masonry/masonry.pkgd
-
 // Bootstrap datepicker
 //= require datepicker/bootstrap-datepicker
-
 //= require bootstrap-table
-// require cropper/cropper
-// require minicolors/jquery.minicolors
-// require color-thief/color-thief
 //= require hopscotch/hopscotch
+
 //= require turbolinks
 //= require_self
 

@@ -1,18 +1,25 @@
 //= require jquery.Jcrop
+// require croppic/croppic
 //= require shared/popups
 
 // These dimensions are taken from the
 // campaign.rb attachment size for "index" thumbnails
 #image_preview{
-  width: 207px;
+  width: 210px;
   height: 170px;
   overflow: hidden;
   position: relative;
 
   img{
     position: absolute;
+    max-width: 210px;
+    max-height: 170px;
+    left: 0;
+    top: 0;
   }
 }
+
+
 
 .campaign-form{
   .cbox{

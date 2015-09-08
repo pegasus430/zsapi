@@ -1,3 +1,21 @@
+9/8/15
+	10:06+
+		Working on jcrop! Must finish this today!
+
+9/7/15
+	16:44-(2:17)
+		Still working on jcrop. Found a good example that uses a canvas, so we're going off that. All works, but the canvas is not showing.
+
+	14:27+
+		Working on jCrop on the campaign page
+
+9/5/15
+	17:54-(:30)
+		Cleaned up the main js/scss. Now working on jcrop on the campaign page.
+
+	17:24+
+		Going to continue cleaning out the css/js files as before.
+
 9/4/15
 	18:24-(:12)
 		I removed some unnecessary JS and vendor scripts. When I return, continue editing the main JS/CSS files to clean them out. Then work on jCrop

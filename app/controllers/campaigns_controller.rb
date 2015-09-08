@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :load_image_gallery, only: [:new, :edit]
+  before_action :load_image_gallery, only: [:new, :create, :edit, :update]
 
   def index
     @campaigns = current_user.business.campaigns

@@ -1,86 +1,71 @@
 #= require jquery.Jcrop
+# require croppic/croppic
 #= require shared/files
 
 handleUploadedImage = (fileInput) ->
+  # Assign file var
   file = fileInput.files[0]
-  
-  imageType = /image.*/
 
-  if !file || !file.type.match(imageType)
+  # Mime check
+  if !file || !file.type.match(/image.*/)
     return
 
-  # Create the image element
-  crop_img = document.createElement('img')
-  crop_img.classList.add 'obj'
-  crop_img.file = file
+  # Modal image
+  modal_image = $("#modal_image")
 
   # Add the image to the crop popup
-  $('#crop_image_container').html crop_img
   reader = new FileReader
-  reader.onload = ((aImg) ->
-    (e) ->
-      aImg.src = e.target.result
-      return
-  )(crop_img)
+  reader.onload = (e) ->  
+    modal_image.attr "src", e.target.result
+    modal_image.Jcrop
+      onChange: showImagePreview,
+      onSelect: showImagePreview,
+      aspectRatio: 1.235,
+      minSize: [210,170]
   reader.readAsDataURL file
+
+
   
-  # Add the image to the placeholder
-  placeholder_img = document.createElement('img')
-  placeholder_img.classList.add 'obj'
-  placeholder_img.file = file
-  $('#image_preview').html placeholder_img
-  reader2 = new FileReader
-  reader2.onload = ((aImg) ->
-    (e) ->
-      $('.theImage').attr 'value', e.target.result
-      aImg.src = e.target.result
-      return
-  )(placeholder_img)
-  reader2.readAsDataURL file
 
 
 # Show the preview
 # Handle the live coordinates of the image crop
-showImagePreview = (coords) ->
-  console.log coords
-  
-  rx = coords.w
-  ry = coords.h
-
-  $('#image_preview img').css
-    width:  Math.round(rx) + 'px',
-    height: Math.round(ry) + 'px',
-    left:   '-' + Math.round(rx * coords.x) + 'px',
-    top:    '-' + Math.round(ry * coords.y) + 'px'
+#crop_image_container img
+showImagePreview = (c) ->
+  $('#imgX1').val(c.x);
+  $('#imgY1').val(c.y);
+  $('#imgWidth').val(c.w);
+  $('#imgHeight').val(c.h);
+  $('#crop_btn').show();
 
 
 
 # START JQUERY
 (($) ->
-  # Load the cropper when the modal shows
-  $('#cropImageModal').on 'show.bs.modal', (e) ->
-    $('#crop_image_container img').Jcrop {
-      onChange: showImagePreview,
-      onSelect: showImagePreview,
-      aspectRatio: 1.217
-    }
-
-
   $('.file_field').change ->
     handleUploadedImage this
 
 
   # Close the modal and set the IMG when crop is saved
-  $('#crop_btn').click (e) ->
-    $('#cropImageModal').modal 'hide'
-
-
-
-
-
-
-
-
+  $('#crop_btn').click () ->
+    x1 = $('#imgX1').val
+    y1 = $('#imgY1').val
+    width = $('#imgWidth').val
+    height = $('#imgHeight').val
+    context = $("#canvas")[0].getContext("2d")
+    console.log context
+    if context
+      img = new Image
+      img.src = $('#Image1').attr("src")
+      img.complete = ->
+        canvas.height = height
+        canvas.width = width
+        context.drawImage(img, x1, y1, width, height, 0, 0, width, height)
+        # $('#imgCropped').val(canvas.toDataURL())
+        return
+      $('#cropImageModal').modal 'hide'
+    else
+      alert 'canvas not supported'
 
 
 
