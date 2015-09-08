@@ -36,9 +36,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'week_of_month'                       # Week of month methods
   gem 'less-rails-bootstrap'                # Bootstrap LESS
   gem 'font-awesome-rails'                  # Font-awesome
-  gem 'jcrop-rails-v2'                      # jCrop
   # gem 'bootstrap-sass'
-  # gem 'papercrop'
   gem 'bourbon'
   gem 'apipie-rails', github: 'Apipie/apipie-rails', ref: '928bd858fd14ec67eeb9483ba0d43b3be8339608'  # < Specific commit to fix "content_tag" issue
 

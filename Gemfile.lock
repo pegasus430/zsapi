@@ -148,7 +148,6 @@ GEM
     jbuilder (2.2.16)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jcrop-rails-v2 (0.9.12.3)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -407,7 +406,6 @@ DEPENDENCIES
   gibbon
   guard-rspec
   jbuilder (~> 2.0)
-  jcrop-rails-v2
   jquery-rails
   koala (~> 2.0)
   launchy
