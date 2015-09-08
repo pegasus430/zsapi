@@ -1,4 +1,5 @@
 <%= form_for(@campaign, multipart: true, html: {class: 'campaign-form form'}) do |f| %>
+  <%= f.hidden_field :type_of, value: @campaign.type_of %>
   <%= form_errors_for @campaign %>
 
   <%= wrapper do %>
@@ -32,9 +33,10 @@
         info: "A customer's will receive this many reward points when their referral uploads a valid receipt." %>
 
     <%= fr "Location(s)" do %>
+      <%= hidden_field_tag "campaign[location_ids][]", nil %>
       <% current_user.locations.each do |l| %>
         <div class="cbox">
-          <%= f.check_box :locations, {multiple: true, id: "location_#{l.id}"}, l.id %>
+          <%= check_box_tag "campaign[location_ids][]", l.id, @campaign.location_ids.include?(l.id), id: "location_#{l.id}" %>
           <label for="location_<%= l.id %>"><%= l.title %></label>
         </div>
       <% end %>
@@ -45,7 +47,7 @@
   <%= wrapper :dark do %>
     <%= section_header "Campaign Image" %>
     <%= fr "Click the image to edit" do %>
-      <%= image_tag 'img-placeholder.png', style: "width:210px", id: "campaign_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+      <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "campaign_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
       <%= hidden_field_tag :image_datafile %>
     <% end %>
 
@@ -136,7 +138,7 @@
       <%= render 'schedules/form' %>
     <%# end %>
 
-    <%= fr "Time Between Uses",
+    <%= fr "Time Between Uses NINI",
       info: "The minimum amount of time between each use of this campaign." do %>
       <div class="row">
         <div class="col-xs-5">
@@ -223,8 +225,7 @@
      </div>
      <div class="col-md-6">
          <div class="cropped croppedImage">
-          <!--PLACE DEFAULT IMAGE-->
-          <%= image_tag 'img-placeholder.png', style: "width:420", id: "image-c", class: "thumbnail" %>
+          <%= image_tag @campaign.image.url(:index), style: "width:420", id: "image-c", class: "thumbnail" %>
          </div>
      </div>
     </div>

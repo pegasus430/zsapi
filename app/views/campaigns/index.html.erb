@@ -52,7 +52,7 @@
               <td><%= type_of_circle(c.type_of) %></td>
               <td><%= link_to c.title, c %></td>
               <td><%= c.locations_string %></td>
-              <td><%= c.schedule.title %></td>
+              <td><%= c.schedule %></td>
               <td><%= yesno(c.featured) %></td>
               <td>
                 <%= link_to 'edit', edit_campaign_path(c), class: 'option edit' %>

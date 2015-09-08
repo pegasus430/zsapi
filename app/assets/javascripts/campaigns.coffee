@@ -10,7 +10,7 @@
   options =
     thumbBox: '.thumbBox',
     spinner: '.spinner',
-    imgSrc: '/assets/default.png'
+    imgSrc: $("#campaign_image").attr 'src'
 
   $(".file_field").on 'change', ->
     reader = new FileReader
@@ -31,7 +31,7 @@
     $('#campaign_image').attr('src', img)
 
     # Place the datafile value in the hidden field
-    $('#avatar_datafile').val(img)
+    $('#image_datafile').val(img)
 
   $('.btnZoomIn').on 'click', ->
     cropper.zoomIn()

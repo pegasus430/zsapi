@@ -122,7 +122,7 @@ module ApplicationHelper
 
 	# Displays the (i) icon in form rows
 	def field_info(message)
-		link_to("i", '#', class: "field-info", data: {toggle: "tooltip", placement: "bottom"}, title: message)
+		link_to("i", '#', class: "field-info", tabindex: "-1", data: {toggle: "tooltip", placement: "bottom"}, title: message)
 	end
 
 	# Wrapper

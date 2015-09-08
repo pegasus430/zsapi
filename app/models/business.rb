@@ -5,7 +5,7 @@ class Business < ActiveRecord::Base
   has_many :greetings
   has_many :receipts, through: :locations
   has_many :locations
-  has_many :campaigns, through: :locations
+  has_many :campaigns
   has_many :memberships
   has_many :customers, through: :memberships
   has_many :greetings

@@ -19,8 +19,8 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = Campaign.new(campaign_params)
-
+    @campaign = current_user.business.campaigns.build(campaign_params)
+    @campaign.image = params[:image_datafile]
 
     respond_to do |format|
       if @campaign.save
@@ -45,7 +45,7 @@ class CampaignsController < ApplicationController
         end
         # End social
 
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
+        format.html { redirect_to campaigns_url, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else
         format.html { render :new }
@@ -56,7 +56,10 @@ class CampaignsController < ApplicationController
 
   def update
     respond_to do |format|
+      @campaign.image = convert_data_uri_to_upload(params[:image_datafile]) unless params[:image_datafile].blank?
+
       if @campaign.update(campaign_params)
+
         format.html { redirect_to @campaign, notice: 'Campaign was successfully updated.' }
         format.json { render :show, status: :ok, location: @campaign }
       else
@@ -82,7 +85,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:type_of, :title, :discount_amount, :discount_type, :share_reward, :image, :status, :frequency_id, :start_at, :end_at, :locations)
+      params.require(:campaign).permit(:type_of, :title, :description, :pos, :discount_amount, :discount_type, :share_reward, :image, :status, :frequency_id, :start_at, :end_at, location_ids: [])
     end
 
     def load_image_gallery

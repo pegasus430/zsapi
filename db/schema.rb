@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830022035) do
+ActiveRecord::Schema.define(version: 20150908194834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,8 +88,10 @@ ActiveRecord::Schema.define(version: 20150830022035) do
     t.integer  "status",             default: 0,     null: false
     t.string   "pos"
     t.string   "description"
+    t.integer  "business_id"
   end
 
+  add_index "campaigns", ["business_id"], name: "index_campaigns_on_business_id", using: :btree
   add_index "campaigns", ["schedule_id"], name: "index_campaigns_on_schedule_id", using: :btree
 
   create_table "campaigns_locations", id: false, force: :cascade do |t|
@@ -292,6 +294,7 @@ ActiveRecord::Schema.define(version: 20150830022035) do
   add_index "visits", ["location_id"], name: "index_visits_on_location_id", using: :btree
 
   add_foreign_key "businesses", "users"
+  add_foreign_key "campaigns", "businesses"
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "greetings", "businesses"
   add_foreign_key "greetings", "campaigns"
