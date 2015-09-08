@@ -44,30 +44,13 @@
 
   <%= wrapper :dark do %>
     <%= section_header "Campaign Image" %>
-    <%= fr "Choose an Image" do %>
-      <div class="file-upload">
-        <a href="#" id="campaignImage" class="btn btn-browse upload-trigger">Browse</a>
-        <%= f.file_field :image, accept: "image/*", class: "file_field" %>
-        <span>Choose a file</span>
-        <%= hidden_field_tag 'imgX1', "", id: 'imgX1' %>
-        <%= hidden_field_tag 'imgY1', "", id: 'imgY1' %>
-        <%= hidden_field_tag 'imgWidth', "", id: 'imgWidth' %>
-        <%= hidden_field_tag 'imgHeight', "", id: 'imgHeight' %>
-        <%= hidden_field_tag 'imgCropped', "", id: 'imgCropped' %>
-      </div>
-      <div>
-        <%= link_to 'OR CHOOSE FROM GALLERY', '#', class: 'btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
-      </div>
+    <%= fr "Click the image to edit" do %>
+      <%= image_tag 'img-placeholder.png', style: "width:210px", id: "campaign_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+      <%= hidden_field_tag :image_datafile %>
     <% end %>
 
     <%= fr "" do %>
-      <canvas id="canvas" height="100" width="100"></canvas>
-      <div id="image_preview" class="text-center"></div>
-      <div class="row hidden-xs">
-        <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-          <%= link_to 'CROP ME', '#', class: 'btn btn-default', data: {toggle: 'modal', target: '#cropImageModal'} %>
-        </div>
-      </div>
+      <%= link_to 'OR CHOOSE FROM GALLERY', '#', class: 'btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
     <% end %>
   <% end %> <%# -wrapper dark %>
 
@@ -211,13 +194,44 @@
 <%# CROP MODAL %>
 <%= modal :large, id: "cropImageModal", title: "Live Image Crop",
     body: capture { %>
-      <div class="row">
-        <div class="col-xs-12 text-center" id="crop_image_container">
-          <%= image_tag 'img-placeholder.png', id: "modal_image" %>
+
+    <div class="row mb">
+      <div class="col-xs-12">
+        <div class="file-upload">
+          <a href="#" id="campaignImage" class="btn btn-browse upload-trigger">Browse</a>
+          <%= file_field_tag "campaign_image", accept: "image/*", class: "file_field" %>
+          <span>Choose a file</span>
         </div>
       </div>
+    </div>
+    
+    <div class="row form-set">
+     <div class="col-md-6">
+    
+         <div class="imageBox" id="avatarBox">
+             <div class="thumbBox"></div>
+             <div class="spinner" style="display: none">
+              Loading...
+             </div>
+         </div>
+    
+         <div class="action">
+             <input type="button" id="btnZoomIn" class="btnZoomIn avatar btn btn-default" value="+">
+             <input type="button" id="btnZoomOut" class="btnZoomOut avatar btn btn-default" value="-">
+             <input type="button" id="btnCrop" class="btnCrop avatar btn btn-default" value="Crop">
+         </div>
+     </div>
+     <div class="col-md-6">
+         <div class="cropped croppedImage">
+          <!--PLACE DEFAULT IMAGE-->
+          <%= image_tag 'img-placeholder.png', style: "width:420", id: "image-c", class: "thumbnail" %>
+         </div>
+     </div>
+    </div>
 <% }, footer: capture { %>
-  <button class="btn btn-default" id="crop_btn">Crop</button>
+  <button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close">
+    Save and Close
+  </button>
 <% } %>
 
 <%# GALLERY MODAL %>
@@ -231,5 +245,5 @@
         <% end %>
       </div>
 <% }, footer: capture { %>
-  <a href="#" class="btn btn-default" id="crop_btn">Crop</a>
+  <button class="btn btn-default" id="crop_btn">EDITDETITE</button>
 <% } %>

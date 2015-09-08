@@ -1,0 +1,49 @@
+.imageBox
+{
+    position: relative;
+    width: 420px;
+    height: 340px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 210px;
+    height: 170px;
+    margin-left: -105px;
+    margin-top: -85px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 420px;
+    background: rgba(0,0,0,0.7);
+}
+
+.cropped{
+ border: 1px solid #d3d3d3;
+ width: 420px;
+ height: 340px;
+ vertical-align:  middle;
+ text-align: center;
+}
+.action{
+ text-align: center;padding-top: 5px;
+}

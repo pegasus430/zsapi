@@ -1,77 +1,44 @@
-#= require jquery.Jcrop
+# require jquery.Jcrop
 # require croppic/croppic
+#= require cropbox
 #= require shared/files
-
-handleUploadedImage = (fileInput) ->
-  # Assign file var
-  file = fileInput.files[0]
-
-  # Mime check
-  if !file || !file.type.match(/image.*/)
-    return
-
-  # Modal image
-  modal_image = $("#modal_image")
-
-  # Add the image to the crop popup
-  reader = new FileReader
-  reader.onload = (e) ->  
-    modal_image.attr "src", e.target.result
-    modal_image.Jcrop
-      onChange: showImagePreview,
-      onSelect: showImagePreview,
-      aspectRatio: 1.235,
-      minSize: [210,170]
-  reader.readAsDataURL file
-
-
-  
-
-
-# Show the preview
-# Handle the live coordinates of the image crop
-#crop_image_container img
-showImagePreview = (c) ->
-  $('#imgX1').val(c.x);
-  $('#imgY1').val(c.y);
-  $('#imgWidth').val(c.w);
-  $('#imgHeight').val(c.h);
-  $('#crop_btn').show();
-
-
 
 # START JQUERY
 (($) ->
-  $('.file_field').change ->
-    handleUploadedImage this
 
+  ## START CROPBOX
+  options =
+    thumbBox: '.thumbBox',
+    spinner: '.spinner',
+    imgSrc: '/assets/default.png'
 
-  # Close the modal and set the IMG when crop is saved
-  $('#crop_btn').click () ->
-    x1 = $('#imgX1').val
-    y1 = $('#imgY1').val
-    width = $('#imgWidth').val
-    height = $('#imgHeight').val
-    context = $("#canvas")[0].getContext("2d")
-    console.log context
-    if context
-      img = new Image
-      img.src = $('#Image1').attr("src")
-      img.complete = ->
-        canvas.height = height
-        canvas.width = width
-        context.drawImage(img, x1, y1, width, height, 0, 0, width, height)
-        # $('#imgCropped').val(canvas.toDataURL())
-        return
-      $('#cropImageModal').modal 'hide'
-    else
-      alert 'canvas not supported'
+  $(".file_field").on 'change', ->
+    reader = new FileReader
+    reader.onload = (e) ->
+      options.imgSrc = e.target.result
+      window.cropper = $('#avatarBox').cropbox(options)
+    reader.readAsDataURL(this.files[0])
+    this.files = []
 
+  # Crop handler.
+  $('.btnCrop').on 'click', ->
+    img = window.cropper.getDataURL()
 
+    # Place the cropped image's datafile.
+    $('.croppedImage').html('<img src="'+img+'" width="420">')
 
+    # Place it to the default image. The one that triggers the modal.
+    $('#campaign_image').attr('src', img)
 
+    # Place the datafile value in the hidden field
+    $('#avatar_datafile').val(img)
 
+  $('.btnZoomIn').on 'click', ->
+    cropper.zoomIn()
 
+  $('.btnZoomOut').on 'click', ->
+    cropper.zoomOut()
+  ##- END CROPBOX ##
 
 
   ###SHOW CUSTOM DAYS SELECTOR ###

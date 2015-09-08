@@ -1,5 +1,6 @@
-//= require jquery.Jcrop
+// require jquery.Jcrop
 // require croppic/croppic
+//= require cropbox
 //= require shared/popups
 
 // These dimensions are taken from the
@@ -11,11 +12,11 @@
   position: relative;
 
   img{
-    position: absolute;
+    // position: absolute;
     max-width: 210px;
     max-height: 170px;
-    left: 0;
-    top: 0;
+    // left: 0;
+    // top: 0;
   }
 }
 
