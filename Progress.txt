@@ -1,4 +1,14 @@
+9/9/15
+	20:20-(1:20)
+		Got the business trial `in_trial?` method setup. Also got the stripe info added into the locations. ** Next, I need to edit the payment controller so that the subscription_id (the plan) gets added to the locations, as well as the next billing date. Then, set the trial mode for the business. The location bill date and trial end dates will be the same, however, they do not depend on each other. The location will simply bill on the date unless it has been cancelled.
+
+	18:51+
+		Today is trial mode day. I'm going through the docs to familiarize myself with what needs to be done. Firstly, I'll setup the DB addditions and ensure the front-end settings are all present.
+
 9/8/15
+	15:39-(5:33)
+		Finished with cropbox! Next I need to add this functionality to the business logo page (not the cropping, but the image uploading). Could just use a basic loader here, but I might have to show it in the mobile preview.
+
 	10:06+
 		Working on jcrop! Must finish this today!
 

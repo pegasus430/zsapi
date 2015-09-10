@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908194834) do
+ActiveRecord::Schema.define(version: 20150910005933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150908194834) do
     t.datetime "image_updated_at"
     t.integer  "status",             default: 0, null: false
     t.string   "yelp_url"
+    t.date     "trial_ends_at"
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree
@@ -149,18 +150,20 @@ ActiveRecord::Schema.define(version: 20150908194834) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
-    t.string   "title",                     null: false
-    t.string   "address",                   null: false
+    t.string   "title",                                null: false
+    t.string   "address",                              null: false
     t.string   "address2"
-    t.string   "city",                      null: false
-    t.string   "state",                     null: false
-    t.string   "zipcode",                   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.float    "latitude",    default: 0.0
-    t.float    "longitude",   default: 0.0
+    t.string   "city",                                 null: false
+    t.string   "state",                                null: false
+    t.string   "zipcode",                              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.float    "latitude",               default: 0.0
+    t.float    "longitude",              default: 0.0
     t.integer  "greeting_id"
-    t.integer  "status",      default: 0,   null: false
+    t.integer  "status",                 default: 0,   null: false
+    t.string   "stripe_subscription_id"
+    t.date     "next_billing_at"
   end
 
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree

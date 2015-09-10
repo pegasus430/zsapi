@@ -21,7 +21,8 @@
   
 
   <%= wrapper :dark do %>
-    <%= section_header 'Payment Information' %>
+    <%= section_header 'Payment Information',
+        desc: "If this is your first location, you will not be billed until the end of your 30 day trial." %>
 
 
     <%= fr 'Name on Card',
@@ -62,6 +63,12 @@
     </div>
 
     <%= stripe_javascript_tag %>
+    
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.button "Create Subscription" %>
+      </div>
+    </div>
 
   <% end %> <%# -wrapper dark %>
 
@@ -83,10 +90,5 @@
     -->
   <% end %> <%# -if false %>
 
-  <div class="row">
-    <div class="col-xs-12 text-center">
-      <%= f.button "Create Subscription" %>
-    </div>
-  </div>
 
 <% end %> <%# -form %>

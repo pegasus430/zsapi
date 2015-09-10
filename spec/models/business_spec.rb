@@ -75,6 +75,30 @@ RSpec.describe Business, type: :model do
 			end
 		end
 
+
+		describe '.in_trial?' do
+			context '[Trial date is set]' do
+			  it "returns true" do
+		    	business = FactoryGirl.create(:business, trial_ends_at: 30.days.from_now)
+		    	expect(business.in_trial?).to be_truthy
+			  end
+			end
+
+			context "[Trial date not set]" do
+				it "returns false" do
+					business = FactoryGirl.create(:business, trial_ends_at: nil)
+					expect(business.in_trial?).to be_falsey
+				end
+			end
+
+			context "[Trial date already passed]" do
+				it "returns false" do
+					business = FactoryGirl.create(:business, trial_ends_at: 2.days.ago)
+					expect(business.in_trial?).to be_falsey
+				end
+			end
+		end
+
 	end
 
 

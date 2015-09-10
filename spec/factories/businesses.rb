@@ -12,6 +12,7 @@ FactoryGirl.define do
 		website 				{ Faker::Internet.url }
 		facebook 				{ Faker::Internet.url('facebook.com') }
 		twitter 				{ Faker::Lorem.characters(10) }
+		trial_ends_at		nil
 
 		trait :with_image do
 			image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'receipt.jpg'), 'image/jpeg') }

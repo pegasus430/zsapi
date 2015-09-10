@@ -193,7 +193,7 @@ module ApplicationHelper
 		})
 
 		content_tag :div, class: "cbox" do
-			check_box_tag(name, opts[:checkbox].slice(:value), opts[:checkbox].slice(:checked), opts[:checkbox]) + label_tag(name, raw(label), opts[:label])
+			check_box_tag(name, opts[:checkbox].delete(:value), opts[:checkbox].delete(:checked), opts[:checkbox]) + label_tag(name, raw(label), opts[:label])
 		end
 	end
 

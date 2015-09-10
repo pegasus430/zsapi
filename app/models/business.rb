@@ -23,4 +23,9 @@ class Business < ActiveRecord::Base
   # Remove hashtags from color RGB hex values
 	before_save { |u| u.primary_color[0]   = ''  if u.primary_color    && u.primary_color[0]   == '#' }
 	before_save { |u| u.secondary_color[0] = ''  if u.secondary_color  && u.secondary_color[0] == '#' }
+
+
+  def in_trial?
+    trial_ends_at >= Date.today rescue false # rescue when nil
+  end
 end

@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
 
     @location = current_user.business.locations.find(params[:location_id])
     @stripe_plans = Stripe::Plan.all
-    @payment = Payment.new
+    @payment = @location.build_payment
   end
 
   # POST /payments
