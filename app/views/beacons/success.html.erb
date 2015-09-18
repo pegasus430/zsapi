@@ -2,7 +2,7 @@
 	<h2>Beacon Configured!</h2>
 	<p>Please ship this beacon to the following address:</p>
 	<p>
-		<%= @payment.location.business.name %><br>
-		<%= raw @payment.location.full_address multiline: true %>
+		<%= @business.name %><br>
+		<%= raw @location.full_address multiline: true %>
 	</p>
 </div>

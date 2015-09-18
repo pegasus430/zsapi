@@ -9,13 +9,5 @@ class Payment < ActiveRecord::Base
 
   validates_presence_of :status
 
-  before_create :generate_random_key
 
-
-  private
-
-  	def generate_random_key
-  		self[:key] = SecureRandom.hex(15)
-  		self[:key]
-		end
 end

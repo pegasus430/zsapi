@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show
-    render 'confirm' if @location.pending?
+    render :confirm if @location.pending?
   end
 
   # GET /locations/new
@@ -32,10 +32,9 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     @location = current_user.business.locations.build(location_params)
-
     respond_to do |format|
       if @location.save
-        format.html { redirect_to location_new_payment_path(@location), notice: 'Location was successfully created. Create the payment now' }      else
+        format.html { redirect_to location_new_subscription_path(@location), notice: 'Location was successfully created. Create the subscription now' }      else
         format.html { render :new }
       end
     end

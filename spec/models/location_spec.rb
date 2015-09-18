@@ -31,7 +31,7 @@ RSpec.describe Location, type: :model do
 		# it { should have_many :redemptions }
 
 		it { should have_one :beacon }
-		it { should have_one :payment }
+		it { should have_one :subscription }
 		it { should belong_to :business }
 		it { should have_many :visits }
 		it { should have_many :receipts }
@@ -50,32 +50,6 @@ RSpec.describe Location, type: :model do
 			loc = FactoryGirl.create(:location)
 			loc.address = 'Changed'
 			expect(loc.full_address_changed?).to be_truthy
-		end
-
-		it "#active?" do
-			location_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.status = 'active'
-			expect(location_beacon.active?).to be_truthy
-
-			location_void_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.status = 'inactive'
-			expect(location_void_beacon.active?).to be_falsey
-
-			location_no_beacon = FactoryGirl.create(:location)
-			expect(location_no_beacon.active?).to be_falsey
-		end
-
-		it "#pending?" do
-			location_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.status = 'active'
-			expect(location_beacon.pending?).to be_falsey
-
-			location_void_beacon = FactoryGirl.create(:location_with_beacon)
-			location_beacon.beacon.status = 'inactive'
-			expect(location_void_beacon.pending?).to be_truthy
-
-			location_no_beacon = FactoryGirl.create(:location)
-			expect(location_no_beacon.pending?).to be_truthy
 		end
 
 		it "#full_address" do

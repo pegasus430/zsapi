@@ -23,7 +23,7 @@ RSpec.describe Beacon, type: :model do
 
 	describe "Associations" do
 		it { should belong_to(:location) }
-		it { should have_one(:payment), through: :location }
+		it { should have_one(:subscription), through: :location }
 	end
 
 
@@ -36,16 +36,30 @@ RSpec.describe Beacon, type: :model do
 		describe 'activate!' do
 			context '[Beacon inactive]' do
 				before :each do
-					@inactive_beacon = FactoryGirl.create(:inactive_beacon)
+					@processing_beacon = FactoryGirl.create(:processing_beacon, :with_location)
+					@subscription = FactoryGirl.create(:subscription, location: @processing_beacon.location)
+					Subscription.any_instance.stub(:start!).and_return(true)
 				end
 
 				it 'activates the inactive beacon' do
-					@inactive_beacon.activate!
-					expect(@inactive_beacon).to be_active
+					@processing_beacon.activate!
+					expect(@processing_beacon).to be_active
+				end
+
+				it 'activates the associated location' do
+					@processing_beacon.activate!
+					expect(@processing_beacon.location).to be_active
 				end
 			end
 		end
+	end
 
+
+	describe 'Actions' do
+		it "generates a random key after creating" do
+			beacon = FactoryGirl.create(:beacon)
+			expect(beacon.creation_key).not_to be_nil
+		end
 	end
 
 end

@@ -3,8 +3,8 @@ class Business < ActiveRecord::Base
 
   belongs_to :user
   has_many :greetings
-  has_many :receipts, through: :locations
   has_many :locations
+  has_many :receipts, through: :locations
   has_many :campaigns
   has_many :memberships
   has_many :customers, through: :memberships
@@ -27,5 +27,12 @@ class Business < ActiveRecord::Base
 
   def in_trial?
     trial_ends_at >= Date.today rescue false # rescue when nil
+  end
+
+  def start_trial!(end_date)
+    if trial_ends_at.nil?
+      self[:trial_ends_at] = end_date.to_date
+      save
+    end
   end
 end

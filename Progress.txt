@@ -1,3 +1,42 @@
+9/18/15
+	16:09+
+		Finishing new sub model: Done:
+		- location
+		- location controller? all but the few unrelated failed tests
+
+9/17/15
+	16:06-17:21(1:15)
+		Finishing the new sub model I made. Done:
+		- sub
+		- sub controller
+		- beacon
+		- beacon controller
+
+
+9/15/15
+	14:43-(1:13)
+		What did I get myself into!? :) Need to run tests on:
+			- sub
+			- sub controller
+			- beacon
+			- beacon controller
+			- location
+			- loc controller
+		After all is passing, run through it in the browser.
+
+	13:30+
+		Finishing items pertaining to trial
+
+	13:16-(1:45)
+		Removing payments, adding subscriptions, and changing how beacons are created and confirmed. Making everything make more sense! Trial mode is now running through stripe, so that takes time out of having to make a cron job. Trial should be done today! ** Just need to alter all the tests pertaining to beacons, locations, subscriptions, payments.	
+
+	11:30+
+		Working on trial mode
+
+9/10/15
+	16:10-16:40(:30)
+		Finishing the subscription creation after payment. Adding the start trial method for business.
+
 9/9/15
 	20:20-(1:20)
 		Got the business trial `in_trial?` method setup. Also got the stripe info added into the locations. ** Next, I need to edit the payment controller so that the subscription_id (the plan) gets added to the locations, as well as the next billing date. Then, set the trial mode for the business. The location bill date and trial end dates will be the same, however, they do not depend on each other. The location will simply bill on the date unless it has been cancelled.

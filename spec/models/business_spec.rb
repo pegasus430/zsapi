@@ -76,7 +76,7 @@ RSpec.describe Business, type: :model do
 		end
 
 
-		describe '.in_trial?' do
+		describe '#in_trial?' do
 			context '[Trial date is set]' do
 			  it "returns true" do
 		    	business = FactoryGirl.create(:business, trial_ends_at: 30.days.from_now)
@@ -97,6 +97,26 @@ RSpec.describe Business, type: :model do
 					expect(business.in_trial?).to be_falsey
 				end
 			end
+		end
+
+
+		describe "#start_trial!" do
+		  context "[Not in trial]" do
+		  	it "starts the trial" do
+					business = FactoryGirl.create(:business, trial_ends_at: nil)
+					business.start_trial!(30.days.from_now)
+					business.reload
+		  		expect(business.trial_ends_at).not_to be_nil
+		  	end
+		  end
+
+		  context "[In trial]" do
+		  	it "starts the trial" do
+					business = FactoryGirl.create(:business, trial_ends_at: 5.days.from_now)
+					business.start_trial!(20.days.from_now)
+		  		expect(business.trial_ends_at).to eq 5.days.from_now.to_date
+		  	end
+		  end
 		end
 
 	end

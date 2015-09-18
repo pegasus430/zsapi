@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910005933) do
+ActiveRecord::Schema.define(version: 20150915175435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,9 +42,10 @@ ActiveRecord::Schema.define(version: 20150910005933) do
   create_table "beacons", force: :cascade do |t|
     t.integer  "location_id"
     t.string   "uuid"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "status",       default: 0, null: false
+    t.string   "creation_key"
   end
 
   add_index "beacons", ["location_id"], name: "index_beacons_on_location_id", using: :btree
@@ -150,20 +151,18 @@ ActiveRecord::Schema.define(version: 20150910005933) do
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
-    t.string   "title",                                null: false
-    t.string   "address",                              null: false
+    t.string   "title",                     null: false
+    t.string   "address",                   null: false
     t.string   "address2"
-    t.string   "city",                                 null: false
-    t.string   "state",                                null: false
-    t.string   "zipcode",                              null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.float    "latitude",               default: 0.0
-    t.float    "longitude",              default: 0.0
+    t.string   "city",                      null: false
+    t.string   "state",                     null: false
+    t.string   "zipcode",                   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.float    "latitude",    default: 0.0
+    t.float    "longitude",   default: 0.0
     t.integer  "greeting_id"
-    t.integer  "status",                 default: 0,   null: false
-    t.string   "stripe_subscription_id"
-    t.date     "next_billing_at"
+    t.integer  "status",      default: 0,   null: false
   end
 
   add_index "locations", ["business_id"], name: "index_locations_on_business_id", using: :btree
@@ -185,13 +184,16 @@ ActiveRecord::Schema.define(version: 20150910005933) do
   add_index "memberships", ["customer_id"], name: "index_memberships_on_customer_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
-    t.string   "buyer_ip",                   null: false
-    t.string   "transaction_id",             null: false
-    t.string   "key",                        null: false
-    t.integer  "status",         default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "buyer_ip",                           null: false
+    t.string   "transaction_id",                     null: false
+    t.string   "key",                                null: false
+    t.integer  "status",                 default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "location_id"
+    t.string   "stripe_subscription_id"
+    t.string   "stripe_plan_id"
+    t.date     "next_billing_at"
   end
 
   create_table "receipts", force: :cascade do |t|
@@ -259,6 +261,17 @@ ActiveRecord::Schema.define(version: 20150910005933) do
   add_index "share_links", ["code"], name: "index_share_links_on_code", using: :btree
   add_index "share_links", ["customer_id"], name: "index_share_links_on_customer_id", using: :btree
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "stripe_sub_id"
+    t.integer  "stripe_plan_id",  null: false
+    t.datetime "next_billing_at"
+    t.integer  "location_id",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "subscriptions", ["location_id"], name: "index_subscriptions_on_location_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -318,6 +331,7 @@ ActiveRecord::Schema.define(version: 20150910005933) do
   add_foreign_key "referrals", "share_links"
   add_foreign_key "share_links", "campaigns"
   add_foreign_key "share_links", "customers"
+  add_foreign_key "subscriptions", "locations"
   add_foreign_key "visits", "customers"
   add_foreign_key "visits", "locations"
 end

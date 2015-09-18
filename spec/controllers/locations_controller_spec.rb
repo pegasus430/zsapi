@@ -15,6 +15,7 @@ RSpec.describe LocationsController, type: :controller do
       
       other_business = FactoryGirl.create(:business)
       FactoryGirl.create_list(:active_location, 2, business: other_business)
+      FactoryGirl.create_list(:pending_location, 2, business: other_business)
     end
 
     it 'assigns @active_locations' do
@@ -63,7 +64,7 @@ RSpec.describe LocationsController, type: :controller do
     context "[Valid UUID]" do
       before :each do
         FactoryGirl.create(:beacon, location: @location)
-        FactoryGirl.create(:payment, location: @location)
+        FactoryGirl.create(:subscription, location: @location)
         @location.beacon.uuid = "testing"
         @location.beacon.save
 
@@ -78,7 +79,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context "[Beacon doesn't exist]" do
       before :each do
-        FactoryGirl.create(:payment, location: @location)
+        FactoryGirl.create(:subscription, location: @location)
         put :confirm, location_id: @location, uuid: "balls"
       end
 
@@ -90,7 +91,7 @@ RSpec.describe LocationsController, type: :controller do
     context "[Beacon exists, but invalid UUID]" do
       before :each do
         FactoryGirl.create(:beacon, location: @location)
-        FactoryGirl.create(:payment, location: @location)
+        FactoryGirl.create(:subscription, location: @location)
         @location.beacon.uuid = "testing"
         @location.beacon.save
 
@@ -118,10 +119,10 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     it 'gets the list of campaigns' do
-      campaigns = FactoryGirl.create_list(:campaign, 3, locations: [@location])
+      campaigns = FactoryGirl.create_list(:campaign, 3, business: @user.business, locations: [@location])
       other_location_campaigns = FactoryGirl.create(:campaign, locations: [FactoryGirl.create(:location)])
       get :new
-      expect(assigns(:campaigns)).to eq campaigns
+      expect(assigns(:campaigns).size).to eq campaigns.size
     end
   end
 
@@ -152,7 +153,7 @@ RSpec.describe LocationsController, type: :controller do
 
         it 'assigns a greeting to the location' do
           selected_greeting = FactoryGirl.create(:greeting, business: @location.business)
-          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_id: selected_greeting.id, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
           expect(@location.greeting.id).to eq selected_greeting.id
         end
       end

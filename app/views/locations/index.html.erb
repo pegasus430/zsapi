@@ -48,17 +48,17 @@
             <td><%= location.id %></td>
             <td><%= link_to location.title, location %></td>
             <td>
-              <% if location.payment.blank? %>
+              <% if location.beacon.blank? %>
                 Not Ordered
               <% else %>
-                <%= location.payment.status.humanize %>
+                <%= location.beacon.status.humanize %>
               <% end %>
             </td>
             <td>
-              <% if location.payment.blank? %>
-                <%= link_to 'Purchase a Beacon', location_new_payment_path(location) %>
+              <% if location.beacon.blank? %>
+                <%= link_to 'Purchase a Beacon', location_new_subscription_path(location) %>
               <% else %>
-                <% if location.payment.processing? %>
+                <% if location.beacon.processing? %>
                   Please wait for your beacon to be shipped.
                 <% else %>
                   Received your beacon? <%= link_to 'Activate It!', location %>

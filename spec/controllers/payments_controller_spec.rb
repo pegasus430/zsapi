@@ -37,7 +37,7 @@ RSpec.describe PaymentsController, type: :controller do
               :cvc => "314"
             },
           )
-          post :create, location_id: @location, stripeToken: @token.id, agree: 1, sub_plan: 'monthly'
+          post :create, location_id: @location, stripeToken: @token.id, agree: 1, stripe_plan_id: 'monthly'
           expect(Payment.all.count).to eq 1
         end
       end

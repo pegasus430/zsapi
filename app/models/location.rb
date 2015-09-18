@@ -5,9 +5,10 @@ class Location < ActiveRecord::Base
   belongs_to :greeting
   
   has_one :beacon
-  has_one :payment
+  has_one :subscription
   has_one :user, through: :business
 
+  has_many :payments, through: :subscription
   has_many :customers, through: :visits
   has_many :receipts
   has_many :visits
@@ -44,4 +45,5 @@ class Location < ActiveRecord::Base
   def full_address_changed?
     address_changed? || city_changed? || state_changed? || zipcode_changed?
   end
+
 end

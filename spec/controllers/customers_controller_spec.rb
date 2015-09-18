@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-def clear_mail_deliveries
-  ActionMailer::Base.deliveries = []
-end
-
 RSpec.describe CustomersController, type: :controller do
 
   context "[Signed in]" do

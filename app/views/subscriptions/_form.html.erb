@@ -1,6 +1,6 @@
 
-<%= form_for([@location, @payment], html: {id: "stripe_form"}) do |f| %>
-  <%= form_errors_for @payment %>
+<%= form_for([@location, @subscription], html: {id: "stripe_form"}) do |f| %>
+  <%= form_errors_for @subscription %>
 
   <%= wrapper do %>
     <%= section_header 'Purchase a Beacon' %>
@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="radio">
-              <input type="radio" name="sub_plan" id="<%= plan.id %>" value="<%= plan.id %>">
+              <%= radio_button_tag :subscription, :stripe_plan_id, plan.id %>
               <label for="<%= plan.id %>"><%= plan.name %></label>
             </div>
           </div>
@@ -21,8 +21,8 @@
   
 
   <%= wrapper :dark do %>
-    <%= section_header 'Payment Information',
-        desc: "If this is your first location, you will not be billed until the end of your 30 day trial." %>
+    <%= section_header 'Subscription Information',
+        desc: "If this is your first location, you will not be billed until the end of your trial period." %>
 
 
     <%= fr 'Name on Card',
@@ -63,7 +63,7 @@
     </div>
 
     <%= stripe_javascript_tag %>
-    
+
     <div class="row">
       <div class="col-xs-12 text-center">
         <%= f.button "Create Subscription" %>

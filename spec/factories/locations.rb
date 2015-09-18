@@ -12,6 +12,7 @@ FactoryGirl.define do
 		zipcode 				{ Faker::Address.zip }
 		latitude				nil
 		longitude				nil
+		status 					'pending'
 
 		factory :location_with_business do
 			before :create do |l|
@@ -23,20 +24,16 @@ FactoryGirl.define do
 		# Same as below
 		factory :location_with_beacon do
 			before :create do |l|
-				create(:inactive_beacon, location: l)
+				create(:beacon, location: l)
 			end
 		end
 		#Same as abov
 		factory :pending_location do
-			before :create do |l|
-				create(:inactive_beacon, location: l)
-			end
+			status 'pending'
 		end
 
 		factory :active_location do
-			before :create do |l|
-				create(:active_beacon, location: l)
-			end
+			status 'active'
 		end
 
 		## TRAITS
@@ -56,7 +53,7 @@ FactoryGirl.define do
 
 		trait :with_beacon do
 			before :create do |l|
-				create(:active_beacon, location: l)
+				create(:beacon, location: l)
 			end
 		end
   end

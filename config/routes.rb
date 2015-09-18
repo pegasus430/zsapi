@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
 
     # Beacons
-    get   '/beacon/:key',     to: 'beacons#new',      as: 'new_beacon'
-    post  '/beacon/:key',     to: 'beacons#create',   as: 'beacons'
+    get   '/beacon/:key',     to: 'beacons#edit',     as: 'edit_beacon'
+    patch '/beacon/:key',     to: 'beacons#update'
     get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
 
     # Businesses
@@ -37,10 +37,10 @@ Rails.application.routes.draw do
 
     # Locations and Locationable Routes
     resources :locations do
-      get   '/payment/success', to: 'payments#success',   as: 'payment_success'
-      get   '/payment/:id',     to: 'payments#show',      as: 'payment', constraints: { id: /[0-9]+/ }
-      get   '/payment/new',     to: 'payments#new',       as: 'new_payment'
-      post  '/payment/new',     to: 'payments#create',    as: 'payments'
+      get   '/subscription/success', to: 'subscriptions#success',   as: 'subscription_success'
+      get   '/subscription/:id',     to: 'subscriptions#show',      as: 'subscription', constraints: { id: /[0-9]+/ }
+      get   '/subscription/new',     to: 'subscriptions#new',       as: 'new_subscription'
+      post  '/subscription/new',     to: 'subscriptions#create',    as: 'subscriptions'
       patch '/confirm',         to: 'locations#confirm',  as: 'confirm'
 
       # Locationable routes

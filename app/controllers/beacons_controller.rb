@@ -1,29 +1,30 @@
 class BeaconsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :validate_key, only: [:new, :create]
+  before_action :validate_key, only: [:edit, :update]
   layout "bare_application"
 
   # GET /beacon/:key
-  def new
+  def edit
   end
 
   # POST /beacon/:key
-  def create
+  def update
     if params[:beacon][:uuid] != params[:uuid_confirmation]
       flash[:alert] = "Your UUID does not match!"
-      return render :new
+      return render :edit
     end
 
-    @beacon = Beacon.new(beacon_params)
-    @beacon.location = @payment.location
+    @beacon.uuid = params[:beacon][:uuid]
+    @beacon.creation_key = nil
+    @beacon.status = 'shipped'
 
     if @beacon.save
-      @payment.shipped!
-
-      PaymentMailer.beacon_shipped_email(@payment).deliver_now
+      BeaconMailer.shipped(@beacon).deliver_now
+      
       render :success
     else
-      render :new
+      flash[:alert] = "The UUID you entered is invalid."
+      render :edit
     end
   end
 
@@ -38,13 +39,12 @@ class BeaconsController < ApplicationController
     end
 
     def validate_key
-      @payment = Payment.find_by_key(params[:key])
-      if @payment.nil?
+      @beacon = Beacon.find_by_creation_key(params[:key])
+      if @beacon.nil?
         @invalid = true
-        render :new
+        render :edit
       else
-        @beacon = @payment.location.build_beacon
-        @location = @payment.location
+        @location = @beacon.location
         @business = @location.business
       end
     end
