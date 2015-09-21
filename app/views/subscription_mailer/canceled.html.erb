@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Admin,</h1>
+    <p>
+      A user has just canceled their subscription. Their business information is shown below:
+
+      --------------------
+      <%= @business.name %><br>
+      <%= @location.full_address %><br><br>
+      --------------------
+    </p>
+    <p>
+      The user has been notified that they have 30 days to return the working iBeacon before they are billed.
+    </p>
+    <p>Thanks,<br>The Zippy Spot Team</p>
+  </body>
+</html>

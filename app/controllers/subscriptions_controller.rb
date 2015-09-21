@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_location, only: [:new, :create]
+  before_action :set_location, only: [:new, :create, :destroy]
 
   def success
   end
@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
       begin
         # Create the stripe customer using card details
         stripe_customer = current_user.find_or_create_stripe_customer(
-          card: params[:stripeToken]
+          source: params[:stripeToken]
         )
       rescue Stripe::CardError => e
         card_error = e.message
@@ -53,6 +53,22 @@ class SubscriptionsController < ApplicationController
       end
     else
       flash[:alert] = 'You must agree to the Terms of Service'
+      render :new
+    end
+  end
+
+
+  def destroy
+    subscription = @location.subscription
+    stripe_sub = subscription.from_stripe.delete
+
+    if stripe_sub.status == 'canceled'
+      subscription.canceled!
+
+      SubscriptionMailer.canceled(subscription).deliver_now
+      redirect_to subscription_canceled_url
+    else
+      flash[:alert] = 'There has been a problem. Your subscription has not been canceled. Please try again, or contact the administrator.'
       render :new
     end
   end

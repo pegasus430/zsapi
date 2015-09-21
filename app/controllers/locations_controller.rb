@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaigns_and_greetings, only: [:new, :edit]
 
   # GET /locations
   # GET /locations.json
@@ -17,8 +18,6 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = current_user.business.locations.build
-    @greetings = current_user.business.greetings
-    @campaigns = current_user.business.campaigns
   end
 
   # GET /locations/1/edit
@@ -84,6 +83,11 @@ class LocationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_location
       @location = current_user.locations.where(id: params[:id]).first
+    end
+
+    def set_campaigns_and_greetings
+      @greetings = current_user.business.greetings
+      @campaigns = current_user.business.campaigns
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

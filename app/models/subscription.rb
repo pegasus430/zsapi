@@ -1,4 +1,6 @@
 class Subscription < ActiveRecord::Base
+  enum status: [:inactive, :active, :canceled, :suspended]
+  
   belongs_to :location
   has_many :payments
   has_one :user, through: :location
@@ -8,9 +10,9 @@ class Subscription < ActiveRecord::Base
   # Start the stripe subscription
   def start!
   	business = location.business
-  	stripe_customer = user.find_or_create_stripe_customer
+    stripe_customer = user.find_or_create_stripe_customer
 
-  	# Subscription options
+    # Subscription options
     sub_opts = {
       plan: stripe_plan_id
     }
@@ -26,5 +28,10 @@ class Subscription < ActiveRecord::Base
     business.start_trial!(stripe_sub.trial_end) unless business.in_trial?
 
     save
+  end
+
+  def from_stripe
+  	stripe_customer = user.find_or_create_stripe_customer
+    return stripe_customer.subscriptions.retrieve(stripe_sub_id)
   end
 end

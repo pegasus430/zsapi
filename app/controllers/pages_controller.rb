@@ -1,4 +1,10 @@
 class PagesController < ApplicationController
+
+	def subscription_canceled		
+	end
+
+	def locked_business		
+	end
   
   def dashboard
   	@todays_campaigns = current_user.business.campaigns.valid_for(Date.today)

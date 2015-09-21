@@ -33,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'rocket_pants',   '~> 1.0'            # API versioning
   gem 'smarter_csv'                         # Simple CSV importing
   gem 'stripe-rails'                        # Stripe integration
+  gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'  # MOCK for Stripe
   gem 'week_of_month'                       # Week of month methods
   gem 'less-rails-bootstrap'                # Bootstrap LESS
   gem 'font-awesome-rails'                  # Font-awesome

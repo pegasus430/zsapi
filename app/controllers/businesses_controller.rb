@@ -1,5 +1,16 @@
 class BusinessesController < ApplicationController
+  http_basic_authenticate_with name: "ZSAdmin", password: "<!>ZS<@>admin<#>lock<$>", only: :lock
+  skip_before_action :authenticate_user!, only: [:lock]
+  skip_before_action :check_business_status, only: [:lock]
+  skip_before_action :set_current_location, only: [:lock]
+
   before_action :set_business, only: [:show, :edit, :update]
+
+  def lock
+    business = Business.find(params[:id])
+    business.locked!
+    render html: "OK"
+  end
 
   # GET /businesses/new
   def new

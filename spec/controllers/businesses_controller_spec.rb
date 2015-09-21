@@ -19,4 +19,36 @@ RSpec.describe BusinessesController, type: :controller do
 
   # end
 
+
+  describe "GET #lock" do
+    before :each do
+      @business = FactoryGirl.create(:business)
+    end
+
+    context "[Invalid login]" do
+      it "does nothing" do
+        get :lock, id: @business.id
+        @business.reload
+
+        expect(@business.locked?).to be_falsey
+      end
+    end
+
+    context "[Valid login]" do
+      before :each do
+        user = 'ZSAdmin'
+        pw = '<!>ZS<@>admin<#>lock<$>'
+        request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+      end
+
+      it "locks a business" do
+        get :lock, id: @business.id
+        @business.reload
+
+        expect(@business.locked?).to be_truthy
+      end
+    end
+
+  end
+
 end

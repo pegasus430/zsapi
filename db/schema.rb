@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915175435) do
+ActiveRecord::Schema.define(version: 20150921214513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,12 +262,13 @@ ActiveRecord::Schema.define(version: 20150915175435) do
   add_index "share_links", ["customer_id"], name: "index_share_links_on_customer_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
-    t.integer  "stripe_sub_id"
-    t.integer  "stripe_plan_id",  null: false
+    t.string   "stripe_sub_id"
+    t.string   "stripe_plan_id",              null: false
     t.datetime "next_billing_at"
-    t.integer  "location_id",     null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "location_id",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "status",          default: 0, null: false
   end
 
   add_index "subscriptions", ["location_id"], name: "index_subscriptions_on_location_id", using: :btree

@@ -30,9 +30,11 @@ class Business < ActiveRecord::Base
   end
 
   def start_trial!(end_date)
-    if trial_ends_at.nil?
-      self[:trial_ends_at] = end_date.to_date
-      save
+    unless end_date.nil?
+      if trial_ends_at.nil?
+        self[:trial_ends_at] = Time.at(end_date).to_date
+        save
+      end
     end
   end
 end

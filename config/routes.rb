@@ -37,11 +37,12 @@ Rails.application.routes.draw do
 
     # Locations and Locationable Routes
     resources :locations do
-      get   '/subscription/success', to: 'subscriptions#success',   as: 'subscription_success'
-      get   '/subscription/:id',     to: 'subscriptions#show',      as: 'subscription', constraints: { id: /[0-9]+/ }
-      get   '/subscription/new',     to: 'subscriptions#new',       as: 'new_subscription'
-      post  '/subscription/new',     to: 'subscriptions#create',    as: 'subscriptions'
-      patch '/confirm',         to: 'locations#confirm',  as: 'confirm'
+      get     '/subscription/success',    to: 'subscriptions#success',   as: 'subscription_success'
+      get     '/subscription',            to: 'subscriptions#show',      as: 'subscription'
+      get     '/subscription/new',        to: 'subscriptions#new',       as: 'new_subscription'
+      post    '/subscription/new',        to: 'subscriptions#create',    as: 'subscriptions'
+      delete  '/subscription/cancel',     to: 'subscriptions#destroy',   as: 'cancel_subscription'
+      patch '/confirm',   to: 'locations#confirm', as: 'confirm'
 
       # Locationable routes
       get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
@@ -73,6 +74,12 @@ Rails.application.routes.draw do
       root 'pages#dashboard'
       resources :receipts, only: [:index, :update, :destroy]
     end
+
+    # Normal Pages
+    get '/lock_business/:id',   to: 'businesses#lock'
+    get '/locked',   to: 'pages#locked_business',  as: 'locked_business'
+    get '/subscription_canceled',   to: 'pages#subscription_canceled',  as: 'subscription_canceled'
+
 
     # Root
     root 'pages#dashboard'
