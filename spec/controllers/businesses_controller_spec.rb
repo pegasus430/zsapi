@@ -36,8 +36,8 @@ RSpec.describe BusinessesController, type: :controller do
 
     context "[Valid login]" do
       before :each do
-        user = 'ZSAdmin'
-        pw = '<!>ZS<@>admin<#>lock<$>'
+        user = APP_CONFIG['lock_business_username']
+        pw = APP_CONFIG['lock_business_password']
         request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
       end
 

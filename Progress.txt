@@ -1,3 +1,7 @@
+9/23/15
+	13:00+
+		Going to add the trial mode details to the dashboard.
+
 9/21/15
 	14:45-18:00(3:15)
 		Finished the cancellation system with the Stripe Mock. Then, I added the business locking system. Tomorrow, I need to show the trial mode details on the dashboard, countdown, and ensure it's all working. Run through it all!

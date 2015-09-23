@@ -37,4 +37,12 @@ class Business < ActiveRecord::Base
       end
     end
   end
+
+  def trial_days_remaining 
+    if in_trial?
+      (trial_ends_at - Date.today).to_i
+    else
+      0
+    end
+  end
 end

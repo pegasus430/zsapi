@@ -119,6 +119,15 @@ RSpec.describe Business, type: :model do
 		  end
 		end
 
+
+		describe "#trial_days_remaining" do
+		  it "returns the number of days in trial" do
+		  	business = FactoryGirl.create(:business, trial_ends_at: 15.days.from_now)
+
+		  	expect(business.trial_days_remaining).to eq 15
+		  end
+		end
+
 	end
 
 

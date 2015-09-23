@@ -79,6 +79,11 @@ module ApplicationHelper
 		raw boolean ? 'Y' : 'N'
 	end
 
+	# Convert cents to dollar for stripe
+	def cents_to_dollar(cents, number_to_currency_opts={})
+		number_to_currency('%.2f' % (cents.to_i/100.0), number_to_currency_opts)
+	end
+
 	# Show a check or X (used in progress steps)
 	def check_or_x(bool, items_completed=nil)
 		unless items_completed.nil?

@@ -1,5 +1,5 @@
 class BusinessesController < ApplicationController
-  http_basic_authenticate_with name: "ZSAdmin", password: "<!>ZS<@>admin<#>lock<$>", only: :lock
+  http_basic_authenticate_with name: APP_CONFIG['lock_business_username'], password: APP_CONFIG['lock_business_password'], only: :lock
   skip_before_action :authenticate_user!, only: [:lock]
   skip_before_action :check_business_status, only: [:lock]
   skip_before_action :set_current_location, only: [:lock]
