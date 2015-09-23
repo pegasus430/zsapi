@@ -2,7 +2,6 @@ class Subscription < ActiveRecord::Base
   enum status: [:inactive, :active, :canceled, :suspended]
   
   belongs_to :location
-  has_many :payments
   has_one :user, through: :location
 
   validates :location, :stripe_plan_id, presence: true

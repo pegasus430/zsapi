@@ -23,7 +23,6 @@ RSpec.describe Subscription, type: :model do
 
 	describe "Associations" do
 		it { should belong_to :location }
-		# it { should have_many :payments }
 	end
 
 end

@@ -8,7 +8,6 @@ class Location < ActiveRecord::Base
   has_one :subscription
   has_one :user, through: :business
 
-  has_many :payments, through: :subscription
   has_many :customers, through: :visits
   has_many :receipts
   has_many :visits

@@ -13,9 +13,9 @@ RSpec.describe "Beacons", type: :feature do
         @business = @user.business
         @location = FactoryGirl.create(:location, business: @business)
         @key = "abcdefg"
-        @payment = FactoryGirl.create(:payment, location: @location)
-        @payment.key = @key
-        @payment.save
+        @subscription = FactoryGirl.create(:subscription, location: @location)
+        @subscription.key = @key
+        @subscription.save
         login_as @admin, scope: :admin
       end
 
@@ -58,8 +58,8 @@ RSpec.describe "Beacons", type: :feature do
               expect(page).to have_content "Ship this beacon to"
             end
 
-            it "sets the payment status to SHIPPED" do
-              expect(Payment.last.shipped?).to be_truthy
+            it "sets the subscription status to SHIPPED" do
+              expect(Subscription.last.shipped?).to be_truthy
             end
 
             it "emails the customer who created the location" do

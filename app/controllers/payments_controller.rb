@@ -1,4 +1,0 @@
-class PaymentsController < ApplicationController
-
-
-end

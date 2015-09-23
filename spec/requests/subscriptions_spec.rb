@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Payments", type: :feature do
+RSpec.describe "Subscription", type: :feature do
 
   context "[logged in]" do
     # Login before each test
@@ -10,7 +10,7 @@ RSpec.describe "Payments", type: :feature do
       login_as @user, scope: :user
     end
 
-    describe "POST /locations/1/payment/new" do
+    describe "POST /locations/1/subscription/new" do
 
 #     # This test is for when using stripe.js (because it is simply a button to click)
 #    	before :each do
@@ -23,14 +23,14 @@ RSpec.describe "Payments", type: :feature do
 #    		    :cvc => "314"
 #    		  },
 #    		)
-#        visit "/locations/#{@location.id}/payment/new"
-#        click_button 'Create Payment' #stripeToken is in a hidden field
+#        visit "/locations/#{@location.id}/subscription/new"
+#        click_button 'Create subscription' #stripeToken is in a hidden field
 #    	end
 
       before :each do
         Stripe.api_key = Rails.configuration.stripe.secret_key
         
-        visit "/locations/#{@location.id}/payment/new"
+        visit "/locations/#{@location.id}/subscription/new"
           choose "monthly"
           fill_in "card_name",   with: "Timmy Tester"
           fill_in "card_number", with: "4242424242424242"
@@ -46,8 +46,8 @@ RSpec.describe "Payments", type: :feature do
         expect(page).to have_content "placed!"
       end
 
-      it "creates a new payment" do
-      	expect(Payment.all.count).to eq 1
+      it "creates a new subscription" do
+      	expect(Subscription.all.count).to eq 1
       end
 
       it "send an email with the order key" do
