@@ -1,5 +1,6 @@
 class ShareLink < ActiveRecord::Base
   belongs_to :campaign
+  belongs_to :referrer, class: Customer
   belongs_to :customer
 
   validates :code, presence: true

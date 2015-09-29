@@ -7,11 +7,11 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
   # GET /share_link/:id
   describe 'GET #show' do
     before :each do
-      customer = FactoryGirl.create(:customer)
-      controller.stub(:current_customer).and_return(customer)
+      @customer = FactoryGirl.create(:customer)
+      controller.stub(:current_customer).and_return(@customer)
       location = FactoryGirl.create(:location, :with_campaign)
       campaign = location.campaigns.first
-      @share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: customer)
+      @share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: @customer)
     end
 
     context '[Valid code]' do
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
 
       context '[Referral exists]' do
         it 'does not create a new referral entry' do
-          FactoryGirl.create(:referral, referrer: @share_link.customer, campaign: @share_link.campaign, share_link: @share_link)
+          FactoryGirl.create(:referral, customer_id: @customer.id, referrer: @share_link.customer, campaign: @share_link.campaign, share_link: @share_link)
 
           expect {
             get :show, version: 1, id: @share_link.code

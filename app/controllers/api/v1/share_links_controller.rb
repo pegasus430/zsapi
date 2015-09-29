@@ -17,7 +17,7 @@ class Api::V1::ShareLinksController < Api::V1::BaseController
 		if share_link.nil?
 			error! :not_found
 		else
-			Referral.find_or_create_by(referrer: share_link.customer, campaign: share_link.campaign, share_link: share_link)
+			Referral.find_or_create_by(customer_id: current_customer.id, referrer_id: share_link.customer.id, campaign: share_link.campaign, share_link: share_link)
 			expose share_link.campaign, only: [
 				:id,
 				:type_of,

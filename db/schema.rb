@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921214513) do
+ActiveRecord::Schema.define(version: 20150929192448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,19 +183,6 @@ ActiveRecord::Schema.define(version: 20150921214513) do
   add_index "memberships", ["business_id"], name: "index_memberships_on_business_id", using: :btree
   add_index "memberships", ["customer_id"], name: "index_memberships_on_customer_id", using: :btree
 
-  create_table "payments", force: :cascade do |t|
-    t.string   "buyer_ip",                           null: false
-    t.string   "transaction_id",                     null: false
-    t.string   "key",                                null: false
-    t.integer  "status",                 default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "location_id"
-    t.string   "stripe_subscription_id"
-    t.string   "stripe_plan_id"
-    t.date     "next_billing_at"
-  end
-
   create_table "receipts", force: :cascade do |t|
     t.integer  "location_id"
     t.date     "purchased_on"
@@ -204,7 +191,6 @@ ActiveRecord::Schema.define(version: 20150921214513) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.integer  "status",                                     default: 0, null: false
-    t.datetime "actioned_on"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -228,14 +214,17 @@ ActiveRecord::Schema.define(version: 20150921214513) do
   add_index "redemptions", ["location_id"], name: "index_redemptions_on_location_id", using: :btree
 
   create_table "referrals", force: :cascade do |t|
-    t.integer  "referrer_id",   null: false
-    t.integer  "campaign_id",   null: false
-    t.integer  "share_link_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "referrer_id",               null: false
+    t.integer  "campaign_id",               null: false
+    t.integer  "share_link_id",             null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "customer_id",               null: false
+    t.integer  "status",        default: 0, null: false
   end
 
   add_index "referrals", ["campaign_id"], name: "index_referrals_on_campaign_id", using: :btree
+  add_index "referrals", ["customer_id"], name: "index_referrals_on_customer_id", using: :btree
   add_index "referrals", ["referrer_id"], name: "index_referrals_on_referrer_id", using: :btree
   add_index "referrals", ["share_link_id"], name: "index_referrals_on_share_link_id", using: :btree
 
@@ -328,6 +317,7 @@ ActiveRecord::Schema.define(version: 20150921214513) do
   add_foreign_key "redemptions", "customers"
   add_foreign_key "redemptions", "locations"
   add_foreign_key "referrals", "campaigns"
+  add_foreign_key "referrals", "customers"
   add_foreign_key "referrals", "customers", column: "referrer_id"
   add_foreign_key "referrals", "share_links"
   add_foreign_key "share_links", "campaigns"

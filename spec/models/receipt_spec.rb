@@ -86,10 +86,10 @@ RSpec.describe Receipt, type: :model do
 			end
 
 			it "shows a list of approved receipts from today" do
-				FactoryGirl.create(:receipt_approved, actioned_on: 2.days.ago)
-				FactoryGirl.create(:receipt_approved, actioned_on: Date.yesterday)
-				FactoryGirl.create(:receipt_approved, actioned_on: Date.today)
-				FactoryGirl.create(:receipt_approved, actioned_on: Date.tomorrow)
+				FactoryGirl.create(:receipt_approved, updated_at: 2.days.ago)
+				FactoryGirl.create(:receipt_approved, updated_at: Date.yesterday)
+				FactoryGirl.create(:receipt_approved, updated_at: Date.today)
+				FactoryGirl.create(:receipt_approved, updated_at: Date.tomorrow)
 				expect(Receipt.approved.from_today.count).to eq 1
 			end
 		end

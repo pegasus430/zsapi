@@ -10,13 +10,11 @@ FactoryGirl.define do
 
 
 		factory :receipt_approved do
-			actioned_on 	{ Date.today }
 			status 'approved'
 		end
 
 
 		factory :receipt_rejected do
-			actioned_on 	{ Date.today }
 			status 'rejected'
 			reject_reason "You are so mean"
 		end

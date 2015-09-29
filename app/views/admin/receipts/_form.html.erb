@@ -28,7 +28,7 @@
     <%= f.text_field :reject_reason %>
   </div>
   <div class="actions">
-    <%= f.submit "Approve", name: 'approve' %>
-    <%= f.submit "Reject", name: 'reject' %>
+    <%= f.submit "approved", name: 'status' %>
+    <%= f.submit "rejected", name: 'status' %>
   </div>
 <% end %>

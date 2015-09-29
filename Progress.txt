@@ -1,4 +1,18 @@
+9/29/15
+	14:26-(2:00)
+		Got the referral tests passing (credits given to both referrer and referral).
+
+	12:26+
+		The goal for today is to finish the referral system.
+
+9/24/15
+	13:50-18:00+(4:10)
+		Running through the referral system to see what needs to be finished. Running through receipt controller tests. Go back to that!
+
 9/23/15
+	16:00-
+		Fixed some error messages on the devise views. Removed payments. Added trial to header. ** Next, I need to fix the logo upload for business. Make it the same as the campaign.
+
 	13:00+
 		Going to add the trial mode details to the dashboard.
 

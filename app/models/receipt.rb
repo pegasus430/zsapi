@@ -14,12 +14,12 @@ class Receipt < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   scope :from_today, -> {
-    where( actioned_on: (Date.today)..(Date.today + 23.hours + 59.minutes + 59.seconds) )
+    where( updated_at: (Date.today)..(Date.today + 23.hours + 59.minutes + 59.seconds) )
   }
 
 
   def reward_points
-    amount.floor
+    amount.floor.to_i
   end
 
 end

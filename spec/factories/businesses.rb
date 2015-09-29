@@ -36,6 +36,12 @@ FactoryGirl.define do
 			end
 		end
 
+		trait :with_customer do
+			after(:create) do |b, eval|
+				create(:customer_with_membership_without_business, business: b)
+			end
+		end
+
   end
 
 end
