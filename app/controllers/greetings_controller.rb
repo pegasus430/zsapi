@@ -6,9 +6,6 @@ class GreetingsController < ApplicationController
     @greetings = current_user.business.greetings
   end
 
-  def show
-  end
-
   def new
     @greeting = current_user.business.greetings.build
   end

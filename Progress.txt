@@ -1,4 +1,7 @@
 9/29/15
+	21:07+
+		Going through the site to show/remove delete actions.
+
 	14:26-(2:00)
 		Got the referral tests passing (credits given to both referrer and referral).
 

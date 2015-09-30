@@ -14,7 +14,6 @@ class Greeting < ActiveRecord::Base
   validates :welcome_wait_time, numericality: { greater_than: 0 }
 
 
-
   private
     
     def generate_welcome_wait_time!
