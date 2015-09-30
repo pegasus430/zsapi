@@ -1,5 +1,5 @@
 class GreetingsController < ApplicationController
-  before_action :set_greeting, only: [:edit, :update]
+  before_action :set_greeting, only: [:edit, :update, :destroy]
   before_action :set_campaigns, only: [:edit, :update, :new, :create]
 
   def index
@@ -35,6 +35,14 @@ class GreetingsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @greeting.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @greeting.destroy
+    respond_to do |format|
+      format.html { redirect_to locations_url, notice: 'greeting was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 

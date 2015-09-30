@@ -8,7 +8,7 @@ class Campaign < ActiveRecord::Base
   belongs_to :schedule
   belongs_to :business
   has_and_belongs_to_many :locations
-  has_many :redemptions
+  has_many :redemptions, dependent: :restrict_with_error
 
   validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
 

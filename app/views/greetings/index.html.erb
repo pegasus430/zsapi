@@ -30,7 +30,7 @@
               <td><%= greeting.locations_string %></td>
               <td>
                 <%= link_to 'edit', edit_greeting_path(greeting), class: 'option edit' %>
-                <%= link_to 'delete', greeting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
+                <%= link_to 'delete', greeting, method: :delete, data: { confirm: 'Deleting this greeting cannot be undone. Are you sure you want to do this?' }, class: 'option delete' %>
               </td>
             </tr>
           <% end %>

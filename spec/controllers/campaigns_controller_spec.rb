@@ -13,33 +13,33 @@ RSpec.describe CampaignsController, type: :controller do
 
     describe "GET #index" do
       before :each do
-        FactoryGirl.create(:active_campaign, type_of: 'coupon')
-        FactoryGirl.create(:inactive_campaign, type_of: 'reward')
-        FactoryGirl.create(:featured_campaign, type_of: 'special')
+        FactoryGirl.create(:active_campaign, type_of: 'coupon', business: @business)
+        FactoryGirl.create(:inactive_campaign, type_of: 'reward', business: @business)
+        FactoryGirl.create(:featured_campaign, type_of: 'special', business: @business)
       end
 
       it "no status or type filter" do
-        get :index
-        expect(assigns(:campaigns).size).to 3
+        get :index, status: 'all', type: 'all'
+        expect(assigns(:campaigns).size).to eq 3
       end
 
       it 'status filter' do
-        get :index, status: 'active'
+        get :index, status: 'active', type: 'all'
         expect(assigns(:campaigns).size).to eq 1
       end
 
       it 'type filter' do
-        get :index, type: 'reward'
+        get :index, status: 'all', type: 'reward'
         expect(assigns(:campaigns).size).to eq 1
       end
 
       it 'status and type filter' do
-        get :index, type: 'special', status: 'featured'
+        get :index, status: 'featured', type: 'special'
         expect(assigns(:campaigns).size).to eq 1
       end
 
       it 'renders the index template' do
-        get :index
+        get :index, status: 'all', type: 'all'
         expect(response).to render_template :index
       end
     end
@@ -55,7 +55,7 @@ RSpec.describe CampaignsController, type: :controller do
 
     describe "GET #show" do
       it 'renders the show template' do
-        get :show
+        get :show, id: FactoryGirl.create(:campaign)
         expect(response).to render_template :show
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe CampaignsController, type: :controller do
 
     describe "PUT #update" do
       before :each do
-        @campaign = FactoryGirl.create(:active_campaign)
+        @campaign = FactoryGirl.create(:active_campaign, business: @business)
       end
 
       it "locates the requested campaign" do
@@ -87,13 +87,36 @@ RSpec.describe CampaignsController, type: :controller do
       context "[Invalid params]" do
         it "does not change the attributes" do
           put :update, id: @campaign, campaign: FactoryGirl.attributes_for(:invalid_campaign, share_reward: 467)
-          expect(campaign.find(@campaign.id).share_reward.to_i).not_to eq 467
+          expect(Campaign.find(@campaign.id).share_reward.to_i).not_to eq 467
         end
 
         it "re-renders the campaign template" do
           put :update, id: @campaign, campaign: FactoryGirl.attributes_for(:invalid_campaign)
           expect(response).to render_template :edit
         end
+      end
+    end
+
+
+    describe "DELETE #destroy" do
+      before :each do
+        @campaign = FactoryGirl.create(:active_campaign, business: @business)
+      end
+
+      context "[Has a redemption]" do
+        it "does not destroy the campaign" do
+          FactoryGirl.create(:redemption, campaign: @campaign)
+
+          expect {
+            delete :destroy, id: @campaign
+          }.to change{Campaign.count}.by 0
+        end
+      end
+
+      it "destroys the campaign" do
+        expect {
+          delete :destroy, id: @campaign
+        }.to change{Campaign.count}.by -1
       end
     end
 

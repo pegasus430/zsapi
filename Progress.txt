@@ -1,4 +1,7 @@
 9/29/15
+	23:07-(2:00)
+		Working on removing delete actions for the campaigns. Getting a strange rspec error which i posted on SO. Picking up here when I come back.  *** UPDATE: Got the destroy working on campaigns!
+
 	21:07+
 		Going through the site to show/remove delete actions.
 

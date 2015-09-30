@@ -32,16 +32,19 @@ RSpec.describe Greeting, type: :model do
 		describe '#welcome_wait_time=(duration)' do
 			it 'saves a day' do
 				greeting = FactoryGirl.create(:greeting, welcome_wait_time: 'day')
+				greeting.reload
 				expect(greeting.welcome_wait_time).to eq 1.day.to_i
 			end
 				
 			it 'saves a week' do
 				greeting = FactoryGirl.create(:greeting, welcome_wait_time: 'week')
+				greeting.reload
 				expect(greeting.welcome_wait_time).to eq 1.week.to_i
 			end
 				
 			it 'saves a month' do
 				greeting = FactoryGirl.create(:greeting, welcome_wait_time: 'month')
+				greeting.reload
 				expect(greeting.welcome_wait_time).to eq 1.month.to_i
 			end
 		end	
