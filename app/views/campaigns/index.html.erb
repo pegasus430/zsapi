@@ -56,7 +56,7 @@
               <td><%= yesno(c.featured) %></td>
               <td>
                 <%= link_to 'edit', edit_campaign_path(c), class: 'option edit' %>
-                <%= link_to 'delete', c, method: :delete, data: { confirm: 'Are you sure?' }, class: 'option delete' %>
+                <%= link_to 'delete', c, method: :delete, data: { confirm: 'Campaigns can only be deleted if they have not been redeemed. Deleting a campaign is irreversable. Are you sure you want to delete this campaign?' }, class: 'option delete' %>
               </td>
             </tr>
           <% end %>

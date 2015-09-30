@@ -6,6 +6,14 @@ GIT
     apipie-rails (0.3.4)
       json
 
+GIT
+  remote: git://github.com/amro/gibbon.git
+  revision: f7061d04ed92dcee76c61356433a5de727db90e6
+  specs:
+    gibbon (2.0.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,9 +121,6 @@ GEM
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     geocoder (1.2.11)
-    gibbon (2.0.0)
-      faraday (>= 0.9.1)
-      multi_json (>= 1.11.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.13.0)
@@ -412,7 +417,7 @@ DEPENDENCIES
   faker
   font-awesome-rails
   geocoder
-  gibbon
+  gibbon!
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails

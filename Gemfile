@@ -51,7 +51,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
     gem 'koala', '~> 2.0'
     
     gem 'omniauth-mailchimp'
-    gem 'gibbon'
+    gem 'gibbon', git: 'git://github.com/amro/gibbon.git'
     
     gem 'omniauth-twitter'
     gem 'twitter'
