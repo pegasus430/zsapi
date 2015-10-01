@@ -8,11 +8,12 @@ GIT
 
 GIT
   remote: git://github.com/amro/gibbon.git
-  revision: f7061d04ed92dcee76c61356433a5de727db90e6
+  revision: c393913cfa98e014333337542a88cad047586f4b
+  branch: api_v2
   specs:
-    gibbon (2.0.0)
-      faraday (>= 0.9.1)
-      multi_json (>= 1.11.0)
+    gibbon (1.2.1)
+      httparty
+      multi_json (>= 1.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -123,6 +124,7 @@ GEM
     geocoder (1.2.11)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    google_visualr (2.5.1)
     guard (2.13.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, <= 4.0)
@@ -418,6 +420,7 @@ DEPENDENCIES
   font-awesome-rails
   geocoder
   gibbon!
+  google_visualr (>= 2.5)
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails

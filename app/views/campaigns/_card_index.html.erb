@@ -1,17 +1,19 @@
 <% unless campaigns.empty? %>
-  <div id="campaign-cards">
-    <% campaigns.each do |campaign| %>
-      <div class="panel">
-        <%= campaign.type_of %><br>
-        <%= link_to campaign.title, campaign %><br>
-        <%= campaign.locations_string %><br>
-        <%= campaign.schedule.title %><br>
-        <%= yesno(campaign.featured) %><br>
-        <%= link_to 'Edit', edit_campaign_path(campaign) %>
+  <div class="grid">
+    <% @campaigns.each do |c| %>
+      <div class="grid-item">
+        <div class="cw-wrap">
+          <div class="badge bg-color2"><%= c.type_of.humanize %></div>
+          <%= image_tag c.image, class: "img-responsive" %>
+          <div class="cw-info text-center">
+            <h3><%= c.title %></h3>
+            <p><span><%= c.redemptions.where('created_at >= ?', Time.now.beginning_of_day).size %></span> uses today</p>
+            <%= link_to "Edit", edit_campaign_url(c) %>
+          </div>
+        </div>
       </div>
     <% end %>
-    <div class="clear"></div>
   </div>
 <% else %>
-  <h3>No campaigns today!</h3>
+  <h3>No active campaigns today!</h3>
 <% end %>

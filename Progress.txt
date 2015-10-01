@@ -1,3 +1,7 @@
+9/30/15
+	14:05
+		Working on delete actions of locations. (Done). Now, working on dashboard stats!
+
 9/29/15
 	23:07-(2:00)
 		Working on removing delete actions for the campaigns. Getting a strange rspec error which i posted on SO. Picking up here when I come back.  *** UPDATE: Got the destroy working on campaigns!

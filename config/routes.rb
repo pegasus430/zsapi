@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :campaigns, except: [:index, :new]
 
     # Locations and Locationable Routes
-    resources :locations do
+    resources :locations, except: [:destroy] do
       get     '/subscription/success',    to: 'subscriptions#success',   as: 'subscription_success'
       get     '/subscription',            to: 'subscriptions#show',      as: 'subscription'
       get     '/subscription/new',        to: 'subscriptions#new',       as: 'new_subscription'

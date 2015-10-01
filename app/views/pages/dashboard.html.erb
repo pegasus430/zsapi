@@ -1,194 +1,84 @@
 <% content_for(:page_title) { "Your Dashboard" } %>
 
-<div class="container">
+<%= wrapper do %>
 
-	<!-- CAMPAIGN HEADER start -->
-	<div class="row content-head">
-		<div class="col-md-4 col-sm-12">
-			<h4>Today's Campaigns</h4>
-		</div>
-		<div class="col-md-4 col-sm-6 newCampaignContainer"> 
-			<a href="#new-campaign-popup" data-effect="mfp-zoom-in" class="new-cap open-popup-link">New Campaign</a>
-		</div>
-		<div class="col-md-4 col-sm-6">
-
-			<select class="fullWidth" >
-	          <option value="Trenton RD">Trenton RD</option>
-	          <option value="Texas">Texas</option>
-	          <option value="Alaska">Alaska</option>
-	          <option value="Newyork">Newyork</option>
-	        </select>
-			
-		</div>
+	<div class="row">
+	  <div class="col-xs-12 col-sm-4">
+	    <h2>Your Campaigns</h2>
+	  </div>
+	  <div class="col-xs-6 col-sm-5">
+	    <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+	  </div>
+	  <div class="col-xs-6 col-sm-3">
+	    <%= render 'shared/location_selector' %>
+	  </div>
 	</div>
-	<!-- CAMPAIGN HEADER end -->
 
-	<!-- CAMPAIGN CONTENT start -->
+	<%# CAMPAIGN CONTENT %>
 	<div class="campaign-wrap">
-		<div class="grid">
-			<div class="grid-item">
-				<div class="cw-wrap">
-					<div class="badge bg-color2">Coupon</div>
-					<img src="img/camp/1.jpg" class="img-responsive" alt=""/>
-					<div class="cw-info text-center">
-						<h3>50% OFF Coffee</h3>
-						<p><span>2</span> uses today</p>
-						<a href="newCoupon.php"></a>
-					</div>
-				</div>
-			</div>
-			<div class="grid-item">
-				<div class="cw-wrap">
-					<div class="badge bg-color3">Featured</div>
-					<img src="img/camp/2.jpg" class="img-responsive" alt=""/>
-					<div class="cw-info text-center">
-						<h3>Free Coffee<br>& Donuts</h3>
-						<p><span>2</span> uses today</p>
-						<a href="newCampaign.php"></a>
-					</div>
-				</div>
-			</div>
-			<div class="grid-item">
-				<div class="cw-wrap">
-					<div class="badge bg-color4">Reward</div>
-					<img src="img/camp/3.jpg" class="img-responsive" alt=""/>
-					<div class="cw-info text-center">
-						<h3>Military Discount</h3>
-						<p><span>2</span> uses today</p>
-						<a href="newCampaign.php"></a>
-					</div>
-				</div>
-			</div>
-			<div class="grid-item">
-				<div class="cw-wrap">
-					<img src="img/camp/4.jpg" class="img-responsive" alt=""/>
-					<div class="cw-info text-center">
-						<h3>Buy 2 for 1</h3>
-						<p><span>2</span> uses today</p>
-						<a href="newCampaign.php"></a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<%= render 'campaigns/card_index', campaigns: @campaigns %>
 	</div>
 
 	<div class="row content-head">
-		<div class="col-md-12">
-			<a href="campaigns.php" class="more-cap pull-right">View All Campaigns</a>
+		<div class="col-xs-12 text-right">
+			<%= link_to "View All Campaigns", campaigns_url, class: "btn btn-browse" %>
 		</div>
 	</div>
-	<!-- CAMPAIGN CONTENT End -->
-</div>
+<% end %> <%# -wrapper %>
 
-<!-- GRAPH / CHART Start -->
-<div class="graph-wrap">
-	<div class="container">
 
-		<!-- ACTIVITY Start -->
-		<div class="row content-head">
-			<div class="col-md-4">
-				<h4>Today's Activity</h4>
-			</div>
-			<div class="col-md-8">
-				<ul class="camp-stats">
-					<li class="active"><span>25</span> Active Campaigns</li>
-					<li class="redemptions"><span>15</span> Redemptions</li>
-					<li class="visits"><span>108</span> Visits</li>
+<%= wrapper :dark do %>
+	<%# GRAPH / CHART %>
+
+	<%# ACTIVITY %>
+	<div class="row">
+	  <div class="col-xs-12 col-sm-4">
+	    <h2>Today's Activity</h2>
+	  </div>
+	  <div class="col-xs-12 col-sm-8">
+	    <ul class="camp-stats">
+	    	<li class="active"><span><%= @stats[:active_campaigns] %></span> Active Campaigns</li>
+	    	<li class="redemptions"><span><%= @stats[:today][:redemptions] %></span> Redemptions</li>
+	    	<li class="visits"><span><%= @stats[:today][:checkins] %></span> Visits</li>
+	    </ul>
+	  </div>
+	</div>
+	<%# -ACTIVITY %>
+
+	<%# ANALYSIS %>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="campaign-analysis">
+				<ul>
+					<li class="ups campaigns"><span>+111</span> New Campaigns</li>
+					<li class="downs visitors"><span>100%</span> New Visitors</li>
+					<li class="ups redemptions"><span>+999</span> New Redemptions</li>
+					<li class="downs sales"><span>100%</span> New Sales</li>
 				</ul>
 			</div>
 		</div>
-		<!-- ACTIVITY End -->
-
-		<!-- ANALYSIS Start -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="campaign-analysis">
-					<ul>
-						<li class="ups campaigns"><span>+111</span> New Campaigns</li>
-						<li class="downs visitors"><span>100%</span> New Visitors</li>
-						<li class="ups redemptions"><span>+999</span> New Redemptions</li>
-						<li class="downs sales"><span>100%</span> New Sales</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- ANALYSIS End -->
-
-		<div class="row chart-wrap">
-
-			<!-- AREA CHART Start -->
-			<div class="col-md-7">
-				<div id="area-chart"></div>
-			</div>
-			<!-- AREA CHART End -->
-
-			<!-- PIE/DONUT CHART Start -->
-			<div class="col-md-5">
-				<div id="pie-chart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-			</div>
-			<!-- PIE/DONUT CHART End -->
-		</div>
 	</div>
+	<%# -ANALYSIS %>
 
-	<!-- NEW CAMPAIGNS POPUP! -->
+	<div class="row chart-wrap">
+		<%# AREA CHART %>
+		<div class="col-xs-12 col-md-7">
+			<div id="area-chart"></div>
+			<%= render_chart(@chart[:area], 'area-chart') %>
+		</div>
+		<%# -AREA CHART %>
 
-	<div id="new-campaign-popup" class="white-popup mfp-hide new-campaign ro">
-		<span class="title">Select a Campaign</span>
-
-	  	<div>
-	  		<a href="newCoupon.php">
-	  			<img class="percent" src="img/percent.png">
-	  			<h4>New Coupon</h4>
-	  			<span>Ex: Get 10% Off an Item</span>
-	  		</a>
-	  	</div>
-
-	  	<div>
-	  		<a href="newCampaign.php">
-	  			<img class="cup" src="img/cup.png">
-	  			<h4>New Reward</h4>
-	  			<span>Ex: Redeem your points</span>
-	  		</a>
-	  	</div>
-
-	  	<div class="last">
-	  		<a href="newCoupon.php">
-	  			<img class="star" src="img/star.png">
-	  			<h4>New Special</h4>
-	  			<span>Ex: Half-Price Wednesdays</span>
-	  		</a>
-	  	</div>
+		<%# PIE/DONUT CHART %>
+		<div class="col-xs-12 col-md-5">
+			<div id="pie-chart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+		</div>
+		<%# -PIE/DONUT CHART %>
 	</div>
-	<!-- NEW CAMPAIGNS POPUP end -->
-</div>
-<!-- GRAPH / CHART End -->
+<% end %> <%# -wrapper dark %>
 
 
+<%= render 'campaigns/modal_new' %>
 
-
-
-
-<h1>Dashboard</h1>
-
-<% unless current_user.business.published? %>
-	<%= render 'shared/getting_started' %>
+<%= content_for :js_header do %>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <% end %>
-
-<h3>Today's campaigns</h3>
-<%= link_to 'New Campaign', new_campaign_url %>
-
-<%= select_tag 'location_select', options_from_collection_for_select( current_user.business.locations, 'id', 'title' ) %>
-
-<% unless @todays_campaigns.empty? %>
-	<%= render 'campaigns/card_index', campaigns: @todays_campaigns %>
-	<%= link_to 'View all Campaigns', campaigns_url %>
-<% end %>
-
-<h3>Stats</h3>
-<ul>
-	<li>Active Campaigns: <%= @stats[:active_campaigns] %></li>
-	<li>Today Checkins: <%= @stats[:today][:checkins] %></li>
-	<li>Yesterday Checkins: <%= @stats[:yesterday][:checkins] %></li>
-	<li>Todays Redemptions: <%= @stats[:today][:redemptions] %></li>
-	<li>Yesterdays Redemptions: <%= @stats[:yesterday][:redemptions] %></li>
-</ul>

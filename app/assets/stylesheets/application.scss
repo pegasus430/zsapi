@@ -732,7 +732,7 @@ span.selectOption {
 
 
 
-.graph-wrap, .dark-wrap {
+.dark-wrap {
   background: #dddce1;
 }
 
@@ -785,46 +785,7 @@ span.selectOption {
   }
 }
 
-.camp-stats {
-  padding-right: 28px;
-  float: right;
-  margin-top: 6px;
-  li {
-    float: left;
-    margin-left: 50px;
-    color: $label-color;
-    font-size: 16px;
-    line-height: 24px;
-    span {
-      color: $color-white;
-      font-size: 15px;
-      text-align: center;
-      font-weight: 600;
-      width: 48px;
-      height: 24px;
-      display: inline-block;
-      margin-right: 4px;
-    }
-  }
-  li:first-child {
-    margin-left: 0px;
-  }
-  li.active {
-    span {
-      background: #ff0141;
-    }
-  }
-  li.redemptions {
-    span {
-      background: #4cd9b9;
-    }
-  }
-  li.visits {
-    span {
-      background: #4990e2;
-    }
-  }
-}
+
 
 
 .battery-ui {

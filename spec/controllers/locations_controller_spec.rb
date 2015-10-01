@@ -8,6 +8,7 @@ RSpec.describe LocationsController, type: :controller do
     sign_in @user
   end
 
+
   describe 'GET #index' do
     before :each do
       FactoryGirl.create_list(:active_location, 2, business: @user.business)
@@ -57,7 +58,6 @@ RSpec.describe LocationsController, type: :controller do
       expect(response).to render_template :confirm
     end
   end
-
 
 
   describe "PUT #confirm" do
@@ -259,23 +259,6 @@ RSpec.describe LocationsController, type: :controller do
   #       put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location)
   #       expect(response).to render_template :index
   #     end
-  #   end
-  # end
-
-  # describe "DELETE #destroy" do
-  #   before :each do
-  #     @location = FactoryGirl.create(:location)
-  #   end
-
-  #   it "destroys the requested location" do
-  #     expect {
-  #       delete :destroy, id: @location
-  #     }.to change(Receipt, :count).by(-1)
-  #   end
-
-  #   it "redirects to the locations list" do
-  #     delete :destroy, id: @location
-  #     expect(response).to redirect_to(admin_locations_url)
   #   end
   # end
 

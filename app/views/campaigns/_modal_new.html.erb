@@ -1,0 +1,39 @@
+<div class="modal fade" id="newCampaignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Select a Campaign Type</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
+              <%= image_tag 'percent.png', class: 'percent' %>
+              <h4>New Coupon</h4>
+              <span>Ex: Get 10% Off an Item</span>
+            <% end %>
+          </div>
+
+          <div class="col-xs-12 col-md-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
+              <%= image_tag 'cup.png', class: 'cup' %>
+              <h4>New Reward</h4>
+              <span>Ex: Redeem your points</span>
+            <% end %>
+          </div>
+
+          <div class="col-xs-12 col-md-4">
+            <%= link_to new_campaign_url('coupon'), class: "item" do %>
+              <%= image_tag 'star.png', class: 'star' %>
+              <h4>New Special</h4>
+              <span>Ex: Half-Price Wednesdays</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -40,6 +40,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   # gem 'bootstrap-sass'
   gem 'bourbon'
   gem 'apipie-rails', github: 'Apipie/apipie-rails', ref: '928bd858fd14ec67eeb9483ba0d43b3be8339608'  # < Specific commit to fix "content_tag" issue
+  gem "google_visualr", ">= 2.5"
 
   # Identities++
     gem 'omniauth'
@@ -51,7 +52,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
     gem 'koala', '~> 2.0'
     
     gem 'omniauth-mailchimp'
-    gem 'gibbon', git: 'git://github.com/amro/gibbon.git'
+    gem 'gibbon', git: 'git://github.com/amro/gibbon.git', branch: 'api_v2'
     
     gem 'omniauth-twitter'
     gem 'twitter'
