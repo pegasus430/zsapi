@@ -1,4 +1,3 @@
-#= require masonry/masonry.pkgd
 # require menuTour
 
 # HIGHCHART JS - AREA CHART

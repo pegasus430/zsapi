@@ -1,14 +1,16 @@
 <% unless campaigns.empty? %>
-  <div class="grid">
+  <div class="row">
     <% @campaigns.each do |c| %>
-      <div class="grid-item">
-        <div class="cw-wrap">
+      <div class="col-xs-12 col-sm-3">
+        <div class="card">
           <div class="badge bg-color2"><%= c.type_of.humanize %></div>
           <%= image_tag c.image, class: "img-responsive" %>
-          <div class="cw-info text-center">
+          <div class="card-info">
             <h3><%= c.title %></h3>
             <p><span><%= c.redemptions.where('created_at >= ?', Time.now.beginning_of_day).size %></span> uses today</p>
-            <%= link_to "Edit", edit_campaign_url(c) %>
+            <%= link_to edit_campaign_url(c) do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
           </div>
         </div>
       </div>
