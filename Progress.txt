@@ -1,3 +1,13 @@
+10/2/15
+	14:15+
+
+10/1/15
+	21:35-
+		Got most stats ready and working on the dashboard. All that is left is to setup the "last 7 days" area chart. Then, put all the same data on the location and campaign show pages. That should be it for simple stats.
+
+	20:00
+		Finishing dashboard stats.
+
 9/30/15
 	14:05
 		Working on delete actions of locations. (Done). Now, working on dashboard stats!

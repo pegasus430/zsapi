@@ -461,7 +461,7 @@ span.selectOption {
 	
   li#greeting{
     &.active a, & a:hover {
-    	border-left-color:$greetings-color-light;
+    	border-left-color:$greetings-color;
     }
 	}
 	
@@ -473,7 +473,7 @@ span.selectOption {
 	
   li#customer{
     &.active a, & a:hover {
-    	border-left-color:$customers-color-light;
+    	border-left-color:$customers-color;
     }
 	}
 	
@@ -485,7 +485,7 @@ span.selectOption {
 	
   li#location{
     &.active a, & a:hover {
-    	border-left-color:$greetings-color-light;
+    	border-left-color:$locations-color;
     }
 	}
 
@@ -525,11 +525,8 @@ span.selectOption {
   
   .nav-trigger {
     width: 29px;
-    padding: 7px 7px;
-    background: image-url('ico/icon-nav.svg') no-repeat center;
-    display: inline-block;
-    height: 21px;
-    float: left;
+    color:$havelock-blue;
+    font-size: 25px;
     margin-right: 13px;
     position: fixed;
     left: 92px;
@@ -912,7 +909,6 @@ span.selectOption {
 
 //WES
 .page-head {
-  background: $greetings-color;
   padding: 2px 0 5px;
   h4 {
     color: $color-white;

@@ -13,6 +13,28 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     render :confirm if @location.pending?
+
+    # Stats
+    stat_query      = @location
+    today_range     = Date.today.beginning_of_day..Date.today.end_of_day
+    yesterday_range = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day
+
+    stat = Stat.new(@location, today_range)
+    
+    @stats = {
+      today: {
+        checkins:       Stat.total_checkins(query: stat_query, range: today_range),
+        redemptions:    Stat.total_redemptions(query: stat_query, range: today_range),
+        coupons:        Stat.total_redemptions(type: 'coupons', query: stat_query, range: today_range),
+        rewards:        Stat.total_redemptions(type: 'rewards', query: stat_query, range: today_range),
+        specials:       Stat.total_redemptions(type: 'specials', query: stat_query, range: today_range),
+        # new_customers:  Stat.new_customers(query: stat_query, range: today_range)
+      },
+      yesterday: {
+        checkins:     Stat.total_checkins(query: stat_query, range: yesterday_range),
+        redemptions:  Stat.total_redemptions(query: stat_query, range: yesterday_range)
+      }
+    }
   end
 
   # GET /locations/new

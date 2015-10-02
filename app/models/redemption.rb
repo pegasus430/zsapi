@@ -8,6 +8,10 @@ class Redemption < ActiveRecord::Base
 
   validates_presence_of :campaign, :customer_id, :location
 
+  scope :coupons, -> { includes(:campaign).where(campaigns: {type_of: 'coupons'}) }
+  scope :rewards, -> { includes(:campaign).where(campaigns: {type_of: 'rewards'}) }
+  scope :specials, -> { includes(:campaign).where(campaigns: {type_of: 'specials'}) }
+
   def award_points_to_customer!
   	customer.membership_for(location.business).increment!(:points, receipt.reward_points)
   end

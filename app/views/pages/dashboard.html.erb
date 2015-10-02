@@ -35,9 +35,9 @@
 	  </div>
 	  <div class="col-xs-12 col-sm-8">
 	    <ul class="camp-stats">
-	    	<li class="active"><span><%= @stats[:active_campaigns] %></span> Active Campaigns</li>
-	    	<li class="redemptions"><span><%= @stats[:today][:redemptions] %></span> Redemptions</li>
-	    	<li class="visits"><span><%= @stats[:today][:checkins] %></span> Visits</li>
+	    	<li class="active"><span><%= @stats[:active_campaigns] %></span> Campaigns</li>
+	    	<li class="redemptions"><span><%= current_user.locations.size %></span> Locations</li>
+	    	<li class="visits"><span><%= current_user.business.customers.size %></span> Customers</li>
 	    </ul>
 	  </div>
 	</div>
@@ -46,29 +46,54 @@
 	<%# ANALYSIS %>
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="campaign-analysis">
-				<ul>
-					<li class="ups campaigns"><span>+111</span> New Campaigns</li>
-					<li class="downs visitors"><span>100%</span> New Visitors</li>
-					<li class="ups redemptions"><span>+999</span> New Redemptions</li>
-					<li class="downs sales"><span>100%</span> New Sales</li>
-				</ul>
+			<div class="stat-panel">
+				<div class="row">
+					<div class="col-xs-6 col-sm-3">
+						<div class="ups">
+							<span><%= @stats[:today][:checkins] %></span></i>
+							Check-ins
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="downs">
+							<span><%= @stats[:today][:redemptions] %></span>
+							Redemptions
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="ups">
+							<span><%= @stats[:today][:conversion] %>%</span>
+							Conversion
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="downs">
+							<span>+<%= @stats[:today][:new_customers] %></span>
+							Customers
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<%# -ANALYSIS %>
 
-	<div class="row chart-wrap">
+	<div class="row">
 		<%# AREA CHART %>
 		<div class="col-xs-12 col-md-7">
-			<div id="area-chart"></div>
-			<%= render_chart(@chart[:area], 'area-chart') %>
+			<div class="stat-panel">
+				<div id="area-chart"></div>
+				<%= render_chart(@chart[:area], 'area-chart') %>
+			</div>
 		</div>
 		<%# -AREA CHART %>
 
 		<%# PIE/DONUT CHART %>
 		<div class="col-xs-12 col-md-5">
-			<div id="pie-chart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+			<div class="stat-panel">
+				<div id="pie-chart"></div>
+				<%= render_chart(@chart[:pie], 'pie-chart') %>
+			</div>
 		</div>
 		<%# -PIE/DONUT CHART %>
 	</div>

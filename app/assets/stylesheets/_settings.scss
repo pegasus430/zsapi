@@ -1,24 +1,45 @@
 @import "bourbon";
 
+// COLOR NAMES AND USES
+$olive-drab: #6AA725;       // Success
+$milano-red: #C40808;       // Locations
+$havelock-blue: #4A90E2;    // Rewards
+$torch-red: #FF0040;        // Error alerts
+$crimson: #ED1C24;          // Customers
+$turquoise: #4CD9BA;        // Coupons
+$dodger-blue: #34B1FC;      // Campaigns
+$amber: #F5C400;            // Locations
+$gold: #FED700;             // Greetings
+$niagara: #0AB58F;          // Businesses, Success alert
+$athens-gray: #EDECF0;      // Modal background
+$mischka: #DDDCE0;
+$pickled-bluewood: #2C364A; // Menu bar bg
+$mine-shaft: #333333;
+$tundora: #4A4A4A;          // Body font color
+$alabaster: #F9F9F9;
+$gallery: #EEEEEE;
+$alto: #D8D8D8;
+$silver: #C0C0C0;
+$osio-gray: #838D8F;
+
+
 // COLORS
-$businesses-color: #0ab58f;
-$campaigns-color: #34b1fc;
-$customers-color: #ed1c24;
-$customers-color-light: #ff0040;
-$greetings-color: #fed700;
-$greetings-color-light: #ffd700;
-$locations-color: #f5a623;
-$receipts-color: #50e3c2;
+$businesses-color: $niagara;
+$campaigns-color: $dodger-blue;
+$customers-color: $crimson;
+$greetings-color: $gold;
+$locations-color: $amber;
+$receipts-color: $niagara;
 
-$error-background-color: #ff0141;
+$error-background-color: $torch-red;
 $background-color: #edecf1;
-$label-color: #4a4a4a;
-$modal-background-color: #edecf0;
-$table-head-color: #8a8e9c;
-$header-font-color: #2f2f2f;
+$label-color: $tundora;
+$modal-background-color: $athens-gray;
+$table-head-color: $osio-gray;
+$header-font-color: $mine-shaft;
 
-$coupon-color: #4cd9ba;
-$reward-color: #4a90e2;
+$coupon-color: $turquoise;
+$reward-color: $havelock-blue;
 
 $button-font-color: #3b3c40;
 $color-tooltip-font: #32B1FE;
@@ -26,7 +47,6 @@ $color-tooltip-font: #32B1FE;
 $color-white: #fff;
 $border-color: #ccc;
 $dark-border-color: darken($border-color, 20%);
-
 
 
 // SIZING

@@ -1,33 +1,61 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Locations" } %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @location.title %>
-</p>
+<%= wrapper do %>
+  <%= section_header "Today's Activity (#{@location.title})" %>
 
-<p>
-  <strong>Address:</strong>
-  <%= @location.address %>
-</p>
+  <div id="location-stats" class="row">
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'coupons') do %>
+          <%= image_tag 'percent.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:coupons] %></span> Coupons
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'rewards') do %>
+          <%= image_tag 'cup.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:rewards] %></span> Rewards
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'specials') do %>
+          <%= image_tag 'star.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:specials] %></span> Specials
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= image_tag 'location.png' %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:checkins] %></span> Check-ins
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %> <%# -wrapper %>
 
-<p>
-  <strong>Address2:</strong>
-  <%= @location.address2 %>
-</p>
 
-<p>
-  <strong>City:</strong>
-  <%= @location.city %>
-</p>
+<%= wrapper :dark do %>
+  <%= section_header "Campaigns" %>
 
-<p>
-  <strong>State:</strong>
-  <%= @location.state %>
-</p>
+  <%# CAMPAIGN CONTENT %>
+  <%= render 'campaigns/card_index', campaigns: @location.campaigns %>
+<% end %> <%# -wrapper dark %>
 
-<p>
-  <strong>Zipcode:</strong>
-  <%= @location.zipcode %>
-</p>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= render 'campaigns/modal_new' %>
+
+<%= content_for :js_header do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<% end %>

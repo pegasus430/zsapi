@@ -1,5 +1,25 @@
 @import 'settings';
 
+@import 'shared/stats';
+
+#location-stats{
+  .stat-panel{
+    text-align: center;
+
+    img {
+      padding: $row-gutter/2;
+      height: 130px;
+    }
+
+    .panel-footer{
+      span{
+        color: $niagara;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 #location-confirm{
   text-align: center;
 
