@@ -1,54 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:page_title) { "Campaigns" } %>
 
-Show for location:<br>
-<%= current_user.locations.active.each do |l| %>
-  <%= link_to l.title, location_campaign_url(@campaign.id, l.id) %>
+<%= wrapper do %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <h2><%= @campaign.title %></h2>
+      <p><%= @campaign.schedule.title %></p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <%= render 'shared/location_selector' %>
+    </div>
+  </div>
+
+  <% if @campaign.redemptions.size > 0 %>
+    Most popular location: <%= @campaign.most_popular_location.title %>
+  <% end %>
+<% end %> <%# -wrapper %>
+
+
+<%= wrapper :dark do %>
+<% end %> <%# -wrapper dark %>
+
+
+<%= content_for :js_header do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <% end %>
-
-<h2><%= @campaign.title %></h2>
-<i><%= @campaign.schedule.title %></i>
-
-<p>
-  <strong>Most popular location:</strong>
-  <%= @campaign.most_popular_location.title rescue "N/A" %>
-</p>
-
-<p>
-  <strong>Discount amount:</strong>
-  <%= @campaign.discount_amount %>
-</p>
-
-<p>
-  <strong>Discount type:</strong>
-  <%= @campaign.discount_type %>
-</p>
-
-<p>
-  <strong>Share reward:</strong>
-  <%= @campaign.share_reward %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @campaign.image %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @campaign.status %>
-</p>
-
-<p>
-  <strong>Schedule:</strong>
-  <%= @campaign.schedule %>
-</p>
-
-<p>
-  <strong>Start at:</strong>
-  <%= @campaign.start_at %>
-</p>
-
-<p>
-  <strong>End at:</strong>
-  <%= @campaign.end_at %>
-</p>

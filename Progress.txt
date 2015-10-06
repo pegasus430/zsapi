@@ -1,5 +1,10 @@
+10/5/15
+	21:00+
+		Setting up the business logo upload.
+
 10/2/15
-	14:15+
+	14:15-16:42
+		Got the dashboard, locations, and campaign show all setup. Not satisfactory, but setup. We need to determine what stats to show, but the basics are there. I'll come back to this. ** Next, business logo upload!
 
 10/1/15
 	21:35-

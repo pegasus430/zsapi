@@ -86,9 +86,9 @@ class PagesController < ApplicationController
 	  			{type: 'number', label: 'Value'},
 	  		],
 	  		rows: [
-	  			{c: ['Coupon', @stats[:today][:coupons]]},
-	  			{c: ['Reward', @stats[:today][:rewards]]},
-	  			{c: ['Special', @stats[:today][:specials]]}
+	  			{c: ['Coupon', [@stats[:today][:coupons], 3].max]},
+	  			{c: ['Reward', [@stats[:today][:rewards], 2].max]},
+	  			{c: ['Special', [@stats[:today][:specials], 1].max]}
 	  		]
 	  	),
 	  	{

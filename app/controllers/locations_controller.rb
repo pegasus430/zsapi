@@ -19,8 +19,6 @@ class LocationsController < ApplicationController
     today_range     = Date.today.beginning_of_day..Date.today.end_of_day
     yesterday_range = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day
 
-    stat = Stat.new(@location, today_range)
-    
     @stats = {
       today: {
         checkins:       Stat.total_checkins(query: stat_query, range: today_range),
