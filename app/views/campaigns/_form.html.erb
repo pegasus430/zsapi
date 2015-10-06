@@ -47,7 +47,7 @@
   <%= wrapper :dark do %>
     <%= section_header "Campaign Image" %>
     <%= fr "Click the image to edit" do %>
-      <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "campaign_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+      <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
       <%= hidden_field_tag :image_datafile %>
     <% end %>
 
@@ -194,46 +194,7 @@
 
 
 <%# CROP MODAL %>
-<%= modal :large, id: "cropImageModal", title: "Live Image Crop",
-    body: capture { %>
-
-    <div class="row mb">
-      <div class="col-xs-12">
-        <div class="file-upload">
-          <a href="#" id="campaignImage" class="btn btn-browse upload-trigger">Browse</a>
-          <%= file_field_tag "campaign_image", accept: "image/*", class: "file_field" %>
-          <span>Choose a file</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row form-set">
-     <div class="col-md-6">
-    
-         <div class="imageBox" id="avatarBox">
-             <div class="thumbBox"></div>
-             <div class="spinner" style="display: none">
-              Loading...
-             </div>
-         </div>
-    
-         <div class="action">
-             <input type="button" id="btnZoomIn" class="btnZoomIn avatar btn btn-default" value="+">
-             <input type="button" id="btnZoomOut" class="btnZoomOut avatar btn btn-default" value="-">
-             <input type="button" id="btnCrop" class="btnCrop avatar btn btn-default" value="Crop">
-         </div>
-     </div>
-     <div class="col-md-6">
-         <div class="cropped croppedImage">
-          <%= image_tag @campaign.image.url(:index), style: "width:420", id: "image-c", class: "thumbnail" %>
-         </div>
-     </div>
-    </div>
-<% }, footer: capture { %>
-  <button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close">
-    Save and Close
-  </button>
-<% } %>
+<%= render 'shared/crop_modal', resource: @campaign %>
 
 <%# GALLERY MODAL %>
 <%= modal :large, id: "galleryModal", title: "Campaign Image Gallery",

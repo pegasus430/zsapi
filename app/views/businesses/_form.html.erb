@@ -10,24 +10,14 @@
 
 
   <%= wrapper :dark do %>
-    <%= section_header "Style Options" %>
+    <%= section_header "Your Logo" %>
 
-    <%= fr "Business Logo", row: "row mb" do %>
-      <div class="imgPlaceHolder">
-        <%= image_tag('ico/ico-image-temp.svg') %>
-      </div>
+    <%= fr "Click the image to edit" do %>
+      <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+      <%= hidden_field_tag :image_datafile %>
     <% end %>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-9">
-        <div class="file-upload">
-          <a href="#" class="btn btn-browse upload-trigger">Change Logo</a>
-          <%= f.file_field :image, accept: "image/*", class: "file_field", onchange: "handleUploadedLogo(this)" %>
-          <span>Choose a file</span>
-          <%= f.hidden_field :image, class: "theImage" %>
-        </div>
-      </div>
-    </div>
+    <%= section_header "Style Options" %>
 
     <div class="row contPaleteColors">
       <div class="col-xs-12 col-sm-3">
@@ -182,6 +172,10 @@
       </div>
     </div>
   </div>
+
+
+  <%# CROP MODAL %>
+  <%= render 'shared/crop_modal', resource: @business %>
 
 
   <!-- Preview POPUP! -->

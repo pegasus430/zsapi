@@ -12,7 +12,7 @@ class Campaign < ActiveRecord::Base
 
   validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
 
-  has_attached_file :image, :styles => { index: '210x170', :medium => "630x510" }
+  has_attached_file :image, styles: { index: '210x170', :medium => "630x510" }, default_url: 'img-placeholder.png'
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   scope :valid_for, ->(date) {
