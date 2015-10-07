@@ -2,60 +2,56 @@
 #= require color-thief/color-thief
 #= require shared/cropbox_setup
 
-### TRANSFORM RGB TO HEX ###
 hexDigits = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
-
-# Convert RGB to Regex
 rgb2hex = (rgb) ->
   rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
-  '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
-
-# Return a hex value?
-hex = (x) ->
+  '#' + hex_value(rgb[1]) + hex_value(rgb[2]) + hex_value(rgb[3])
+hex_value = (x) ->
   if isNaN(x) then '00' else hexDigits[(x - (x % 16)) / 16] + hexDigits[x % 16]
-
 
 detectColors = (image) ->
   colorThief = new ColorThief
-  colors = Array()
-  colors = colorThief.getPalette(image, 5)
-  $('.paleteColors').empty()
-  i = colors.length - 1
+  detected_colors = Array()
+  detected_colors = colorThief.getPalette(image, 5)
+  $('.paletteColors').empty()
+  i = detected_colors.length - 1
   while i >= 0
-    hex = rgb2hex('rgb(' + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2] + ')')
-    $('.paleteColors').append '<div class="color" val="' + hex + '" style="background-color: rgb(' + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2] + ');"></div>'
+    hex = rgb2hex('rgb(' + detected_colors[i][0] + ',' + detected_colors[i][1] + ',' + detected_colors[i][2] + ')')
+    $('.paletteColors').append '<div class="color" data-hex="' + hex + '" style="background-color: rgb(' + detected_colors[i][0] + ',' + detected_colors[i][1] + ',' + detected_colors[i][2] + ');"></div>'
     i--
-  return
+    
 
 (($) ->
-	# COLOR PICKER
-	if $('#colorPicker1').length
-    $('#colorPicker1').minicolors
-      control:  'wheel',
-      position: 'right'
+	##+ COLOR PICKER
+  color_picker_options =
+    control:  'wheel'
+    position: 'right'
 
-	if $('#colorPicker2'.length)
-    $('#colorPicker2').minicolors
-      control:  'wheel',
-      position: 'right'
-  return
+  # Init colorpickers
+  $('#colorPicker1').minicolors color_picker_options
+  $('#colorPicker2').minicolors color_picker_options
+
+  # Set the last active color picker when clicked
+  window.last_active_color_picker = false
+  $('#colorPicker1, #colorPicker2').click ->
+    window.last_active_color_picker = $(this)
+
+  # When clicking a detected color, apply it to the last selected colorpicker
+  $('.paletteColors').on 'click', '.color', ->
+    console.log window.last_active_color_picker
+    if window.last_active_color_picker
+      window.last_active_color_picker.val $(this).data('hex')
+      window.last_active_color_picker.minicolors 'value', $(this).data('hex')
+  ##- COLOR PICKER
 
 
-  $('#btnSaveClose').on 'click', ->
+  # Detect the colors from the saved image using colorthief
+  $('#refreshDetectedColors').click (e) ->
     img = new Image()
     img.src = window.cropper.getDataURL()
     detectColors(img)
-
-
-  $('.paleteColors .color').click ->
-    if $('.lastActive').length
-      $('.lastActive input').val $(this).attr('val')
-      if $('.lastActive #colorPicker1').length
-        $('#colorPicker1').minicolors 'value', $(this).attr('val')
-      if $('.lastActive #colorPicker2').length
-        $('#colorPicker2').minicolors 'value', $(this).attr('val')
-    return
-  return
+    return false
+    e.preventDefault()
 
 
   # Update the business preview
@@ -66,6 +62,5 @@ detectColors = (image) ->
     $('.content h1').html $('.businessName').val()
     text = $('.address').val() + ' ' + $('.address2').val() + ' ' + $('.city').val() + ' ' + $('.state').val() + ' ' + $('.zipCode').val()
     $('.content p').html text
-    return
 
 ) jQuery

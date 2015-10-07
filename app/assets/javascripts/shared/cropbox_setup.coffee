@@ -2,7 +2,6 @@
 #= require shared/files
 
 (($) ->
-
   ## START CROPBOX
   cropbox_options =
     thumbBox: '.thumbBox',
@@ -40,6 +39,9 @@
 
     # Place the datafile value in the hidden field
     $('#image_datafile').val(img)
+
+    if $('#refreshDetectedColors').is('*')
+      $('#refreshDetectedColors').trigger 'click'
 
 
   $('.btnZoomIn').on 'click', ->
