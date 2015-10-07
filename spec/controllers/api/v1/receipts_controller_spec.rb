@@ -96,11 +96,6 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
         get :index, version: 1, status: 'rejected'
         expect(response).to be_collection_resource
       end
-
-      it 'returns the rejected receipts' do
-        get :index, version: 1, status: 'balls'
-        expect(response).to be_collection_resource
-      end
     end
   end
 

@@ -20,10 +20,14 @@ class Api::V1::CustomersController < Api::V1::BaseController
 		param :social_id, 			String, desc: "The social ID", required: true
 		param :first_name, 			String, desc: "Customer's first name", required: true
 		param :last_name, 			String, desc: "Customer's last name", required: true
-		param :social_friends, 	Array, 	desc: "An array of the customer's social friends. Example: [1,4,5,6]"
+		param :social_friends, 	Array,	desc: "An array of the customer's social friends. Example: social_friends[]=1&social_friends[]=2. Leave BLANK if empty."
 	end
 	def sign_in
 		customer = Customer.find_by_email(params[:customer][:email])
+
+		if params[:customer][:social_friends].empty?
+			params[:customer].delete(:social_friends)
+		end
 
 		if customer
 			customer.update(customer_params)
@@ -39,6 +43,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
 		# Save the current customer
 		@current_customer = customer
+
+		expose @current_customer, only: customer_expose_fields
 	end
 
 
@@ -144,7 +150,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	}
 	EOS
   def show
-		expose current_customer, only: [:first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
+		expose current_customer, only: customer_expose_fields
  	end
 
 
@@ -152,6 +158,10 @@ class Api::V1::CustomersController < Api::V1::BaseController
  		def customer_params
  			params[:customer][:social_friends] ||= []
  			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name, social_friends: []).merge(status: 'active')
+ 		end
+
+ 		def customer_expose_fields
+ 			[:first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
  		end
 
 end

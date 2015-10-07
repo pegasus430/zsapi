@@ -1,6 +1,6 @@
 10/6/15
 	23:16-
-		Got the business crop, colors, and detection all finished. Then I updated the social connections on the business profile page to work and show as connected. Lastly, I set up the PUBLISH social poster.
+		Got the business crop, colors, and detection all finished. Then I updated the social connections on the business profile page to work and show as connected. Lastly, I set up the PUBLISH social poster. ** Tomorrow, setup the onboarding!
 
 10/5/15
 	21:45-

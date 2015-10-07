@@ -24,6 +24,10 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
       it 'returns 200 ok' do
         expect(response.status).to eq 200
       end
+
+      it 'returns the customer object' do
+        expect(response).to be_singular_resource
+      end
     end
 
     context '[Customer email does not exist]' do
