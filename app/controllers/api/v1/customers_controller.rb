@@ -12,7 +12,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	#####
 	api!
 	desc "Signs the customer in by updating the social_token and social_type"
-	example "A successful sign in will return the User object. See the /profile page for details on the hash that is returned."
+	example "A successful sign in will return the customer object. See the /profile page for details on the hash that is returned."
 	param :customer, Hash, required: true do
 		param :email, 					String, desc: "Email address of customer", required: true
 		param :social_token,	 	String, desc: "The social token returns by Facebook/Google+", required: true
