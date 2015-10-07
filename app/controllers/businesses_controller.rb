@@ -60,6 +60,8 @@ class BusinessesController < ApplicationController
 
 
     respond_to do |format|
+      @business.image = convert_data_uri_to_upload(params[:image_datafile]) unless params[:image_datafile].blank?
+
       if @business.update(business_params)
 
         if params[:facebook_page]
