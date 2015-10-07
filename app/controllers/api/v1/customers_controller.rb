@@ -25,8 +25,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	def sign_in
 		customer = Customer.find_by_email(params[:customer][:email])
 
-		if params[:customer][:social_friends].empty?
-			params[:customer].delete(:social_friends)
+		if customer_params[:social_friends].empty?
+			customer_params.delete(:social_friends)
 		end
 
 		if customer
