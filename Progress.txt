@@ -1,3 +1,7 @@
+10/6/15
+	23:16-
+		Got the business crop, colors, and detection all finished. Then I updated the social connections on the business profile page to work and show as connected. Lastly, I set up the PUBLISH social poster.
+
 10/5/15
 	21:45-
 		Got the crop modal working for business pages. Haven't tested the saving yet, but it should be good. I'm adding in the color thief data now. Should only take another hour. After that, make the mobile preview look a little better, then work on the onboarding.

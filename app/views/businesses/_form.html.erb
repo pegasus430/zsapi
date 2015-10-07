@@ -1,5 +1,5 @@
 <!-- Business profile FORM Start -->
-<%= form_for(@business, multipart: true, html: {class: 'business-profile-form form'} ) do |f| %>
+<%= form_for(@business, multipart: true, html: {class: 'form'} ) do |f| %>
   <%= form_errors_for @business %>
 
   <%= wrapper do %>
@@ -59,82 +59,95 @@
 
 
   <%= wrapper :dark do %>
-    <%= section_header "Integrations" %>
+    <%= section_header "Integrations",
+        desc: "Please save all changes to your profile before connecting to an app below." %>
 
     <div class="row">
-      <div class="col-md-9 col-md-offset-3 mobileSocialCentered">
-        <div class="socialBox">
-          <div class="facebookImg" >
-            <%= image_tag('facebook.png') %>
-          </div>
-          <%#= connect_identity_link("facebook") %>
-          <a class="connected open-popup-link" href="#share-popup" >Connected</a>
-        </div>
-        <div class="socialBox">
-          <div class="twitterImg" >
-            <%= image_tag('twitter.png') %>
-          </div>
-          <%#= connect_identity_link("twitter") %>
-          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-        </div>
-        <div class="socialBox">
-          <div class="mailchimpImg" >
-            <%= image_tag('mailchimp.png') %>
-          </div>
-          <%#= connect_identity_link("mailchimp") %>
-          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-        </div>
-        <div class="socialBox">
-          <div class="constantContactImg" >
-            <%= image_tag('constantcontact.png') %>
-          </div>
-          <a class="connect open-popup-link" href="#share-popup" >Connect</a>
-        </div>
+      <div class="col-xs-12 col-sm-3 text-center">
+        <%= image_tag('facebook.png') %>
+        <%= connect_identity_link("facebook") %>
+      </div>
+      <div class="col-xs-12 col-sm-3 text-center">
+        <%= image_tag('twitter.png') %>
+        <%= connect_identity_link("twitter") %>
+      </div>
+      <div class="col-xs-12 col-sm-3 text-center">
+        <%= image_tag('mailchimp.png') %>
+        <%= connect_identity_link("mailchimp") %>
+      </div>
+      <div class="col-xs-12 col-sm-3 text-center">
+        <%= image_tag('constantcontact.png') %>
+        <%= connect_identity_link("constantcontact") %>
       </div>
     </div>
+
+
+    <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+      <%= section_header "Select a Facebook Page" %>
+      
+      <%= fr "Facebook Page" do %>
+        <% current_user.facebook_pages.each do |page| %>
+          <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
+        <% end %>
+      <% end %>
+    <% end %>
+
 
     <div class="row">
       <div class="col-xs-12 text-center">
         <%= f.button %>
       </div>
-      <div class="col-xs-12 text-center">
-        <% if @business.unpublished? && !@business.new_record? %>
-          <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
-        <% end %>
-      </div>
+      
+      <%# SHOW THE PUBLISH BUTTON %>
+      <% if @business.unpublished? && !@business.new_record? %>
+        <div class="col-xs-12 text-center">
+
+          <%# SHOW SHARE_TO MODAL IF CONNECTED TO FB OR TWITTER %>
+          <% if current_user.facebook || current_user.twitter %>
+            <%= link_to 'Save and Publish Profile!', "#", class: 'btn publish', data: {toggle: 'modal', target: '#shareModal'}  %>
+          <% else %>
+            <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
+          <% end %>
+        </div>
+      <% end %>
+
     </div>
 
   <% end %> <%# -wrapper dark %>
 
+  <%# GALLERY MODAL %>
+  <%= modal :large, id: "shareModal", title: "Announce your business!",
+      body: capture { %>
+        <div class="row">
+          <div class="col-xs-12">
+            <p>Now that you are publishing your business on Zippy Spot, you can announce to your followers about the big move!</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <textarea name="shareText">We have just published our business on Zippy Spot!</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <% %w(facebook twitter).each do |i| %>
+              <% unless current_user.send(i).nil? %>
+                <div class="cbox">
+                  <%= check_box_tag "share_to[#{i}]", 1, true, id: "share_to_#{i}" %>
+                  <label for="share_to_<%= i %>">Share to <%= i.humanize %></label>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+  <% }, footer: capture { %>
+    <%= f.button 'Share and Publish!', name: 'publish', class: 'publish' %>
+  <% } %>
+
 <% end %> <%# -form %>
 
-    
-    <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
-      <div class="field">
-      <strong>Select a page for this business</strong><br>
-        <% current_user.facebook_pages.each do |page| %>
-          <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
-        <% end %>
-      </div>
-    <% end %>
-
-
-
-  <!-- Business profile FORM End -->
-
-  <!-- Social POPUP! -->
-  <div id="share-popup" class="white-popup mfp-hide">
-      
-      <div class="container">
-        <textarea name="shareText">@ZIPPYSPOT is ready to Roll!</textarea>
-    </div>
-    <div class="footer">
-      <div class="facebookBox"></div>
-      <div class="twitterBox"></div>
-      <button class="share-btn">SHARE NOW!</button>
-    </div>
-  </div>
-  <!-- Social POPUP end -->
 
 
   <!-- Modal -->
