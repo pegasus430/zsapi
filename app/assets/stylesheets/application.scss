@@ -547,7 +547,8 @@ span.selectOption {
 #header-left {
   color: $header-font-color;
   font-weight: 800;
-  line-height: 22px;
+  line-height: rem(32);
+  font-size: rem(32);
   float: left;
   display: inline-block;
   margin-right: 5px;
