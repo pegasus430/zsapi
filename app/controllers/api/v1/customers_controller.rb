@@ -139,6 +139,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	example <<-EOS
 	{
 	  "response" => Hash {
+	  	id,
 	    first_name,
 	    last_name,
 	    email,
