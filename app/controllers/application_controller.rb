@@ -64,8 +64,12 @@ class ApplicationController < ActionController::Base
   private
 
     def check_business_status
-      if current_user && current_user.business.locked?
-        redirect_to locked_business_url
+      begin
+        if current_user.business.locked?
+          redirect_to locked_business_url
+        end
+      rescue
+        false
       end
     end
 
