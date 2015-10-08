@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Zippyspot
   class Application < Rails::Application
+    config.action_controller.action_on_unpermitted_parameters = :raise
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
