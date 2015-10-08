@@ -161,7 +161,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
  		end
 
  		def customer_expose_fields
- 			[:first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
+ 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
  		end
 
 end
