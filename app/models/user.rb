@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
  	validates_presence_of :email, :encrypted_password, :first_name, :last_name
  	validates_uniqueness_of :email
 
+  after_create :create_default_business
+
  	
  	def name
  		[first_name, last_name].join(' ')
@@ -157,5 +159,12 @@ class User < ActiveRecord::Base
     tweet(message)
     post_to_facebook_page(message)
   end
+
+
+  private
+
+    def create_default_business
+      self.build_business(name: "Your ZS Business")
+    end
 
 end

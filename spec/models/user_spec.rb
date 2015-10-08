@@ -45,4 +45,14 @@ RSpec.describe User, type: :model do
 		end
 	end
 
+
+	describe "Filters" do
+	  describe "after_create .create_default_business" do
+	    it "creates a business after create" do
+	    	u = FactoryGirl.create(:user)
+	    	expect(u.business).not_to be_nil
+	    end
+	  end
+	end
+
 end
