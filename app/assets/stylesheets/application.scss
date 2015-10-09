@@ -330,9 +330,9 @@ span.selectOption {
 // END FIELD ICON
 
 .db-header {
-  width: 75px;
   background: #21213b;
   @include linear-gradient(#21213b, #343f53);
+  width: 75px;
   position: fixed;
   left: 0;
   top: 0;
@@ -341,31 +341,19 @@ span.selectOption {
   z-index: 999;
 
   .logo {
+    text-align: center;
     height: 150px;
-    padding-top: 8px;
     width: 38px;
     overflow: hidden;
-    margin: 15px auto 0;
-    position: relative;
-    left: -3px;
+    margin: 23px auto 0;
     @include transition(.4s);
-    img {
-      margin: 0 auto;
-    }
   }
 
 	body.active_sidebar & {
 	  width: 200px;
 
 	  .logo {
-	    height: 150px;
-	    padding-top: 8px;
 	    width: 100%;
-	    overflow: hidden;
-	    margin: 15px 0 0;
-	    position: relative;
-	    left: 0;
-	    @include transition(.4s);
 	  }
 
 	  .db-navbar {
@@ -431,7 +419,7 @@ span.selectOption {
   }
 
 	&:hover{
-  	overflow: visible ;
+  	overflow: visible;
 	}
 
 	li a:hover {
