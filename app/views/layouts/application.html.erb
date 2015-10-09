@@ -146,9 +146,11 @@
 
 	</div>
 
-	<%= yield :js_footer %>
-
 	<%= javascript_include_tag 'application', params[:controller], 'data-turbolinks-track' => true %>
+	
+	<%= yield :js_footer %>
+	<%= yield :hopscotch_js %>
+
 
 </body>
 </html>

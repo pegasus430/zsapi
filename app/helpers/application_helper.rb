@@ -1,5 +1,15 @@
 module ApplicationHelper
 
+	# Hopscotch helper for menutours
+	def hopscotch(name=nil)
+		name ||= params[:action]
+
+		# if current_user
+		content_for :hopscotch_js do
+			javascript_include_tag "tours/#{name}"
+		end
+	end
+
 	# Left-menu nav items
 	# :ID is used for div ID and image filenames (ico/ico-:ID.ext)
 	def nav_menu_items

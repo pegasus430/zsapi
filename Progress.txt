@@ -1,3 +1,8 @@
+10/8/15
+	21:47-
+		Fixed many errors for commit. Set up a method for adding tours to pages. Adding tours first-thing tomorrow, then I need to add the meta (or serialization) to the DB. After that, do a quick run-through and give Issac an URL. Find Erin!
+
+
 10/7/15
 	17:41-
 		Need to setup onboarding and the meta that goes with it. Must be done today

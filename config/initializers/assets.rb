@@ -13,3 +13,6 @@ Rails.application.config.assets.version = '1.0'
 %w(beacons businesses campaigns customers greetings locations pages subscriptions receipts).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end
+
+# Pre-compile the tours
+Rails.application.config.assets.precompile += ["tours/*.js"]
