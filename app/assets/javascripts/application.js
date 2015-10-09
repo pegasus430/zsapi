@@ -24,25 +24,17 @@ jQuery(document).ready(function($){
 
 	// Navbar Collapsing
 	$(".nav-trigger").click(function() {
-	    $("#home").toggleClass("active");
-	    $(".header").toggleClass("active");
-	    $(".db-header").toggleClass("active");
+	    $("body").toggleClass("active_sidebar");
 	});
 
 	// Swipe to open menu
 	if ( $(!".minicolors").length > 0 )
 	{
 		$('body').on("swipeleft",function(){
-		  $('.ui-overlay-a').removeClass("active");
-		  $('.db-header').removeClass("active");
-		  $('.header').removeClass("active");
-		  $('#home').removeClass("active");
+		  $(this).removeClass("active_sidebar");
 		});
 		$('body').on("swiperight",function(){
-		  $('.ui-overlay-a').addClass("active");
-		  $('.db-header').addClass("active");
-		  $('.header').addClass("active");
-		  $('#home').addClass("active");
+		  $(this).addClass("active_sidebar");
 		});
 	}
 

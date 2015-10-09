@@ -62,12 +62,8 @@ body {
   padding-top: 72px;
   @include transition(.4s);
 
-  &.active {
+  &.active_sidebar {
     padding-left: 200px;
-    overflow-x: hidden;
-    background: $background-color;
-    padding-top: 72px;
-    @include transition(.4s);
   }
 
   &.bare{
@@ -358,7 +354,7 @@ span.selectOption {
     }
   }
 
-	&.active {
+	body.active_sidebar & {
 	  width: 200px;
 
 	  .logo {
@@ -448,43 +444,50 @@ span.selectOption {
 	}
 
 	li#dashboard{
-    &.active a, a:hover {
+    a.active,
+    a:hover {
       border-left-color:$campaigns-color;
   	}
   }
 	
   li#business{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$receipts-color;
     }
 	}
 	
   li#greeting{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$greetings-color;
     }
 	}
 	
   li#campaign{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$campaigns-color;
     }
 	}
 	
   li#customer{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$customers-color;
     }
 	}
 	
   li#receipt{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$receipts-color;
     }
 	}
 	
   li#location{
-    &.active a, & a:hover {
+    a.active,
+    a:hover {
     	border-left-color:$locations-color;
     }
 	}
@@ -534,7 +537,7 @@ span.selectOption {
     cursor: pointer;
   }
 
-	&.active {
+	body.active_sidebar & {
 	  left: 200px;
 	  z-index: 9999;
 	  
@@ -575,7 +578,7 @@ span.selectOption {
       top: -6px;
       width: 42px;
     
-      &.active ,
+      &.active,
       &:hover {
         @include box-shadow(0,1px,3px,rgba(0,0,0,0.12));
         @include transition(.5s);
