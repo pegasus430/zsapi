@@ -13,7 +13,6 @@
 //= require shared/profile_progress
 //= require font-awesome
 
-
 @import 'settings';
 
 .row.no-gutters {
@@ -62,7 +61,7 @@ body {
   padding-top: 72px;
   @include transition(.4s);
 
-  &.active_sidebar {
+  &.active-sidebar {
     padding-left: 200px;
   }
 
@@ -349,7 +348,7 @@ span.selectOption {
     @include transition(.4s);
   }
 
-	body.active_sidebar & {
+	body.active-sidebar & {
 	  width: 200px;
 
 	  .logo {
@@ -525,7 +524,7 @@ span.selectOption {
     cursor: pointer;
   }
 
-	body.active_sidebar & {
+	body.active-sidebar & {
 	  left: 200px;
 	  z-index: 9999;
 	  

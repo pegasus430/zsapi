@@ -24,17 +24,17 @@ jQuery(document).ready(function($){
 
 	// Navbar Collapsing
 	$(".nav-trigger").click(function() {
-	    $("body").toggleClass("active_sidebar");
+	    $("body").toggleClass("active-sidebar");
 	});
 
 	// Swipe to open menu
 	if ( $(!".minicolors").length > 0 )
 	{
 		$('body').on("swipeleft",function(){
-		  $(this).removeClass("active_sidebar");
+		  $(this).removeClass("active-sidebar");
 		});
 		$('body').on("swiperight",function(){
-		  $(this).addClass("active_sidebar");
+		  $(this).addClass("active-sidebar");
 		});
 	}
 

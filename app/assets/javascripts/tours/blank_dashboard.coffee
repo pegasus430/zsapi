@@ -10,52 +10,32 @@
         placement: 'bottom'
       }
       {
-        title: 'Dashboard'
-        content: 'This is where you are now. Once you get your locations and campaigns setup, this page will give you an overview of your business for the day.'
-        target: '#dashboard'
+        title: 'Sidebar'
+        content: 'Your sidebar is always here and allows you to navigate the Zippy Spot app. You can collapse or expand the sidebar by clicking this icon.'
+        target: '.nav-trigger'
         placement: 'right'
       }
       {
-        title: 'Your Business Profile'
-        content: 'Here is where you\'ll setup your business information such as your logo, colors, and social connections.'
-        target: '#business'
-        placement: 'right'
+        title: 'Getting Started'
+        content: 'This green menu shows you a list of tasks that need to be completed prior to publishing your business.'
+        target: '#progress_finger'
+        placement: 'left'
       }
       {
-        title: 'Greetings'
-        content: 'Greetings are little messages that are shown to your customers when they enter or exit your store.'
-        target: '#greeting'
-        placement: 'right'
-      }
-      {
-        title: 'Campaigns'
-        content: 'A campaign is what your customers redeem in-store. These can be coupons, rewards, or specials. Create and manage as many as you\'d like!'
-        target: '#campaign'
-        placement: 'right'
-      }
-      {
-        title: 'Customers'
-        content: 'Here you can view the customers of your business, their contact information, and point totals. You can also import customers from a previous rewards system.'
-        target: '#customer'
-        placement: 'right'
-      }
-      {
-        title: 'Receipts'
-        content: 'As receipts are approved by ZippySpot, they are shown here for your reference.'
-        target: '#receipt'
-        placement: 'right'
-      }
-      {
-        title: 'Locations'
-        content: 'Your business should have at least 1 location, but can have as many as you\'d like. Each location is an individual store and beacon.'
-        target: '#location'
-        placement: 'right'
+        content: 'Let\'s make sure your business profile is up-to-date! Click to begin.'
+        target: '.profile-progress-list li:first a'
+        placement: 'bottom'
+        showNextButton: false
+        showCTAButton: true
+        ctaLabel: "Setup Business Profile"
+        onCTA: ->
+          $('.profile-progress-list li:first a').trigger 'click'
       }
     ]
 
   # Start the tour!
   $('#start_tour').click ->
-    $('body').addClass 'active_sidebar'
+    $('body').addClass 'active-sidebar'
     setTimeout (->
       hopscotch.startTour tour
       return

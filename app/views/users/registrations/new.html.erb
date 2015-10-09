@@ -7,10 +7,20 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= form_errors_for resource %>
 
+  <%= f.fields_for :business, resource.build_business do |builder| %>
+    <%= fr "Business" do %>
+      <div class="row">
+        <div class="col-xs-12">
+          <%= builder.text_field :name %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= fr "Your Name" do %>
     <div class="row">
       <div class="col-xs-6">
-        <%= f.text_field :first_name, placeholder: "First", autofocus: true %>
+        <%= f.text_field :first_name, placeholder: "First" %>
       </div>
       <div class="col-xs-6">
         <%= f.text_field :last_name, placeholder: "Last" %>

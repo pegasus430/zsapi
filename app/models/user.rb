@@ -5,16 +5,17 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :instagram, :mailchimp, :constantcontact]
 
- 	has_one :business
- 	has_many :locations, through: :business
- 	has_many :identities
+  has_one :business
+  accepts_nested_attributes_for :business
+  has_many :locations, through: :business
+  has_many :identities
 
- 	validates_presence_of :email, :encrypted_password, :first_name, :last_name
- 	validates_uniqueness_of :email
+  validates_presence_of :email, :encrypted_password, :first_name, :last_name
+  validates_uniqueness_of :email
 
   after_create :create_default_business
 
- 	
+
  	def name
  		[first_name, last_name].join(' ')
  	end
@@ -164,7 +165,9 @@ class User < ActiveRecord::Base
   private
 
     def create_default_business
-      self.build_business(name: "Your ZS Business")
+      if business.blank?
+        self.build_business(name: "Your ZS Business")
+      end
     end
 
 end

@@ -1,30 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :authenticate_user!
 
-  before_filter :configure_permitted_parameters
-
   # GET /users/sign_up
     # def new
-
     #   # Override Devise default behaviour and create a profile as well
     #   build_resource({})
     #   # resource.build_profile
     #   respond_with self.resource
     # end
-
-    protected
-
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) { |u|
-        u.permit(:email, :password, :password_confirmation, :first_name, :last_name
-          # ,
-          # :business_attributes => [:name, :website,
-            # :locations_attributes => [:address, :address2, :city, :state, :zipcode]
-          # ]
-        )
-      }
-    end
-
 
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
@@ -37,6 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   # def create
   #   super
+  #   if resource.valid?
+  #     resource.build_business(params[:business_name])
+  #   end
   # end
 
   # GET /resource/edit
@@ -63,12 +49,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # You can put the params you want to permit in the empty array.
   # def configure_sign_up_params
   #   devise_parameter_sanitizer.for(:sign_up) << :attribute
   # end
+
+  def sign_up_params
+    params.require(resource_name).permit( :email, :password, :password_confirmation, :first_name, :last_name,
+                                          business_attributes: [:name]
+    )
+  end
 
   # You can put the params you want to permit in the empty array.
   # def configure_account_update_params
