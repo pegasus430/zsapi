@@ -1,3 +1,7 @@
+10/12/15
+	15:05+
+		Adding meta to handle the menu open/close and the touring.
+
 10/8/15
 	21:47-
 		Fixed many errors for commit. Set up a method for adding tours to pages. Adding tours first-thing tomorrow, then I need to add the meta (or serialization) to the DB. After that, do a quick run-through and give Issac an URL. Find Erin!

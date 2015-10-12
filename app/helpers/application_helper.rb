@@ -2,7 +2,7 @@ module ApplicationHelper
 
 	# Hopscotch helper for menutours
 	def hopscotch(name=nil)
-		name ||= params[:action]
+		name ||= [params[:controller], params[:action]].join '-'
 
 		# if current_user
 		content_for :hopscotch_js do
