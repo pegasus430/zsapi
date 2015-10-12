@@ -13,10 +13,10 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :encrypted_password, :first_name, :last_name
   validates_uniqueness_of :email
 
-  serialize :meta
 
   after_create :create_default_business
 
+  serialize :meta
   after_initialize { self.meta ||= {} }
 
 

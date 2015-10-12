@@ -1,12 +1,20 @@
 module ApplicationHelper
 
 	# Hopscotch helper for menutours
+	# Checks the current_user meta to see if the tour has already shown for the page
+	# If not, show it, but do not show it again.
 	def hopscotch(name=nil)
-		name ||= [params[:controller], params[:action]].join '-'
+		unless current_user.blank?
+			name ||= [params[:controller], params[:action]].join '-'
 
-		# if current_user
-		content_for :hopscotch_js do
-			javascript_include_tag "tours/#{name}"
+			unless current_user.meta["hopscotch_#{name}".to_sym].to_i == 1
+				current_user.meta["hopscotch_#{name}".to_sym] = 1
+				current_user.save
+
+				content_for :hopscotch_js do
+					javascript_include_tag "tours/#{name}"
+				end
+			end
 		end
 	end
 

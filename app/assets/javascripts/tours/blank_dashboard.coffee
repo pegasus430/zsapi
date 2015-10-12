@@ -34,11 +34,10 @@
     ]
 
   # Start the tour!
-  $('#start_tour').click ->
-    $('body').addClass 'active-sidebar'
-    setTimeout (->
-      hopscotch.startTour tour
-      return
-    ), 300
+  $('body').addClass 'active-sidebar'
+  setTimeout (->
+    hopscotch.startTour tour
+    return
+  ), 300
 
 ) jQuery
