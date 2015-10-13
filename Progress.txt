@@ -1,4 +1,13 @@
 10/12/15
+	21:41
+		Got most of the receipt admin page done. Currently working on adding the receipt reject reasons. Once that is done, we will work on the style of the page. Lastly, the ajax/functionality of the page. Worked a total of 3.5 hours (probably) today. Log it.
+
+	18:03
+		Going to look into the admin section to quickly setup the approve/reject receipts.
+
+	17:05
+		Added the meta for sidebar, the ajax involved, and the meta for tours.
+
 	15:05+
 		Adding meta to handle the menu open/close and the touring.
 

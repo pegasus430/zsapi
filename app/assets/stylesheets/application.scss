@@ -1432,6 +1432,12 @@ h2 {
     padding: 0 22px;
   }
 
+  &.btn-approve{
+    background: $olive-drab;
+    padding: 0 22px;
+    color:$color-white;
+  }
+
   &.btn-submit{
     background: #33B1FD;
     padding: 0px 22px;

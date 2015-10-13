@@ -1,4 +1,4 @@
-class Admin::ReceiptsController < AdminController
+class Admin::ReceiptsController < Admin::AdminController
   before_action :set_receipt, only: [:update, :destroy]
 
   def index

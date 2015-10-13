@@ -1,46 +1,60 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Receipts</h1>
-
-<p><%= Receipt.untouched.count %> Unapproved receipts</p>
-<p><%= Receipt.approved.from_today.count %> Approved receipts today</p>
-<p><%= Receipt.rejected.from_today.count %> Rejected receipts today</p>
-
-
-<% if @receipts %>
-  <h2>First receipt</h2>
-
-  <div>
-    <img src="/receipts/<%= @first.image_filename %>">
-    <%= render 'form', receipt: @first %>
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel">
+      <h3><%= Receipt.untouched.count %></h3>
+      Unapproved receipts
+    </div>
   </div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel">
+      <h3><%= Receipt.approved.from_today.count %></h3>
+      Approved receipts today
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel">
+      <h3><%= Receipt.rejected.from_today.count %></h3>
+      Rejected receipts today
+    </div>
+  </div>
+</div>
 
+<div class="row">
+  <% if @receipts %>
+    <div class="col-xs-12 col-sm-6">
+      <h2>First receipt</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Location</th>
-        <th>Purchased on</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+      <div>
+        <%= image_tag @first.image %>
+      </div>
+    </div>
 
-    <tbody>
-      <% @receipts.each do |receipt| %>
-        <tr>
-          <td><%= receipt.location %></td>
-          <td><%= receipt.purchased_on %></td>
-          <td><%= link_to 'Show', receipt %></td>
-          <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-          <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <div class="col-xs-12 col-sm-6">
+      <%= render 'form', receipt: @first %>
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Purchased on</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <br>
+        <tbody>
+          <% @receipts.each do |receipt| %>
+            <tr>
+              <td><%= receipt.location %></td>
+              <td><%= receipt.purchased_on %></td>
+              <td><%= link_to 'Show', receipt %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <%= link_to 'New Receipt', new_receipt_path %>
-<% else %>
-  No receipts!
-<% end %>
+  <% else %>
+    <div class="col-xs-12">
+      No receipts!
+    </div>
+  <% end %>
+</div>

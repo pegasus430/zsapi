@@ -3,20 +3,17 @@
   <%= form_errors_for @business %>
 
   <%= wrapper do %>
-    <%= section_header 'Essential Info' %>
+    <%= section_header 'Your Business' %>
 
-    <%= fr 'Name of Business', f.text_field(:name, class: 'businessName') %>
-  <% end %>
+    <%= fr 'Business Name', f.text_field(:name, class: 'businessName') %>
 
-
-  <%= wrapper :dark do %>
-    <%= section_header "Your Logo" %>
-
-    <%= fr "Click the image to edit" do %>
+    <%= fr "Logo (click to edit)" do %>
       <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
       <%= hidden_field_tag :image_datafile %>
     <% end %>
+  <% end %>
 
+  <%= wrapper :dark do %>
     <%= section_header "Style Options" %>
 
     <div class="row contPaletteColors">

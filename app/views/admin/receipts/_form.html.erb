@@ -1,34 +1,24 @@
 <%= form_for([:admin, receipt]) do |f| %>
-  <% if receipt.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+  <%= form_errors_for receipt %>
 
-      <ul>
-      <% receipt.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= fr "Location", "#{receipt.location.business.name} - #{receipt.location.title}" %>
+  <%= fr "Purchased", f.date_select(:purchased_on) %>
+  <%= fr "Receipt Amount", f.number_field(:amount) %>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <div id="approve">
+        <%= f.button "Approve!", name: 'status', value: "approved", class: "btn btn-approve" %>
+      </div>
     </div>
-  <% end %>
+  </div>
 
-  <div class="field">
-    <%= f.label :location_id %><br>
-    <%= f.text_field :location_id %>
-  </div>
-  <div class="field">
-    <%= f.label :purchased_on %><br>
-    <%= f.date_select :purchased_on %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.number_field :amount, id: "Amount" %>
-  </div>
-  <div class="field">
-    <%= f.label :reject_reason %><br>
-    <%= f.text_field :reject_reason %>
-  </div>
-  <div class="actions">
-    <%= f.submit "approved", name: 'status' %>
-    <%= f.submit "rejected", name: 'status' %>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <div id="rejected">
+        <%= f.button "Reject with reason:", name: 'status', value: "rejected", class: "btn btn-reject" %>
+        <%= f.radio_button :reject_reason, "" %>
+      </div>
+    </div>
   </div>
 <% end %>

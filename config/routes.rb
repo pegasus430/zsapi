@@ -67,6 +67,8 @@ Rails.application.routes.draw do
       get '/users/auth/:provider/setup'   => 'omniauth_callbacks#setup'
     end
 
+    get '/users/toggleSidebar', to: "users#toggleSidebar"
+
     # Admins
     devise_for :admins
 

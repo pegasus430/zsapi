@@ -24,7 +24,8 @@ jQuery(document).ready(function($){
 
 	// Navbar Collapsing
 	$(".nav-trigger").click(function() {
-	    $("body").toggleClass("active-sidebar");
+    $("body").toggleClass("active-sidebar");
+    $.get('/users/toggleSidebar');
 	});
 
 	// Swipe to open menu

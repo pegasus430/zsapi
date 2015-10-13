@@ -18,8 +18,17 @@ class Receipt < ActiveRecord::Base
   }
 
 
+  def self.reject_reasons
+    {
+      invalid_location: "The location does not match the receipt.",
+      invalid_location: "The location does not match the receipt.",
+    }
+  end
+
   def reward_points
     amount.floor.to_i
   end
+
+
 
 end
