@@ -101,10 +101,10 @@ Rails.application.routes.draw do
       get '/customers/feed',                to: 'customers#feed'
 
       # Finds a location via UUID
-      get '/beacons/:uuid/location',            to: 'locations#show', defaults: {id: nil}
+      get '/beacons/:uuid/location',            to: 'locations#show'
 
       # Locations
-      get '/locations/:id',                     to: 'locations#show', defaults: {uuid: nil}
+      get '/locations/:id',                     to: 'locations#show'
       get '/locations/:id/campaigns',           to: 'campaigns#index'
       # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
       get '/locations/near/:lat/:lon',          to: 'locations#fetch_nearby', constraints: {lat: /\-?\d+(.\d+)?/, lon: /\-?\d+(.\d+)?/}
