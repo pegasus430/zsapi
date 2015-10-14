@@ -104,8 +104,9 @@ Rails.application.routes.draw do
       # Locations
       get '/locations/:id',                     to: 'locations#show', defaults: {uuid: nil}
       get '/locations/:id/campaigns',           to: 'campaigns#index'
-      get '/locations/near/:lat/:lon',          to: 'locations#fetch_nearby' # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
-      get '/locations/map/:lat/:lon/:distance', to: 'locations#fetch_map'
+      # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
+      get '/locations/near/:lat/:lon',          to: 'locations#fetch_nearby', constraints: {lat: /\-?\d+(.\d+)?/, lon: /\-?\d+(.\d+)?/}
+      get '/locations/map/:lat/:lon/:distance', to: 'locations#fetch_map', constraints: {lat: /\-?\d+(.\d+)?/, lon: /\-?\d+(.\d+)?/}
 
       # Campaigns
       resources :campaigns, only: [:show]
