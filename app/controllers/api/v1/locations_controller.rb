@@ -57,7 +57,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 				longitude: 	loc.longitude,
 				status: 		loc.status,
 				points: 		current_customer.membership_for(loc.business_id).points,
-				visits: 		current_customer.visits_for(loc)
+				visits: 		current_customer.total_visits_for(loc)
 			})
 		else
 			error! :not_found
