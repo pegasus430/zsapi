@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
-    <div class="panel">
+    <div id="untouched_receipts" class="panel">
       <h3><%= Receipt.untouched.count %></h3>
-      Unapproved receipts
+      New receipts
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <div class="panel">
+    <div id="approved_receipts" class="panel">
       <h3><%= Receipt.approved.from_today.count %></h3>
       Approved receipts today
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <div class="panel">
+    <div id="rejected_receipts" class="panel">
       <h3><%= Receipt.rejected.from_today.count %></h3>
       Rejected receipts today
     </div>
@@ -24,32 +24,13 @@
     <div class="col-xs-12 col-sm-6">
       <h2>First receipt</h2>
 
-      <div>
+      <div id="receipt_image">
         <%= image_tag @first.image %>
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-6" id="receipt_form">
       <%= render 'form', receipt: @first %>
-      <table>
-        <thead>
-          <tr>
-            <th>Location</th>
-            <th>Purchased on</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @receipts.each do |receipt| %>
-            <tr>
-              <td><%= receipt.location %></td>
-              <td><%= receipt.purchased_on %></td>
-              <td><%= link_to 'Show', receipt %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
     </div>
 
   <% else %>

@@ -19,10 +19,11 @@ class Receipt < ActiveRecord::Base
 
 
   def self.reject_reasons
-    {
-      invalid_location: "The location does not match the receipt.",
-      invalid_location: "The location does not match the receipt.",
-    }
+    [
+      {id: 'expired',           label: 'Date invalid or missing',          reason:  "The date is not shown or is greater than 30 days ago."},
+      {id: 'invalid_location',  label: 'Location does not match receipt',  reason:  "The location does not match the receipt."},
+      {id: 'unable_to_read',    label: 'Low-quality image',                reason:  "The image is too blurry (unable to read)."},
+    ]
   end
 
   def reward_points

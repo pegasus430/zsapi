@@ -1,3 +1,7 @@
+10/13/15
+	21:53-
+		Working on the remote JS form on the admin receipts page. Research the remote form and setup the page. After that, we should be set!
+
 10/12/15
 	21:41
 		Got most of the receipt admin page done. Currently working on adding the receipt reject reasons. Once that is done, we will work on the style of the page. Lastly, the ajax/functionality of the page. Worked a total of 3.5 hours (probably) today. Log it.

@@ -1,0 +1,18 @@
+$('#untouched_receipts').val( <%= @receipts.size %> );
+
+<% if @receipt.approved? %>
+  $('#approved_receipts').val( function(i, oldval) {
+    return parseInt( oldval, 10) + 1;
+  });
+<% else %>
+  $('#rejected_receipts').val( function(i, oldval) {
+    return parseInt( oldval, 10) + 1;
+  });
+<% end %>
+
+<% if @receipts %>
+  $('#receipt_image').val( <%= escape_javascript( image_tag(@first.image) ); %> );
+  $('#receipt_form').val( <%= escape_javascript(render('form', receipt: @first)); %> );
+<% else %>
+  No receipts!
+<% end %>

@@ -1438,6 +1438,12 @@ h2 {
     color:$color-white;
   }
 
+  &.btn-reject{
+    background: $torch-red;
+    padding: 0 22px;
+    color:$color-white;
+  }
+
   &.btn-submit{
     background: #33B1FD;
     padding: 0px 22px;

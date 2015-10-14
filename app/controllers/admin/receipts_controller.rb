@@ -4,24 +4,28 @@ class Admin::ReceiptsController < Admin::AdminController
   def index
     @receipts = Receipt.untouched.limit(10)
     @first = @receipts.first
+
+    respond_to do |format|
+      format.js { render :index, status: :ok, location: @receipt }
+    end
   end
 
   def update
     respond_to do |format|
-      if @receipt.update(receipt_params)
-        if @receipt.approved?
-          unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
-            @receipt.redemption.award_points_to_customer!
-            @receipt.redemption.award_points_to_referrer!
-          end
-        end
+      # if @receipt.update(receipt_params)
+      #   if @receipt.approved?
+      #     unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
+      #       @receipt.redemption.award_points_to_customer!
+      #       @receipt.redemption.award_points_to_referrer!
+      #     end
+      #   end
 
-        format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
-        format.json { render :show, status: :ok, location: @receipt }
-      else
-        format.html { render :index }
-        format.json { render json: @receipt.errors, status: :unprocessable_entity }
-      end
+        # format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
+        format.js { render :index, status: :ok, location: @receipt }
+      # else
+        # format.html { render :index }
+        # format.json { render json: @receipt.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
@@ -43,6 +47,7 @@ class Admin::ReceiptsController < Admin::AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
+      params[:receipt][:status] ||= "rejected"
       params.require(:receipt).permit(:location_id, :purchased_on, :amount, :reject_reason, :status)
     end
 end

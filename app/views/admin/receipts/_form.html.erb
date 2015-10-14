@@ -1,4 +1,4 @@
-<%= form_for([:admin, receipt]) do |f| %>
+<%= form_for([:admin, receipt], remote: true) do |f| %>
   <%= form_errors_for receipt %>
 
   <%= fr "Location", "#{receipt.location.business.name} - #{receipt.location.title}" %>
@@ -6,18 +6,16 @@
   <%= fr "Receipt Amount", f.number_field(:amount) %>
 
   <div class="row">
-    <div class="col-xs-12 text-center">
-      <div id="approve">
-        <%= f.button "Approve!", name: 'status', value: "approved", class: "btn btn-approve" %>
+    <div class="col-xs-12 col-sm-6">
+      <div id="approved">
+        <%= f.button "Approve!", name: 'receipt[status]', value: "approved", class: "btn btn-approve" %>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12 text-center">
+    <div class="col-xs-12 col-sm-6">
       <div id="rejected">
-        <%= f.button "Reject with reason:", name: 'status', value: "rejected", class: "btn btn-reject" %>
-        <%= f.radio_button :reject_reason, "" %>
+        <% Receipt.reject_reasons.each do |r| %>
+          <%= f.button r[:label], name: 'receipt[reject_reason]', value: r[:id], class: "btn btn-reject" %>
+        <% end %>
       </div>
     </div>
   </div>
