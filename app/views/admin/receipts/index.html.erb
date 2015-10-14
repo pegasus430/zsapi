@@ -19,23 +19,6 @@
   </div>
 </div>
 
-<div class="row">
-  <% if @receipts %>
-    <div class="col-xs-12 col-sm-6">
-      <h2>First receipt</h2>
-
-      <div id="receipt_image">
-        <%= image_tag @first.image %>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-6" id="receipt_form">
-      <%= render 'form', receipt: @first %>
-    </div>
-
-  <% else %>
-    <div class="col-xs-12">
-      No receipts!
-    </div>
-  <% end %>
+<div id="edit-form">
+  <%= render 'form', receipt: @receipt %>
 </div>

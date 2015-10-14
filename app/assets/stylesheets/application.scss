@@ -65,7 +65,8 @@ body {
     padding-left: 200px;
   }
 
-  &.bare{
+  &.bare,
+  &.admin{
     padding: $row-gutter;
   }
 }

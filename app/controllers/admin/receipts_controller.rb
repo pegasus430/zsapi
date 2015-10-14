@@ -2,30 +2,28 @@ class Admin::ReceiptsController < Admin::AdminController
   before_action :set_receipt, only: [:update, :destroy]
 
   def index
-    @receipts = Receipt.untouched.limit(10)
-    @first = @receipts.first
-
-    respond_to do |format|
-      format.js { render :index, status: :ok, location: @receipt }
+    if Rails.env.development?
+      Receipt.update_all(status: 'untouched') ## TEMP TEST DEV LOCAL
     end
+    @receipt = Receipt.untouched.first
   end
 
   def update
     respond_to do |format|
-      # if @receipt.update(receipt_params)
-      #   if @receipt.approved?
-      #     unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
-      #       @receipt.redemption.award_points_to_customer!
-      #       @receipt.redemption.award_points_to_referrer!
-      #     end
-      #   end
-
-        # format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
-        format.js { render :index, status: :ok, location: @receipt }
-      # else
-        # format.html { render :index }
-        # format.json { render json: @receipt.errors, status: :unprocessable_entity }
-      # end
+      @receipt.attributes = receipt_params
+      if @receipt.save(validate: false)
+        if @receipt.approved?
+          unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
+            @receipt.redemption.award_points_to_customer!
+            @receipt.redemption.award_points_to_referrer!
+          end
+        end
+        format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
+        format.js
+      else
+        format.html { render :index }
+        format.json { render json: @receipt.errors, status: :unprocessable_entity }
+      end
     end
   end
 

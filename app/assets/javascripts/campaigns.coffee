@@ -1,4 +1,5 @@
 #= require shared/cropbox_setup
+#= require shared/datepicker
 
 # START JQUERY
 (($) ->
@@ -10,14 +11,6 @@
     else
       $('.customDaySelector').removeClass 'active'
     return
-
-
-  # DATE PICKER!
-  if $('.input-group.date').length
-    $('.input-group.date').datepicker
-      autoclose:      true
-      orientation:    'top'
-      todayHighlight: true
 
 
   # DAYs PICKER

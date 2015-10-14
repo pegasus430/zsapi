@@ -1,3 +1,6 @@
+10/14/15
+	Worked on the receipts page today. It is nearly done! Today I got the ajax working, and the page styled a little better (good enough). Next I need tosetup the date picker and ensure it works between ajax calls. Lastly, I ** need to test it with an image so it can actually save.
+
 10/13/15
 	21:53-
 		Working on the remote JS form on the admin receipts page. Research the remote form and setup the page. After that, we should be set!
