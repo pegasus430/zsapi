@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   apipie
-  if Rails.env.development? || Rails.env.test?
+  # if Rails.env.development? || Rails.env.test?
 
     concern :datable do
       member do
@@ -85,7 +85,7 @@ Rails.application.routes.draw do
 
     # Root
     root 'pages#dashboard'
-  end
+  # end
 
 
   ## API
