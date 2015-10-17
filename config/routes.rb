@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   apipie
-  if Rails.env.development? || Rails.env.test?
+  # if Rails.env.development? || Rails.env.test?
 
     concern :datable do
       member do
@@ -121,6 +121,6 @@ Rails.application.routes.draw do
       # Referrals
       resources :share_links, only: [:show, :create]
     end
-  end
+  # end
 
 end
