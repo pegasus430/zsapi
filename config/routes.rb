@@ -83,7 +83,7 @@ Rails.application.routes.draw do
 
     # Root
     root 'pages#dashboard'
-  end
+  # end
 
 
   ## API
@@ -121,6 +121,6 @@ Rails.application.routes.draw do
       # Referrals
       resources :share_links, only: [:show, :create]
     end
-  # end
+  end
 
 end
