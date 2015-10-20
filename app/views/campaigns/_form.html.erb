@@ -158,31 +158,32 @@
 
   
   <%= wrapper :dark do %>
-    <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
+    <% if current_user.facebook || current_user.twitter %>
+      <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
 
-    <div id="campaignSyndication">
-      <div class="row">
+      <div id="campaignSyndication">
+        <div class="row">
 
-        <% if current_user.facebook %>
-          <div class="col-xs-12 col-sm-6 text-center">
-            <div class="socialBox">
-              <label class="facebookImg" for="facebook"></label>
-              <%= cbox "facebook", "", value: "1", checked: true %>
+          <% if current_user.facebook %>
+            <div class="col-xs-12 col-sm-6 text-center">
+              <div class="socialBox">
+                <label class="facebookImg" for="facebook"></label>
+                <%= cbox "facebook", "", value: "1", checked: true %>
+              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
 
-        <% if current_user.twitter %>
-          <div class="col-xs-12 col-sm-6 text-center">
-            <div class="socialBox">
-              <label class="twitterImg" for="twitter"></label>
-              <%= cbox "twitter", "", value: "1", checked: true %>
+          <% if current_user.twitter %>
+            <div class="col-xs-12 col-sm-6 text-center">
+              <div class="socialBox">
+                <label class="twitterImg" for="twitter"></label>
+                <%= cbox "twitter", "", value: "1", checked: true %>
+              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
-
-    </div>
+    <% end %> <%# -IF SOCIAL %>
     
     <div class="row">
       <div class="col-xs-12 text-center">
