@@ -17,11 +17,13 @@
 	<%# CAMPAIGN CONTENT %>
 	<%= render 'campaigns/card_index', campaigns: @campaigns %>
 
-	<div class="row content-head">
-		<div class="col-xs-12 text-right">
-			<%= link_to "View All Campaigns", campaigns_url, class: "btn btn-browse" %>
+	<% if @campaigns %>
+		<div class="row">
+			<div class="col-xs-12 text-right">
+				<%= link_to "View All Campaigns", campaigns_url, class: "btn btn-browse" %>
+			</div>
 		</div>
-	</div>
+	<% end %>
 <% end %> <%# -wrapper %>
 
 

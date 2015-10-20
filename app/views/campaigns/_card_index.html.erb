@@ -17,5 +17,9 @@
     <% end %>
   </div>
 <% else %>
-  <h3>No active campaigns!</h3>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      No campaigns yet! <%= link_to 'Create One!', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+    </div>
+  </div>
 <% end %>

@@ -1,3 +1,10 @@
+10/20/15
+	09:55+
+		Fixing small errors here and there from the card:
+			- Campaign form page
+			- Dashboard campaign index
+			- Modal not working for new campaign
+
 10/14/15
 	Worked on the receipts page today. It is nearly done! Today I got the ajax working, and the page styled a little better (good enough). Next I need tosetup the date picker and ensure it works between ajax calls. Lastly, I ** need to test it with an image so it can actually save.
 
