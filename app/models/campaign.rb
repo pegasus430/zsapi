@@ -1,5 +1,8 @@
 class Campaign < ActiveRecord::Base
   include Locationable
+  include DatePickable
+
+  datepicker [:start_at, :end_at]
 
   enum type_of: [:coupon, :reward, :special]
   enum discount_type: [:amount, :percent]
@@ -36,6 +39,8 @@ class Campaign < ActiveRecord::Base
   def most_popular_location
     locations.find( redemptions.group(:location_id).count.max_by{|k,v| v}.first ) rescue nil
   end
+
+
 
 
 end

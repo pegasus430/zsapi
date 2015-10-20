@@ -21,7 +21,7 @@ class CampaignsController < ApplicationController
   def create
     @campaign = current_user.business.campaigns.build(campaign_params)
     @campaign.image = convert_data_uri_to_upload(params[:image_datafile]) unless params[:image_datafile].blank?
-
+    byebug
     respond_to do |format|
       if @campaign.save
 
