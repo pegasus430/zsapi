@@ -128,7 +128,7 @@ class PagesController < ApplicationController
 	  	}
 	  end
 
-  	render 'blank_dashboard' if @campaigns.blank? && current_user.business.unpublished?
+  	render 'blank_dashboard' if (@campaigns.blank? || @locations.blank?)
   end
 
 end
