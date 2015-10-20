@@ -686,64 +686,6 @@ span.selectOption {
 
 
 
-.battery-ui {
-  position: absolute;
-  top: 48px;
-  width: 230px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
-  @include border-radius(3px);
-  left: -8px;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  background: $color-white;
-  z-index: 999;
-  li {
-    color: #848c8f;
-    margin-bottom: 20px;
-    span {
-      width: 70px;
-      height: 3px;
-      background: #cdcdcd;
-      position: relative;
-      display: inline-block;
-      float: right;
-      top: 8px;
-      em {
-        position: absolute;
-        height: 3px;
-        background: #6aa725;
-        top: 0;
-        left: 0px;
-      
-      	&.bg-color2 {
-        	background: #ea232a;
-      	}
-      	&.bg-color3 {
-        	background: $locations-color;
-      	}
-      }
-    }
-  }
-
-  li:last-child {
-    margin-bottom: 0px;
-  }
-
-	&.active {
-	  opacity: 1;
-	  visibility: visible;
-	}
-	&::after {
-	  content: "";
-	  height: 9px;
-	  width: 18px;
-	  position: absolute;
-	  top: -9px;
-	  left: 20px;
-	  background: image-url('bubble1.png') no-repeat;
-	}
-}
 
 .bare-wrap {
   #logo{
