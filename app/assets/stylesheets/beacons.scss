@@ -11,11 +11,11 @@ table {
 	}
 
 	th{
-		background: $table-head-color;
-		color:$color-white;
+		background: $c-table-head;
+		color:$white;
 	}
 
 	td{
-		background:$color-white;
+		background:$white;
 	}
 }

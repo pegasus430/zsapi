@@ -3,7 +3,7 @@
     <% @campaigns.each do |c| %>
       <div class="col-xs-12 col-sm-3">
         <div class="card">
-          <div class="badge bg-color2"><%= c.type_of.humanize %></div>
+          <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>
           <%= image_tag c.image, class: "img-responsive" %>
           <div class="card-info">
             <h3><%= c.title %></h3>

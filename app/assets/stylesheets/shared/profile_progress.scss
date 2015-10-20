@@ -27,11 +27,10 @@
     }
   }
   em {
-    color: $color-white;
+    color: $white;
     font-style: normal;
     font-size: 27px;
 
-   $businesses-color: #0ab58f;
     letter-spacing: -1.1px;
     font-weight: 400;
     margin: -1px auto 0;
@@ -45,10 +44,10 @@ ul.profile-progress-list {
   margin: 0 auto;
 
   li {
-      color: $color-white;
+      color: $white;
 
     a{
-      color: $color-white;
+      color: $white;
       font-size: 14px;
       font-weight: bold;
       opacity: .5;
@@ -73,7 +72,7 @@ ul.profile-progress-list {
 
   h5 {
     margin: 0 0 8px;
-    color: $color-white;
+    color: $white;
     font-family: 'Roboto Condensed';
     font-size: 16px;
     text-align: right;
@@ -88,7 +87,7 @@ ul.profile-progress-list {
       width: 25%;
       height: 7px;
       display: table;
-      background: $color-white;
+      background: $white;
       position: absolute;
       top: 0px;
       left: 0px;

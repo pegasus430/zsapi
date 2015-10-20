@@ -6,7 +6,7 @@
 }
 .white-popup {
   position: relative;
-  background: $modal-background-color;
+  background: $c-modal-background;
   padding: 20px 57px;
   width: 900px;
   margin: 20px auto;
@@ -95,7 +95,7 @@
 #preview-popup.white-popup{
   height: 626px;
   width: 434px ;
-  background: $modal-background-color image-url('mobileTemplate.png') center center no-repeat;
+  background: $c-modal-background image-url('mobileTemplate.png') center center no-repeat;
   .container{
     width: 255px !important;
     margin: 0 auto !important;
@@ -108,7 +108,7 @@
       width: 229px;
 
       .previewHeader{
-        background-color: $locations-color;
+        background-color: $c-location;
         img{
           width: 100%;
           min-height: 70px;
@@ -219,7 +219,7 @@
       
     }
     .share-btn{
-      background: $businesses-color;
+      background: $c-business;
       color: #FFF;
       padding: 18px 43px;
       font-size: 20px;
@@ -258,7 +258,7 @@
 
 .modal {
   .modal-header{
-    background-color:$modal-background-color;
+    background-color:$c-modal-background;
     border-bottom: 0;
   }
 
@@ -267,14 +267,14 @@
     text-align: center;
   }
 
-  .modal-body {background: $modal-background-color;  padding: 0 $row-gutter $row-gutter}
+  .modal-body {background: $c-modal-background;  padding: 0 $row-gutter $row-gutter}
 
   .modal-content {width: 900px;}
   
 
   // CAMPAIGN ITEMS
   a.item{
-    background:$color-white;
+    background:$white;
     padding: $row-gutter 0;
     display: block;
     text-align: center;

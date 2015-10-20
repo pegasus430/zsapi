@@ -1,50 +1,51 @@
 @import "bourbon";
 
 // COLOR NAMES AND USES
-$olive-drab: #6AA725;       // Success
-$milano-red: #C40808;       // Locations
-$havelock-blue: #4A90E2;    // Rewards
-$torch-red: #FF0040;        // Error alerts
-$crimson: #ED1C24;          // Customers
-$turquoise: #4CD9BA;        // Coupons
-$dodger-blue: #34B1FC;      // Campaigns
-$amber: #F5C400;            // Locations
-$gold: #FED700;             // Greetings
-$niagara: #0AB58F;          // Businesses, Success alert
-$athens-gray: #EDECF0;      // Modal background
-$mischka: #DDDCE0;
-$pickled-bluewood: #2C364A; // Menu bar bg
-$mine-shaft: #333333;
-$tundora: #4A4A4A;          // Body font color
 $alabaster: #F9F9F9;
-$gallery: #EEEEEE;
 $alto: #D8D8D8;
-$silver: #C0C0C0;
+$amber: #F5C400;            // Locations
+$athens-gray: #EDECF0;      // Modal background
+$crimson: #ED1C24;          // Customers
+$dodger-blue: #34B1FC;      // Campaigns
+$gallery: #EEEEEE;
+$gold: #FED700;             // Greetings
+$havelock-blue: #4A90E2;    // Rewards
+$milano-red: #C40808;       // Locations
+$mine-shaft: #333333;
+$mischka: #DDDCE0;
+$niagara: #0AB58F;          // Businesses, Success alert
+$olive-drab: #6AA725;       // Success
 $osio-gray: #838D8F;
+$pickled-bluewood: #2C364A; // Menu bar bg
+$silver: #C0C0C0;
+$torch-red: #FF0040;        // Error alerts, Specials
+$tundora: #4A4A4A;          // Body font color
+$turquoise: #4CD9BA;        // Coupons
+$white: #fff;
 
 
 // COLORS
-$businesses-color: $niagara;
-$campaigns-color: $dodger-blue;
-$customers-color: $crimson;
-$greetings-color: $gold;
-$locations-color: $amber;
-$receipts-color: $niagara;
+$c-business: $niagara;
+$c-campaign: $dodger-blue;
+$c-customer: $crimson;
+$c-greeting: $gold;
+$c-location: $amber;
+$c-receipt: $niagara;
 
 $error-background-color: $torch-red;
 $background-color: #edecf1;
-$label-color: $tundora;
-$modal-background-color: $athens-gray;
-$table-head-color: $osio-gray;
+$c-label: $tundora;
+$c-modal-background: $athens-gray;
+$c-table-head: $osio-gray;
 $header-font-color: $mine-shaft;
 
-$coupon-color: $turquoise;
-$reward-color: $havelock-blue;
+$c-coupon: $turquoise;
+$c-reward: $havelock-blue;
+$c-special: $torch-red;
 
 $button-font-color: #3b3c40;
 $color-tooltip-font: #32B1FE;
 
-$color-white: #fff;
 $border-color: #ccc;
 $dark-border-color: darken($border-color, 20%);
 

@@ -77,14 +77,14 @@
   margin-top: $row-gutter/2;
 }
 .connected, .connect:hover{
-  background: $color-white;
+  background: $white;
   @include transition();
   padding-left: 25px;
 }
 
 .publish{
-  background: $businesses-color;
-  color:$color-white;
+  background: $c-business;
+  color:$white;
   margin-top: $row-gutter/2;
   padding: 0px 45px;
 }
@@ -142,7 +142,7 @@
       width: 229px;
 
       .previewHeader{
-        background-color: $locations-color;
+        background-color: $c-location;
         img{
           width: 100%;
           min-height: 70px;

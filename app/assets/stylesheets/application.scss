@@ -124,7 +124,7 @@ a, a:hover, a:active {
     }
   }
   em {
-    color: $color-white;
+    color: $white;
     font-style: normal;
     font-size: 35px;
     letter-spacing: -1.1px;
@@ -142,7 +142,7 @@ a, a:hover, a:active {
 }
 
 .form-content {
-  background: $color-white;
+  background: $white;
   padding: 56px 130px 60px 50px;
   position: relative;
 
@@ -160,7 +160,7 @@ a, a:hover, a:active {
       padding-right: 19px;
       text-transform: uppercase;
       font-size: 15px;
-      color: $label-color;
+      color: $c-label;
       line-height: 47px;
       font-weight: 500;
     }
@@ -196,7 +196,7 @@ a, a:hover, a:active {
     display: table;
     border: none;
     @include border-radius(22px);
-    color: $color-white;
+    color: $white;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 800;
@@ -238,7 +238,7 @@ span.selected {
   z-index: 8888;
 
 	&.active {
-	  background: $color-white;
+	  background: $white;
 	  @include box-shadow();
 	}
 }
@@ -268,7 +268,7 @@ div.selectOptions {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   overflow: hidden;
-  background: $color-white;
+  background: $white;
   display: none;
   padding-bottom: 8px;
   @include box-shadow();
@@ -310,7 +310,7 @@ span.selectOption {
   }
 
   &:hover{
-    background:$color-white;
+    background:$white;
     border-color: $color-tooltip-font;
     color: $color-tooltip-font;
   }
@@ -318,11 +318,11 @@ span.selectOption {
 }
 
 .tooltip.bottom .tooltip-arrow{
-  border-bottom-color:$color-white !important;
+  border-bottom-color:$white !important;
 }
 .tooltip-inner {
   @include box-shadow();
-  background: $color-white;
+  background: $white;
   color: $color-tooltip-font;
   padding: $row-gutter/2;
   width: em(250);
@@ -428,55 +428,55 @@ span.selectOption {
 	  border-left: 5px solid #33b1fd;
 	  padding: 0px 25px 0px 65px !important;
 	  @include transition(.4s);
-	  color:$color-white;
+	  color:$white;
 	}
 
 	li#dashboard{
     a.active,
     a:hover {
-      border-left-color:$campaigns-color;
+      border-left-color:$c-campaign;
   	}
   }
 	
   li#business{
     a.active,
     a:hover {
-    	border-left-color:$receipts-color;
+    	border-left-color:$c-receipt;
     }
 	}
 	
   li#greeting{
     a.active,
     a:hover {
-    	border-left-color:$greetings-color;
+    	border-left-color:$c-greeting;
     }
 	}
 	
   li#campaign{
     a.active,
     a:hover {
-    	border-left-color:$campaigns-color;
+    	border-left-color:$c-campaign;
     }
 	}
 	
   li#customer{
     a.active,
     a:hover {
-    	border-left-color:$customers-color;
+    	border-left-color:$c-customer;
     }
 	}
 	
   li#receipt{
     a.active,
     a:hover {
-    	border-left-color:$receipts-color;
+    	border-left-color:$c-receipt;
     }
 	}
 	
   li#location{
     a.active,
     a:hover {
-    	border-left-color:$locations-color;
+    	border-left-color:$c-location;
     }
 	}
 
@@ -505,7 +505,7 @@ span.selectOption {
 .header {
   height: 72px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.2);
-  background: $color-white none repeat scroll 0% 0%;
+  background: $white none repeat scroll 0% 0%;
   padding: 23px 20px;
   position: fixed;
   top: 0;
@@ -559,7 +559,7 @@ span.selectOption {
       @include border-radius(50%);
       @include transition(.3s);
       display: block;
-      background: $color-white;
+      background: $white;
       height: 42px;
       padding: 4px;
       position: relative;
@@ -598,7 +598,7 @@ span.selectOption {
               left: 0px;
             
               &.green {background: #6aa725;}
-              &.yellow {background: $locations-color;}
+              &.yellow {background: $c-location;}
               &.red {background: #ea232a;}
             }
           }
@@ -655,7 +655,7 @@ span.selectOption {
   @include transition(.4s);
   @include box-shadow();
   min-height:300px;
-  background: $color-white;
+  background: $white;
   position: relative;
   overflow: hidden;
  
@@ -664,7 +664,7 @@ span.selectOption {
     text-align: center;
 
     h3 {
-      color: $label-color;
+      color: $c-label;
       font-size: 20px;
       font-weight: 800;
     }
@@ -677,8 +677,8 @@ span.selectOption {
       color: $border-color;
 
       &:hover{
-        color: $campaigns-color;
-        border-color: $campaigns-color;
+        color: $c-campaign;
+        border-color: $c-campaign;
       }
     }
   }
@@ -697,7 +697,7 @@ span.selectOption {
   width: 100%;
   max-width: $bare-form-width;
   margin: 0 auto;
-  background: $color-white;
+  background: $white;
   @include border-radius(4px);
   @include box-shadow();
 
@@ -769,14 +769,14 @@ span.selectOption {
 .page-head {
   padding: 2px 0 5px;
   h4 {
-    color: $color-white;
+    color: $white;
     font-size: 60px;
     text-align: center;
     font-weight: 200;
   }
 
   body.dashboard &{
-    background-color: $campaigns-color;
+    background-color: $c-campaign;
   }
 }
 
@@ -789,7 +789,7 @@ form,
       padding-right: 19px;
       text-transform: uppercase;
       font-size: 15px;
-      color: $label-color;
+      color: $c-label;
       line-height: 47px;
       font-weight: 500;
 
@@ -803,7 +803,7 @@ form,
     }
   }
   input {
-    background: $color-white;
+    background: $white;
     width: 100%;
     height: 44px;
     @include border-radius(3px);
@@ -841,7 +841,7 @@ form,
 .radio{
   margin-top: 0px;
   label{
-    color:$label-color;
+    color:$c-label;
   }
   input{
     display: block;
@@ -892,11 +892,11 @@ input[type="radio"]:checked + label {
 }
 
 .payment{
-  background: $table-head-color;
+  background: $c-table-head;
   margin-top: 50px;
   span{
     font-size: 30px;
-    color: $color-white;
+    color: $white;
     font-weight: light !important;
     padding: 20px 28px;
     width: 49%;
@@ -910,49 +910,45 @@ input[type="radio"]:checked + label {
 }
 
 .badge {
-  border-radius: 0;
   width: 200px;
   text-transform: uppercase;
   font-size: 13px;
   height: 30px;
   line-height: 25px;
   position: absolute;
-  -webkit-transform: rotate(30deg);
-  -ms-transform: rotate(30deg);
-  transform: rotate(30deg);
+
+  @include transform(rotate(30deg));
   right: -67px;
   top: 9px;
-}
-.bg-color2,.badge.bg-color2 {
-  background: #4cd8bb;
-}
-.badge.bg-color3 {
-  background: #ff0141;
-}
-.page-head.bg-color4 {
-  background:#8F8F8F;
-}
-.badge.bg-color4 {
-  background: #4990e2;
-}
-.bg-color5,.badge.bg-color5 {
-  background: $table-head-color;
+
+  &.coupon{
+    background: $c-coupon;
+  }
+
+  &.reward{
+    background: $c-reward;
+  }
+
+  &.special{
+    background: $c-special;
+  }
 }
 
-.bg-color6, .badge.bg-color6,
 body.campaigns .page-head,
 body.campaigns .bagde{
-  background: $campaigns-color;
+  background: $c-campaign;
 }
 
-.bg-color7, .badge.bg-color7, body.businesses.edit .page-head{
-  background: $businesses-color;
+body.businesses.edit .page-head{
+  background: $c-business;
 }
 
-.bg-color8,
 body.customers .page-head {
-  background: $customers-color;
+  background: $c-customer;
 }
+
+
+
 
 .profile-form {
   padding: 75px 0 120px;
@@ -992,30 +988,30 @@ body.customers .page-head {
 
 /* FIRST INDEX STYLES */
 
-.NewIndex{
-  h2, h3, p{
-    text-align: center !important;
-    color: $label-color;
-    font-weight: 500;
-  }
-  h2{
-    font-size: 44px;
-    margin: 51px 0 14px;
-  }
-  h3{
-    font-size: 27px;
-    margin-bottom: 13px;
-  }
-  p{
-    font-size: 16px;
-    color: #a3a3a3;
-    margin-bottom: 35px;
-  }
-  img{
-    display: block;
-    margin: 0px auto;
-  }
-}
+// .NewIndex{
+//   h2, h3, p{
+//     text-align: center !important;
+//     color: $c-label;
+//     font-weight: 500;
+//   }
+//   h2{
+//     font-size: 44px;
+//     margin: 51px 0 14px;
+//   }
+//   h3{
+//     font-size: 27px;
+//     margin-bottom: 13px;
+//   }
+//   p{
+//     font-size: 16px;
+//     color: #a3a3a3;
+//     margin-bottom: 35px;
+//   }
+//   img{
+//     display: block;
+//     margin: 0px auto;
+//   }
+// }
 
 
 
@@ -1024,12 +1020,12 @@ body.customers .page-head {
 /* TABLE STYLES */
 .table{
   thead{
-    background-color: $table-head-color;
+    background-color: $c-table-head;
     .first{
       width:50px;
     }
     th{
-      color: $color-white;
+      color: $white;
       font-weight: 500;
     }
   }
@@ -1043,23 +1039,25 @@ body.customers .page-head {
         -moz-border-radius: 50%;
         border-radius: 50%;
         font-size: 11px;
-        color: $color-white;
+        color: $white;
         padding: 2px 5px;
         margin-left: 7px;
 
-      }
-      .red{
-        background: $customers-color;
-      }
-      .blue{
-        background: $reward-color;
-      }
-      .green{
-        background: $coupon-color;
+        &.coupon{
+          background: $c-coupon;
+        }
+
+        &.reward{
+          background: $c-reward;
+        }
+
+        &.special{
+          background: $c-special;
+        }
       }
       .active {
-        border: 1px solid $campaigns-color;
-        background: $campaigns-color;
+        border: 1px solid $c-campaign;
+        background: $c-campaign;
         padding: 0px 6px;
       }
       .disabled {
@@ -1251,7 +1249,7 @@ h2 {
 
 // BUTTONS
 .btn{
-  background: $color-white image-url('ico/ico_plus.png') no-repeat 23px center;
+  background: $white image-url('ico/ico_plus.png') no-repeat 23px center;
   padding: 0px 25px 0 50px;
   line-height: 32px;
   border-radius: 22px;
@@ -1302,13 +1300,13 @@ h2 {
   &.btn-approve{
     background: $olive-drab;
     padding: 0 22px;
-    color:$color-white;
+    color:$white;
   }
 
   &.btn-reject{
     background: $torch-red;
     padding: 0 22px;
-    color:$color-white;
+    color:$white;
   }
 
   &.btn-submit{
@@ -1317,7 +1315,7 @@ h2 {
     text-align: center;
     margin: $row-gutter auto 0;
     border: none;
-    color: $color-white;
+    color: $white;
     letter-spacing: 2px;
 
     &:hover {
