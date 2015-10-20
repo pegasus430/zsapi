@@ -148,16 +148,12 @@
           </select>
         </div>
       </div>
-    <% end %
+    <% end %>
   <% end %> <%# -wrapper %>
 
   <%= wrapper :dark do %>
     <%= section_header "Recurring Schedule" %>
-    <%# f.fields_for @schedule do |builder| %>
-      <%= render 'schedules/form' %>
-    <%# end %>
-
-
+    <%= render 'schedules/form' %>
   <% end %> <%# -wrapper %>
 
   
