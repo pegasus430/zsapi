@@ -778,6 +778,30 @@ span.selectOption {
   body.dashboard &{
     background-color: $c-campaign;
   }
+
+  body.campaigns & {
+    background: $c-campaign;
+  }
+
+  body.greetings & {
+    background: $c-greeting;
+  }
+
+  body.businesses.edit &{
+    background: $c-business;
+  }
+
+  body.customers & {
+    background: $c-customer;
+  }
+
+  body.locations & {
+    background: $c-location;
+  }
+
+  body.receipts & {
+    background: $c-receipt;
+  }
 }
 
 form,
@@ -934,18 +958,6 @@ input[type="radio"]:checked + label {
   }
 }
 
-body.campaigns .page-head,
-body.campaigns .bagde{
-  background: $c-campaign;
-}
-
-body.businesses.edit .page-head{
-  background: $c-business;
-}
-
-body.customers .page-head {
-  background: $c-customer;
-}
 
 
 
