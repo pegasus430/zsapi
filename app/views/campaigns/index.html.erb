@@ -63,11 +63,6 @@
         </tbody>
       </table>
     </div>
-    <!-- CAMPAIGNS end -->
-
-
-    <%= render 'campaigns/modal_new' %>
-
 
   <% else %><%# !campaigns %>
 
@@ -77,4 +72,7 @@
     </div>
 
   <% end %> <%# campaigns? %>
-<% end %> <%# wrapper %>
+
+  <%= render 'campaigns/modal_new' %>
+
+<% end %> <%# -wrapper %>
