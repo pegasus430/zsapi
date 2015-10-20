@@ -2,7 +2,7 @@
 			info: "The days of the week that this campaign will be valid on." do %>
 			<% %w(s m t w t f s).map{|o| [o.upcase!, o] }.each_with_index do |day,index| %>
 				<div class="cbox pull-left">
-					<%= check_box_tag :days_of_week, day[0], false, id: "dow_#{index}", multiple: true %>
+					<%= check_box_tag "days_of_week[]", day[0], (params[:days_of_week].blank? || params[:days_of_week].include?(day[0])), id: "dow_#{index}", multiple: true %>
 					<label for="dow_<%= index %>"><%= day[1] %></label>
 				</div>
 			<% end %>
@@ -12,7 +12,7 @@
 			info: "The week number that this campaign will be valid on." do %>
 			<% %w(first second third fourth fifth).map{|o| [o.humanize, o] }.each_with_index do |day,index| %>
 				<div class="cbox pull-left">
-					<%= check_box_tag :weeks_of_month, day[0], false, id: "wom_#{index}", multiple: true %>
+					<%= check_box_tag "weeks_of_month[]", day[0], (params[:weeks_of_month].blank? || params[:weeks_of_month].include?(day[0])), id: "wom_#{index}", multiple: true %>
 					<label for="wom_<%= index %>"><%= day[1] %></label>
 				</div>
 			<% end %>
@@ -23,7 +23,7 @@
 			<div class="row">
 				<div class="radio pull-left">
 					<div class="col-xs-12">
-				    <input type="radio" name="dom_selector" id="EveryDay" value="always">
+						<%= radio_button_tag :dom_selector, "always", (params[:dom_selector].blank? || params[:dom_selector] == 'always'), id: "EveryDay" %>
 					  <label for="EveryDay">Every day</label>
 				  </div>
 				</div>
@@ -32,7 +32,7 @@
 			<div class="row">
 				<div class="radio pull-left">
 					<div class="col-xs-12">
-				    <input type="radio" name="dom_selector" id="LastDay" value="last">
+						<%= radio_button_tag :dom_selector, "last", (params[:dom_selector] == 'last'), id: "LastDay" %>
 					  <label for="LastDay">Last day</label>
 				  </div>
 				</div>
@@ -41,7 +41,7 @@
 			<div class="row bb">
 				<div class="radio pull-left customDays">
 					<div class="col-xs-12">
-				    <input type="radio" name="dom_selector" id="Custom" value="custom">
+						<%= radio_button_tag :dom_selector, "custom", (params[:dom_selector] == 'custom'), id: "Custom" %>
 					  <label for="Custom">Custom</label>
 				  </div>
 				</div>

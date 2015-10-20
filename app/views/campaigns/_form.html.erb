@@ -57,7 +57,7 @@
   <% end %> <%# -wrapper dark %>
 
   <%= wrapper do %>
-    <%= section_header "Campaign Schedule" %>
+    <%= section_header "Campaign Start/End Dates" %>
 
     <%= fr "Status",
         f.select(:status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status)),
@@ -68,7 +68,7 @@
       <div class="input-group date">
         <div class="row no-gutters">
           <div class="col-xs-9">
-            <%= f.text_field :start_at, id: 'campaignStart', class: 'form-control' %>
+            <%= f.text_field :start_at, class: 'form-control' %>
           </div>
           <div class="col-xs-3">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -87,8 +87,8 @@
       <div class="row">
         <div class="col-xs-6 col-sm-5 col-md-4">
           <div class="radio">
-            <input type="radio" name="end_at_selector" id="optionsRadios1" value="specific">
-            <label for="optionsRadios1">Specific Date</label>
+            <%= radio_button_tag :end_at_selector, 'specific', (params[:end_at_selector] == "specific"), id: "endAtRadio1" %>
+            <label for="endAtRadio1">Specific Date</label>
           </div>
         </div>
         <div class="col-xs-6 col-sm-7 col-md-8">
@@ -108,13 +108,13 @@
       <div class="row">
         <div class="radio">
           <div class="col-xs-6 col-sm-5 col-md-4">
-            <input type="radio" name="end_at_selector" id="optionsRadios2" value="from_now">
-            <label for="optionsRadios2">In</label>
+            <%= radio_button_tag :end_at_selector, 'from_now', (params[:end_at_selector] == "from_now"), id: "endAtRadio2" %>
+            <label for="endAtRadio2">In</label>
           </div>
           <div class="col-xs-6 col-sm-7 col-md-8">
             <div class="row">
               <div class="col-xs-6">
-                <%= text_field_tag 'from_now_number', '', class: 'input-number', placeholder: '3' %>
+                <%= text_field_tag 'from_now_number', '', class: 'input-number' %>
               </div>
               <div class="col-xs-6">
                 <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
@@ -127,13 +127,16 @@
       <div class="row bb">
         <div class="col-xs-12">
           <div class="radio allWidth">
-            <input type="radio" name="end_at_selector" id="optionsRadios3" value="never">
-            <label for="optionsRadios3">Never</label>
+            <%= radio_button_tag :end_at_selector, 'never', (params[:end_at_selector] == "never" || params[:end_at_selector].blank?), id: "endAtRadio3" %>
+            <label for="endAtRadio3">Never</label>
           </div>
         </div>
       </div>
     <% end %> <%# -fr for expires %>
+  <% end %> <%# -wrapper %>
 
+  <%= wrapper :dark do %>
+    <%= section_header "Recurring Schedule" %>
     <%# f.fields_for @schedule do |builder| %>
       <%= render 'schedules/form' %>
     <%# end %>
@@ -142,7 +145,7 @@
       info: "The minimum amount of time between each use of this campaign." do %>
       <div class="row">
         <div class="col-xs-5">
-          <input type="text" class="pull-left" placeholder="3">
+          <input type="text" class="pull-left" placeholder="How many?">
         </div>
         <div class="col-xs-7">
           <select class="">
@@ -157,7 +160,7 @@
   <% end %> <%# -wrapper %>
 
   
-  <%= wrapper :dark do %>
+  <%= wrapper do %>
     <% if current_user.facebook || current_user.twitter %>
       <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
 

@@ -5,7 +5,7 @@
     line-height: 1.5;
     text-decoration: none;
     text-align: left;
-    color: #A9A9A9 !important;
+    color: #000 !important;
     outline: none;
     vertical-align: middle;
     background: #FFF;
@@ -55,7 +55,7 @@
     white-space: nowrap;
     overflow: hidden;
     font-size: 16px;
-    color: #A9A9A9;
+    color: #000;
 }
 
 .selectBox-dropdown.selectBox-changed .selectBox-label {
@@ -103,8 +103,8 @@
 
 /* Options */
 .selectBox-options,
-.selectBox-options LI,
-.selectBox-options LI A {
+.selectBox-options li,
+.selectBox-options li a {
     list-style: none;
     display: block;
     cursor: default;
@@ -132,7 +132,7 @@
     border-bottom-right-radius: 5px;
 }
 
-.selectBox-options LI A {
+.selectBox-options li a {
     line-height: 1.5;
     padding: 17px;
     white-space: nowrap;

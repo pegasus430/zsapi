@@ -13,7 +13,7 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :locations, allow_destroy: true
 
   validates_presence_of :name
-  validates_length_of :twitter, within: 1..15, allow_nil: true
+  validates_length_of :twitter, within: 1..15, allow_blank: true
   validates_format_of :primary_color, :secondary_color, with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i, on: [:update]
 
   has_attached_file :image, styles: { index: '300x300', :medium => "500x500" }, default_url: 'img-placeholder.png'

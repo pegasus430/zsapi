@@ -8,8 +8,6 @@
 
 // Vendor
 //= require select/jquery.selectBox
-// Bootstrap datepicker
-//= require datepicker/bootstrap-datepicker
 //= require bootstrap-table
 //= require hopscotch/hopscotch
 
