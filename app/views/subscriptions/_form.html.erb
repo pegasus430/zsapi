@@ -60,12 +60,14 @@
       <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://zippyspot.com/terms/')) %>
     <% end  %>
 
+    <%#
     <div class="row">
       <div class="col-xs-12 payment">
         <span class="paymentText">TOTAL PAYMENT:</span>
         <span class="paymentAmount">$10000</span>
       </div>
     </div>
+    %>
 
     <%= stripe_javascript_tag %>
 

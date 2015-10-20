@@ -40,7 +40,7 @@
     <% end %>
 
     <div class="collapse" id="collapseGreeting">
-      <%= f.fields_for :greetings, @greeting do |builder| %>
+      <%= f.fields_for :greeting, @greeting do |builder| %>
         <%= render 'greetings/form_fields', f: builder %>
       <% end %>
     </div>

@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
-  before_action :set_campaigns_and_greetings, only: [:new, :edit]
+  before_action :set_campaigns_and_greetings, only: [:new, :create, :edit, :update]
 
   # GET /locations
   # GET /locations.json
