@@ -1,3 +1,7 @@
+10/21/15
+	18:04-
+		Working on organizing the application SCSS and adding components. This will lead to a better mindset when editing and allow us to correct the visual issues that are happening.
+
 10/20/15
 	15:49-
 		Fixed too many things to name off today, all from the card. Trying to get it ready for App Partner to add things to. Fixed locations and campaigns forms, that's the big one!
