@@ -159,15 +159,17 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	desc "Returns a list of the customer's friends' redemption feed"
 	example <<-EOS
 	{
-	  "response" => Hash {
-	  	id,
-	    first_name,
-	    last_name,
-	    email,
-	    social_id,
-	    social_type,
-	    social_friends,
-	    notification_token
+	  "response" => [
+	  	Hash {
+		  	campaign: {Campaign Object},
+		    location: {Location Object},
+		    last_name,
+		    email,
+		    social_id,
+		    social_type,
+		    social_friends,
+		    notification_token
+		  }
     }
 	}
 	EOS
@@ -179,7 +181,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 			},
 			only: [
 				:campaign_id,
-				:location_id
+				:location_id,
+				:customer_id
 			]
 		)
  	end
