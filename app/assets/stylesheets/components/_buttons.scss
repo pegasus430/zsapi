@@ -1,0 +1,81 @@
+.btn{
+  background: $white image-url('ico/ico_plus.png') no-repeat 23px center;
+  padding: 0px 25px 0 50px;
+  line-height: 32px;
+  border-radius: 22px;
+  color: $button-font-color;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: .2s;
+  display: inline-block;
+
+  &:hover {
+    @include box-shadow();
+  }
+
+  &.btn-import {
+    background-image: image-url('ico/ico_upload.png');
+  }
+
+  &.btn-export {
+    background-image: image-url('ico/ico_download.png');
+  }
+
+  &.btn-browse {
+    background-image: image-url('ico/ico_browse.png');
+  }
+
+  &.btn-new {
+    background-image: image-url('ico/icon-plus.svg');
+  }
+
+  &.btn-more {
+    background-image: image-url('ico/icon-view.svg');
+    background-position: 18px center;
+    border: 1px solid #99999b;
+  }
+
+  &.btn-ok {
+    background-image: image-url('ico/ico_ok.svg');
+    background-position: 18px center;
+  }
+
+  &.btn-default{
+    background: none;
+    padding: 0 22px;
+  }
+
+  &.btn-approve{
+    background: $olive-drab;
+    padding: 0 22px;
+    color:$white;
+  }
+
+  &.btn-reject{
+    background: $torch-red;
+    padding: 0 22px;
+    color:$white;
+  }
+
+  &.btn-submit{
+    background: #33B1FD;
+    padding: 0px 22px;
+    text-align: center;
+    margin: $row-gutter auto 0;
+    border: none;
+    color: $white;
+    letter-spacing: 2px;
+
+    &:hover {
+      background-color: #6BC2F9;
+    }
+  }
+}
+
+
+form button{
+  @extend .btn;
+  @extend .btn-submit;
+}
