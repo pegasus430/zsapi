@@ -115,6 +115,14 @@ class Customer < ActiveRecord::Base
 		Redemption.where(customer: friends.map(&:id)).to_a
 	end
 
+	def avatar_url
+		if self[:avatar_url].blank?
+			ActionController::Base.helpers.image_path("no_avatar.jpg")
+		else
+			self[:avatar_url]
+		end
+	end
+
 
 	private
 

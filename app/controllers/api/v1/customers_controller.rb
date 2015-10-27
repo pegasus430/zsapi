@@ -18,6 +18,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 		param :social_token,	 	String, desc: "The social token returns by Facebook/Google+", required: true
 		param :social_type, 		["facebook", "google+"], desc: "The type of social account connected", required: true
 		param :social_id, 			String, desc: "The social ID", required: true
+		param :avatar_url, 			String, desc: "An URL to use as the customer's avatar (can be blank).", required: false
 		param :first_name, 			String, desc: "Customer's first name", required: true
 		param :last_name, 			String, desc: "Customer's last name", required: true
 		param :social_friends, 	Array,	desc: "An array of the customer's social friends. Example: social_friends[]=1&social_friends[]=2. Leave BLANK if empty."
@@ -161,14 +162,20 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	{
 	  "response" => [
 	  	Hash {
-		  	campaign: {Campaign Object},
-		    location: {Location Object},
-		    last_name,
-		    email,
-		    social_id,
-		    social_type,
-		    social_friends,
-		    notification_token
+		  	campaign: Hash {
+		  		id,
+		  		title
+		  	},
+		    location: Hash {
+		    	id,
+		    	title
+		    },
+		    customer: Hash {  # < The friend
+		    	id,
+		    	first_name,
+		    	last_name,
+		    	avatar_url
+		    }
 		  }
     }
 	}
@@ -176,14 +183,10 @@ class Api::V1::CustomersController < Api::V1::BaseController
   def feed
 		collection(current_customer.friend_feed,
 			include: {
-				campaign: { only: [:title] },
-				location: { only: [:title] }
-			},
-			only: [
-				:campaign_id,
-				:location_id,
-				:customer_id
-			]
+				campaign: { only: [:id, :title] },
+				location: { only: [:id, :title] },
+				customer: { only: [:id, :first_name, :last_name, :avatar_url] }
+			}
 		)
  	end
 
@@ -244,11 +247,11 @@ class Api::V1::CustomersController < Api::V1::BaseController
  	private
  		def customer_params
  			params[:customer][:social_friends] ||= []
- 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :first_name, :last_name, social_friends: []).merge(status: 'active')
+ 			params.require(:customer).permit(:email, :social_token, :social_type, :social_id, :avatar_url, :first_name, :last_name, social_friends: []).merge(status: 'active')
  		end
 
  		def customer_expose_fields
- 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token]
+ 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token, :avatar_url]
  		end
 
 end

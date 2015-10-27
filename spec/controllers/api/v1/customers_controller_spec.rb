@@ -174,7 +174,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   # GET /visits
   # Receive: -
   # Return: JSON [customer.friends.redemption_data]
-  describe 'GET #visits', focus: true do
+  describe 'GET #visits' do
     context '[Customer social token exists]' do
       it 'returns the customers locations visited' do
         business = FactoryGirl.create(:business)
