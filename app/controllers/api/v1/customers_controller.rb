@@ -155,6 +155,36 @@ class Api::V1::CustomersController < Api::V1::BaseController
  	end
 
 
+ 	api!
+	desc "Returns a list of the customer's friends' redemption feed"
+	example <<-EOS
+	{
+	  "response" => Hash {
+	  	id,
+	    first_name,
+	    last_name,
+	    email,
+	    social_id,
+	    social_type,
+	    social_friends,
+	    notification_token
+    }
+	}
+	EOS
+  def feed
+		collection(current_customer.friend_feed,
+			include: {
+				campaign: { only: [:title] },
+				location: { only: [:title] }
+			},
+			only: [
+				:campaign_id,
+				:location_id
+			]
+		)
+ 	end
+
+
  	private
  		def customer_params
  			params[:customer][:social_friends] ||= []

@@ -8,7 +8,7 @@ FactoryGirl.define do
 		image 						''
 		share_reward 			100
 		status 						'inactive'
-		start_at 					{ "2015-01-01".to_date }
+		start_at 					{ "2016-01-01".to_date }
 		end_at 						nil
 
 		factory :active_campaign do
