@@ -188,6 +188,59 @@ class Api::V1::CustomersController < Api::V1::BaseController
  	end
 
 
+ 	api!
+	desc "Returns a list of the locations a customer has visited"
+	example <<-EOS
+	{
+	  "response" => [
+	  	Hash {
+		  	location_id,
+		  	last_visit_at,
+		  	last_exit_at,
+		  	total,
+				location: Hash {
+					id,
+					title,
+					business: Hash {
+						id,
+						title,
+						memberships: Hash {
+							points
+						}
+					}
+				}
+		  }
+    }
+	}
+	EOS
+  def visits
+		collection(current_customer.visits,
+			include: {
+				location: {
+					only: [:id, :title],
+					include: {
+						business: {
+							only: [:id, :title],
+							include: {
+								memberships: {
+									only: [:points]
+								}
+							}
+						}
+					}
+				}
+			},
+			only: [
+				:location_id,
+				:last_visit_at,
+				:last_exit_at,
+				:total,
+				:points
+			]
+		)
+ 	end
+
+
  	private
  		def customer_params
  			params[:customer][:social_friends] ||= []

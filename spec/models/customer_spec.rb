@@ -141,6 +141,10 @@ RSpec.describe Customer, type: :model do
 					3.times { @customer.check_in_to!(@location3) }
 				end
 
+				it '#visits' do
+					expect(@customer.visits.size).to eq 2
+				end
+
 				it '#total_visits_for' do
 					expect(@customer.total_visits_for(@location2)).to eq 2
 					expect(@customer.total_visits_for(@location3)).to eq 3

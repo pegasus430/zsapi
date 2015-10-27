@@ -171,28 +171,25 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   end
 
 
-  # GET /feed
+  # GET /visits
   # Receive: -
   # Return: JSON [customer.friends.redemption_data]
-  describe 'GET #feed' do
+  describe 'GET #visits' do
     context '[Customer social token exists]' do
-      it 'returns the customer friend feed' do
-        friend1 = FactoryGirl.create(:facebook_customer, social_id: 1)
-        friend2 = FactoryGirl.create(:facebook_customer, social_id: 2)
-        friend3 = FactoryGirl.create(:facebook_customer, social_id: 3)
+      it 'returns the customers locations visited' do
+        business = FactoryGirl.create(:business)
+        customer = FactoryGirl.create(:facebook_customer)
+        FactoryGirl.create(:membership, business: business, customer: customer, points: 500)
+        location2 = FactoryGirl.create(:location, business: business)
+        location3 = FactoryGirl.create(:location, business: business)
+        2.times { customer.check_in_to!(location2) }
+        3.times { customer.check_in_to!(location3) }
 
-        @customer = FactoryGirl.create(:facebook_customer, social_friends: [1,2])
+        controller.stub(:current_customer).and_return(customer)
 
-        location = FactoryGirl.create(:location, :with_campaign)
-        campaign = location.campaigns.first
-        FactoryGirl.create(:redemption, campaign: campaign, location: location, customer: friend1)
-        FactoryGirl.create(:redemption, campaign: campaign, location: location, customer: friend2)
-        FactoryGirl.create(:redemption, campaign: campaign, location: location, customer: friend3)
+        get :visits, version: 1
 
-        controller.stub(:current_customer).and_return(@customer)
-
-        get :feed, version: 1
-
+        byebug
         expect(response).to be_collection_resource
       end
     end

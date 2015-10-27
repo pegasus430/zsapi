@@ -4,7 +4,6 @@ class Visit < ActiveRecord::Base
 
   validates_presence_of :total
 
-
   def self.check_in!(opts)
     customer = opts[:customer]
     location = opts[:location]

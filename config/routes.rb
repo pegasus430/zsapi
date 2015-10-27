@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       post '/customers/notification_token', to: 'customers#notification_token'
       get '/customers/profile',             to: 'customers#show'
       get '/customers/feed',                to: 'customers#feed'
+      get '/customers/visits',              to: 'customers#visits'
 
       # Finds a location via UUID
       get '/beacons/:uuid/location',            to: 'locations#show'
