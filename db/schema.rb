@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012201656) do
+ActiveRecord::Schema.define(version: 20151027154903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 20151012201656) do
     t.string   "title",                              null: false
     t.decimal  "discount_amount",    default: 0.0,   null: false
     t.integer  "discount_type",      default: 0,     null: false
-    t.integer  "share_reward"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -91,6 +90,8 @@ ActiveRecord::Schema.define(version: 20151012201656) do
     t.string   "pos"
     t.string   "description"
     t.integer  "business_id"
+    t.integer  "referrer_reward",    default: 0
+    t.integer  "referral_reward",    default: 0
   end
 
   add_index "campaigns", ["business_id"], name: "index_campaigns_on_business_id", using: :btree

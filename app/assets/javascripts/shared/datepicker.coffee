@@ -6,4 +6,4 @@ if $('.input-group.date').length
     autoclose:      true
     orientation:    'top'
     todayHighlight: true
-    format: "mm/dd/yyyy"
+    format: 				"mm/dd/yyyy"

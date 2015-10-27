@@ -9,12 +9,16 @@ module DatePickable
 			if attributes.is_a? Array
 				attributes.each do |a|
 					define_method("#{a}=") do |string_date|
-						parsed_date = case string_date
-						when String then Date.strptime(string_date, "%m/%d/%Y")
-						when Date then string_date
-						end
+						unless string_date.blank?
+							parsed_date = case string_date
+							when String then Date.strptime(string_date, "%m/%d/%Y")
+							when Date then string_date
+							end
 
-			    	super parsed_date unless string_date.blank?
+				    	super parsed_date
+				    else
+				    	super string_date
+				    end
 			    end
 			  end
 			end

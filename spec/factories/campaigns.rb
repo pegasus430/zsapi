@@ -6,7 +6,8 @@ FactoryGirl.define do
 		discount_amount 	5
 		discount_type 		'amount'
 		image 						''
-		share_reward 			100
+		referral_reward 	100
+		referrer_reward 	100
 		status 						'inactive'
 		start_at 					{ "2016-01-01".to_date }
 		end_at 						nil

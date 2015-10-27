@@ -28,9 +28,6 @@
       </div>
     <% end %>
 
-    <%= fr "Sharing Reward",
-        f.number_field(:share_reward, placeholder: 3),
-        info: "A customer's will receive this many reward points when their referral uploads a valid receipt." %>
 
     <%= fr "Location(s)" do %>
       <%= hidden_field_tag "campaign[location_ids][]", nil %>
@@ -45,6 +42,20 @@
 
 
   <%= wrapper :dark do %>
+    <%= section_header "Share Rewards",
+        desc: "When a customer refers this campaign their friends, you can choose whether or not the referrer and/or the referral get bonus points on top of their purchase. Enter \"0\" for no reward" %>
+    
+    <%= fr "Referrer Reward",
+        f.number_field(:referrer_reward, placeholder: 3),
+        info: "The referrer is the customer who shared the campaign with a friend." %>
+
+    <%= fr "Referral Reward",
+        f.number_field(:referral_reward, placeholder: 0),
+        info: "The referral is the friend who was sent the shared campaign." %>
+  <% end %> <%# -wrapper dark %>
+
+
+  <%= wrapper do %>
     <%= section_header "Campaign Image" %>
     <%= fr "Click the image to edit" do %>
       <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
@@ -54,9 +65,9 @@
     <%= fr "" do %>
       <%= link_to 'OR CHOOSE FROM GALLERY', '#', class: 'btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
     <% end %>
-  <% end %> <%# -wrapper dark %>
+  <% end %> <%# -wrapper %>
 
-  <%= wrapper do %>
+  <%= wrapper :dark do %>
     <%= section_header "Campaign Start/End Dates" %>
 
     <%= fr "Status",
@@ -68,7 +79,7 @@
       <div class="input-group date">
         <div class="row no-gutters">
           <div class="col-xs-9">
-            <%= f.text_field :start_at, class: 'form-control' %>
+            <%= f.text_field :start_at, class: 'form-control', value: @campaign.start_at.strftime("%m/%d/%Y") %>
           </div>
           <div class="col-xs-3">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -149,15 +160,15 @@
         </div>
       </div>
     <% end %>
-  <% end %> <%# -wrapper %>
+  <% end %> <%# -wrapper dark %>
 
-  <%= wrapper :dark do %>
+  <%= wrapper do %>
     <%= section_header "Recurring Schedule" %>
     <%= render 'schedules/form' %>
   <% end %> <%# -wrapper %>
 
   
-  <%= wrapper do %>
+  <%= wrapper :dark do %>
     <% if current_user.facebook || current_user.twitter %>
       <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
 

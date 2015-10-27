@@ -1,3 +1,7 @@
+10/27/15
+	15:16
+		Fixed the campaign updating and added the referrer/referral reward options.
+
 10/26/15
 	22:24-
 		Added the customer friend feed and the customer locations visited API calls. Both test well.

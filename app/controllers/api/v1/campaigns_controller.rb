@@ -19,7 +19,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
         "title" => ,
         "discount_amount" => ,
         "discount_type" => ,#percent, amount
-        "share_reward" => ,
+        "referral_reward" => ,
+        "referrer_reward" => ,
         "image_file_name" => ,
         "schedule" => Hash { Schedule Object },
         "start_at" => ,#datetime
@@ -59,7 +60,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
       "title" => ,
       "discount_amount" => ,
       "discount_type" => ,#percent, amount
-      "share_reward" => ,
+      "referral_reward" => ,
+      "referrer_reward" => ,
       "image_file_name" => ,
       "schedule" => Hash { Schedule Object },
       "start_at" => ,#datetime
@@ -90,7 +92,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 				:title,
 				:discount_amount,
 				:discount_type,
-				:share_reward,
+				:referral_reward,
+				:referrer_reward,
 				:image_file_name,
 				:featured,
 				:schedule,
