@@ -1,5 +1,17 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  
+  # START MAILTRAP
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '48554a4b0295693c8',
+    :password => 'c88891ed076c8a',
+    :address => 'mailtrap.io',
+    :domain => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+  ## END MAILTRAP
 
   # Code is not reloaded between requests.
   config.cache_classes = true
