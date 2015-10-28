@@ -84,7 +84,7 @@
 									<%= image_tag('ico/ico_storeBattery.svg') %>
 								</a>
 								<ul class="dropdown-menu arrow">
-									<% current_user.locations.each do |location| %>
+									<% current_user.locations.active.each do |location| %>
 										<li>
 											<%= link_to location do %>
 												<div class="row no-gutters">
