@@ -46,8 +46,8 @@ class SubscriptionsController < ApplicationController
         subscription.save
 
         # Create the beacon
-        beacon = Beacon.create(location: @location)
-        BeaconMailer.created(beacon).deliver_now
+        @beacon = Beacon.create(location: @location)
+        BeaconMailer.created(@beacon).deliver_now
 
         render :success
       end

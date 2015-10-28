@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     # Beacons
     get   '/beacon/:key',     to: 'beacons#edit',     as: 'edit_beacon'
-    patch '/beacon/:key',     to: 'beacons#update'
+    patch '/beacon/:key',     to: 'beacons#update',   as: 'beacon'
     get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
 
     # Businesses

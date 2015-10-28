@@ -10,11 +10,11 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="radio">
-              <%= radio_button_tag :subscription, :stripe_plan_id, plan.id %>
+              <%= radio_button_tag "subscription[stripe_plan_id]", plan.id %>
               <label for="<%= plan.id %>">
                 <%= plan.name %> - <%= cents_to_dollar(plan.amount) %>
                 <% if plan.trial_period_days %>
-                  <br><em><%= plan.trial_period_days %> day trial</em>
+                  <em>(<%= plan.trial_period_days %> day trial)</em>
                 <% end %>
               </label>
             </div>
