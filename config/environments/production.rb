@@ -11,6 +11,7 @@ Rails.application.configure do
     :port => '2525',
     :authentication => :cram_md5
   }
+  config.action_mailer.default_url_options = { :host => "zsdev.herokuapp.com" }
   ## END MAILTRAP
 
   # Code is not reloaded between requests.
