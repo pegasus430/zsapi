@@ -206,7 +206,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 					title,
 					business: Hash {
 						id,
-						title,
+						name,
+						image_url,             # (you must prepend the domain)
 						memberships: Hash {
 							points
 						}
@@ -223,7 +224,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 					only: [:id, :title],
 					include: {
 						business: {
-							only: [:id, :title],
+							only: [:id, :name],
+							methods: [:image_url],
 							include: {
 								memberships: {
 									only: [:points]

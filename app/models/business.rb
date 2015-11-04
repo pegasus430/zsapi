@@ -45,4 +45,15 @@ class Business < ActiveRecord::Base
       0
     end
   end
+
+  ## Below is for the API
+
+  def attributes
+    super.merge({image_url: image_url})
+  end
+
+  def image_url
+    image.url
+  end
+  
 end

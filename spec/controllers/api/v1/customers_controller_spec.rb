@@ -177,7 +177,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   describe 'GET #visits' do
     context '[Customer social token exists]' do
       it 'returns the customers locations visited' do
-        business = FactoryGirl.create(:business)
+        business = FactoryGirl.create(:business, :with_image)
         customer = FactoryGirl.create(:facebook_customer)
         FactoryGirl.create(:membership, business: business, customer: customer, points: 500)
         location2 = FactoryGirl.create(:location, business: business)
@@ -188,7 +188,6 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
         controller.stub(:current_customer).and_return(customer)
 
         get :visits, version: 1
-
         expect(response).to be_collection_resource
       end
     end

@@ -52,7 +52,8 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   # GET /:id
   describe 'GET #show' do
     before :each do
-      @location = FactoryGirl.create(:location_with_business)
+      @business = FactoryGirl.create(:business, :with_image)
+      @location = FactoryGirl.create(:location, business: @business)
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
       @membership = FactoryGirl.create(:membership, customer: customer, business: @location.business)
@@ -62,6 +63,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       context '[Location exists]' do
         it 'returns the location' do
           get :show, version: 1, id: @location.id
+          byebug
           expect(response).to be_singular_resource
         end
 
