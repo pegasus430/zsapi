@@ -137,12 +137,13 @@ RSpec.describe Campaign, type: :model do
 			before :each do
 				# Create a default schedule that will stay in the DB
 				# FactoryGirl.create(:schedule)
+				@campaign = FactoryGirl.build(:active_campaign, start_at: "2015-01-01".to_date)
 			end
 
 			context '[Every monday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_monday)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-15".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-22".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-23".to_date).size).to eq 0
@@ -152,7 +153,7 @@ RSpec.describe Campaign, type: :model do
 			context '[every other monday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_other_monday)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-15".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-08".to_date).size).to eq 0
@@ -162,7 +163,7 @@ RSpec.describe Campaign, type: :model do
 			context '[every tue and thur]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_tue_and_thur)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-09".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-18".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-19".to_date).size).to eq 0
@@ -172,7 +173,7 @@ RSpec.describe Campaign, type: :model do
 			context '[always]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_always)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-03".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-05".to_date).size).to eq 1
@@ -182,7 +183,7 @@ RSpec.describe Campaign, type: :model do
 			context '[first day of month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_first_day_of_month)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-08-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-09-02".to_date).size).to eq 0
@@ -192,7 +193,7 @@ RSpec.describe Campaign, type: :model do
 			context '[Last day of the month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_last_day_of_month)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-30".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-07-31".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-08-29".to_date).size).to eq 0
@@ -202,7 +203,7 @@ RSpec.describe Campaign, type: :model do
 			context '[every day except sunday]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_every_day_except_sunday)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-05".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-07".to_date).size).to eq 0
@@ -212,7 +213,7 @@ RSpec.describe Campaign, type: :model do
 			context '[months with 5 weeks]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_months_with_5_weeks)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-06-29".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-07-30".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-03-28".to_date).size).to eq 0
@@ -222,7 +223,7 @@ RSpec.describe Campaign, type: :model do
 			context '[when tue is first day of month]' do
 				it 'is valid' do
 					sched = FactoryGirl.create(:sched_when_tue_is_first_day_of_month)
-					FactoryGirl.create(:active_campaign, schedule: sched)
+					@campaign.update_attribute(:schedule, sched)
 					expect(Campaign.valid_for("2015-09-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-12-01".to_date).size).to eq 1
 					expect(Campaign.valid_for("2015-06-01".to_date).size).to eq 0
