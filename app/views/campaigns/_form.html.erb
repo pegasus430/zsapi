@@ -28,6 +28,12 @@
       </div>
     <% end %>
 
+    <% if @campaign.type_of == 'reward' %>
+      <%= fr "Reward Costs",
+          f.text_field(:reward_cost),
+          info: "The amount of reward points it costs to redeem this reward." %>
+    <% end %>
+
 
     <%= fr "Location(s)" do %>
       <%= hidden_field_tag "campaign[location_ids][]", nil %>
