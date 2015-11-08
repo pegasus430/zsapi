@@ -5,7 +5,7 @@ class Admin::ReceiptsController < Admin::AdminController
     if Rails.env.development?
       Receipt.update_all(status: 'untouched') ## TEMP TEST DEV LOCAL
     end
-    @receipts = Receipt.untouched.first
+    @receipt = Receipt.untouched.first
   end
 
   def update

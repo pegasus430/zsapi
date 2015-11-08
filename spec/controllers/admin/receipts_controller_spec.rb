@@ -8,10 +8,10 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
     end
 
     describe "GET #index" do
-      it "assigns all untouched receipts as @receipts" do
-        receipts = FactoryGirl.create(:receipt)
+      it "assigns the first untouched receipt as @receipt" do
+        receipt = FactoryGirl.create(:receipt)
         get :index
-        expect(assigns(:receipts)).to eq receipts
+        expect(assigns(:receipt)).to eq receipt
       end
 
       it "renders the index template" do
