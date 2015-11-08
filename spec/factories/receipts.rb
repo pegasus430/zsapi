@@ -1,7 +1,6 @@
 FactoryGirl.define do
 
   factory :receipt do
-    location
     redemption
 		amount 					15
 		purchased_on 		{ 2.days.ago }
@@ -28,9 +27,8 @@ FactoryGirl.define do
 
 		factory :invalid_receipt do
 			amount 					nil
-			location 				nil
 			purchased_on 		nil
-			image_filename 	nil
+			image 					nil
 		end
   end
 

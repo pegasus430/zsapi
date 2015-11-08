@@ -9,9 +9,9 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
     describe "GET #index" do
       it "assigns all untouched receipts as @receipts" do
-        receipt = FactoryGirl.create(:receipt)
+        receipts = FactoryGirl.create(:receipt)
         get :index
-        expect(assigns(:receipts)).to eq([receipt])
+        expect(assigns(:receipts)).to eq receipts
       end
 
       it "renders the index template" do
@@ -72,7 +72,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
             @referral = FactoryGirl.create(:customer)
 
             # The campaign
-            @campaign = FactoryGirl.create(:campaign, locations: [@location], share_reward: 25)
+            @campaign = FactoryGirl.create(:campaign, locations: [@location], referrer_reward: 25)
 
             # The referrer creates a share link
             @share_link = FactoryGirl.create(:share_link, campaign: @campaign, customer_id: @referrer.id)
@@ -101,24 +101,6 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
               expect(@referrer.membership_for(@business).points).to eq 25
             end       
           end
-        end
-      end
-
-      context "[invalid params]" do
-        it "locates the requested receipt" do
-          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:receipt)
-          expect(assigns(:receipt)).to eq(@receipt)
-        end
-
-        it "does not change the attributes" do
-          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt, amount: 20)
-          @receipt.reload
-          expect(Receipt.find(@receipt.id).amount.to_i).not_to eq 20
-        end
-
-        it "re-renders the index template" do
-          put :update, id: @receipt, receipt: FactoryGirl.attributes_for(:invalid_receipt)
-          expect(response).to render_template :index
         end
       end
     end

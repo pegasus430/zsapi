@@ -5,16 +5,25 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 	end
 
 	api!
-	desc "Create a new receipt with the given params"
+	desc "Create a new receipt with the given params."
 	error code: 422, desc: "Invalid receipt params were given (or invalid image)."
 	param :receipt, Hash, required: true do
-		param :redemption_id, :number, desc: "The associated redemption_id", required: true
-		param :location_id, :number, desc: "The location_id of where the redempetion was made (MAY REMOVE THIS)", required: true
+		param :redemption_id, :number, desc: "The associated redemption_id (Required IF related to a campaign)"
+		param :location_id, :number, desc: "The associated location_id (Required IF this is a receipt that is not associated with a campaign redemption)"
 		param :image, File, desc: "The receipt image", required: true
 	end
-	example "200 OK"
+	example "If a receipt is associated with a prior redemption, you MUST include the redemption ID. Otherwise, if this receipt is being uploaded by itself and is not related to a campaign's redemption, you MUST pass the location_id that the receipt is associated with. Returns 200 OK"
 	def create
-		receipt = Receipt.new(valid_params)
+		# If the redemption ID is nil, we create the redemption so we can
+		# assign it to the receipt
+		if params[:receipt][:redemption_id].nil? && params[:receipt][:location_id]
+			redemption_id = Redemption.create(customer: current_customer, location_id: params[:receipt][:location_id]).id
+		else
+			redemption_id = params[:receipt][:redemption_id]
+		end
+
+		receipt = Receipt.new(image: params[:receipt][:image], redemption_id: redemption_id)
+		
 		unless receipt.save
 			error! :invalid_resource, receipt.errors
 		end
@@ -59,6 +68,6 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 
  	private
  		def valid_params
-      params.require(:receipt).permit(:redemption_id, :location_id, :image)
+      params.require(:receipt).permit(:redemption_id, :image).merge!(customer_id: current_customer.id)
  		end
 end

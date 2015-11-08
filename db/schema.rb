@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027210946) do
+ActiveRecord::Schema.define(version: 20151108024401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,7 +186,6 @@ ActiveRecord::Schema.define(version: 20151027210946) do
   add_index "memberships", ["customer_id"], name: "index_memberships_on_customer_id", using: :btree
 
   create_table "receipts", force: :cascade do |t|
-    t.integer  "location_id"
     t.date     "purchased_on"
     t.decimal  "amount",             precision: 8, scale: 2
     t.string   "reject_reason"
@@ -200,11 +199,10 @@ ActiveRecord::Schema.define(version: 20151027210946) do
     t.integer  "redemption_id"
   end
 
-  add_index "receipts", ["location_id"], name: "index_receipts_on_location_id", using: :btree
   add_index "receipts", ["redemption_id"], name: "index_receipts_on_redemption_id", using: :btree
 
   create_table "redemptions", force: :cascade do |t|
-    t.integer  "campaign_id",             null: false
+    t.integer  "campaign_id"
     t.integer  "customer_id",             null: false
     t.integer  "location_id",             null: false
     t.datetime "created_at",              null: false
@@ -314,7 +312,6 @@ ActiveRecord::Schema.define(version: 20151027210946) do
   add_foreign_key "memberships", "campaigns"
   add_foreign_key "memberships", "campaigns"
   add_foreign_key "memberships", "customers"
-  add_foreign_key "receipts", "locations"
   add_foreign_key "receipts", "redemptions"
   add_foreign_key "redemptions", "campaigns"
   add_foreign_key "redemptions", "customers"

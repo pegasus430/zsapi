@@ -8,11 +8,15 @@ RSpec.describe Receipt, type: :model do
   	end
 
   	it "has a valid factory" do
-  		expect( FactoryGirl.create(:receipt) ).to be_valid
+  		expect( FactoryGirl.build(:receipt) ).to be_valid
+  	end
+
+  	it 'has an invalid factory' do
+  		expect( FactoryGirl.build(:invalid_receipt) ).not_to be_valid
   	end
 
   	# Presence
-  	%w(location_id).each do |attr|
+  	%w(redemption_id).each do |attr|
 	  	it "validates presenve of #{attr}" do
 	  		@receipt.send("#{attr}=", nil)
 	  		expect(@receipt).not_to be_valid
@@ -26,7 +30,7 @@ RSpec.describe Receipt, type: :model do
 
 
 	describe "Associations" do
-		it { should belong_to :location }
+		it { should belong_to :redemption }
 	end
 
 
