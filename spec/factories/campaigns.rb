@@ -40,6 +40,7 @@ FactoryGirl.define do
 
 		factory :reward do
 			type_of 					'reward'
+			reward_cost 			100
 			sequence(:title) 	{ |n| "Reward \##{n}"}
 		end
 

@@ -18,6 +18,14 @@ RSpec.describe Campaign, type: :model do
 	  		expect(@campaign).not_to be_valid
 		  end
 	 	end
+
+	 	it 'requires reward_cost to be greater than 0 if type_of is reward' do
+	 		coupon_without_cost = FactoryGirl.build(:coupon, reward_cost: 0)
+	 		reward_without_cost = FactoryGirl.build(:reward, reward_cost: 0)
+
+	 		expect(coupon_without_cost).to be_valid
+	 		expect(reward_without_cost).not_to be_valid
+		end
 	end
 
 
