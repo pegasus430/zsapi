@@ -6,7 +6,7 @@ class Redemption < ActiveRecord::Base
   belongs_to :location
   has_one :receipt
 
-  validates_presence_of :campaign, :customer_id, :location
+  validates_presence_of :customer_id, :location_id
 
   scope :coupons, -> { includes(:campaign).where(campaigns: {type_of: 'coupons'}) }
   scope :rewards, -> { includes(:campaign).where(campaigns: {type_of: 'rewards'}) }

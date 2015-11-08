@@ -6,58 +6,78 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
   # POST /
   describe 'POST #create' do
     before :each do
-      business = FactoryGirl.create(:business_with_locations)
-      customer = FactoryGirl.create(:facebook_customer)
-      @location = business.locations.first
-      campaign = FactoryGirl.create(:campaign, locations: [@location])
-      controller.stub(:current_customer).and_return(customer)
-      FactoryGirl.create(:membership, business: business, customer: customer)
-      @redemption = FactoryGirl.create(:redemption, campaign: campaign, customer: customer, location: @location)
+      @business = FactoryGirl.create(:business_with_locations)
+      @customer = FactoryGirl.create(:facebook_customer)
+      @location = @business.locations.first
+      @campaign = FactoryGirl.create(:campaign, locations: [@location])
+      controller.stub(:current_customer).and_return(@customer)
+      FactoryGirl.create(:membership, business: @business, customer: @customer)
     end
     
-    context '[Customer token exists]' do
+    context '[No redemption is associated]' do
       context '[Valid image file]' do
         before :each do
           file = fixture_file_upload('files/receipt.jpg', 'image/jpeg')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
+          post :create, version: 1, receipt: {location_id: @location.id, image: file}
         end
 
-        it 'uploads the file' do
-          expect(Receipt.last.image_file_name).not_to be_nil
+        it 'creates the redemption without a campaign' do
+          expect(Receipt.last.redemption.location).to eq(@location)
         end
-      
-        it 'returns a sucess' do
+
+        it 'uploads the file and returns success' do
+          expect(Receipt.last.image_file_name).not_to be_nil
           expect(response.status).to eq 200
         end
       end
+    end
 
-      context '[Fake image file]' do
-        before :each do
-          file = fixture_file_upload('files/fake.jpg', 'image/jpeg')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
-        end
-
-        it 'does not upload file' do
-          expect(Receipt.all.count).to eq 0
-        end
-      
-        it 'returns a failure' do
-          expect(response).to be_api_error
-        end
+    context '[Has an associated redemption]' do
+      before :each do
+        @redemption = FactoryGirl.create(:redemption, campaign: @campaign, customer: @customer, location: @location)
       end
 
-      context '[Not an image file]' do
-        before :each do
-          file = fixture_file_upload('files/notimage.txt', 'text/plain')
-          post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
+      context '[Customer token exists]' do
+        context '[Valid image file]' do
+          before :each do
+            file = fixture_file_upload('files/receipt.jpg', 'image/jpeg')
+            post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
+          end
+
+          it 'uploads the file and returns 200 OK' do
+            expect(Receipt.last.image_file_name).not_to be_nil
+            expect(response.status).to eq 200
+          end
         end
 
-        it 'does not upload file' do
-          expect(Receipt.all.count).to eq 0
+        context '[Fake image file]' do
+          before :each do
+            file = fixture_file_upload('files/fake.jpg', 'image/jpeg')
+            post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
+          end
+
+          it 'does not upload file' do
+            expect(Receipt.all.count).to eq 0
+          end
+        
+          it 'returns a failure' do
+            expect(response).to be_api_error
+          end
         end
-      
-        it 'returns a failure' do
-          expect(response).to be_api_error
+
+        context '[Not an image file]' do
+          before :each do
+            file = fixture_file_upload('files/notimage.txt', 'text/plain')
+            post :create, version: 1, receipt: {location_id: @location.id, image: file, redemption_id: @redemption.id}
+          end
+
+          it 'does not upload file' do
+            expect(Receipt.all.count).to eq 0
+          end
+        
+          it 'returns a failure' do
+            expect(response).to be_api_error
+          end
         end
       end
     end
@@ -77,9 +97,9 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
 
         redemption = FactoryGirl.create(:redemption, customer: customer, location: @location, campaign: campaign)
 
-        FactoryGirl.create(:receipt, location: @location, redemption: redemption)
-        FactoryGirl.create(:receipt_approved, location: @location, redemption: redemption)
-        FactoryGirl.create(:receipt_rejected, location: @location, redemption: redemption)
+        FactoryGirl.create(:receipt, redemption: redemption)
+        FactoryGirl.create(:receipt_approved, redemption: redemption)
+        FactoryGirl.create(:receipt_rejected, redemption: redemption)
       end
 
       it 'returns the untouched receipts' do

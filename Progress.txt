@@ -1,3 +1,7 @@
+11/7/15
+	21:34-
+		Completed the any-receipt mod and ran the tests. Everything looks great! Just need to push it to heroku and notify about the api changes (redemption/location optional for creating a receipt)
+
 10/27/15
 	15:16
 		Fixed the campaign updating and added the referrer/referral reward options.

@@ -18,7 +18,7 @@ RSpec.describe Redemption, type: :model do
         @membership = FactoryGirl.create(:membership, business: @business, customer: @customer, points: 100)
         @campaign   = FactoryGirl.create(:active_campaign, locations: [@location])
         @redemption = FactoryGirl.create(:redemption, campaign: @campaign, location: @location, customer: @customer)
-        @receipt    = FactoryGirl.create(:receipt_approved, location: @location, redemption: @redemption, amount: 35.24)
+        @receipt    = FactoryGirl.create(:receipt_approved, redemption: @redemption, amount: 35.24)
 
         @redemption.award_points_to_customer!
 
@@ -40,7 +40,7 @@ RSpec.describe Redemption, type: :model do
         FactoryGirl.create(:referral, campaign: @campaign, customer_id: @referral.id, referrer_id: @referrer.id)
 
         @redemption = FactoryGirl.create(:redemption, campaign: @campaign, location: @location, customer: @referral)
-        @receipt    = FactoryGirl.create(:receipt_approved, location: @location, redemption: @redemption, amount: 35.24)
+        @receipt    = FactoryGirl.create(:receipt_approved, redemption: @redemption, amount: 35.24)
       end
 
       describe '#award_points_to_referrer!' do

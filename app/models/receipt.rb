@@ -1,10 +1,8 @@
 class Receipt < ActiveRecord::Base
   enum status: [:untouched, :approved, :rejected]
 
-  belongs_to :location
   belongs_to :redemption
 
-  validates_presence_of :location_id
   validates_presence_of :redemption_id
   validates_presence_of :amount, :purchased_on, on: [:update]
   validates_presence_of :reject_reason, if: "status == 'rejected'"
@@ -30,6 +28,8 @@ class Receipt < ActiveRecord::Base
     amount.floor.to_i
   end
 
-
+  def location
+    redemption.location rescue nil
+  end
 
 end
