@@ -63,7 +63,6 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       context '[Location exists]' do
         it 'returns the location' do
           get :show, version: 1, id: @location.id
-          byebug
           expect(response).to be_singular_resource
         end
 
