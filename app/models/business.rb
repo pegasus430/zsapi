@@ -16,9 +16,12 @@ class Business < ActiveRecord::Base
   validates_length_of :twitter, within: 1..15, allow_blank: true
   validates_format_of :primary_color, :secondary_color, with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i, on: [:update]
 
-  has_attached_file :image, styles: { index: '300x300', :medium => "500x500" }, default_url: 'img-placeholder.png'
+  has_attached_file :image,
+                    styles: { index: '300x300#', medium: '500x500#' },
+                    default_url: 'img-placeholder.png'
   # validates_attachment_presence :image, on: [:update]
-  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :image,
+                                    content_type: ["image/jpeg", "image/gif", "image/png"]
 
   # Remove hashtags from color RGB hex values
 	before_save { |u| u.primary_color[0]   = ''  if u.primary_color    && u.primary_color[0]   == '#' }
