@@ -85,7 +85,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:type_of, :title, :description, :pos, :discount_amount, :discount_type, :referral_reward, :referrer_reward, :image, :status, :frequency_id, :start_at, :end_at, location_ids: [])
+      params.require(:campaign).permit(:type_of, :title, :description, :pos, :discount_amount, :discount_type, :reward_cost, :referral_reward, :referrer_reward, :image, :status, :frequency_id, :start_at, :end_at, location_ids: [])
     end
 
     def load_image_gallery

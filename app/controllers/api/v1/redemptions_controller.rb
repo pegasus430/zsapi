@@ -25,7 +25,7 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 
 		collection(redemptions,
 			include: {
-				campaign: { only: [:id, :title] },
+				campaign: { only: [:id, :title, :type_of] },
 				location: { only: [:id, :title] }
 			},
 			only: [
@@ -38,7 +38,7 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 
 	#####
 	api!
-	desc "Created a redemption"
+	desc "Creates a redemption"
 	error code: 422, desc: "Invalid redemption parameters. Redemption did not save"
 	param :redemption, Hash, required: true do
 		param :campaign_id, :number, desc: "The campaign ID", required: true

@@ -19,6 +19,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
         "title" => ,
         "discount_amount" => ,
         "discount_type" => ,#percent, amount
+        "reward_cost" => ,   (only for rewards)
         "referral_reward" => ,
         "referrer_reward" => ,
         "image_file_name" => ,
@@ -60,6 +61,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
       "title" => ,
       "discount_amount" => ,
       "discount_type" => ,#percent, amount
+      "reward_cost" => ,   (only for rewards)
       "referral_reward" => ,
       "referrer_reward" => ,
       "image_file_name" => ,
@@ -92,6 +94,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 				:title,
 				:discount_amount,
 				:discount_type,
+				:reward_cost,
 				:referral_reward,
 				:referrer_reward,
 				:image_file_name,

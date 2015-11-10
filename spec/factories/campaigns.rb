@@ -5,6 +5,7 @@ FactoryGirl.define do
 		title 						"Military"
 		discount_amount 	5
 		discount_type 		'amount'
+		reward_cost 			100
 		image 						''
 		referral_reward 	100
 		referrer_reward 	100

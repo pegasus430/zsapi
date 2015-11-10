@@ -13,7 +13,8 @@ class Campaign < ActiveRecord::Base
   has_and_belongs_to_many :locations
   has_many :redemptions, dependent: :restrict_with_error
 
-  validates_presence_of :type_of, :title, :discount_amount, :discount_type, :start_at
+  validates :type_of, :title, :discount_amount, :discount_type, :start_at, presence: true
+  validates :reward_cost, numericality: { greater_than: 0 }, if: -> { type_of == 'reward' }
 
   has_attached_file :image, styles: { index: '210x170', :medium => "630x510" }, default_url: 'img-placeholder.png'
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
@@ -39,8 +40,5 @@ class Campaign < ActiveRecord::Base
   def most_popular_location
     locations.find( redemptions.group(:location_id).count.max_by{|k,v| v}.first ) rescue nil
   end
-
-
-
 
 end
