@@ -24,10 +24,10 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 		redemptions = current_customer.redemptions
 
 		collection(redemptions,
-			include: {
-				campaign: { only: [:id, :title, :type_of] },
-				location: { only: [:id, :title] }
-			},
+			include: [
+				:campaign,
+				:location
+			],
 			only: [
 				:campaign_id,
 				:location_id
