@@ -25,7 +25,7 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 
 		collection(redemptions,
 			include: {
-				campaign: { only: [:id, :title] },
+				campaign: { only: [:id, :title, :type_of] },
 				location: { only: [:id, :title] }
 			},
 			only: [
