@@ -83,6 +83,7 @@ class Customer < ActiveRecord::Base
 	end
 
 	def membership_for(business_obj)
+		business_obj = Business.find(business_obj) if business_obj.is_a? Integer
 		membership = memberships.where(business: business_obj).first
 		if membership.nil?
 			new_membership = Customer.find_or_create_with_membership(customer: self, points: 0, business: business_obj)
@@ -115,7 +116,9 @@ class Customer < ActiveRecord::Base
 		# This is the original code that only retrieves FRIENDS in the feed
 		# Redemption.where(customer: friends.map(&:id)).to_a
 
-		Redemption.where(customer: Customer.where(status: 'active'.where.not(id: id).all.map(&:id)).to_a
+		Redemption.where(
+			customer: Customer.where(status: 'active').where.not(id: id).all.map(&:id)
+		).to_a
 	end
 
 	def avatar_url
