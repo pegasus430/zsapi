@@ -54,7 +54,7 @@
     <% unless @location.new_record? %>
       <div class="row">
         <div class="col-xs-12 text-center">
-          <%= link_to "Cancel Subscription", cancel_subscription_url(@location), method: :delete, data: { confirm: 'This will cancel your subscription immediately and you will be required to return the iBeaon. This is irreversable. Are you sure you want to cancel right now?' } %>
+          <%= link_to "Cancel Subscription", location_cancel_subscription_url(@location), method: :delete, data: { confirm: 'This will cancel your subscription immediately and you will be required to return the iBeaon. This is irreversable. Are you sure you want to cancel right now?' } %>
         </div>
       </div>
     <% end %>
