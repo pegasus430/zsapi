@@ -69,7 +69,6 @@ class BusinessesController < ApplicationController
         end
 
         if params[:publish]
-          byebug
           message = params[:shareText]
           current_user.tweet(message) if params[:share_to]["twitter"]
           current_user.post_to_facebook_page(message) if params[:share_to]["facebook"]

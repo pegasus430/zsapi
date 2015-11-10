@@ -20,7 +20,6 @@ RSpec.describe "OmniAuth Callbacks", type: :request do
 
     it "logs into twitter" do
   	  login('twitter', {uid: 1234, :credentials => {token: 1234444} })
-  	  byebug
       expect(response).to have_http_status(200)
     end
 	end
