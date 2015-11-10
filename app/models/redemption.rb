@@ -8,6 +8,8 @@ class Redemption < ActiveRecord::Base
 
   validates_presence_of :customer_id, :location_id
 
+  before_save :ensure_customer_has_enough_reward_points
+
   scope :coupons, -> { includes(:campaign).where(campaigns: {type_of: 'coupons'}) }
   scope :rewards, -> { includes(:campaign).where(campaigns: {type_of: 'rewards'}) }
   scope :specials, -> { includes(:campaign).where(campaigns: {type_of: 'specials'}) }
@@ -41,4 +43,17 @@ class Redemption < ActiveRecord::Base
 
     false
   end
+
+  private
+
+    def ensure_customer_has_enough_reward_points
+      if campaign.reward?
+        if customer.membership_for(location.business).points >= campaign.reward_cost
+          customer.membership_for(location.business).decrement!(:points, campaign.reward_cost)
+        else
+          errors.add :base, "You do not have enough points to redeem this reward"
+          false
+        end
+      end
+    end
 end

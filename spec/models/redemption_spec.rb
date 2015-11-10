@@ -5,7 +5,8 @@ RSpec.describe Redemption, type: :model do
   describe 'Associations' do
   	it { should belong_to :campaign }
   	it { should belong_to :customer }
-  	it { should belong_to :location }
+    it { should belong_to :location }
+  	it { should have_one :receipt }
   end
 
 
@@ -81,6 +82,39 @@ RSpec.describe Redemption, type: :model do
             expect(@referral_membership.reload.points).to eq 100
           end
         end
+      end
+    end
+  end
+
+  describe '#ensure_customer_has_enough_reward_points' do
+    before :each do
+      @location   = FactoryGirl.create(:location_with_business)
+      @business   = @location.business
+      @customer   = FactoryGirl.create(:customer)
+      @customer_membership = FactoryGirl.create(:membership, business: @business, customer_id: @customer.id, points: 100)
+      
+      @campaign   = FactoryGirl.create(:reward, locations: [@location], reward_cost: 25)
+
+    end
+
+    context '[Has enough points]' do
+      it 'decreases customer points' do
+        @customer_membership.update_attribute(:points, 100)
+        redemption = FactoryGirl.create(:redemption, campaign: @campaign, location: @location, customer: @customer)
+        
+        @customer_membership.reload
+        expect(@customer_membership.points).to eq 75
+      end
+    end
+
+    context '[Does not have enough points]' do
+      it 'returns an error' do
+        @customer_membership.update_attribute(:points, 20)
+        redemption = FactoryGirl.create(:redemption, campaign: @campaign, location: @location, customer: @customer) rescue nil
+        @customer_membership.reload
+
+        expect(@customer_membership.points).to eq 20
+        expect(redemption).to be_nil
       end
     end
   end
