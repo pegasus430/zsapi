@@ -103,7 +103,7 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       end
 
       it 'returns the untouched receipts' do
-        get :index, version: 1, status: 'untouched'
+        get :index, version: 1
         expect(response).to be_collection_resource
       end
       

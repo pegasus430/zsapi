@@ -115,8 +115,8 @@ Rails.application.routes.draw do
       resources :campaigns, only: [:show]
 
       # Receipts
-      post '/receipts',           to: 'receipts#create'
-      get  '/receipts/:status',   to: 'receipts#index', defaults: {status: 'untouched'}
+      post '/receipts',              to: 'receipts#create'
+      get  '/receipts(/:status)',   to: 'receipts#index', defaults: {status: 'untouched'}
 
       # Redemptions
       resources :redemptions, only: [:index, :create]

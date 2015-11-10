@@ -51,6 +51,7 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 	}
 	EOS
 	def index
+		params[:status] ||= 'untouched'
 		receipts = current_customer.receipts.where(status: params[:status]).all
 		collection receipts, include: :location, only: [
 			:id,

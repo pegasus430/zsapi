@@ -8,7 +8,7 @@ class Redemption < ActiveRecord::Base
 
   validates_presence_of :customer_id, :location_id
 
-  before_save :ensure_customer_has_enough_reward_points
+  before_save :ensure_customer_has_enough_reward_points, if: -> { campaign.present? }
 
   scope :coupons, -> { includes(:campaign).where(campaigns: {type_of: 'coupons'}) }
   scope :rewards, -> { includes(:campaign).where(campaigns: {type_of: 'rewards'}) }
