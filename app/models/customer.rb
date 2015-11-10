@@ -112,7 +112,10 @@ class Customer < ActiveRecord::Base
 	end
 
 	def friend_feed
-		Redemption.where(customer: friends.map(&:id)).to_a
+		# This is the original code that only retrieves FRIENDS in the feed
+		# Redemption.where(customer: friends.map(&:id)).to_a
+
+		Redemption.where(customer: Customer.where(status: 'active'.where.not(id: id).all.map(&:id)).to_a
 	end
 
 	def avatar_url
