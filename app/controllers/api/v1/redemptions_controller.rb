@@ -14,8 +14,8 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 	  response => Array[
 	    Hash {
         "id" => ,
-        "campaign" => Hash {"title" => ""}
-        "location" => Hash {"title" => ""}
+        "campaign" => Hash { Campaign Object }
+        "location" => Hash { Location Object }
 	    }
 	  ]
 	}
