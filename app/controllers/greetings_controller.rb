@@ -56,6 +56,6 @@ class GreetingsController < ApplicationController
     end
 
     def greeting_params
-      params.require(:greeting).permit(:welcome_message, :welcome_reward, :welcome_reward_freq, :exit_message, :campaign_id, :exit_freq_days, :exit_freq_type)
+      params.require(:greeting).permit(:welcome_message, :welcome_reward, :welcome_reward_freq, :welcome_wait_time, :campaign_wait_time_quantity, :campaign_wait_time_span, :exit_message, :campaign_id, :exit_freq_days, :exit_freq_type)
     end
 end
