@@ -60,10 +60,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   # Identities--
 # Wesfed--
 
+gem 'factory_girl_rails' # Taken out of dev/test group so it will work with rake devdata:all
 
 group :development, :test do
-	gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'rspec-rails'
   gem 'shoulda-matchers'    # Allows for quick-testing matchers, such as for associations
   gem 'traceroute'
 
