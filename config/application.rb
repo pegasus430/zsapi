@@ -38,21 +38,21 @@ module Zippyspot
     end
 
     # Stripe
-    config.stripe.secret_key        = "sk_test_S3gkDnv0bcJIMlr9XDrlzGZ3"
-    config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
+    config.stripe.secret_key        = ENV['STRIPE_SECRET_KEY']
+    config.stripe.publishable_key   = ENV['STRIPE_PUBLISHABLE_KEY']
 
     # Custom
-    config.x.API_SECRET_KEY             = "4s8d3e2z1s8w75ab374e4d91cb007d2e"
-    config.x.BEACON_COST                = 3999 #total cents
-    config.x.BEACON_DESCRIPTION         = "A new beacon for you!"
-    config.x.FACEBOOK_APP_ID            = "809663465807807"
-    config.x.FACEBOOK_APP_SECRET        = "507d6f37d530c3393c55bc720339a336"
-    config.x.MAILCHIMP_APP_ID           = "356985103618"
-    config.x.MAILCHIMP_APP_SECRET       = "b2eef01b12b4c77c554a87c640ace2d0"
-    config.x.CONSTANTCONTACT_APP_ID     = "tshw8qaqjjv5xpnfv5hcnb9d"
-    config.x.CONSTANTCONTACT_APP_SECRET = "cH5WrjDafJu6F6VywJ5uYjXF"
-    config.x.TWITTER_APP_ID             = "NkWazFulS6zSg3AsItfANDyUz"
-    config.x.TWITTER_APP_SECRET         = "Xg26z4k6sk52vIxvLTIkRwgLhjqjrXXEvxdKpUFqD36Mhgg8Ct"
+    config.x.API_SECRET_KEY             = ENV['API_SECRET_KEY']
+    config.x.BEACON_COST                = ENV['BEACON_COST']
+    config.x.BEACON_DESCRIPTION         = ENV['BEACON_DESCRIPTION']
+    config.x.FACEBOOK_APP_ID            = ENV['FACEBOOK_APP_ID']
+    config.x.FACEBOOK_APP_SECRET        = ENV['FACEBOOK_APP_SECRET']
+    config.x.MAILCHIMP_APP_ID           = ENV['MAILCHIMP_APP_ID']
+    config.x.MAILCHIMP_APP_SECRET       = ENV['MAILCHIMP_APP_SECRET']
+    config.x.CONSTANTCONTACT_APP_ID     = ENV['CONSTANTCONTACT_APP_ID']
+    config.x.CONSTANTCONTACT_APP_SECRET = ENV['CONSTANTCONTACT_APP_SECRET']
+    config.x.TWITTER_APP_ID             = ENV['TWITTER_APP_ID']
+    config.x.TWITTER_APP_SECRET         = ENV['TWITTER_APP_SECRET']
 
     #Koala
     Koala.config.api_version = "v2.0"
