@@ -28,6 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'devise'                              # User accounts
   gem 'geocoder'                            # Location lat/lon
   gem 'paperclip',      '~> 4.2'            # Image uploads
+  gem 'aws-sdk'                             # For S3 uploading
   gem 'rails-erd',      group: :development # ERD Generator
   gem 'rails_12factor', group: :production  # 12 factor
   gem 'rocket_pants',   '~> 1.0'            # API versioning

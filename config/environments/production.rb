@@ -14,6 +14,18 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => "zsdev.herokuapp.com" }
   ## END MAILTRAP
 
+
+  ## Start paperclip S3 ##
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+  ## End paperclip S3 ##
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
