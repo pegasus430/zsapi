@@ -94,7 +94,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 	EOS
 	meta limit: 20
 	def fetch_nearby
-		loc = Location.near([params[:lat], params[:lon]], 1).limit(20)
+		loc = Location.near([params[:lat], params[:lon]], 10).limit(20)
 
 		if loc
 			collection loc, include: :business, only: [
