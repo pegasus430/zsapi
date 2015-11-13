@@ -14,7 +14,7 @@ namespace :devdata do
     users.each do |u|
       u.business.published!
       
-      locations = FactoryGirl.create_list(:location, 1, :with_beacon, :with_campaign, business: u.business, status: 'active')
+      locations = FactoryGirl.create_list(:location, 5, :with_beacon, :with_campaign, business: u.business, status: 'active')
       
       # Go through each active location and create a greeting
       locations.each do |l|
