@@ -92,7 +92,7 @@ class LocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
-      @location = current_user.locations.where(id: params[:id]).first
+      @location = current_user.locations.find(params[:id])
     end
 
     def set_campaigns_and_greetings
@@ -103,7 +103,7 @@ class LocationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
       params.require(:location).permit(:title, :address, :address2, :city, :state, :zipcode, :greeting_id,
-        :greeting_attributes => [:welcome_message, :welcome_reward, :welcome_wait_time, :exit_message, :campaign_id, :campaign_wait_time_quantity, :campaign_wait_time_span]
+        :greeting_attributes => [:id, :welcome_message, :welcome_reward, :welcome_wait_time, :exit_message, :campaign_id, :campaign_wait_time_quantity, :campaign_wait_time_span]
       )
     end
 end
