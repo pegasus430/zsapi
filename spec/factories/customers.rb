@@ -47,6 +47,20 @@ FactoryGirl.define do
 			end
 		end
 
+		trait :with_membership do
+			transient do
+				business nil
+			end
+
+			after(:create) do |cust, eval|
+				if eval.business.nil?
+					create(:membership, business: eval.business, customer: cust)
+				else
+					create(:membership, business: create(:business, :with_user), customer: cust)
+				end
+			end
+		end
+
 		# Creates facebook_customers as friends, then sets social_friends
 		trait :with_friends do
 			social_friends [11,12,13,14,15]

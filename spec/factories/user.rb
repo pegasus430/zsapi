@@ -9,10 +9,16 @@ FactoryGirl.define do
   	first_name		{ Faker::Name.first_name }
   	last_name			{ Faker::Name.last_name }
 
-  	factory :user_with_business do
-  		before :create do |u|
-  			business = create(:business, user: u)
-  		end
-  	end
+    factory :user_with_business do
+      before :create do |u|
+        business = create(:business, user: u)
+      end
+    end
+
+    trait :with_business do
+      before :create do |u|
+        business = create(:business, user: u)
+      end
+    end
   end
 end

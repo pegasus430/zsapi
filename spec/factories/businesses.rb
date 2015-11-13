@@ -42,6 +42,13 @@ FactoryGirl.define do
 			end
 		end
 
+		trait :with_user do
+			before(:create) do |b, eval|
+				u = create(:user)
+				b.user = u
+			end
+		end
+
   end
 
 end
