@@ -60,7 +60,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   # Identities--
 # Wesfed--
 
-gem 'factory_girl_rails' # Taken out of dev/test group so it will work with rake devdata:all
+# Taken these two out of dev/test group so it will work with rake devdata:all
+gem 'faker'
+gem 'factory_girl_rails'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -76,7 +78,6 @@ end
 
 
 group :test do
-	gem 'faker'
 	gem 'capybara'
 	gem 'database_cleaner'	# Cleans the DB prior to tests
 	gem 'guard-rspec'
