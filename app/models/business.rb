@@ -4,7 +4,8 @@ class Business < ActiveRecord::Base
   belongs_to :user
   has_many :greetings
   has_many :locations
-  has_many :receipts, through: :locations
+  has_many :redemptions, through: :locations
+  has_many :receipts, through: :redemptions
   has_many :campaigns
   has_many :memberships
   has_many :customers, through: :memberships
