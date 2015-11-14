@@ -17,7 +17,7 @@ RSpec.describe Receipt, type: :model do
 
   	# Presence
   	%w(redemption_id).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@receipt.send("#{attr}=", nil)
 	  		expect(@receipt).not_to be_valid
 		  end
@@ -91,9 +91,9 @@ RSpec.describe Receipt, type: :model do
 
 			it "shows a list of approved receipts from today" do
 				FactoryGirl.create(:receipt_approved, updated_at: 2.days.ago)
-				FactoryGirl.create(:receipt_approved, updated_at: Date.yesterday)
-				FactoryGirl.create(:receipt_approved, updated_at: Date.today)
-				FactoryGirl.create(:receipt_approved, updated_at: Date.tomorrow)
+				FactoryGirl.create(:receipt_approved, updated_at: 1.day.ago)
+				FactoryGirl.create(:receipt_approved, updated_at: Time.now)
+				FactoryGirl.create(:receipt_approved, updated_at: 2.days.from_now)
 				expect(Receipt.approved.from_today.count).to eq 1
 			end
 		end

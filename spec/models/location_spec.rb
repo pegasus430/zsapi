@@ -13,7 +13,7 @@ RSpec.describe Location, type: :model do
 
   	# Presence
   	%w(address city state zipcode).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@location.send("#{attr}=", nil)
 	  		expect(@location).not_to be_valid
 		  end
@@ -34,7 +34,7 @@ RSpec.describe Location, type: :model do
 		it { should have_one :subscription }
 		it { should belong_to :business }
 		it { should have_many :visits }
-		it { should have_many :receipts }
+		it { should have_many(:receipts), through: :redemptions }
 		it { should have_one(:user), through: :business }
 		it { should have_many(:customers), through: :visits }
 		it { should have_and_belong_to_many :campaigns }

@@ -13,7 +13,7 @@ RSpec.describe Greeting, type: :model do
 
   	# Presence
   	%w(welcome_message exit_message).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@greeting.send("#{attr}=", nil)
 	  		expect(@greeting).not_to be_valid
 		  end

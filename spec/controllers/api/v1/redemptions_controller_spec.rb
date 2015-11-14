@@ -63,7 +63,7 @@ RSpec.describe Api::V1::RedemptionsController, type: :controller do
           post :create, version: 1, redemption: {campaign_id: campaign.id, location_id: location.id}
           membership.reload
 
-          expect(membership.points).to eq 75
+          expect(membership.points).to eq 5
         end
       end
     end

@@ -9,9 +9,9 @@ class Location < ActiveRecord::Base
   has_one :user, through: :business
 
   has_many :customers, through: :visits
-  has_many :receipts
   has_many :visits
   has_many :redemptions
+  has_many :receipts, through: :redemptions
   
   has_and_belongs_to_many :campaigns
 

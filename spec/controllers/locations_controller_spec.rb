@@ -4,7 +4,7 @@ RSpec.describe LocationsController, type: :controller do
 
   before :each do
     @user = FactoryGirl.create(:user_with_business)
-    @location = FactoryGirl.create(:location, business: @user.business)
+    @location = FactoryGirl.create(:location, business: @user.business, status: 'pending')
     sign_in @user
   end
 
@@ -26,7 +26,7 @@ RSpec.describe LocationsController, type: :controller do
 
     it 'assigns @pending_locations' do
       get :index
-      expect(assigns(:pending_locations).size).to eq 2
+      expect(assigns(:pending_locations).size).to eq 3
     end
 
   end

@@ -13,7 +13,7 @@ RSpec.describe Visit, type: :model do
 
   	# Presence
   	%w(total).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@visit.send("#{attr}=", nil)
 	  		expect(@visit).not_to be_valid
 		  end
@@ -43,7 +43,8 @@ RSpec.describe Visit, type: :model do
 						business: @business,
 						customer: @customer,
 						campaign: nil,
-						welcome_reward_valid_at: nil
+						welcome_reward_valid_at: nil,
+						points: 500
 					)
 				end
 				

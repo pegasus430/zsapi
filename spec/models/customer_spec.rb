@@ -13,7 +13,7 @@ RSpec.describe Customer, type: :model do
 
   	# Presence
   	%w(first_name last_name email).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@customer.send("#{attr}=", nil)
 	  		expect(@customer).not_to be_valid
 		  end

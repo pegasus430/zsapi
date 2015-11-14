@@ -31,27 +31,6 @@ RSpec.describe Membership, type: :model do
 			expect(@membership.points).to eq 750
 		end
 
-		describe '#new_visit!' do
-			before :each do
-				@membership = FactoryGirl.create(:membership, business: @business, customer: @customer, visits: 0, last_visit_at: Date.yesterday)
-				@location = FactoryGirl.create(:location, business: @business)
-				@greeting = FactoryGirl.create(:greeting, welcome_reward_freq: 'weekly')
-				@membership.new_visit!(@greeting.welcome_reward_freq)
-			end
-
-			it 'increments the visits' do
-				expect(@membership.visits).to eq 1
-			end
-
-			it 'updates the last_visit_at' do
-				expect(@membership.last_visit_at.to_date).to eq Date.today
-			end
-
-			it 'sets the welcome_reward_valid_at accordingly' do
-				expect(@membership.welcome_reward_valid_at).to eq 1.week.from_now.to_date
-			end
-		end
-
 	end
 
 end

@@ -13,7 +13,7 @@ RSpec.describe Subscription, type: :model do
 
   	# Presence
   	%w(stripe_plan_id).each do |attr|
-	  	it "validates presenve of #{attr}" do
+	  	it "validates presence of #{attr}" do
 	  		@subscription.send("#{attr}=", nil)
 	  		expect(@subscription).not_to be_valid
 		  end

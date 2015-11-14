@@ -4,7 +4,7 @@ class Beacon < ActiveRecord::Base
   belongs_to :location
   has_one :subscription, through: :location
 
-  validates :uuid, presence: true, confirmation: true, on: [:update]
+  validates :uuid, presence: true, confirmation: true, on: :update
 
   before_create :generate_random_key
 

@@ -11,7 +11,7 @@ FactoryGirl.define do
 		referrer_reward 	100
 		status 						'inactive'
 		start_at 					{ "2016-01-01".to_date }
-		end_at 						nil
+		end_at 						{ "2016-10-10".to_date }
 
 		factory :active_campaign do
 			status 'active'

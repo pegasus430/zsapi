@@ -86,8 +86,8 @@ RSpec.describe CampaignsController, type: :controller do
 
       context "[Invalid params]" do
         it "does not change the attributes" do
-          put :update, id: @campaign, campaign: FactoryGirl.attributes_for(:invalid_campaign, share_reward: 467)
-          expect(Campaign.find(@campaign.id).share_reward.to_i).not_to eq 467
+          put :update, id: @campaign, campaign: FactoryGirl.attributes_for(:invalid_campaign, referral_reward: 467)
+          expect(Campaign.find(@campaign.id).referral_reward.to_i).not_to eq 467
         end
 
         it "re-renders the campaign template" do

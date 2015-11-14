@@ -10,9 +10,9 @@ RSpec.describe ReceiptsController, type: :controller do
 
 	describe 'GET #index' do
 	  before :each do
-	    FactoryGirl.create_list(:receipt_approved, 2, location: @location, purchased_on: 2.days.ago)
-	    FactoryGirl.create(:receipt_rejected, location: @location, purchased_on: 2.days.ago)
-	    FactoryGirl.create(:receipt, location: @location, purchased_on: 2.days.ago)
+	    FactoryGirl.create_list(:receipt_approved, 2, purchased_on: 2.days.ago)
+	    FactoryGirl.create(:receipt_rejected, purchased_on: 2.days.ago)
+	    FactoryGirl.create(:receipt, purchased_on: 2.days.ago)
 	  end
 
 	  it 'assigns @approved_receipts' do
@@ -22,9 +22,9 @@ RSpec.describe ReceiptsController, type: :controller do
 
 	  context '[Filtering by date]' do
 	  	before :each do
-	  		FactoryGirl.create(:receipt_approved, location: @location, purchased_on: 1.day.ago)
-	  		FactoryGirl.create(:receipt_approved, location: @location, purchased_on: Date.today)
-	  		FactoryGirl.create(:receipt_approved, location: @location, purchased_on: Date.tomorrow)
+	  		FactoryGirl.create(:receipt_approved, purchased_on: 1.day.ago)
+	  		FactoryGirl.create(:receipt_approved, purchased_on: Date.today)
+	  		FactoryGirl.create(:receipt_approved, purchased_on: Date.tomorrow)
 	  	end
 
 	  	it 'filters the start date only' do

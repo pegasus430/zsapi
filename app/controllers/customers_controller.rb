@@ -26,7 +26,7 @@ class CustomersController < ApplicationController
     end
 
     redirect_to customers_url,
-      notice: pluralize(@newly_imported_customers.size, "customer") + " have been imported successfully!"
+                notice: pluralize(@newly_imported_customers.size, "customer") + " have been imported successfully!"
   end
 
 
