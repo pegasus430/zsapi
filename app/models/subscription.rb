@@ -17,7 +17,7 @@ class Subscription < ActiveRecord::Base
     }
 
     # Disable trial if business is already in a trial
-    sub_opts.merge!(trial_ends_at: "now") if business.in_trial?
+    sub_opts.merge!(trial_end: "now") if business.in_trial?
     
     # Create the subscription in STRIPE and save the ID
     stripe_sub = stripe_customer.subscriptions.create(sub_opts)
