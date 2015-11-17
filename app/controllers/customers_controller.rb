@@ -26,7 +26,7 @@ class CustomersController < ApplicationController
     end
 
     redirect_to customers_url,
-                notice: pluralize(@newly_imported_customers.size, "customer") + " have been imported successfully!"
+                notice: "#{@newly_imported_customers.size} customer(s) imported successfully!"
   end
 
 
@@ -54,7 +54,7 @@ class CustomersController < ApplicationController
       )
 
       redirect_to customers_url(status: params[:status]),
-        notice: pluralize(add_subscribers['add_count'], "new subscriber") + " have been emailed to request to be subscribed to your Mailchimp list!"
+        notice: "#{add_subscribers['add_count']} new subscriber(s) were emailed to request to be subscribed to your Mailchimp list!"
     end
 
 
@@ -82,6 +82,6 @@ class CustomersController < ApplicationController
       # contact_count, error_count, id (id of the activity), type ("ADD_CONTACTS")
 
       redirect_to customers_url(status: params[:status]),
-        notice: pluralize(add_subscribers.contact_count, "new subscriber") + " have been emailed to request to be subscribed to your constantcontact list!"
+        notice: "#{add_subscribers.contact_count} new subscriber(s) have been emailed to request to be subscribed to your constantcontact list!"
     end
 end
