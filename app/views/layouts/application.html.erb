@@ -39,7 +39,7 @@
 	<%= yield :js_header %>
 </head>
 
-<body class="<%= "active-sidebar " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
+<body data-no-turbolinks="true" class="<%= "active-sidebar " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
 
 <div id="wrapper">
 

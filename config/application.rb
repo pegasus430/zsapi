@@ -39,7 +39,7 @@ module Zippyspot
 
     # Stripe
     config.stripe.secret_key        = ENV['STRIPE_SECRET_KEY']
-    config.stripe.publishable_key   = ENV['STRIPE_PUBLISHABLE_KEY']
+    config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
 
     # Custom
     config.x.API_SECRET_KEY             = ENV['API_SECRET_KEY']

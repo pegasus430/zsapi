@@ -24,11 +24,12 @@ class SubscriptionsController < ApplicationController
 
   # POST /subscriptions
   def create
-    subscription = Subscription.new(subscription_params)
+    @stripe_plans = Stripe::Plan.all
+    @subscription = Subscription.new(subscription_params)
 
     card_error = nil
 
-    if subscription.valid? && params[:agree]
+    if @subscription.valid? && params[:agree] && params[:stripeToken]
       begin
         # Create the stripe customer using card details
         stripe_customer = current_user.find_or_create_stripe_customer(
@@ -43,7 +44,7 @@ class SubscriptionsController < ApplicationController
         render :new
       else
         # Save subscription
-        subscription.save
+        @subscription.save
 
         # Create the beacon
         @beacon = Beacon.create(location: @location)
@@ -52,7 +53,8 @@ class SubscriptionsController < ApplicationController
         render :success
       end
     else
-      flash[:alert] = 'You must agree to the Terms of Service'
+      flash[:alert] = 'You must agree to the Terms of Service' unless params[:agree]
+      flash[:alert] = 'There was an error establishing a funding source' unless params[:stripeToken]
       render :new
     end
   end
