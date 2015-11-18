@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
       update_attribute(:stripe_id, stripe_customer.id)
     else
       stripe_customer = Stripe::Customer.retrieve stripe_id
+      if opts[:source]
+        stripe_customer.source = opts[:source]
+        stripe_customer.save
+      end
     end
 
     stripe_customer

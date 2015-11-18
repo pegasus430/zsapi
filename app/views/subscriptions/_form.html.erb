@@ -1,4 +1,3 @@
-
 <%= form_for([@location, @subscription], html: {id: "stripe_form"}) do |f| %>
   <%= form_errors_for @subscription %>
 
@@ -29,6 +28,7 @@
     <%= section_header 'Subscription Information',
         desc: "If this is your first location, you will not be billed until the end of your trial period." %>
 
+    <div class="payment-errors alert"></div>
 
     <%= fr 'Name on Card',
       text_field_tag(:card_name, "", name: "", data: {stripe: "name"}) %>
