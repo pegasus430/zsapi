@@ -15,8 +15,8 @@
 # Test files
 /public/system/*
 
+# DB Config
+/config/database.yml
 
 # Other local
 /Progress.txt
-
-/config/database.yml
