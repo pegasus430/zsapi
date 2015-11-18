@@ -1,0 +1,138 @@
+body.active-sidebar 
+  padding-left: $sidebar-expanded-width
+
+
+// The actual sidebar
+.db-header 
+  background: #21213b
+  @include linear-gradient(#21213b, #343f53)
+  width: 75px
+  position: fixed
+  left: 0
+  top: 0
+  height: 100vh
+  @include transition(.4s)
+  z-index: 999
+
+  .logo 
+    text-align: center
+    height: 150px
+    width: 38px
+    overflow: hidden
+    margin: 23px auto 0
+    @include transition(.4s)
+  
+
+  body.active-sidebar & 
+    width: $sidebar-expanded-width
+
+    .logo 
+      width: 100%
+
+    .db-navbar 
+      li 
+        a 
+          padding-left: 60px
+
+          span 
+            opacity: 1
+            visibility: visible
+            transition: none
+            width: auto
+            position: relative
+            right: 0px !important
+
+
+// The navigation inside of the sidebar
+.db-navbar 
+  width: 100%
+  overflow: hidden
+  li 
+    a 
+      line-height: 53px
+      white-space: nowrap
+      position: relative
+      display: table
+      width: 100%
+      color: #cecece
+      text-transform: uppercase
+      font-size: 13px
+      font-weight: 600
+      overflow: hidden
+      @include transition(.4s)
+      border-left: 5px solid transparent
+      padding-left: 60px
+      span 
+        opacity: 0
+        visibility: hidden
+        @include transition(.4s)
+        width: 0px
+        position: relative
+        right: 0px
+      
+      i 
+        width: 35px
+        position: absolute
+        left: 18px
+        top: 50%
+        -webkit-transform: translate(0,-50%)
+        -ms-transform: translate(0,-50%)
+        transform: translate(0,-50%)
+        img 
+          margin: 0 auto
+          display: table  
+
+  &:hover
+    overflow: visible
+
+  li a:hover 
+    text-decoration: none
+    background: #2a374a
+    border-left: 5px solid #33b1fd
+    padding: 0px 25px 0px 65px !important
+    @include transition(.4s)
+    color: $white
+
+  li#dashboard
+    a.active,
+    a:hover 
+      border-left-color: $c-campaign  
+
+  li#business
+    a.active,
+    a:hover 
+      border-left-color: $c-receipt
+	
+  li#greeting
+    a.active,
+    a:hover 
+      border-left-color: $c-greeting
+	
+  li#campaign
+    a.active,
+    a:hover 
+      border-left-color: $c-campaign
+    	
+  li#customer
+    a.active,
+    a:hover 
+      border-left-color: $c-customer
+	
+  li#receipt
+    a.active,
+    a:hover 
+      border-left-color: $c-receipt
+    	
+  li#location
+    a.active,
+    a:hover 
+      border-left-color: $c-location
+
+  li a:hover span,
+  li.active a:hover span  
+    opacity: 1
+    visibility: visible
+    @include transition(.4s)
+    width: auto
+    position: relative
+    right: 0px

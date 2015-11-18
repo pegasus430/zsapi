@@ -1,0 +1,32 @@
+@import 'settings'
+
+.flash
+  @include box-shadow(0, 3px, 6px, rgba(0,0,0,0.16))
+  color: #fff
+  font-size: 18px
+  position: relative
+  z-index: 999
+  
+  .container
+    padding-top: $row-gutter/2
+    padding-bottom: $row-gutter/2
+
+  i.fa
+    padding-right: 10px
+    display: inline-block
+
+  p
+    display: inline-block
+    margin-bottom: 0
+
+  &.bg-warning 
+    background: $error-background-color
+
+  &.bg-notice
+    background: #33b1fd
+
+  &.bg-success
+    background: #4cd9b9
+
+  ul
+    margin-left: 30px

@@ -1,0 +1,177 @@
+//= require shared/cropbox_setup
+//= require jquery.minicolors
+//= require shared/popups
+
+@import 'settings'
+
+.imgPlaceHolder
+  min-height: 100px
+  min-width: 140px
+  display: block
+  width: auto
+  float: left
+  border: solid 1px #979797
+  img
+    width: 100%
+  
+
+
+.upload-campaign-image, .preview-campaign
+  letter-spacing: 1px
+  font-family: 'Roboto', Sans-serif !important
+  background-repeat: no-repeat
+  background-color: transparent
+  float: left
+  border: 1px solid #4a4a4a
+  margin-top: 23px
+  display: block
+  -webkit-border-radius: 40px
+  -moz-border-radius: 40px
+  border-radius: 40px
+  font-size: 12px
+  line-height: 12px
+  font-weight: bold
+  padding: 10px 30px 
+  color: #4a4a4a
+
+.preview
+  background-image: image-url('mobile-preview.png')
+  background-repeat: no-repeat
+  background-position: 20px center
+  padding-left: 75px
+
+.preview-campaign
+  letter-spacing: 1px
+  background-image: image-url('ico/ico_browse.png')
+  background-position: 20px center
+  padding-left: 55px
+  margin-bottom:  8px
+
+
+.preview-campaign:hover, .upload-campaign-image:hover
+  background-color: #FFF
+  transition: .4s
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+
+.colorPicker
+  width: 206px
+
+.contPaletteColors
+  padding-top: 20px
+  padding-bottom: 20px
+  .paletteColors
+    .color
+      width: 40px
+      height: 40px
+      border: solid 2px #979797
+      @include border-radius(50%)
+      float: left
+      margin-right: 10px
+      cursor: image-url('eyeDropCursor.png') 0 55, default
+    
+  
+
+
+.connect,
+.connected 
+  margin-top: $row-gutter/2
+
+.connected, .connect:hover
+  background: $white
+  @include transition()
+  padding-left: 25px
+
+
+.publish
+  background: $c-business
+  color:$white
+  margin-top: $row-gutter/2
+  padding: 0px 45px
+
+
+
+
+.minicolors
+  cursor: pointer
+  padding-right: 105px
+  background: image-url('ico/ico-eyedropper.png') no-repeat right 5px
+  .minicolors-input
+    height: 45px
+    width: 105px
+    padding: 12px 17px !important
+  
+  .minicolors-sprite.minicolors-swatch
+    right: 50px !important
+    height: 45px
+    top: 0
+    width: 45px
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    border-radius: 50%
+    .minicolors-swatch-color
+      border: solid 2px #979797
+      -webkit-border-radius: 50%
+      -moz-border-radius: 50%
+      border-radius: 50%
+      overflow: hidden
+
+#shareModal
+  textarea 
+    width: 100%
+    padding: $row-gutter/2
+    margin-bottom: $row-gutter/2
+
+
+.modal-body
+  .container
+    width: 255px
+    margin: 0 auto !important
+    height: 498px
+    overflow-y: scroll
+    overflow-x: hidden
+    padding-top: 90px
+    .mobileTemplate
+      height: 408px
+      width: 229px
+      .previewHeader
+        background-color: $c-location
+        img
+          width: 100%
+          min-height: 70px
+          padding: 35px 45px
+      .content
+        background-color: #747474
+        color: #FFF
+        float: left
+        width: 100%
+        min-height: 221px
+        h1
+          font-size: 20px
+          margin-top: 0px        
+        p
+          font-size: 20px      
+      .socialFooter
+        background-color: #747474
+        color: #FFF
+        float: left
+        padding: 24px
+        width: 100%
+        a
+          display: block
+          width: 50px
+          height: 50px
+          float: left
+          margin-right: 15px
+          &.chains
+            background: image-url('preview_link.png') 
+            background-color: #5ca011
+            background-size: cover
+          
+          &.facebook
+            background: image-url('facebook.png') 
+            background-size: cover
+          
+          &.twitter
+            background: image-url('twitter.png')
+            background-size: cover
+            margin-right: 0px
