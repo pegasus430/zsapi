@@ -1,4 +1,7 @@
-@import 'settings'
+@import 'settings.global'
+@import 'tools.glob'
+
+
 
 .flash
   @include box-shadow(0, 3px, 6px, rgba(0,0,0,0.16))
@@ -20,7 +23,7 @@
     margin-bottom: 0
 
   &.bg-warning 
-    background: $error-background-color
+    background: $c-error-background
 
   &.bg-notice
     background: #33b1fd

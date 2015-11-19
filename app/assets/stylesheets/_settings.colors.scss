@@ -1,6 +1,13 @@
-@import "bourbon";
+// --------------------------------------------
+//
+// Settings -- Colors
+//
 
-// COLOR NAMES AND USES
+@import 'bourbon';
+
+
+// Color names and uses
+
 $alabaster: #F9F9F9;
 $alto: #D8D8D8;
 $amber: #F5C400;            // Locations
@@ -24,7 +31,8 @@ $turquoise: #4CD9BA;        // Coupons
 $white: #fff;
 
 
-// COLORS
+// Color Assignments
+
 $c-business: $niagara;
 $c-campaign: $dodger-blue;
 $c-customer: $crimson;
@@ -32,51 +40,19 @@ $c-greeting: $gold;
 $c-location: $amber;
 $c-receipt: $niagara;
 
-$error-background-color: $torch-red;
-$background-color: #edecf1;
+$c-error-background: $torch-red;
+$c-background: #edecf1;
 $c-label: $tundora;
 $c-modal-background: $athens-gray;
 $c-table-head: $osio-gray;
-$header-font-color: $mine-shaft;
+$c-header-font: $mine-shaft;
 
 $c-coupon: $turquoise;
 $c-reward: $havelock-blue;
 $c-special: $torch-red;
 
-$button-font-color: #3b3c40;
-$color-tooltip-font: #32B1FE;
+$c-button-font: #3b3c40;
+$c-tooltip-font: #32B1FE;
 
-$border-color: #ccc;
-$dark-border-color: darken($border-color, 20%);
-
-
-// SIZING
-$row-gutter: 40px;
-$bare-form-width: 700px;
-$header-height: rem(118);
-
-$sidebar-collapsed-width: 75px;
-$sidebar-expanded-width: 200px;
-
-
-
-
-
-
-// MIXINS
-@mixin box-shadow($top: 0, $left: 3px, $blur: 6px, $color: rgba(0,0,0,0.16), $inset: false) {
-  @if $inset {
-    -webkit-box-shadow:inset $top $left $blur $color;
-    -moz-box-shadow:inset $top $left $blur $color;
-    box-shadow:inset $top $left $blur $color;
-  } @else {
-    -webkit-box-shadow: $top $left $blur $color;
-    -moz-box-shadow: $top $left $blur $color;
-    box-shadow: $top $left $blur $color;
-  }
-}
-
-@mixin border-radius($radius){
-	@include border-top-radius($radius);
-	@include border-bottom-radius($radius);
-}
+$c-border: #ccc;
+$c-border-dark: darken($c-border, 20);

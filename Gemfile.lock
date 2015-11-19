@@ -58,6 +58,9 @@ GEM
       hashie (>= 1.0, < 3.0)
       httparty
     arel (6.0.3)
+    autoprefixer-rails (6.1.0.1)
+      execjs
+      json
     aws-sdk (1.66.0)
       aws-sdk-v1 (= 1.66.0)
     aws-sdk-v1 (1.66.0)
@@ -427,6 +430,7 @@ PLATFORMS
 
 DEPENDENCIES
   apipie-rails!
+  autoprefixer-rails
   aws-sdk (< 2.0)
   bourbon
   byebug

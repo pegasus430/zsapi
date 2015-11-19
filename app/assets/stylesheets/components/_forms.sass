@@ -1,42 +1,142 @@
+.form-wrap 
+  max-width: 900px
+  margin: 0 auto
+
+
+
+
 // FIELD ICON
 .field-info 
-  $icon-size: em(24)
+  $icon-size: 24em
 
-  @include border-radius($icon-size/2)
-  border: 1px solid $border-color
-  color: $border-color
+  border-radius: $icon-size/2
+  border: 1px solid $c-border
+  color: $c-border
   font-family: serif
   font-style: italic
   height: $icon-size
   line-height: $icon-size
   position: absolute
-  left: em(-25)
+  left: -25em
   text-align: center
-  top: em(13)
+  top: 13em
   width: $icon-size
-
   .dark-wrap & 
-    border-color: $dark-border-color
-    color: $dark-border-color
-  
-
+    border-color: $c-border-dark
+    color: $c-border-dark
   &:hover
     background: $white
-    border-color: $color-tooltip-font
-    color: $color-tooltip-font
+    border-color: $c-tooltip-font
+    color: $c-tooltip-font
   
 
 
+//-- 
 // The icon tooltip
-
 
 .tooltip.bottom .tooltip-arrow
   border-bottom-color: $white !important
-
-
 .tooltip-inner 
   @include box-shadow()
   background: $white
-  color: $color-tooltip-font
+  color: $c-tooltip-font
   padding: $row-gutter/2
-  width: em(250)
+  width: 250em
+
+
+
+
+
+
+// TODO: This might not belong here... 
+
+.bare-wrap 
+  #logo
+    text-align: center
+    margin-bottom: $row-gutter
+  
+.bare-wrap #form-wrap 
+  width: 100%
+  max-width: $bare-form-width
+  margin: 0 auto
+  background: $white
+  @include box-shadow()
+  border-radius: 4px
+  #form-body
+    padding: $row-gutter
+  h4 
+    margin: 0 0 $row-gutter
+    text-align: center
+    font-size: em(29)
+    text-transform: uppercase
+    font-weight: 300
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] 
+    background: #eee
+    height: 55px
+    border-radius: 3px
+    @include border-width(1px)
+    @include border-color(#d5d5d5 #e9e9e9 #efefef)
+    padding: 0 55px
+    font-weight: 500
+    font-size: em(20)
+    margin-bottom: 18px
+  form 
+    div 
+      position: relative
+      i 
+        color: #cccccc
+        position: absolute
+        top: 0
+        left: 15px
+        width: 54px
+        text-align: center
+        line-height: 55px
+        font-size: em(22)  
+  #login-links
+    span
+      line-height: 40px
+      font-weight: 500
+      padding: 0
+      color: #888
+    a#forgot-pass 
+      color: #4b8fe2
+    button#log-in
+      margin: 0    
+    a#sign-up 
+      color: #4fe3c1
+      text-align: right  
+
+
+
+
+.profile-form 
+  padding: 75px 0 120px
+  h3 
+    font-weight: 300
+    font-size: 27px
+    margin: 0 0 40px
+  p 
+    color: #777576
+    font-size: 16px
+  
+  label.lead 
+    line-height: 19px
+    margin-top: 5px
+
+
+
+
+.chg-email 
+  margin-bottom: 80px
+
+
+#profile-form label.error,
+.form-content div label.error 
+  color: #f00
+  font-size: 13px
+  text-transform: none
+  margin: -25px 0 0
+  display: table
+  font-weight: 400

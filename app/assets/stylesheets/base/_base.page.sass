@@ -1,0 +1,21 @@
+@import 'tools.glob'
+
+
+html
+  @include below(767px)
+    width: 100%
+    overflow-x: hidden
+
+
+body 
+  background-color: $c-background
+  font-family: 'Roboto', Sans-serif
+  padding-left: 75px
+  overflow-x: hidden
+  background: $c-background
+  padding-top: 72px
+  @include transition(.4s)
+
+  &.bare,
+  &.admin
+    padding: $row-gutter

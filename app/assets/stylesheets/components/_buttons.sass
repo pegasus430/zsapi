@@ -3,7 +3,7 @@
   padding: 0px 25px 0 50px
   line-height: 32px
   border-radius: 22px
-  color: $button-font-color
+  color: $c-button-font
   text-transform: uppercase
   font-size: 12px
   font-weight: 700
@@ -65,3 +65,22 @@
 form button
   @extend .btn
   @extend .btn-submit
+
+
+
+
+// TODO: refactor below
+// .file-upload is a wrapper for the upload button
+
+.file-upload
+  a
+    float: left
+
+  input[type="file"] 
+    display: none
+
+  span
+    float: left
+    margin-left: $row-gutter/2
+    margin-top: 7px
+

@@ -1,6 +1,11 @@
 //= require shared/cropbox_setup
 //= require shared/popups
 
+@import 'settings.global'
+@import 'tools.glob'
+
+
+
 // These dimensions are taken from the
 // campaign.rb attachment size for "index" thumbnails
 #image_preview
@@ -15,10 +20,6 @@
     max-height: 170px
     // left: 0
     // top: 0
-  
-
-
-
 
 .campaign-form
   .cbox
@@ -37,7 +38,7 @@
     .subtitle
       font-size: 13px
       padding: 0px
-      color:#a3a3a3
+      color: #a3a3a3
       text-align: left
     
     .upload-campaign-image
@@ -114,26 +115,23 @@
       input[type="checkbox"]
         left: 24px !important
       
-    
-
-		//WES
     .default_socialImg
-    	width: 81px
-    	height: 84px
-    	background: image-url('facebook.png') center center no-repeat
-    	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+      width: 81px
+      height: 84px
+      background: image-url('facebook.png') center center no-repeat
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
     
 
     .facebookImg
-    	@extend .default_socialImg
+      @extend .default_socialImg
       background-image: image-url('facebook.png')
     
     .twitterImg
-    	@extend .default_socialImg
+      @extend .default_socialImg
       background-image: image-url('twitter.png')
     
     .instagramImg
-    	@extend .default_socialImg
+      @extend .default_socialImg
       background-image: image-url('instagram.png')
     
   
