@@ -8,8 +8,16 @@
 // - settings should be rather universal in scope
 
 
-// Imports of other settings files
+@import 'bourbon'
 
+// --
+// Imports of other settings files
+// 
+// Located here so that this file 
+// can be the sole settings file needing 
+// to be @imported at the top of other files
+
+@import 'settings.breakpoints'
 @import 'settings.colors'
 
 
@@ -20,19 +28,3 @@
 $row-gutter: 40px
 $bare-form-width: 700px
 $header-height: rem(118)
-
-
-
-// ---
-// Breakpoints
-
-$bp-default: 680px
-
-$bp-xsmall: 767px
-$bp-small: 768px
-$bp-medium: 992px
-$bp-large: 1200px
-
-
-$sidebar-collapsed-width: 75px
-$sidebar-expanded-width: 200px

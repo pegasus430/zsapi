@@ -4,7 +4,7 @@
 //
 
 
-@import 'settings.global'
+@import '../settings.global'
 
 
 
@@ -27,6 +27,8 @@
 
 
 
+// ---
+// Other
 
 
 @mixin box-shadow($top: 0, $left: 3px, $blur: 6px, $color: rgba(0,0,0,0.16), $inset: false)
@@ -34,3 +36,8 @@
     box-shadow: inset $top $left $blur $color
   @else
     box-shadow: $top $left $blur $color
+
+
+// TODO: 
+// Consider refactoring bourbon mixins 
+// into here to remove the dependency
