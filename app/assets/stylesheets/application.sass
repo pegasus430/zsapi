@@ -7,15 +7,15 @@
 // 
 // Aspiring style-architecture:
 // 
-// ITCSS
+// ITCSS (it - inverted triangle)
 // 
-// Settings   -- Global vaiables, cofig switches.
-// Tools      -- Default mixins and functions
-// Generic    -- Ground-zero styles (normalize.css, resets, box-sizing)
-// Base       -- Unclassed HTML elements (type selectors)
-// Objects    -- Cosmetic-free design patterns. Like scaffolding.
-// Components -- Designed components, chunks of UI.
-// Trumps     -- Helpers and overrides.
+// it1 - Settings   -- Global vaiables, cofig switches.
+// it2 - Tools      -- Default mixins and functions
+// it3 - Generic    -- Ground-zero styles (normalize.css, resets, box-sizing)
+// it4 - Base       -- Unclassed HTML elements (type selectors)
+// it5 - Objects    -- Cosmetic-free design patterns. Like scaffolding.
+// it6 - Components -- Designed components, chunks of UI.
+// it7 - Trumps     -- Helpers and overrides.
 //
 // --------------------------------------------
 
@@ -37,33 +37,33 @@
 //= require font-awesome
 
 
-@import 'settings.global'
+@import 'it1.settings/settings.global'
 
-@import 'tools/tools.glob'
+@import 'it2.tools/tools.glob'
+
+@import 'it4.base/base.page'
+@import 'it4.base/base.forms'
+@import 'it4.base/base.headings'
+@import 'it4.base/base.links'
+@import 'it4.base/base.lists'
 
 // TODO:
-// refactor out design patterns from the components and into objects
-@import "objects/wrappers"
+// refactor out design patterns from components and into objects
+@import "it5.objects/wrappers"
 
+@import 'it6.components/components.grid'
+@import 'it6.components/components.site-sidebar'
+@import "it6.components/components.forms"
+@import "it6.components/components.site-header"
+@import "it6.components/components.page-head"
+@import "it6.components/components.dashboard-first"
+@import "it6.components/components.tables"
+@import "it6.components/components.buttons"
+@import "it6.components/components.modals"
+@import "it6.components/components.boxes"
+@import "it6.components/components.other"
 
-@import 'base/base.page'
-@import 'base/base.forms'
-@import 'base/base.headings'
-@import 'base/base.links'
-@import 'base/base.lists'
-
-@import 'components/components.grid'
-@import 'components/components.site-sidebar'
-@import "components/components.forms"
-@import "components/components.site-header"
-@import "components/components.page-head"
-@import "components/components.dashboard-first"
-@import "components/components.tables"
-@import "components/components.buttons"
-@import "components/components.boxes"
-@import "components/components.other"
-
-@import "trumps/*"
+@import "it7.trumps/*"
 
 @import "shame"
 
