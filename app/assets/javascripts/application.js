@@ -15,6 +15,9 @@
 //= require_self
 
 
+var helpers = require('./shared/helpers');
+  helpers.echoText('hi there');
+
 
 jQuery(document).ready(function($){
 	// Init selectBox

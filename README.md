@@ -10,8 +10,9 @@ After running the final rake (devdata), you'll be given an email address. Use th
 
 ## Development groove: 
 
-2 terminals, 2 commands: 
+3 terminals, 3 commands: 
 
 1. `rails s`
-2. `guard`
+2. `guard`          -- for injecting style changes
+3. `npm run watch`  -- mostly for browsersync (reloads scripts and templates)
 
