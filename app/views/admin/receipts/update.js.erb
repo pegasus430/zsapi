@@ -4,11 +4,12 @@ $('#untouched_receipts h3').text( function(i, oldval) {
 });
 
 <%# INCREMENT THE COUNTER FOR APPROVED/REJECTED %>
-<% %(approved rejected).each do |s| %>
+<% %w(approved rejected).each do |s| %>
   <% if @receipt.send("#{s}?") %>
-  $('#<%= s %>_receipts h3').text( function(i, oldval) {
-    return parseInt( oldval, 10) + 1;
-  });
+	  $('#<%= s %>_receipts h3').text( function(i, oldval) {
+	    return parseInt( oldval, 10) + 1;
+	  });
+	<% end %>
 <% end %>
 
 <%# RELOAD THE FORM %>
