@@ -6,7 +6,7 @@
 	<div class="col-xs-12 text-center">
 		<%= image_tag "locationAdded.png" %>
 
-		<h2>Your order has been placed!</h2>
+		<h2>Your order has been placed! <%= link_to "DEMO-Click HERE", edit_beacon_url(key: @beacon.creation_key) %></h2>
 
 		<p>Thank you for your order. You will receive an email once your iBeacon ships.</p>
 
