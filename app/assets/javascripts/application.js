@@ -1,3 +1,14 @@
+/* ---------------------------------------
+
+Applications.js
+
+Notes: 
+- see assets.rb (/config/initializers/assets.rb) for list of 
+  individual bundles (config in config/browserify.yml)
+*/
+
+
+
 // Assets
 //= require jquery
 //= require jquery_ujs
@@ -16,33 +27,13 @@
 
 
 var helpers = require('./shared/helpers');
-  helpers.echoText('hi there');
+helpers.echoText('hi from core applicatoins.js');
 
 
-jQuery(document).ready(function($){
-	// Init selectBox
-	$('select').selectBox({'mobile':true});
 
-	// Navbar Collapsing
-	$(".nav-trigger").click(function() {
-    $("body").toggleClass("active-sidebar");
-    $.get('/users/toggleSidebar');
-	});
+var globalInitializers = require('./globals/globals.inits')
+globalInitializers()
 
-	// Swipe to open menu
-	if ( $(!".minicolors").length > 0 )
-	{
-		$('body').on("swipeleft",function(){
-		  $(this).removeClass("active-sidebar");
-		});
-		$('body').on("swiperight",function(){
-		  $(this).addClass("active-sidebar");
-		});
-	}
-
-	// Tooltip menus
-  $('[data-toggle="tooltip"]').tooltip({html: true})
-});
 
 
 
