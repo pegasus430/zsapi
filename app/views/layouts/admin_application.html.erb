@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
-<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+<!doctype html>
+<html class="no-js" lang="">
 <head>
 	<!-- <meta http-equiv="refresh" content="3" > -->
 	<%# Meta %>
@@ -34,10 +32,10 @@
 
 <body class="admin <%= [params[:controller], params[:action]].join(' ') %>">
 
-<div id="wrapper">
-	<div id="content-body">
-		<%= yield %>
-	</div>
+	<div id="wrapper">
+		<div id="content-body">
+			<%= yield %>
+		</div>
 
 	<%= javascript_include_tag 'application', params[:controller], 'data-turbolinks-track' => true %>
 
