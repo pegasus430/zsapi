@@ -17,9 +17,6 @@
 // Components -- Designed components, chunks of UI.
 // Trumps     -- Helpers and overrides.
 //
-// Also: 
-// Utils      -- Utility classes. Not to be used for core layout, but really 
-//               handy for drying things up
 // --------------------------------------------
 
 
@@ -48,7 +45,6 @@
 // refactor out design patterns from the components and into objects
 @import "objects/wrappers"
 
-@import "utils/*"
 
 @import 'base/base.page'
 @import 'base/base.forms'
@@ -56,15 +52,18 @@
 @import 'base/base.links'
 @import 'base/base.lists'
 
-@import 'components/grid'
-@import 'components/site-sidebar'
-@import "components/forms"
-@import "components/site-header"
-@import "components/page-head"
-@import "components/dashboard-first"
-@import "components/other"
-@import "components/tables"
-@import "components/buttons"
+@import 'components/components.grid'
+@import 'components/components.site-sidebar'
+@import "components/components.forms"
+@import "components/components.site-header"
+@import "components/components.page-head"
+@import "components/components.dashboard-first"
+@import "components/components.tables"
+@import "components/components.buttons"
+@import "components/components.boxes"
+@import "components/components.other"
+
+@import "trumps/*"
 
 @import "shame"
 
