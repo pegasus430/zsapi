@@ -9,6 +9,5 @@ $( document ).ready(function(){
             console.log('hoho2',$(this).val());
             updatePreview();
         });
-
     }   
 });
