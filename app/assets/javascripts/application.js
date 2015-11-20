@@ -26,37 +26,18 @@ Notes:
 //= require_self
 
 
-var helpers = require('./shared/helpers');
-helpers.echoText('hi from core applicatoins.js');
 
 
-
-var globalInitializers = require('./globals/globals.inits')
+var globalInitializers = require('./global/global.inits')
 globalInitializers()
 
-
-
-
-// removed dateSorter function
+var globalModals = require('./global/global.modals')
+globalModals()
 
 
 
 
-(function ($) {
-    "use strict";
-    function centerModal() {
-        $(this).css('display', 'block');
-        var $dialog  = $(this).find(".modal-dialog"),
-        offset       = ($(window).height() - $dialog.height()) / 2,
-        bottomMargin = parseInt($dialog.css('marginBottom'), 10);
-
-        // Make sure you don't hide the top part of the modal w/ a negative margin if it's longer than the screen height, and keep the margin equal to the bottom margin of the modal
-        if(offset < bottomMargin) offset = bottomMargin;
-        $dialog.css("margin-top", offset);
-    }
-
-    $(document).on('show.bs.modal', '.modal', centerModal);
-    $(window).on("resize", function () {
-        $('.modal:visible').each(centerModal);
-    });
-}(jQuery));
+// REMOVED 
+// dateSorter function
+// commit reference:
+// 3d07e7813eb5f33f8242130d990d20aef7384cc5

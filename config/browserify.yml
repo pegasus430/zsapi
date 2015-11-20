@@ -1,7 +1,5 @@
 javascript:
   application:
-    require:
-      - a_huge_library
   beacons:
   businesses:
   campaigns: 
