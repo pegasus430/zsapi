@@ -33,11 +33,3 @@ globalInitializers()
 
 var globalModals = require('./global/global.modals')
 globalModals()
-
-
-
-
-// REMOVED 
-// dateSorter function
-// commit reference:
-// 3d07e7813eb5f33f8242130d990d20aef7384cc5

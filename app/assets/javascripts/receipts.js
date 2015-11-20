@@ -1,4 +1,8 @@
 
+
+
+
+
 // Remotely load the receipt-show page
 
 (function($) {
@@ -12,3 +16,9 @@
     });
   });
 })(jQuery);
+
+
+
+
+var dateSorter = require('./shared/dateSorter')
+dateSorter()
