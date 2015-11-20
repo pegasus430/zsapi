@@ -20,6 +20,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		    Hash {
 		      "id" => ,
 		      "business" => Hash { Business Object },
+		      "beacon" => Hash { Beacon Object },
 		      "title" => ,
 		      "address" => ,
 		      "address2" => ,
@@ -44,20 +45,23 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		end
 
 		if loc
+			beacon = loc.beacon unless loc.beacon.blank?
+
 			expose({
-				id: 				loc.id,
-				business:   loc.business,
-				title: 			loc.title,
-				address: 		loc.address,
-				address2: 	loc.address2,
-				city: 			loc.city,
-				state: 			loc.state,
-				zipcode: 		loc.zipcode,
-				latitude: 	loc.latitude,
-				longitude: 	loc.longitude,
-				status: 		loc.status,
-				points: 		current_customer.membership_for(loc.business_id).points,
-				visits: 		current_customer.total_visits_for(loc)
+				id: 				 loc.id,
+				business:    loc.business,
+				title: 			 loc.title,
+				address: 		 loc.address,
+				address2: 	 loc.address2,
+				city: 			 loc.city,
+				state: 			 loc.state,
+				zipcode: 		 loc.zipcode,
+				latitude: 	 loc.latitude,
+				longitude: 	 loc.longitude,
+				status: 		 loc.status,
+				points: 		 current_customer.membership_for(loc.business_id).points,
+				visits: 		 current_customer.total_visits_for(loc),
+				beacon:      beacon
 			})
 		else
 			error! :not_found
@@ -76,6 +80,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		  "response" => Array[
 		    Hash {
 		      "id" => ,
+		      "beacon" => Hash { Beacon Object },
 		      "business" => Hash { Business Object },
 		      "title" => ,
 		      "address" => ,
@@ -97,7 +102,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		loc = Location.near([params[:lat], params[:lon]], 10).limit(20)
 
 		if loc
-			collection loc, include: :business, only: [
+			collection loc, include: [:business, beacon: {only: [:uuid, :status]}], only: [
 				:id,
 				:title,
 				:address,
@@ -128,6 +133,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		  "response" => Array[
 		    Hash {
 		      "id" => ,
+		      "beacon" => Hash { Beacon Object },
 		      "business" => Hash { Business Object },
 		      "title" => ,
 		      "address" => ,
@@ -151,7 +157,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		loc = Location.within_bounding_box(box)
 
 		if loc
-			collection loc, include: :business, only: [
+			collection loc, include: [:business, beacon: {only: [:uuid, :status]}], only: [
 				:id,
 				:title,
 				:address,

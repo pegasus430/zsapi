@@ -53,7 +53,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   describe 'GET #show' do
     before :each do
       @business = FactoryGirl.create(:business, :with_image)
-      @location = FactoryGirl.create(:location, business: @business)
+      @location = FactoryGirl.create(:location, :with_beacon, business: @business)
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
       @membership = FactoryGirl.create(:membership, customer: customer, business: @location.business)
@@ -88,8 +88,8 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   # GET /near/:lat|:lon
   describe 'GET #fetch_nearby' do
     before :each do
-      @mcdonalds      = FactoryGirl.create(:location_with_business, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
-      @waffle_house   = FactoryGirl.create(:location_with_business, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @mcdonalds      = FactoryGirl.create(:location_with_business, :with_beacon, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @waffle_house   = FactoryGirl.create(:location_with_business, :with_beacon, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
       @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       
       customer = FactoryGirl.create(:facebook_customer)
