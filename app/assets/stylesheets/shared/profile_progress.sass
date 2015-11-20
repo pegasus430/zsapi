@@ -1,0 +1,82 @@
+@import 'it1.settings/settings.global'
+
+
+.profile-progress 
+  background: #6aa725
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+  position: relative
+  z-index: 998
+
+  .container 
+    position: relative
+    padding-top: $row-gutter/2
+    padding-bottom: $row-gutter/2
+
+
+.profile-progress-head 
+  margin-bottom: 20px
+  span 
+    margin-left: -35px
+    margin-right: 5px
+    position: relative
+    top: -6px
+    img 
+      width: 40px
+  em 
+    color: $white
+    font-style: normal
+    font-size: 27px
+    letter-spacing: -1.1px
+    font-weight: 400
+    margin: -1px auto 0
+    display: table
+    position: relative
+    display: inline-block
+  
+
+
+ul.profile-progress-list 
+  margin: 0 auto
+  li 
+    color: $white
+    a
+      color: $white
+      font-size: 14px
+      font-weight: bold
+      opacity: .5
+      i
+        padding-right: 5px
+      
+    &.checked a 
+      opacity: 1
+
+
+.profile-progress-bar 
+  width: 124px
+  float: right
+  position: absolute
+  top: $row-gutter/2
+  right: 15px
+
+  h5 
+    margin: 0 0 8px
+    color: $white
+    font-family: 'Roboto Condensed'
+    font-size: 16px
+    text-align: right
+  
+  span 
+    width: 124px
+    height: 7px
+    display: table
+    background: rgba(255,255,255,0.6)
+    position: relative
+    
+    em 
+      width: 25%
+      height: 7px
+      display: table
+      background: $white
+      position: absolute
+      top: 0px
+      left: 0px

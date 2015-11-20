@@ -1,0 +1,43 @@
+// --------------------------------------------
+//
+// Tools -- Mixins
+//
+
+
+@import '../it1.settings/settings.global'
+
+
+
+// ---
+// On-the-fly Media Queries 
+// (quick & flexible)
+
+
+@mixin above($point:$bp-default)
+  @media screen and (min-width: $point)
+    @content
+
+@mixin below($point:$bp-default)
+  @media screen and (max-width: $point)
+    @content
+  
+@mixin between($below, $above)
+  @media screen and (max-width: $below) and (min-width: $above)
+    @content
+
+
+
+// ---
+// Other
+
+
+@mixin box-shadow($top: 0, $left: 3px, $blur: 6px, $color: rgba(0,0,0,0.16), $inset: false)
+  @if $inset
+    box-shadow: inset $top $left $blur $color
+  @else
+    box-shadow: $top $left $blur $color
+
+
+// TODO: 
+// Consider refactoring bourbon mixins 
+// into here to remove the dependency

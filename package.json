@@ -1,0 +1,17 @@
+{
+  "name": "zippyspot",
+  "dependencies": {
+    "browserify": "~> 10.2.4",
+    "browserify-incremental": "^3.0.1"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.10.0"
+  }, 
+  "scripts": {
+    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*.js, app/views/**/*' ",
+    "watch": "npm run bs"
+  }
+}

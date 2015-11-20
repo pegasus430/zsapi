@@ -1,0 +1,107 @@
+.table
+  thead
+    background-color: $c-table-head
+    .first
+      width: 50px
+    th
+      color: $white
+      font-weight: 500
+  tbody
+    td
+      vertical-align: middle !important
+      text-align: center !important
+      color: #777777
+      .circle
+        -webkit-border-radius: 50%
+        -moz-border-radius: 50%
+        border-radius: 50%
+        font-size: 11px
+        color: $white
+        padding: 2px 5px
+        margin-left: 7px
+        &.coupon
+          background: $c-coupon
+        &.reward
+          background: $c-reward
+        &.special
+          background: $c-special
+        
+      .active 
+        border: 1px solid $c-campaign
+        background: $c-campaign
+        padding: 0px 6px
+      
+      .disabled 
+        border: 1px solid #838d8f
+        background: transparent
+        padding: 0px 6px
+
+      .option
+        text-indent: -9999px
+        display: block  
+        width: 20px
+        height: 20px
+        float: left
+
+        &.edit
+          background: image-url('ico/icon-edit-btn.svg') center center no-repeat
+          border: 0px
+          &:hover
+            background-image: image-url('ico/ico_edit_over.png')  
+
+        &.delete
+          background: image-url('btn-delete.png') center center no-repeat
+          margin-right: 10px
+        &:hover
+          background-image: image-url('btn-delete_over.png')
+
+
+.fixed-table-pagination 
+  .pagination
+    .active 
+      a:hover
+        border: 1px solid $c-background
+        background: $c-background !important
+        color: #333 !important
+    a
+      font-size: 13px
+      color: #333
+      border: 1px solid $c-background
+    
+    .page-number.active
+      a
+        background: $c-background !important
+    
+    .page-next
+      border-top-right-radius: 4px
+      border-bottom-right-radius: 4px
+    
+    .page-prev
+      border-top-left-radius: 4px
+      border-bottom-left-radius: 4px
+    
+    .page-first, 
+    .page-last
+      display: none !important
+    
+
+.table-responsive 
+  border: 0px
+  padding-bottom: $row-gutter
+  a 
+    color: inherit
+
+
+
+
+
+// TODO: make these more generic
+
+.selectOption.last  
+  border-top: 1px solid #EEE
+  padding-top: 8px
+
+.row.filter-options
+  h4
+    line-height: 25px
+    font-weight: 400

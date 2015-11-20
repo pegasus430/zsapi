@@ -56,6 +56,9 @@ module Zippyspot
 
     #Koala
     Koala.config.api_version = "v2.0"
+
+    #Browserify 
+    config.browserify_rails.source_map_environments << "development"
     
   end
 end

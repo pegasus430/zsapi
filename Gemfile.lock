@@ -58,6 +58,9 @@ GEM
       hashie (>= 1.0, < 3.0)
       httparty
     arel (6.0.3)
+    autoprefixer-rails (6.1.0.1)
+      execjs
+      json
     aws-sdk (1.66.0)
       aws-sdk-v1 (= 1.66.0)
     aws-sdk-v1 (1.66.0)
@@ -70,6 +73,9 @@ GEM
     bourbon (4.2.5)
       sass (~> 3.4)
       thor (~> 0.19)
+    browserify-rails (2.0.1)
+      railties (>= 4.0.0, < 5.0)
+      sprockets (> 3.0.2)
     buftok (0.2.0)
     builder (3.2.2)
     byebug (6.0.2)
@@ -110,8 +116,13 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.2)
+    em-websocket (0.5.1)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.6.0)
     equalizer (0.0.10)
     erubis (2.7.0)
+    eventmachine (1.0.8)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -142,6 +153,11 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
+    guard-livereload (2.5.1)
+      em-websocket (~> 0.5)
+      guard (~> 2.8)
+      guard-compat (~> 1.0)
+      multi_json (~> 1.8)
     guard-rspec (4.6.4)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -258,6 +274,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.4)
+    rack-livereload (0.3.16)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -415,8 +433,10 @@ PLATFORMS
 
 DEPENDENCIES
   apipie-rails!
+  autoprefixer-rails
   aws-sdk (< 2.0)
   bourbon
+  browserify-rails
   byebug
   capybara
   coffee-rails (~> 4.1.0)
@@ -430,6 +450,8 @@ DEPENDENCIES
   gibbon!
   google_visualr (>= 2.5)
   groupdate
+  guard (>= 2.2.2)
+  guard-livereload
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
@@ -443,9 +465,11 @@ DEPENDENCIES
   omniauth-twitter
   paperclip (~> 4.2)
   pg
+  rack-livereload
   rails (= 4.2.0)
   rails-erd
   rails_12factor
+  rb-fsevent
   rocket_pants (~> 1.0)
   rspec-rails
   sass-rails (~> 5.0)
