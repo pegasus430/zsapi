@@ -85,7 +85,7 @@
       <div class="input-group date">
         <div class="row no-gutters">
           <div class="col-xs-9">
-            <%= f.text_field :start_at, class: 'form-control' %>
+            <%= f.text_field :start_at, class: 'form-control', value: @campaign.start_at %>
           </div>
           <div class="col-xs-3">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -112,7 +112,7 @@
           <div class="input-group date">
             <div class="row no-gutters">
               <div class="col-xs-9">
-                <%= f.text_field :end_at, class: 'form-control' %>
+                <%= f.text_field :end_at, class: 'form-control', value: @campaign.end_at %>
               </div>
               <div class="col-xs-3">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
