@@ -22,7 +22,7 @@ class Business < ActiveRecord::Base
                     default_url: 'img-placeholder.png'
   # validates_attachment_presence :image, on: [:update]
   validates_attachment_content_type :image,
-                                    content_type: ["image/jpeg", "image/gif", "image/png"]
+                                    content_type: ["images/jpg", "image/jpeg", "image/gif", "image/png"]
 
   # Remove hashtags from color RGB hex values
 	before_save { |u| u.primary_color[0]   = ''  if u.primary_color    && u.primary_color[0]   == '#' }

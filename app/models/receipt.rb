@@ -11,7 +11,7 @@ class Receipt < ActiveRecord::Base
                     styles: { medium: '500x500#' }
   validates_attachment_presence :image
   validates_attachment_content_type :image,
-                                    content_type: ["image/jpeg", "image/gif", "image/png"]
+                                    content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]
 
 
   scope :from_today, -> {
