@@ -39,8 +39,7 @@
 
     <div class="row">
       <div class="col-md-offset-3 col-md-9 col-xs-12 preview">
-        <%= link_to 'PREVIEW YOUR MOBILE PAGE', '#', class: 'preview-campaign', data: {toggle: 'modal', target: '#previewModal'} %>
-        <a href="#preview-popup" class="preview-campaign open-popup-link" >PREVIEW YOUR MOBILE BUSINESS PAGE</a>
+        <%= link_to 'preview your mobile page', '#', class: 'preview-campaign caps', data: {toggle: 'modal', target: '#previewModal'} %>
       </div>
     </div>
   <% end %> <%# -wrapper dark %>
@@ -157,23 +156,21 @@
         </div>
 
         <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="container">
-                <div class="mobileTemplate">
-                  <div class="previewHeader">
-                    <%= image_tag('ico/ico-image-temp.svg') %>
-                  </div>
-                  <div class="content">
-                    <h1>ACME Coffee</h1>
-                    <p>123 Sesame St. New York, NY 11211</p>
-                  </div>
-                  <div class="socialFooter">
-                    <a class="chains" href="#"></a>
-                    <a class="facebook" href="#"></a>
-                    <a class="twitter" href="#"></a>
-                  </div>
-                </div>
+          <!-- <div class="container"> -->
+          <div class="modal-container">
+            <div class="mobileTemplate">
+              <div class="previewHeader">
+                <!-- TODO: After uploading an image, the page has to be updated for the new image to show here -->
+                <%= image_tag @business.image.url(:index) %>
+              </div>
+              <div class="content">
+                <h1><%= current_user.business.name %></h1>
+                <p>123 Sesame St. New York, NY 11211</p>
+              </div>
+              <div class="socialFooter">
+                <a class="chains" href="<%= current_user.business.website %>"></a>
+                <a class="facebook" href="<%= current_user.business.facebook %>"></a>
+                <a class="twitter" href="<%= current_user.business.twitter %>"></a>
               </div>
             </div>
           </div>
@@ -186,25 +183,3 @@
 
   <%# CROP MODAL %>
   <%= render 'shared/crop_modal', resource: @business %>
-
-
-  <!-- Preview POPUP! -->
-  <div id="preview-popup" class="white-popup mfp-hide">
-      <div class="container">
-        <div class="mobileTemplate">
-          <div class="previewHeader">
-            <%= image_tag('ico/ico-image-temp.svg') %>
-          </div>
-          <div class="content">
-            <h1>ACME Coffee</h1>
-            <p>123 Sesame St. New York, NY 11211</p>
-          </div>
-          <div class="socialFooter">
-            <a class="chains" href="#"></a>
-            <a class="facebook" href="#"></a>
-            <a class="twitter" href="#"></a>
-          </div>
-        </div>
-    </div>
-  </div>
-  <!-- Preview POPUP end -->

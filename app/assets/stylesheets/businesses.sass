@@ -1,6 +1,6 @@
 //= require shared/cropbox_setup
 //= require jquery.minicolors
-//= require shared/popups
+//= require shared/modals
 
 @import 'it1.settings/settings.global'
 @import 'it2.tools/tools.glob'
@@ -118,17 +118,21 @@
     margin-bottom: $row-gutter/2
 
 
+
+// Preview Modal
 .modal-body
-  .container
-    width: 255px
-    margin: 0 auto !important
+  .modal-container
+    // width: 255px
+    width: 300px
+    margin: 0 auto
     height: 498px
     overflow-y: scroll
     overflow-x: hidden
-    padding-top: 90px
+    // padding-top: 90px
+    padding-top: 0
     .mobileTemplate
       height: 408px
-      width: 229px
+      // width: 229px
       .previewHeader
         background-color: $c-location
         img
@@ -141,32 +145,32 @@
         float: left
         width: 100%
         min-height: 221px
+        padding: 5px
         h1
-          font-size: 20px
+          font-size: 22px
           margin-top: 0px        
         p
-          font-size: 20px      
+          font-size: 18px      
       .socialFooter
         background-color: #747474
         color: #FFF
         float: left
         padding: 24px
         width: 100%
+        text-align: center
         a
           display: block
           width: 50px
           height: 50px
-          float: left
+          display: inline-block
           margin-right: 15px
           &.chains
             background: image-url('preview_link.png') 
             background-color: #5ca011
             background-size: cover
-          
           &.facebook
             background: image-url('facebook.png') 
             background-size: cover
-          
           &.twitter
             background: image-url('twitter.png')
             background-size: cover
