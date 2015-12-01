@@ -23,8 +23,18 @@
   });
 
 
+  // Zoom Btns
+  $('#btnZoomIn').on('click', function(){
+    cropper.zoomIn()
+  })
+  $('#btnZoomOut').on('click', function(){
+    cropper.zoomOut()
+  })
+
   // Crop handler
-  $('.btnCrop').on('click', function() {
+  // Note - this was selected by a class of 
+  //        the same name (as the id)... 
+  $('#btnCrop').on('click', function() {
 
     var img = window.cropper.getDataURL();
 
@@ -53,7 +63,6 @@
     }
 
   });
-
 
 
 })(jQuery);
