@@ -156,24 +156,21 @@
         </div>
 
         <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="container">
-                <div class="mobileTemplate">
-                  <div class="previewHeader">
-                    <!-- TODO: After uploading an image, the page has to be updated for the new image to show here -->
-                    <%= image_tag @business.image.url(:index) %>
-                  </div>
-                  <div class="content">
-                    <h1><%= current_user.business.name %></h1>
-                    <p>123 Sesame St. New York, NY 11211</p>
-                  </div>
-                  <div class="socialFooter">
-                    <a class="chains" href="#"></a>
-                    <a class="facebook" href="#"></a>
-                    <a class="twitter" href="#"></a>
-                  </div>
-                </div>
+          <!-- <div class="container"> -->
+          <div class="modal-container">
+            <div class="mobileTemplate">
+              <div class="previewHeader">
+                <!-- TODO: After uploading an image, the page has to be updated for the new image to show here -->
+                <%= image_tag @business.image.url(:index) %>
+              </div>
+              <div class="content">
+                <h1><%= current_user.business.name %></h1>
+                <p>123 Sesame St. New York, NY 11211</p>
+              </div>
+              <div class="socialFooter">
+                <a class="chains" href="<%= current_user.business.website %>"></a>
+                <a class="facebook" href="<%= current_user.business.facebook %>"></a>
+                <a class="twitter" href="<%= current_user.business.twitter %>"></a>
               </div>
             </div>
           </div>
