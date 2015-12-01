@@ -41,4 +41,12 @@ class Campaign < ActiveRecord::Base
     locations.find( redemptions.group(:location_id).count.max_by{|k,v| v}.first ) rescue nil
   end
 
+  def attributes
+    super.merge({image_url: image_url})
+  end
+
+  def image_url
+    image.url
+  end
+
 end

@@ -40,7 +40,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 		unless location.nil?
 			campaigns = location.campaigns#.valid_for(Date.today)
 			
-			collection campaigns, include: :schedule, only: exposed_campaign
+			collection campaigns, include: :schedule, methods: :image_url, only: exposed_campaign
 		else
 			error! :not_found
 		end
@@ -78,7 +78,7 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 	def show
 		campaign = Campaign.find(params[:id])
 		unless campaign.nil?
-			expose campaign, only: exposed_campaign
+			expose campaign, methods: :image_url, only: exposed_campaign
 		else
 			error! :not_found
 		end
@@ -105,7 +105,8 @@ class Api::V1::CampaignsController < Api::V1::BaseController
 				:created_at,
 				:status,
 				:pos,
-				:description
+				:description,
+				:image_url
 			]
 		end
 
