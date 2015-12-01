@@ -30,7 +30,7 @@
 	<%= yield :js_header %>
 </head>
 
-<body data-no-turbolinks="true" class="<%= "active-sidebar " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
+<body data-no-turbolinks="true" class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
 
 	<div id="wrapper">
 
@@ -60,7 +60,7 @@
 				
 				<div class="row">
 					<div class="col-xs-3 col-sm-6">
-						<div class="nav-trigger"><i class="fa fa-bars"></i></div>
+						<div id="navTrigger" class="nav-trigger"><i class="fa fa-bars"></i></div>
 						<div id="header-left">
 							<%= current_user.business.name %>
 						</div>

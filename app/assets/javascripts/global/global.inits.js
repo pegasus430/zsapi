@@ -20,8 +20,9 @@ module.exports = function() {
 
   // Navbar Collapsing
 
-  $(".nav-trigger").click(function() {
-    $("body").toggleClass("active-sidebar")
+  // $(".nav-trigger").click(function() {
+  $("#navTrigger").click(function() {
+    $("body").toggleClass("sb-is-open")
     $.get('/users/toggleSidebar')
   })
 
@@ -34,10 +35,10 @@ module.exports = function() {
   if ( $(!".minicolors").length > 0 )
   {
     $('body').on("swipeleft",function(){
-      $(this).removeClass("active-sidebar")
+      $(this).removeClass("sb-is-open")
     })
     $('body').on("swiperight",function(){
-      $(this).addClass("active-sidebar")
+      $(this).addClass("sb-is-open")
     })
   }
 

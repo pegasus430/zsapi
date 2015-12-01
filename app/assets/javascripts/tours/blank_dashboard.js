@@ -11,7 +11,7 @@
       }, {
         title: 'Sidebar',
         content: 'Your sidebar is always here and allows you to navigate the Zippy Spot app. You can collapse or expand the sidebar by clicking this icon.',
-        target: '.nav-trigger',
+        target: '#navTrigger',
         placement: 'right'
       }, {
         title: 'Getting Started',
@@ -34,7 +34,8 @@
 
   // Start the tour!
 
-  $('body').addClass('active-sidebar');
+  $('body').addClass('sb-is-open');
+  
   return setTimeout((function() {
     hopscotch.startTour(tour);
   }), 300);
