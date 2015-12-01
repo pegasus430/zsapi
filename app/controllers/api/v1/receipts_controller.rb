@@ -31,7 +31,7 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 
 	api!
 	desc "Shows the receipts and status"
-	param :status, ["untouched", "approved", "rejected"], desc: "The status of the receipts shown", default: "untouched"
+	param :status, ["untouched", "approved", "rejected", "all"], desc: "The status of the receipts shown", default: "untouched"
 	example <<-EOS
 	{
 	  "count" => 1,
@@ -52,7 +52,9 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 	EOS
 	def index
 		params[:status] ||= 'untouched'
-		receipts = current_customer.receipts.where(status: params[:status]).all
+		receipts = current_customer.receipts
+		receipts = receipts.where(status: params[:status]).all unless params[:status] == 'all'
+
 		collection receipts, include: :location, only: [
 			:id,
 			:purchased_on,
