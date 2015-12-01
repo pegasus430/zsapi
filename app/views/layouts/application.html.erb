@@ -55,19 +55,19 @@
 		<%# NAV / VERTICAL SIDEMENU End %>
 
 		<%# HEADER Start %>
-		<div class="header">
+		<header class="header">
 			<div class="container">
 				
 				<div class="row">
 					<div class="col-xs-3 col-sm-6">
 						<div id="navTrigger" class="nav-trigger"><i class="fa fa-bars"></i></div>
-						<div id="header-left">
+						<div class="header-left">
 							<%= current_user.business.name %>
 						</div>
 					</div>
 
 					<div class="col-xs-9 col-sm-6">
-						<div id="header-right">
+						<div class="header-right">
 
 							<% unless current_user.business.locations.blank? %>
 								<div id="battery-status" class="dropdown">
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</header>
 		<%# HEADER End %>
 
 		<%# PAGE HEADER Start %>
