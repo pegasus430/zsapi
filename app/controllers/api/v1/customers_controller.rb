@@ -185,7 +185,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 			include: {
 				campaign: { only: [:id, :title] },
 				location: { only: [:id, :title] },
-				customer: { only: [:id, :first_name, :last_name, :avatar_url] }
+				customer: { only: [:id, :first_name, :last_name, :avatar_url, :social_id, :social_type] }
 			}
 		)
  	end
