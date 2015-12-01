@@ -69,14 +69,11 @@ body.sb-is-open
         width: 0px
         position: relative
         right: 0px
-      
       i 
         width: 35px
         position: absolute
         left: 18px
         top: 50%
-        -webkit-transform: translate(0,-50%)
-        -ms-transform: translate(0,-50%)
         transform: translate(0,-50%)
         img 
           margin: 0 auto
@@ -96,33 +93,27 @@ body.sb-is-open
   li#dashboard
     a.active,
     a:hover 
-      border-left-color: $c-campaign  
-
+      border-left-color: $c-campaign
   li#business
     a.active,
     a:hover 
       border-left-color: $c-receipt
-	
   li#greeting
     a.active,
     a:hover 
       border-left-color: $c-greeting
-	
   li#campaign
     a.active,
     a:hover 
       border-left-color: $c-campaign
-    	
   li#customer
     a.active,
     a:hover 
       border-left-color: $c-customer
-	
   li#receipt
     a.active,
     a:hover 
       border-left-color: $c-receipt
-    	
   li#location
     a.active,
     a:hover 
@@ -136,3 +127,11 @@ body.sb-is-open
     width: auto
     position: relative
     right: 0px
+
+  @include below($bp-xsmall)
+    li a 
+      padding-left: 60px
+      span
+        opacity: 1
+        visibility: visible
+        right: 0

@@ -78,11 +78,6 @@
     display: none
 
 
-.db-navbar
-  li a span
-    opacity: 1
-    visibility: visible
-    right: 0px
 
 .db-header 
   width: 200px
@@ -154,7 +149,8 @@
   width: 100%
   min-width: 100% !important
 
-#home.active
+// #home.active
+.sb-is-open #home
   padding-left: 0px
   #wrapper
     position: relative
@@ -162,7 +158,8 @@
     transition: .4s
   
 
-.header.active
+// .header.active
+.sb-is-open .header
   left: 200px
   left: 200px
   width: 100%
@@ -282,8 +279,6 @@ input.input-days
   right: 20px
   left: auto
 
-.db-navbar li a
-  padding-left: 60px
 
 .imgPlaceHolder
   width: 140px !important
