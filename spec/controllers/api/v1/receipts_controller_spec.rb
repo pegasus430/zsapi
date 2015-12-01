@@ -105,16 +105,25 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
       it 'returns the untouched receipts' do
         get :index, version: 1
         expect(response).to be_collection_resource
+        expect(JSON.parse(response.body)["count"]).to eq 1
       end
       
       it 'returns the approved receipts' do
         get :index, version: 1, status: 'approved'
         expect(response).to be_collection_resource
+        expect(JSON.parse(response.body)["count"]).to eq 1
       end
 
       it 'returns the rejected receipts' do
         get :index, version: 1, status: 'rejected'
         expect(response).to be_collection_resource
+        expect(JSON.parse(response.body)["count"]).to eq 1
+      end
+
+      it 'returns ALL receipts' do
+        get :index, version: 1, status: 'all'
+        expect(response).to be_collection_resource
+        expect(JSON.parse(response.body)["count"]).to eq 3
       end
     end
   end
