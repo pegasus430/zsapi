@@ -8,7 +8,7 @@ var imagesLoaded = require('imagesloaded')
 
 module.exports = function() {
 
-  // "use strict";
+  "use strict";
 
   $(document).on('show.bs.modal', '.modal', centerModal);
   
@@ -55,6 +55,7 @@ function centerModal() {
 }
 
 
+
 function modalGallery() {
   
   var isoContainer = document.querySelector('.modal-gallery_container');
@@ -66,6 +67,14 @@ function modalGallery() {
       columnWidth: '#modalGallerySizer'
     });
 
-  })  
+  })
+
+  var modalGalleryItems = $('.modal-gallery_item')
+  modalGalleryItems.each(function() {
+    $(this).on('click', function() {
+      console.log('clicked!!!!!!!')
+      $(this).toggleClass('selected')
+    })
+  })
 
 }
