@@ -1,43 +1,48 @@
 
 
 
-// TODO: consider refacoring this into css... 
-
 
 
 module.exports = function() {
+
   "use strict";
 
-  function centerModal() {
+  $(document).on('show.bs.modal', '.modal', centerModal);
 
 
-    $(this).css('display', 'block');
+  $(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+  });
+
+}
 
 
-    var $dialog      = $(this).find(".modal-dialog")
-    var offset       = ($(window).height() - $dialog.height()) / 2
-    var bottomMargin = parseInt($dialog.css('marginBottom'), 10)
 
 
-    // Make sure you don't hide the top part of the modal 
-    // w/ a negative margin if it's longer than the screen 
-    // height, and keep the margin equal to the bottom margin of the modal
+/*
 
-    if ( offset < bottomMargin ) {
+Helper scripts for this module
 
-      $dialog.css("margin-top", bottomMargin)
+Notes:
+- if any of these need to be used in other modules, move them
+  into a helper file (to then be imported and used here)
+*/
 
-    } 
 
 
-    $(document).on('show.bs.modal', '.modal', centerModal)
+function centerModal() {
 
-    $(window).on("resize", function () {
+  $(this).css('display', 'block');
 
-      $('.modal:visible').each(centerModal)
+  var $dialog      = $(this).find(".modal-dialog");
+  var offset       = ($(window).height() - $dialog.height()) / 2;
+  var bottomMargin = parseInt($dialog.css('marginBottom'), 10);
 
-    })
-
+  // Make sure you don't hide the top part of the modal w/ a negative margin if it's longer than the screen height, and keep the margin equal to the bottom margin of the modal
+  if(offset < bottomMargin) {
+    offset = bottomMargin;
   }
 
+  $dialog.css("margin-top", offset);
+  
 }

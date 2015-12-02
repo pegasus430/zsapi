@@ -7,7 +7,7 @@
   top: 0
   left: $sidebar-collapsed-width
   right: 0
-  z-index: 9998
+  z-index: $z-header
   @include transition(.4s)
   
   .nav-trigger 
@@ -22,7 +22,7 @@
 
   body.sb-is-open & 
     left: $sidebar-expanded-width
-    z-index: 9999
+    z-index: 9010
     .nav-trigger 
       left: 217px
 

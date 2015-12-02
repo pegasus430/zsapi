@@ -7,3 +7,66 @@
   .modal
     a.item
       margin-bottom: 0
+
+.modal 
+  z-index: $z-modal
+  // essentially a hack to fix unneeded 
+  // padding added by bootstrap
+  padding-right: 0 !important
+  .modal-header
+    background-color: $c-modal-background
+    border-bottom: 0
+  .modal-title
+    font-size: 25px
+    text-align: center
+  
+  .modal-body 
+    background: $c-modal-background
+    padding: 0 $row-gutter $row-gutter
+  // .modal-content 
+  //   width: 900px
+  
+
+  // CAMPAIGN ITEMS
+  a.item
+    background: $white
+    padding: $row-gutter 0
+    display: block
+    text-align: center
+    height: 315px
+    img
+      display: block
+      margin: 0 auto $row-gutter/2
+    h4
+      text-align: center
+      font-size: 25px
+      color: #000
+      margin-top: 0px
+    span
+      text-align: center
+      font-size: 17px
+      color: #717171
+    &:hover 
+      transition: .4s
+      background-color: #fff
+      border-color: #fff
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+
+
+// Gallery Modal 
+
+.modal-gallery .modal-body
+  overflow-y: scroll
+  max-height: 70vh
+
+.modal-gallery_item
+  margin-bottom: $row-gutter
+  cursor: pointer
+  &:hover
+    .modal-gallery_image
+      border-color: rgba($c-reward, .3)
+  &.selected
+    .modal-gallery_image
+      border-color: $c-reward
+.modal-gallery_image
+  border: solid 5px transparent

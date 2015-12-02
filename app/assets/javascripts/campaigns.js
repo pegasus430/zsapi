@@ -2,9 +2,18 @@
 //= require shared/datepicker
 
 
+
+
 (function($) {
 
+
+  var modalGallery = require('./components/modal-gallery')
+  modalGallery()
+
+
+
   // Show custom days selector
+  
   $('.daysOfTheMonth .radio').click(function(e) {
     if ($('.customDays').find('input').is(':checked')) {
       $('.customDaySelector').addClass('active');
@@ -13,7 +22,10 @@
     }
   });
 
+
+
   // Days Picker
+
   if ($('.customDaySelector').length) {
     $('.customDaySelector').datepicker({
       startDate: '05/01/2016',
@@ -38,4 +50,7 @@
       $('#customDaySelector_input').val(aux);
     });
   }
+
+
+
 })(jQuery);
