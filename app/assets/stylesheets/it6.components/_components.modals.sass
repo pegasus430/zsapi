@@ -51,3 +51,19 @@
       background-color: #fff
       border-color: #fff
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+
+
+// Gallery Modal 
+
+.modal-gallery .modal-body
+  overflow-y: scroll
+  max-height: 70vh
+
+.modal-gallery_item
+  margin-bottom: $row-gutter
+  cursor: pointer
+  &:hover
+    .modal-gallery_image
+      border-color: $c-reward
+.modal-gallery_image
+  border: solid 5px transparent

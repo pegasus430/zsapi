@@ -218,12 +218,18 @@
 <%# GALLERY MODAL %>
 <%= modal :large, id: "galleryModal", title: "Campaign Image Gallery", classes: "modal-gallery",
     body: capture { %>
-      <div class="row">
-        <% @gallery_images.each do |img| %>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center">
-            <%= image_tag "campaign_gallery/#{img.split('/').last}", class: "fit" %>
-          </div>
-        <% end %>
+        <div class="row">
+      <div class="modal-gallery_container">
+
+          <div id="modalGallerySizer" class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+
+          <% @gallery_images.each do |img| %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center modal-gallery_item">
+              <%= image_tag "campaign_gallery/#{img.split('/').last}", class: "fit modal-gallery_image" %>
+            </div>
+          <% end %>
+
+        </div>
       </div>
 <% }, footer: capture { %>
   <button class="btn btn-default caps" id="crop_btn">edit</button>
