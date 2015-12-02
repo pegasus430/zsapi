@@ -70,11 +70,28 @@ function modalGallery() {
   })
 
   var modalGalleryItems = $('.modal-gallery_item')
+  var selectedCount = 0
+  var btn_confirmSelection = $('#btnGalleryConfirm')
+
   modalGalleryItems.each(function() {
     $(this).on('click', function() {
-      console.log('clicked!!!!!!!')
       $(this).toggleClass('selected')
+      
+      if ( $(this).hasClass('selected') ) {
+        selectedCount += 1
+      } else {
+        selectedCount -= 1
+      }
+
+      if ( selectedCount > 0 ) {
+        btn_confirmSelection.removeClass('btn-disabled')
+      } else {
+        btn_confirmSelection.addClass('btn-disabled')
+      }
+
     })
   })
+
+
 
 }
