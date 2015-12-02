@@ -229,12 +229,13 @@ module ApplicationHelper
 	def modal(size, opts={})
 		opts.reverse_merge!({
 			id: "",
+			classes: "",
 			title: "default title"
 		})
 
 		size = (size == :large) ? "modal-lg" : "modal-sm"
 
-		render 'shared/modal', id: opts[:id], size: size, title: opts[:title], body: opts[:body], footer: opts[:footer]
+		render 'shared/modal', id: opts[:id], classes: opts[:classes], size: size, title: opts[:title], body: opts[:body], footer: opts[:footer]
 	end
 
 end
