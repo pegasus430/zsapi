@@ -23,4 +23,4 @@ module.exports = function() {
 
 
 
-} // end export function
+}

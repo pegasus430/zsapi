@@ -2,9 +2,10 @@
 
 
 html
+  overflow-y: scroll
+  overflow-x: hidden
   @include below(767px)
     width: 100%
-    overflow-x: hidden
 
 
 body 
@@ -14,6 +15,11 @@ body
   background: $c-background
   padding-top: 72px
   @include transition(.4s)
+
+  // This is essentially a hack to fix a 
+  // padding-right problem introduced by 
+  // bootstrap's modal
+  padding-right: 0 !important
 
   &.bare,
   &.admin
