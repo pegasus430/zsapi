@@ -2,6 +2,12 @@
 //= require shared/datepicker
 
 
+
+var modalGallery = require('./components/modal-gallery')
+modalGallery()
+
+
+
 (function($) {
 
   // Show custom days selector
