@@ -10,10 +10,12 @@
   "devDependencies": {
     "browser-sync": "^2.10.0",
     "imagesloaded": "^3.2.0",
-    "masonry-layout": "^3.3.2"
+    "masonry-layout": "^3.3.2",
+    "node-sass": "^3.4.2"
   },
   "scripts": {
     "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*.js, app/views/**/*' ",
+    "css-b": "node-sass -w -i -r --output-style compressed npm-pipeline/stylesheets/**/* -o public/assets/stylesheets/",
     "watch": "npm run bs"
   }
 }
