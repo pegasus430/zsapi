@@ -29,14 +29,16 @@ var modalGallery = function() {
 
 
   var modalGalleryItems = $('.modal-gallery_item')
-  var selectedCount = 0
+  var selectedCount = $('.modal-gallery_item.selected').length
   var btn_confirmSelection = $('#btnGalleryConfirm')
 
 
   modalGalleryItems.each(function() {
     $(this).on('click', function() {
-      $(this).toggleClass('selected')
       
+      // Toggle Active Class
+
+      $(this).toggleClass('selected')
       
       // Increment/Decrement selected count
 
@@ -59,9 +61,16 @@ var modalGallery = function() {
   })
 
 
-  // Save/Confirm Selection
+  // Save/Confirm Selection Button
+
+  var selectedImages = $('.modal-gallery_item.selected img')
+
   $('#btnGalleryConfirm').click(function() {
-    
+
+    // Close Modal
+    $('#galleryModal').modal('hide')
+
+
   })
 
 
