@@ -2,11 +2,6 @@
 
 Applications.js
 
-
-Notes: 
-
-- the place to bring-in any gems needed
-
 */
 
 
@@ -28,6 +23,13 @@ Notes:
 //= require_self
 
 
-// Pull compiled from /public/assets/javascripts
-//= require globals
-//= require application
+
+
+var globalInitializers = require('./global/global.inits')
+globalInitializers()
+
+var sidebarInit = require('./global/global.sidebar')
+sidebarInit()
+
+var globalModals = require('./global/global.modals')
+globalModals()

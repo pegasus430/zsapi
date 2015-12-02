@@ -36,11 +36,11 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  # config.assets.debug = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  # config.assets.digest = true
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
@@ -55,4 +55,9 @@ Rails.application.configure do
 
   # Automatically inject JavaScript needed for LiveReload
   # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+
+  # To allow BrowserSync to live-inject style changes
+  # https://github.com/vigetlabs/gulp-rails-pipeline
+  config.assets.debug = true
+  config.assets.digest = false
 end
