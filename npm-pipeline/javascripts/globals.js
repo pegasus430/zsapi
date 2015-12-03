@@ -1,26 +1,8 @@
 /* ---------------------------------------
 
-Applications.js
+Global Scripts
 
 */
-
-
-
-// Assets
-//= require jquery
-//= require jquery_ujs
-//= require jquery.mobile.custom
-
-// Gem
-//= require twitter/bootstrap
-
-// Vendor
-//= require select/jquery.selectBox
-//= require bootstrap-table
-//= require hopscotch/hopscotch
-
-//= require turbolinks
-//= require_self
 
 
 
