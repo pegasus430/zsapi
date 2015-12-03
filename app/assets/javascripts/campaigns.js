@@ -1,19 +1,16 @@
 //= require shared/cropbox_setup
 //= require shared/datepicker
 
+//= require s-campaigns
+
 
 
 
 (function($) {
 
 
-  var modalGallery = require('./components/modal-gallery')
-  modalGallery()
-
-
-
   // Show custom days selector
-  
+
   $('.daysOfTheMonth .radio').click(function(e) {
     if ($('.customDays').find('input').is(':checked')) {
       $('.customDaySelector').addClass('active');

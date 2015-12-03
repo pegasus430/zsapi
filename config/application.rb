@@ -56,9 +56,10 @@ module Zippyspot
 
     #Koala
     Koala.config.api_version = "v2.0"
-
-    #Browserify 
-    config.browserify_rails.source_map_environments << "development"
+    
+    # Make public assets requireable in manifest files
+    config.assets.paths << Rails.root.join("public", "assets", "stylesheets")
+    config.assets.paths << Rails.root.join("public", "assets", "javascripts")
     
   end
 end

@@ -2,9 +2,11 @@
 
 Applications.js
 
+
 Notes: 
-- see assets.rb (/config/initializers/assets.rb) for list of 
-  individual bundles (config in config/browserify.yml)
+
+- the place to bring-in any gems needed
+
 */
 
 
@@ -26,13 +28,6 @@ Notes:
 //= require_self
 
 
-
-
-var globalInitializers = require('./global/global.inits')
-globalInitializers()
-
-var sidebarInit = require('./global/global.sidebar')
-sidebarInit()
-
-var globalModals = require('./global/global.modals')
-globalModals()
+// Pull compiled from /public/assets/javascripts
+//= require globals
+//= require application
