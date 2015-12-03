@@ -19,6 +19,7 @@
     "jquery": "^2.1.4",
     "masonry-layout": "^3.3.2",
     "node-sass": "^3.4.2",
+    "onchange": "^2.0.0",
     "parallelshell": "^2.0.0",
     "postcss": "^5.0.12",
     "watchify": "^3.6.1"
@@ -34,8 +35,10 @@
     "js-w--5": "watchify npm-pipeline/javascripts/s-pages.js -o public/assets/javascripts/s-pages.js -v -d",
     "js-w--6": "watchify npm-pipeline/javascripts/s-subscriptions.js -o public/assets/javascripts/s-subscriptions.js -v -d",
     "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' ",
+    "img-c": "cp -r npm-pipeline/images/** public/assets/images/ ",
+    "img-w": "onchange 'npm-pipeline/images/**' -- npm run img-c",
     "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/**/*' ",
-    "build": "npm run css-b",
+    "build": "parallelshell 'npm run css-b' 'npm run img-c' ",
     "watch": "parallelshell 'npm run bs' 'npm run css-w' 'npm run js-w' ",
     "prewatch": "npm run build",
     "start": "npm run watch"
