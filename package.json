@@ -8,18 +8,23 @@
     "node": ">= 0.10"
   },
   "devDependencies": {
+    "autoprefixer": "^6.1.2",
     "bourbon": "^4.2.6",
     "browser-sync": "^2.10.0",
     "browserify": "^10.2.6",
+    "chokidar": "^1.3.0",
+    "chokidar-cli": "^1.2.0",
     "imagesloaded": "^3.2.0",
     "masonry-layout": "^3.3.2",
     "node-sass": "^3.4.2",
     "parallelshell": "^2.0.0",
-    "watchify": "^3.6.1"
+    "watchify": "^3.6.1",
+    "postcss": "^5.0.12"
   },
   "scripts": {
-    "css-b": "node-sass -i --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/",
-    "css-w": "node-sass -i -w -r --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/",
+    "css-b": "node-sass -i --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/ && npm run css-b-prefix",
+    "css-w": "node-sass -i -w -r --source-map true --source-map-embed --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/",
+    "css-b-prefix": "postcss --use autoprefixer public/assets/stylesheets/**.css --replace",
     "js-w--1": "watchify npm-pipeline/javascripts/globals.js -o public/assets/javascripts/globals.js -v -d",
     "js-w--2": "watchify npm-pipeline/javascripts/beacons.js -o public/assets/javascripts/beacons.js -v -d",
     "js-w--3": "watchify npm-pipeline/javascripts/businesses.js -o public/assets/javascripts/businesses.js -v -d",
@@ -27,9 +32,10 @@
     "js-w--5": "watchify npm-pipeline/javascripts/pages.js -o public/assets/javascripts/pages.js -v -d",
     "js-w--6": "watchify npm-pipeline/javascripts/subscriptions.js -o public/assets/javascripts/subscriptions.js -v -d",
     "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' ",
-    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files '/assets/**/*, app/views/**/*, public/assets/**/*' ",
+    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/**/*' ",
+    "build": "npm run css-b",
     "watch": "parallelshell 'npm run bs' 'npm run css-w' 'npm run js-w' ",
-    "start": "npm run watch",
-    "build": "npm run css-b"
+    "prewatch": "npm run build",
+    "start": "npm run watch"
   }
 }
