@@ -35,10 +35,8 @@
     "js-w--5": "watchify npm-pipeline/javascripts/s-pages.js -o public/assets/javascripts/s-pages.js -v -d",
     "js-w--6": "watchify npm-pipeline/javascripts/s-subscriptions.js -o public/assets/javascripts/s-subscriptions.js -v -d",
     "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' ",
-    "img-c": "cp -r npm-pipeline/images/** app/assets/images/ ",
-    "img-w": "onchange 'npm-pipeline/images/**' -- npm run img-c",
-    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/**/*' ",
-    "build": "parallelshell 'npm run css-b' 'npm run img-c' ",
+    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/javascripts/**/*.js, public/assets/stylesheets/**/*.css' ",
+    "build": "npm run css-b",
     "watch": "parallelshell 'npm run bs' 'npm run css-w' 'npm run js-w' ",
     "prewatch": "npm run build",
     "start": "npm run watch"
