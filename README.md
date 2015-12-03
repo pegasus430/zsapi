@@ -23,6 +23,10 @@ In a nutshell: NPM script tasks for processing scripts and styles in a manner th
 
 Loosely based on [gulp-rails-pipeling](https://github.com/vigetlabs/gulp-rails-pipeline), originally presented in [this post](https://viget.com/extend/gulp-rails-asset-pipeline)
 
+### Notes:
+
+- The directory `npm-pipeline` is the home for all source scripts and styles, which get piped to `public/assets`. 
+
 ### Why?
 
 In efforts to have the most optimal development work environment (high developer happiness == high developer effectiveness) without completely ditching Rails' pipeline. 
