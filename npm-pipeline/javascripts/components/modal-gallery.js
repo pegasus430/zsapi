@@ -50,48 +50,42 @@ var initiateMasonry = function() {
 
 
 var modalGalleryItems = $('.modal-gallery_item')
-var selectedCount = $('.modal-gallery_item.selected').length
 var btn_confirmSelection = $('#btnGalleryConfirm')
-
-var selectedArray = []
+var selected = ""
+var initiallySetImage = $('#saved_image').attr('src')
 
 
 var handleGallerySelection = function() {
 
+  modalGalleryItems.on('click', function() {
+    
+    
+    // If already selected: 
+    // 1. deselect 
+    // 2. set selected var to empty string 
+    //    in order to reset initially set image
 
-
-  modalGalleryItems.each(function() {
-    $(this).on('click', function() {
+    if ( $(this).hasClass('selected') ) {
       
-      // Toggle Active Class
+      $(this).removeClass('selected')
 
-      $(this).toggleClass('selected')
-      
+      selected = ''
 
-      // Increment/Decrement selected count
+    // If not already selected:
+    // 1. unset previously set, if any
+    // 2. set as selected
+    // 3. replace initially set image with this image
 
-      var index = selectedArray.indexOf($(this))
+    } else {
 
+      modalGalleryItems.removeClass('selected')
+      $(this).addClass('selected')
 
-      if ( $(this).hasClass('selected') ) {
-        selectedCount += 1
-        // selectedArray.push($(this).find(".modal-gallery_image"))
-        selectedArray.push($(this))
-      } else {
-        selectedCount -= 1
-        selectedArray.splice(index, 1)
-      }
+      // assign selected node to variable
+      selected = $(this).find('img')
 
+    }
 
-      // Enable/Disable confirm btn
-
-      if ( selectedCount > 0 ) {
-        btn_confirmSelection.removeClass('btn-disabled')
-      } else {
-        btn_confirmSelection.addClass('btn-disabled')
-      }
-
-    })
   })
   
 }
@@ -100,74 +94,27 @@ var handleGallerySelection = function() {
 
 var handleGallerySave = function() {
 
-  var selectedImages = $('.modal-gallery_item.selected img')
-
-
   btn_confirmSelection.click(function() {
 
     // Close Modal
     $('#galleryModal').modal('hide')
 
 
-    if ( selectedCount > 0 ) {
+    if ( selected.length ) {
 
+      // replace the placeholder with selected image
 
-      // hide the placeholder 
-
-      $('#saved_image').addClass('hide-content')
-
-
-      // create a div for showing selected images (if not alread created)
-
-      if ( !$("#imagesSelectedFromGallery").length ) {
-        $('#saved_image').after("<div id='imagesSelectedFromGallery' class='imagesSelectedFromGallery'></div>")
-      }
-
-
-      // loop throgh selected images and append them to preview
-
-      for (index = 0; index < selectedArray.length; ++index) {
-        
-        // get the image
-
-        var img = selectedArray[index]
-
-        
-        // replace the placeholder with it
-
-        $('#imagesSelectedFromGallery').append(img.removeAttr('style'))
-
-      }
-
-
-      // init Masonry on the preview images (for proper alignment)
-
-      initSelectedDisplayMasonry()
+      var selectedSrc = selected.attr('src')
+      $('#saved_image').attr('src', selectedSrc)
 
     } else {
-    
-      // TODO: This needs to be finished... there needs to be a way to remove 
-      // selected images and then (here) the modal needs to be updated
 
-      $('#saved_image').show()
-      $('#imagesSelectedFromGallery').remove()
+
+      $('#saved_image').attr('src', initiallySetImage)
+
+
     }
-
-
 
   })
 
-}
-
-
-var initSelectedDisplayMasonry = function() {
-  var isoContainer = document.querySelector('#imagesSelectedFromGallery');
-    imagesLoaded( isoContainer, function() {
-
-      var msnry = new Masonry( isoContainer, {
-        itemSelector: '.modal-gallery_item'
-        // columnWidth: '22'
-      })
-
-    })
 }
