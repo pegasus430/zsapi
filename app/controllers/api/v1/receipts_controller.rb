@@ -16,7 +16,7 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 	def create
 		# If the redemption ID is nil, we create the redemption so we can
 		# assign it to the receipt
-		if params[:receipt][:redemption_id].nil? && params[:receipt][:location_id]
+		if params[:receipt][:location_id]
 			redemption_id = Redemption.create(customer: current_customer, location_id: params[:receipt][:location_id]).id
 		else
 			redemption_id = params[:receipt][:redemption_id]
