@@ -63,7 +63,7 @@
 
   <%= wrapper do %>
     <%= section_header "Campaign Image" %>
-    <%= fr "Click the image to edit" do %>
+    <%= fr "Click image to edit" do %>
       <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
       <%= hidden_field_tag :image_datafile %>
     <% end %>
@@ -225,6 +225,7 @@
 
           <% @gallery_images.each do |img| %>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center modal-gallery_item">
+            <!-- <div class="text-center modal-gallery_item modal-gallery_item-masonry"> -->
               <%= image_tag "campaign_gallery/#{img.split('/').last}", class: "fit modal-gallery_image" %>
             </div>
           <% end %>
