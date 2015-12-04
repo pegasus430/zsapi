@@ -2,6 +2,9 @@ class Receipt < ActiveRecord::Base
   enum status: [:untouched, :approved, :rejected]
 
   belongs_to :redemption
+  has_one :location, through: :redemption
+  has_one :business, through: :location
+  has_one :customer, through: :redemption
 
   validates_presence_of :redemption_id
   validates_presence_of :amount, :purchased_on, on: [:update]
