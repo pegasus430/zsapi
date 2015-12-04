@@ -69,7 +69,9 @@
             , self     = this;
 
         control
-            .width(select.outerWidth()+50)
+            // .width(select.outerWidth()+50)
+            // Above commented out by Isaac, to fix bug 6612491
+            .width(100)
             .addClass(select.attr('class'))
             .attr('title', select.attr('title') || '')
             .attr('tabindex', tabIndex)
