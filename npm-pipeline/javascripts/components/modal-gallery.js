@@ -7,17 +7,25 @@ var imagesLoaded = require('imagesloaded')
 
 module.exports = function() {
 
-  $(document).on('show.bs.modal', '.modal-gallery', modalGallery);
+  $(document).on('show.bs.modal', '.modal-gallery', initiateMasonry);
+
+  handleGallerySelection()
+
+  handleGallerySave()
 
 }
 
 
 
 
-var modalGallery = function() {
-  
-  var isoContainer = document.querySelector('.modal-gallery_container');
 
+/*
+Initiate Masonry (for masonry layout of images)
+*/
+
+var initiateMasonry = function() {  
+
+  var isoContainer = document.querySelector('.modal-gallery_container');
   imagesLoaded( isoContainer, function() {
 
     var msnry = new Masonry( isoContainer, {
@@ -26,7 +34,14 @@ var modalGallery = function() {
     })
 
   })
+}
 
+
+
+
+var handleGallerySelection = function() {
+
+  // Handle image selection/deselection inside modal
 
   var modalGalleryItems = $('.modal-gallery_item')
   var selectedCount = $('.modal-gallery_item.selected').length
@@ -40,6 +55,7 @@ var modalGallery = function() {
 
       $(this).toggleClass('selected')
       
+
       // Increment/Decrement selected count
 
       if ( $(this).hasClass('selected') ) {
@@ -59,9 +75,13 @@ var modalGallery = function() {
 
     })
   })
+  
+}
 
 
-  // Save/Confirm Selection Button
+var handleGallerySave = function() {
+
+  // Save/Confirm Selection (button)
 
   var selectedImages = $('.modal-gallery_item.selected img')
 
@@ -73,5 +93,7 @@ var modalGallery = function() {
 
   })
 
-
 }
+
+
+
