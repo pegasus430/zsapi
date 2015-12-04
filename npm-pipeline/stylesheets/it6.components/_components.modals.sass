@@ -54,24 +54,18 @@
   overflow-y: scroll
   max-height: 70vh
 
-:not(.imagesSelectedFromGallery) > .modal-gallery_item
-  // width: 33.33%
-  // display: inline
-  // margin-bottom: 20px
-  // float: left
-  // @extend .text-center 
+.modal-gallery_item
   margin-bottom: $row-gutter
   cursor: pointer
+:not(.imagesSelectedFromGallery) > .modal-gallery_item
   &:hover
     .modal-gallery_image
       border-color: rgba($c-reward, .3)
   &.selected
     .modal-gallery_image
       border-color: $c-reward
-.modal-gallery_image
-  border: solid 5px transparent
-
-
+  .modal-gallery_image
+    border: solid 5px transparent
 
 
 

@@ -69,7 +69,9 @@ var handleGallerySelection = function() {
       
 
       // Increment/Decrement selected count
+
       var index = selectedArray.indexOf($(this))
+
 
       if ( $(this).hasClass('selected') ) {
         selectedCount += 1
@@ -79,8 +81,6 @@ var handleGallerySelection = function() {
         selectedCount -= 1
         selectedArray.splice(index, 1)
       }
-
-      console.log(selectedArray)
 
 
       // Enable/Disable confirm btn
@@ -111,8 +111,20 @@ var handleGallerySave = function() {
 
     if ( selectedCount > 0 ) {
 
+
+      // hide the placeholder 
+
       $('#saved_image').addClass('hide-content')
-      $('#saved_image').after("<div id='imagesSelectedFromGallery' class='imagesSelectedFromGallery'></div>")
+
+
+      // create a div for showing selected images (if not alread created)
+
+      if ( !$("#imagesSelectedFromGallery").length ) {
+        $('#saved_image').after("<div id='imagesSelectedFromGallery' class='imagesSelectedFromGallery'></div>")
+      }
+
+
+      // loop throgh selected images and append them to preview
 
       for (index = 0; index < selectedArray.length; ++index) {
         
@@ -128,14 +140,34 @@ var handleGallerySave = function() {
       }
 
 
+      // init Masonry on the preview images (for proper alignment)
+
+      initSelectedDisplayMasonry()
+
     } else {
+    
+      // TODO: This needs to be finished... there needs to be a way to remove 
+      // selected images and then (here) the modal needs to be updated
+
       $('#saved_image').show()
       $('#imagesSelectedFromGallery').remove()
     }
+
+
 
   })
 
 }
 
 
+var initSelectedDisplayMasonry = function() {
+  var isoContainer = document.querySelector('#imagesSelectedFromGallery');
+    imagesLoaded( isoContainer, function() {
 
+      var msnry = new Masonry( isoContainer, {
+        itemSelector: '.modal-gallery_item'
+        // columnWidth: '22'
+      })
+
+    })
+}
