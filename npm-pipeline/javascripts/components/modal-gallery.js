@@ -123,9 +123,11 @@ var handleGallerySave = function() {
 
     } else {
 
+      // if deselecting a previously selected
+      // image, re-set the origianlly selected image (placeholder 
+      // if a new campaign, otherwise the current campaign image)
 
       $('#saved_image').attr('src', initiallySetImage)
-
 
     }
 
