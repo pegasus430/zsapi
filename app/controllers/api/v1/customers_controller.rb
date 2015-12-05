@@ -201,16 +201,14 @@ class Api::V1::CustomersController < Api::V1::BaseController
 		  	last_visit_at,
 		  	last_exit_at,
 		  	total,
+		  	membership_points,
 				location: Hash {
 					id,
 					title,
 					business: Hash {
 						id,
 						name,
-						image_url,             # (you must prepend the domain)
-						memberships: Hash {
-							points
-						}
+						image_url
 					}
 				}
 		  }
@@ -219,28 +217,25 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	EOS
   def visits
 		collection(current_customer.visits,
-			include: {
-				location: {
-					only: [:id, :title],
-					include: {
-						business: {
-							only: [:id, :name],
-							methods: [:image_url],
-							include: {
-								memberships: {
-									only: [:points]
-								}
+			include: [
+				{
+					location: {
+						only: [:id, :title],
+						include: {
+							business: {
+								only: [:id, :name],
+								methods: [:image_url]
 							}
 						}
 					}
 				}
-			},
+			],
+			methods: [:membership_points],
 			only: [
 				:location_id,
 				:last_visit_at,
 				:last_exit_at,
-				:total,
-				:points
+				:total
 			]
 		)
  	end

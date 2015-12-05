@@ -4,6 +4,12 @@ class Visit < ActiveRecord::Base
 
   validates_presence_of :total
 
+  ## This allows us to easily grab the membership of the
+  ## customer and business from within the API call
+  def membership_points
+    customer.membership_for(location.business).points
+  end
+
   def self.check_in!(opts)
     customer = opts[:customer]
     location = opts[:location]

@@ -59,7 +59,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 				latitude: 	 loc.latitude,
 				longitude: 	 loc.longitude,
 				status: 		 loc.status,
-				points: 		 current_customer.membership_for(loc.business_id).points,
+				points: 		 current_customer.membership_for(loc.business).points,
 				visits: 		 current_customer.total_visits_for(loc),
 				beacon:      beacon
 			})

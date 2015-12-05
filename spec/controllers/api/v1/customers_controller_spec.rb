@@ -178,15 +178,32 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     context '[Customer social token exists]' do
       it 'returns the customers locations visited' do
         business = FactoryGirl.create(:business, :with_image)
+        business2 = FactoryGirl.create(:business)
+
         customer = FactoryGirl.create(:facebook_customer)
+        customer2 = FactoryGirl.create(:facebook_customer)
+
         FactoryGirl.create(:membership, business: business, customer: customer, points: 500)
-        location2 = FactoryGirl.create(:location, business: business)
-        location3 = FactoryGirl.create(:location, business: business)
-        2.times { customer.check_in_to!(location2) }
-        3.times { customer.check_in_to!(location3) }
+        FactoryGirl.create(:membership, business: business2, customer: customer, points: 1500)
 
-        controller.stub(:current_customer).and_return(customer)
+        FactoryGirl.create(:membership, business: business, customer: customer2, points: 700)
+        FactoryGirl.create(:membership, business: business2, customer: customer2, points: 1700)
+        
+        location_with_2_visits = FactoryGirl.create(:location, business: business)
+        location_with_3_visits = FactoryGirl.create(:location, business: business)
+        
+        location2_with_3_visits = FactoryGirl.create(:location, business: business2)
+        
+        2.times { customer.check_in_to!(location_with_2_visits) }
+        3.times { customer.check_in_to!(location_with_3_visits) }
+        
+        3.times { customer.check_in_to!(location2_with_3_visits) }
+        
+        3.times { customer2.check_in_to!(location2_with_3_visits) }
 
+        controller.stub(:current_customer).and_return(customer2)
+
+        
         get :visits, version: 1
         expect(response).to be_collection_resource
       end
