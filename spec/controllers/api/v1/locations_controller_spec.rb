@@ -56,7 +56,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
       @location = FactoryGirl.create(:location, :with_beacon, business: @business)
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
-      @membership = FactoryGirl.create(:membership, customer: customer, business: @location.business)
+      @membership = FactoryGirl.create(:membership, customer: customer, business: @location.business, points: 500)
     end
     
     context '[Customer token exists]' do
@@ -64,6 +64,7 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
         it 'returns the location' do
           get :show, version: 1, id: @location.id
           expect(response).to be_singular_resource
+          byebug
         end
 
         context "[Using UUID to find location]" do
