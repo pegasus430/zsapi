@@ -1,6 +1,8 @@
 var Masonry = require('masonry-layout')
 var imagesLoaded = require('imagesloaded')
 
+var getDataUri = require('./../utils/image-to-data')
+
 
 
 
@@ -106,6 +108,18 @@ var handleGallerySave = function() {
 
       var selectedSrc = selected.attr('src')
       $('#saved_image').attr('src', selectedSrc)
+
+
+      // Add imageAsDataUri to hidden form field 
+      // in order to properly save 
+      
+      getDataUri(selectedSrc, function(dataUri) {
+
+        $('#image_datafile').attr('value', dataUri)
+
+      })
+
+
 
     } else {
 
