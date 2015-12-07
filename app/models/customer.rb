@@ -117,7 +117,8 @@ class Customer < ActiveRecord::Base
 		# Redemption.where(customer: friends.map(&:id)).to_a
 
 		Redemption.where(
-			customer: Customer.where(status: 'active').where.not(id: id).all.map(&:id)
+			customer: Customer.where.not(id: id).all.map(&:id),
+			status: 'complete'
 		).to_a
 	end
 
