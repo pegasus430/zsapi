@@ -19,12 +19,14 @@ class Redemption < ActiveRecord::Base
   end
 
   def award_points_to_referrer!
-    if campaign.referrer_reward > 0
-      referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
-      unless referral_record.nil?
-        referral_record.referrer.membership_for(location.business).increment!(:points, campaign.referrer_reward)
-        referral_record.used! # mark the referral row as used
-        return true
+    unless campaign.blank?
+      if campaign.referrer_reward > 0
+        referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
+        unless referral_record.nil?
+          referral_record.referrer.membership_for(location.business).increment!(:points, campaign.referrer_reward)
+          referral_record.used! # mark the referral row as used
+          return true
+        end
       end
     end
     
@@ -32,12 +34,14 @@ class Redemption < ActiveRecord::Base
   end
 
   def award_points_to_referral!
-    if campaign.referral_reward > 0
-      referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
-      unless referral_record.nil?
-        referral_record.customer.membership_for(location.business).increment!(:points, campaign.referral_reward)
-        referral_record.used! # mark the referral row as used
-        return true
+    unless campaign.blank?
+      if campaign.referral_reward > 0
+        referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
+        unless referral_record.nil?
+          referral_record.customer.membership_for(location.business).increment!(:points, campaign.referral_reward)
+          referral_record.used! # mark the referral row as used
+          return true
+        end
       end
     end
 
@@ -47,12 +51,14 @@ class Redemption < ActiveRecord::Base
   private
 
     def ensure_customer_has_enough_reward_points
-      if campaign.reward?
-        if customer.membership_for(location.business).points >= campaign.reward_cost
-          customer.membership_for(location.business).decrement!(:points, campaign.reward_cost)
-        else
-          errors.add :base, "You do not have enough points to redeem this reward"
-          false
+      unless campaign.blank?
+        if campaign.reward?
+          if customer.membership_for(location.business).points >= campaign.reward_cost
+            customer.membership_for(location.business).decrement!(:points, campaign.reward_cost)
+          else
+            errors.add :base, "You do not have enough points to redeem this reward"
+            false
+          end
         end
       end
     end
