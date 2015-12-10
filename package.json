@@ -1,9 +1,5 @@
 {
   "name": "zippyspot",
-  "dependencies": {
-    "browserify": "~> 10.2.4",
-    "browserify-incremental": "^3.0.1"
-  },
   "engines": {
     "node": ">= 0.10"
   },
@@ -12,9 +8,10 @@
     "bootstrap": "^3.3.6",
     "bourbon": "^4.2.6",
     "browser-sync": "^2.10.0",
-    "browserify": "^10.2.6",
+    "browserify": "^12.0.1",
     "chokidar": "^1.3.0",
     "chokidar-cli": "^1.2.0",
+    "hashmark": "^3.1.0",
     "imagesloaded": "^3.2.0",
     "jquery": "^2.1.4",
     "masonry-layout": "^3.3.2",
@@ -22,6 +19,7 @@
     "onchange": "^2.0.0",
     "parallelshell": "^2.0.0",
     "postcss": "^5.0.12",
+    "replaceinfiles": "^1.1.3",
     "watchify": "^3.6.1"
   },
   "scripts": {
@@ -35,9 +33,13 @@
     "js-w--5": "watchify npm-pipeline/javascripts/s-pages.js -o public/assets/javascripts/s-pages.js -v -d",
     "js-w--6": "watchify npm-pipeline/javascripts/s-subscriptions.js -o public/assets/javascripts/s-subscriptions.js -v -d",
     "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' ",
+    "img-b": "cp -r npm-pipeline/images public/assets/images",
+    "mark": "hashmark -c public/assets/images/ -r -l 6 '**/*.*' '{dir}/{name}-{hash}{ext}' | replaceinfiles -s 'public/assets/stylesheets/*.css' -d '{dir}/{base}'",
     "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/javascripts/**/*.js, public/assets/stylesheets/**/*.css' ",
-    "build": "npm run css-b",
+    "build": "npm run css-b && npm run img-b",
+    "prebuild": "rm -rf public/assets/stylesheets/ public/assets/images",
     "watch": "parallelshell 'npm run bs' 'npm run css-w' 'npm run js-w' ",
+    "ship": "npm run build && npm run mark",
     "prewatch": "npm run build",
     "start": "npm run watch"
   }

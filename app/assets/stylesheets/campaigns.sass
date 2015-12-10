@@ -1,3 +1,5 @@
+//= require cropbox
+
 @import 'it1.settings/settings.global'
 @import 'it1.settings/settings.breakpoints'
 @import 'it1.settings/settings.colors'
@@ -42,7 +44,7 @@
       text-align: left
     
     .upload-campaign-image
-      background: #fff url('ico/ico_browse.png') no-repeat 20px center
+      background: #fff image-url('ico/ico_browse.png') no-repeat 20px center
       display: block
       -webkit-border-radius: 40px
       -moz-border-radius: 40px
@@ -77,7 +79,7 @@
     .imgPlaceHolder
       min-height: 127px
       min-width: 127px
-      /*background: url('img-placeholder.png') center center no-repeat*/
+      /*background: image-url('img-placeholder.png') center center no-repeat*/
       display: block
       width: auto
       float: left
@@ -118,21 +120,21 @@
     .default_socialImg
       width: 81px
       height: 84px
-      background: url('facebook.png') center center no-repeat
+      background: image-url('facebook.png') center center no-repeat
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
     
 
     .facebookImg
       @extend .default_socialImg
-      background-image: url('facebook.png')
+      background-image: image-url('facebook.png')
     
     .twitterImg
       @extend .default_socialImg
-      background-image: url('twitter.png')
+      background-image: image-url('twitter.png')
     
     .instagramImg
       @extend .default_socialImg
-      background-image: url('instagram.png')
+      background-image: image-url('instagram.png')
     
   
 
@@ -163,7 +165,7 @@
   
   .input-group-addon
     margin-left: 10px
-    background: url('ico/ico_calendar.png') center center no-repeat !important
+    background: image-url('ico/ico_calendar.png') center center no-repeat !important
     border: none
     width: 37px
     height: 43px

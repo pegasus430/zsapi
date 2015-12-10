@@ -54,7 +54,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Automatically inject JavaScript needed for LiveReload
-  # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 
   # To allow BrowserSync to live-inject style changes
   # https://github.com/vigetlabs/gulp-rails-pipeline

@@ -71,7 +71,7 @@
     opacity: 0
 
     & + label 
-      background: url('cbox.svg') no-repeat bottom left
+      background: image-url('cbox.svg') no-repeat bottom left
       padding: 0px
       position: relative
       top: -20px
@@ -91,19 +91,19 @@
 
       .dark-wrap &,
       &.dark
-        background: url('cbox-dark.png') no-repeat bottom left    
+        background: image-url('cbox-dark.png') no-repeat bottom left    
 
     &:checked + label
-      background: url('cbox.svg') no-repeat top left
+      background: image-url('cbox.svg') no-repeat top left
 
       .dark-wrap &,
       &.dark
-        background: url('cbox-dark.png') no-repeat top left
+        background: image-url('cbox-dark.png') no-repeat top left
 
   &.dark
     input[type="checkbox"]
       & + label 
-        background: url('cbox-dark.png') no-repeat bottom left
+        background: image-url('cbox-dark.png') no-repeat bottom left
       
       &:checked + label
-        background: url('cbox-dark.png') no-repeat top left
+        background: image-url('cbox-dark.png') no-repeat top left
