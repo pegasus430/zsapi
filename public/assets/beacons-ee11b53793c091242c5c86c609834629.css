@@ -1,0 +1,19 @@
+/* line 10, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/beacons.sass */
+table {
+  margin: 40px auto;
+  width: 100%;
+  max-width: 700px;
+}
+/* line 15, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/beacons.sass */
+table th, table td {
+  padding: 20px;
+}
+/* line 18, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/beacons.sass */
+table th {
+  background: #838D8F;
+  color: #fff;
+}
+/* line 22, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/beacons.sass */
+table td {
+  background: #fff;
+}
