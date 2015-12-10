@@ -5,7 +5,7 @@ Applications.js
 
 Notes: 
 
-- the place to bring-in any gems needed
+- the place to bring-in any needed gems
 
 */
 
@@ -30,4 +30,3 @@ Notes:
 
 // Pull compiled from /public/assets/javascripts
 //= require globals
-//= require application

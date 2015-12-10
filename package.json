@@ -1,33 +1,19 @@
 {
   "name": "zippyspot",
-  "dependencies": {
-    "browserify": "~> 10.2.4",
-    "browserify-incremental": "^3.0.1"
-  },
   "engines": {
     "node": ">= 0.10"
   },
   "devDependencies": {
-    "autoprefixer": "^6.1.2",
     "bootstrap": "^3.3.6",
-    "bourbon": "^4.2.6",
     "browser-sync": "^2.10.0",
-    "browserify": "^10.2.6",
-    "chokidar": "^1.3.0",
-    "chokidar-cli": "^1.2.0",
+    "browserify": "^12.0.1",
     "imagesloaded": "^3.2.0",
     "jquery": "^2.1.4",
     "masonry-layout": "^3.3.2",
-    "node-sass": "^3.4.2",
-    "onchange": "^2.0.0",
     "parallelshell": "^2.0.0",
-    "postcss": "^5.0.12",
     "watchify": "^3.6.1"
   },
   "scripts": {
-    "css-b": "node-sass -i --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/ && npm run css-b-prefix",
-    "css-w": "node-sass -i -w -r --source-map true --source-map-embed --output-style compressed npm-pipeline/stylesheets/ -o public/assets/stylesheets/",
-    "css-b-prefix": "postcss --use autoprefixer public/assets/stylesheets/**.css --replace",
     "js-w--1": "watchify npm-pipeline/javascripts/globals.js -o public/assets/javascripts/globals.js -v -d",
     "js-w--2": "watchify npm-pipeline/javascripts/s-beacons.js -o public/assets/javascripts/s-beacons.js -v -d",
     "js-w--3": "watchify npm-pipeline/javascripts/s-businesses.js -o public/assets/javascripts/s-businesses.js -v -d",
@@ -36,9 +22,7 @@
     "js-w--6": "watchify npm-pipeline/javascripts/s-subscriptions.js -o public/assets/javascripts/s-subscriptions.js -v -d",
     "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' ",
     "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/javascripts/**/*.js, public/assets/stylesheets/**/*.css' ",
-    "build": "npm run css-b",
-    "watch": "parallelshell 'npm run bs' 'npm run css-w' 'npm run js-w' ",
-    "prewatch": "npm run build",
+    "watch": "parallelshell 'npm run bs' 'npm run js-w' ",
     "start": "npm run watch"
   }
 }
