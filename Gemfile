@@ -6,11 +6,8 @@ ruby '2.2.1'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
-# https://github.com/vigetlabs/gulp-rails-pipeline/pull/28
-gem 'tilt', '1.4.1'
-gem 'sprockets', '2.11.0'
 # Use Sass for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0.4'
 # Use Autoprefixer for prefix-free Sass
 gem "autoprefixer-rails"
 # Use Uglifier as compressor for JavaScript assets
