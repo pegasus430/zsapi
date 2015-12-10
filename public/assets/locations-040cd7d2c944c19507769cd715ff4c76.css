@@ -1,0 +1,34 @@
+/* line 12, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-stats .stat-panel {
+  text-align: center;
+}
+/* line 15, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-stats .stat-panel img {
+  padding: 20px;
+  height: 130px;
+}
+/* line 20, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-stats .stat-panel .panel-footer span {
+  color: #0AB58F;
+  font-size: 16px;
+}
+
+/* line 24, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-confirm {
+  text-align: center;
+}
+/* line 26, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-confirm img {
+  margin-bottom: 40px;
+}
+/* line 28, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-confirm input[type="text"] {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+}
+/* line 32, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/locations.sass */
+#location-confirm a {
+  display: block;
+  margin-top: 20px;
+}

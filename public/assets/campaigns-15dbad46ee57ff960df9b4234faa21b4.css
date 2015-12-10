@@ -1,0 +1,289 @@
+.imageBox
+{
+    position: relative;
+    width: 420px;
+    height: 340px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 210px;
+    height: 170px;
+    margin-left: -105px;
+    margin-top: -85px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 420px;
+    background: rgba(0,0,0,0.7);
+}
+
+.cropped{
+ border: 1px solid #d3d3d3;
+ width: 420px;
+ height: 340px;
+ vertical-align:  middle;
+ text-align: center;
+}
+.action{
+ text-align: center;padding-top: 5px;
+}
+/* line 12, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+#image_preview {
+  width: 210px;
+  height: 170px;
+  overflow: hidden;
+  position: relative;
+}
+/* line 18, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+#image_preview img {
+  max-width: 210px;
+  max-height: 170px;
+}
+
+/* line 26, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .cbox {
+  margin-top: 33px;
+}
+/* line 28, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .cbox label {
+  color: #4a4a4a;
+  font-weight: bold;
+}
+/* line 33, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image h4 {
+  font-size: 26px;
+  color: #000;
+  margin-top: 0;
+  font-weight: 400;
+}
+/* line 39, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .subtitle {
+  font-size: 13px;
+  padding: 0px;
+  color: #a3a3a3;
+  text-align: left;
+}
+/* line 45, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .upload-campaign-image {
+  background: #fff url(/assets/ico/ico_browse.png) no-repeat 20px center;
+  display: block;
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 33px 10px 55px;
+  color: #4a4a4a;
+}
+/* line 56, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .choose-image, .campaign-form .campaign-image .crop-image {
+  background-repeat: no-repeat;
+  background-color: transparent;
+  text-align: center;
+  width: 250px;
+  border: 1px solid #4a4a4a;
+  margin-top: 10px;
+  display: block;
+  border-radius: 40px;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: bold;
+  padding: 10px 42px;
+  color: #4a4a4a;
+}
+/* line 73, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .choose-image:hover, .campaign-form .campaign-image .crop-image:hover, .campaign-form .campaign-image .upload-campaign-image:hover {
+  /*opacity: 0.7 */
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+/* line 78, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .imgPlaceHolder {
+  min-height: 127px;
+  min-width: 127px;
+  /*background: image-url('img-placeholder.png') center center no-repeat */
+  display: block;
+  width: auto;
+  float: left;
+  margin-left: 20px;
+}
+/* line 86, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .campaign-image .imgPlaceHolder img {
+  width: 100%;
+}
+/* line 92, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .cbox.pull-left {
+  padding-left: 0;
+  margin-right: 15px;
+}
+/* line 96, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .cbox.pull-left input {
+  margin-left: 0px;
+}
+/* line 100, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .selectOptions {
+  top: 44px;
+}
+/* line 102, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .selectOptions span:hover {
+  background: #eee;
+}
+/* line 106, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form option:first {
+  color: #999;
+}
+/* line 109, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox {
+  width: 81px;
+  margin: 0 auto;
+}
+/* line 113, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .cbox label {
+  margin-left: 15px;
+}
+/* line 116, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .cbox input[type="checkbox"] {
+  left: 24px !important;
+}
+/* line 119, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .default_socialImg, .campaign-form .socialBox .facebookImg, .campaign-form .socialBox .twitterImg, .campaign-form .socialBox .instagramImg {
+  width: 81px;
+  height: 84px;
+  background: url(/assets/facebook.png) center center no-repeat;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+/* line 126, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .facebookImg {
+  background-image: url(/assets/facebook.png);
+}
+/* line 130, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .twitterImg {
+  background-image: url(/assets/twitter.png);
+}
+/* line 134, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaign-form .socialBox .instagramImg {
+  background-image: url(/assets/instagram.png);
+}
+
+/* DATE PICKER STYLES */
+/* line 143, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.customDaySelector {
+  display: none;
+}
+
+/* line 146, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.customDaySelector.active {
+  display: block;
+}
+
+/* line 149, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.dropdown-menu {
+  z-index: 9999 !important;
+}
+
+/* line 152, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.input-group {
+  position: inherit;
+}
+/* line 154, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.input-group .form-control {
+  width: 126px;
+  border-radius: 4px;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  box-shadow: none;
+  border: none;
+}
+/* line 165, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.input-group .input-group-addon {
+  margin-left: 10px;
+  background: url(/assets/ico/ico_calendar.png) center center no-repeat !important;
+  border: none;
+  width: 37px;
+  height: 43px;
+}
+/* line 171, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.input-group .input-group-addon .glyphicon {
+  display: none;
+}
+
+/* CAMPAIGN */
+/* line 179, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+span.subtitle {
+  color: #a3a3a3;
+  font-size: 16px;
+}
+
+/* line 184, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+h4.normal {
+  font-size: 17px !important;
+  color: #4a4a4a;
+  font-weight: light;
+  margin: 20px 0;
+}
+
+/* CAMPAIGNS */
+/* line 194, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.campaigns-selector div.view {
+  font-size: 15px;
+  color: #4a4a4a;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* Day picker */
+/* line 202, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline {
+  border: solid 1px #979797;
+  padding: 15px;
+  width: 234px;
+  height: 180px;
+  margin-bottom: 30px;
+  position: absolute;
+}
+/* line 209, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline table {
+  background-color: #FFF;
+}
+/* line 211, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline table thead {
+  display: none;
+}
+/* line 214, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline table .cw, .datepicker.datepicker-inline table .disabled.day {
+  display: none;
+}
+/* line 217, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline table td {
+  border: solid 1px #eee;
+  color: #838d8f;
+  font-size: 12px;
+}
+/* line 222, /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass */
+.datepicker.datepicker-inline table td:hover,
+.datepicker.datepicker-inline table td.active.active,
+.datepicker.datepicker-inline table td.active.active:hover {
+  color: #FFF;
+  background-color: #838d8f !important;
+  border: solid 1px #eee;
+  border-radius: 0px;
+}
