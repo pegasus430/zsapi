@@ -12,7 +12,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 	There are two ways to retreive data for a single location, by inputting the beacon's UUID, or by inputting the location's ID. Use the proper route depending on what you're trying to do.
 	EOS
 	param :id, :number, desc: "The location ID. *Required* *if:* Using the ID route"
-	param :uuid, :number, desc: "The beacon's UUID. *Required* *if:* Using the UUID route"
+	param :uuid, :string, desc: "The beacon's UUID. *Required* *if:* Using the UUID route"
 	example <<-EOS
 		{
 		  "count" => 0,
