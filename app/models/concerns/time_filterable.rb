@@ -1,4 +1,4 @@
-module Filterable
+module TimeFilterable
 	extend ActiveSupport::Concern
 
 	included do	
