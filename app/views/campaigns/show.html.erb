@@ -14,11 +14,52 @@
   <% if @campaign.redemptions.size > 0 %>
     Most popular location: <%= @campaign.most_popular_location.title %>
   <% end %>
+
+  <%# ANALYSIS %>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="stat-panel">
+        <div class="row">
+          <div class="col-xs-6 col-sm-3">
+            <div class="ups">
+              <span><%= @stat_for[:total_redemptions] %></span></i>
+              Total Redemptions
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="downs">
+              <span><%= @stat_for[:todays_redemptions] %></span>
+              Redemptions Today
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="ups">
+              <span><%= @stat_for[:mtd_redemptions] %></span>
+              Compared MTD
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="downs">
+              <span><%= @stat_for[:total_redemption_customes] %></span>
+              Customers
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%# -ANALYSIS %>
+
+  <div class="row">
+    <%# AREA CHART %>
+    <div class="col-xs-12">
+        <div id="area-chart"></div>
+        <%= render_chart(@chart_for[:redemptions_in_30_days], 'area-chart') %>
+    </div>
+    <%# -AREA CHART %>
+  </div>
+
 <% end %> <%# -wrapper %>
-
-
-<%= wrapper :dark do %>
-<% end %> <%# -wrapper dark %>
 
 
 <%= content_for :js_header do %>

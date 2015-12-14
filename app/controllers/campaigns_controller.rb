@@ -9,6 +9,8 @@ class CampaignsController < ApplicationController
   end
 
   def show
+    @chart_for = campaign_charts
+    @stat_for = campaign_stats
   end
 
   def new
@@ -90,5 +92,63 @@ class CampaignsController < ApplicationController
 
     def load_image_gallery
       @gallery_images = Dir.glob("app/assets/images/campaign_gallery/*.jpg")
+    end
+
+
+
+    def campaign_stats
+      {
+        total_redemptions:            @campaign.redemptions.size,
+        todays_redemptions:           @campaign.redemptions.today.size,
+        mtd_redemptions:              (@campaign.redemptions.today.size) - (@campaign.redemptions.on_date(1.month.ago).size),
+        total_redemption_customers:   @campaign.redemptions.group(:customer_id).size
+      }
+    end
+
+
+    def campaign_charts
+      # Charts
+      redemptions_in_30_days = GoogleVisualr::Interactive::AreaChart.new(
+        GoogleVisualr::DataTable.new(
+          cols: [
+            {type: 'string', label: 'Date'},
+            {type: 'number', label: 'Redemptions'},
+          ],
+          rows: [
+            {c: ['9/21/15', 14]},
+            {c: ['9/22/15', 3]},
+            {c: ['9/23/15', 12]},
+            {c: ['9/24/15', 19]},
+          ]
+        ),
+        {
+          title: 'Redemptions (last 30 days)',
+          height: 400,
+          animation: {
+            startup: 'true',
+            easing: 'inAndOut',
+            duration: 400,
+          },
+          hAxis: {textPosition: 'none'},
+          vAxis: {minValue: 0},
+          legend: {
+            position: 'bottom',
+            maxLines: 3,
+          },
+          colors: [
+            '#4CD9B9',
+            '#FF0141',
+            '#4990E2'
+          ],
+          areaOpacity: 0.9,
+          backgroundColor: '#f4f4f5'
+        }
+      )
+
+
+      # Return the values
+      {
+        redemptions_in_30_days: redemptions_in_30_days
+      }
     end
 end

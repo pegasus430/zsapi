@@ -1,4 +1,6 @@
 class Redemption < ActiveRecord::Base
+  include TimeFilterable
+
 	enum status: [:pending, :complete]
 	
   belongs_to :campaign

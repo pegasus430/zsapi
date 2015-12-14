@@ -7,16 +7,18 @@ class PagesController < ApplicationController
 	end
   
   def dashboard
-  	@campaigns = current_user.business.campaigns.valid_for(Date.today) rescue nil
+  	@locations = current_user.business.locations rescue nil
+  	@campaigns = current_user.business.campaigns rescue nil
+  	@todays_campaigns = @campaigns.valid_for(Date.today)
 
   	# Stats
   	unless @campaigns.blank?
-			stat_query      = current_user.business.locations
+			stat_query      = @locations
 			today_range     = Date.today.beginning_of_day..Date.today.end_of_day
 			yesterday_range = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day
 
 	  	@stats = {
-				active_campaigns: 	@campaigns.size,
+				active_campaigns: 	@todays_campaigns.size,
 
 	  		today: {
 					checkins: 			Stat.total_checkins(query: stat_query, range: today_range),
