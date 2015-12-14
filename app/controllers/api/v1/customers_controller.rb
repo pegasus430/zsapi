@@ -223,7 +223,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 						only: [:id, :title],
 						include: {
 							business: {
-								only: [:id, :name],
+								only: [:id, :name, :primary_color, :secondary_color],
 								methods: [:image_url]
 							}
 						}
