@@ -14,6 +14,16 @@
   <% if @campaign.redemptions.size > 0 %>
     Most popular location: <%= @campaign.most_popular_location.title %>
   <% end %>
+
+  <div class="row">
+    <%# AREA CHART %>
+    <div class="col-xs-12">
+        <div id="area-chart"></div>
+        <%= render_chart(@chart_for[:redemptions_in_30_days], 'area-chart') %>
+    </div>
+    <%# -AREA CHART %>
+  </div>
+
 <% end %> <%# -wrapper %>
 
 

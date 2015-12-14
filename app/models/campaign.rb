@@ -1,6 +1,7 @@
 class Campaign < ActiveRecord::Base
   include Locationable
   include DatePickable
+  include Filterable
 
   datepicker [:start_at, :end_at]
 

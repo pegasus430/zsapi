@@ -1,4 +1,6 @@
 class Redemption < ActiveRecord::Base
+  include Filterable
+  
 	enum status: [:pending, :complete]
 	
   belongs_to :campaign
