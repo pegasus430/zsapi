@@ -5,6 +5,7 @@ Globals - Sidebar
 */
 
 
+var swipe = require('jquery-touchswipe')
 
 
 module.exports = function() {
@@ -23,18 +24,30 @@ module.exports = function() {
 
 
 
-  // Swipe To Toggle
+  // Swipe Toggle
 
-  if ( $(!".minicolors").length > 0 )
-  {
-    $('body').on("swipeleft",function(){
-      $(this).removeClass("sb-is-open")
-    })
-    $('body').on("swiperight",function(){
-      $(this).addClass("sb-is-open")
-    })
-  }
+  $(function() {
+    $("body").swipe( {
 
+      swipe:function(event, direction) {
+
+        // Close on swipe left
+        if ( direction === 'left' ) {
+
+          $("body").removeClass('sb-is-open')
+
+
+
+        // Open on swipe right
+        } else if ( direction === 'right' ) {
+
+          $("body").addClass('sb-is-open')
+
+        }
+      }
+    })
+
+  });
 
 
 
