@@ -124,59 +124,84 @@
 
 
 
+// ------------------------------
 // Preview Modal
+
 .modal-body
   .modal-container
     // width: 255px
-    width: 300px
+    width: 340px
     margin: 0 auto
     height: 498px
     overflow-y: scroll
     overflow-x: hidden
     // padding-top: 90px
     padding-top: 0
-    .mobileTemplate
-      height: 408px
-      // width: 229px
-      .previewHeader
-        background-color: $c-location
-        img
-          width: 100%
-          min-height: 70px
-          padding: 35px 45px
-      .content
-        background-color: #747474
-        color: #FFF
-        float: left
-        width: 100%
-        min-height: 221px
-        padding: 5px
-        h1
-          font-size: 22px
-          margin-top: 0px        
-        p
-          font-size: 18px      
-      .socialFooter
-        background-color: #747474
-        color: #FFF
-        float: left
-        padding: 24px
-        width: 100%
-        text-align: center
-        a
-          display: block
-          width: 50px
-          height: 50px
-          display: inline-block
-          margin-right: 15px
-          &.chains
-            background: image-url('preview_link.png') 
-            background-color: #5ca011
-            background-size: cover
-          &.facebook
-            background: image-url('facebook.png') 
-            background-size: cover
-          &.twitter
-            background: image-url('twitter.png')
-            background-size: cover
-            margin-right: 0px
+
+.mobileTemplate
+  height: 100%
+  .mobileTemplate-head
+    background-color: $c-location
+    margin-bottom: 8px
+  .mobileTemplate-panel
+    background-color: white
+    margin-bottom: 8px
+    padding: 25px 15px
+  .mobileTemplate_points-count,
+  .mobileTemplate_points-label
+    text-align: center
+  .mobileTemplate_points-count
+    font-size: 33px
+    line-height: 1
+  .mobileTemplate_points-label
+    font-size: 10px
+    text-transform: uppercase
+  .mobileTemplate_panel-text
+    font-size: 18px
+    padding-top: 12px
+  .mobileTemplate-nav_ul
+    li 
+      padding-bottom: 5px
+      border-bottom: solid 4px transparent
+      position: relative
+      &.active
+        border-bottom-color: orange
+        &:after 
+          content: ''
+          position: absolute 
+          left: 0
+          right: 0
+          margin-left: auto
+          margin-right: auto
+          width: 0
+          height: 0
+          bottom: -14px
+          border-style: solid
+          border-width: 12px 12px 0 12px
+          border-color: orange transparent transparent transparent
+
+
+  .socialFooter
+    background-color: #747474
+    color: #FFF
+    float: left
+    padding: 24px
+    width: 100%
+    text-align: center
+    a
+      display: block
+      width: 50px
+      height: 50px
+      display: inline-block
+      margin-right: 15px
+      &.chains
+        background: image-url('preview_link.png') 
+        background-color: #5ca011
+        background-size: cover
+      &.facebook
+        background: image-url('facebook.png') 
+        background-size: cover
+      &.twitter
+        background: image-url('twitter.png')
+        background-size: cover
+        margin-right: 0px
