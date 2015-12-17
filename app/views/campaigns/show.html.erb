@@ -21,26 +21,26 @@
       <div class="stat-panel">
         <div class="row">
           <div class="col-xs-6 col-sm-3">
-            <div class="ups">
-              <span><%= @stat_for[:total_redemptions] %></span></i>
+            <div class="stat-panel_entry">
+              <span class="stat-panel_entry-value color-type-green"><%= @stat_for[:total_redemptions] %></span>
               Total Redemptions
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
-            <div class="downs">
-              <span><%= @stat_for[:todays_redemptions] %></span>
+            <div class="stat-panel_entry">
+              <span class="stat-panel_entry-value color-type-red"><%= @stat_for[:todays_redemptions] %></span>
               Redemptions Today
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
-            <div class="ups">
-              <span><%= @stat_for[:mtd_redemptions] %></span>
+            <div class="stat-panel_entry">
+              <span class="stat-panel_entry-value"><%= @stat_for[:mtd_redemptions] %></span>
               Compared MTD
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
-            <div class="downs">
-              <span><%= @stat_for[:total_redemption_customes] %></span>
+            <div class="stat-panel_entry">
+              <span class="stat-panel_entry-value"><%= @stat_for[:total_redemption_customes] %></span>
               Customers
             </div>
           </div>
