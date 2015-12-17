@@ -9,7 +9,12 @@
   right: 0
   z-index: $z-header
   @include transition(.4s)
+  @include below($bp-xsmall)
+    left: 0
+    width: 100%
   
+
+
   .nav-trigger 
     width: 29px
     color: $havelock-blue
@@ -19,12 +24,14 @@
     left: 92px
     @include transition(.4s)
     cursor: pointer
+    @include below($bp-xsmall)
+      left: 15px
 
   body.sb-is-open & 
     left: $sidebar-expanded-width
     z-index: 9010
     .nav-trigger 
-      left: 217px
+      left: $sidebar-expanded-width + 17px
 
 
 .header-left 

@@ -13,6 +13,11 @@ body.sb-is-open
   height: 100vh
   @include transition(.4s)
   z-index: 999
+  @include below($bp-xsmall)
+    width: 200px
+    position: fixed
+    left: -200px
+
 
   .logo 
     text-align: center
@@ -43,8 +48,8 @@ body.sb-is-open
 
 
 
-// The navigation inside of the sidebar
-.db-navbar 
+// Nav li elements inside the sidebar
+.db-navbar
   width: 100%
   overflow: hidden
   li 
@@ -128,10 +133,31 @@ body.sb-is-open
     position: relative
     right: 0px
 
-  @include below($bp-xsmall)
-    li a 
-      padding-left: 60px
-      span
-        opacity: 1
-        visibility: visible
-        right: 0
+
+@include below($bp-xsmall)
+  // .db-navbar li a 
+  //   padding-left: 60px
+    // span
+    //   opacity: 1
+    //   visibility: visible
+    //   right: 0
+
+  // #home.active
+  .sb-is-open #home
+    padding-left: 0px
+    #wrapper
+      position: relative
+      left: 200px
+      transition: .4s
+  // .header.active
+  .sb-is-open .header
+    left: 200px
+    width: 100%
+    .nav-trigger
+      left: 215px
+  // .db-header.active
+  .sb-is-open .db-header
+    left: 0px
+    height: 100%
+    overflow: auto
+    overflow-x: hidden
