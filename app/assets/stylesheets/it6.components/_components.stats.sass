@@ -56,24 +56,22 @@
   @include box-shadow()
   margin-bottom: $row-gutter
 
-  .ups,
-  .downs 
-    color: $mine-shaft
-    font-size: 16px
-    padding-left: $row-gutter/2
+// Wrapper for the entry (numeric) value and name
+.stat-panel_entry
+  color: $mine-shaft
+  font-size: 16px
+  padding-left: $row-gutter/2
 
-    span 
-      font-size: 20px
-      margin-right: 4px
-      font-weight: 300  
+// The numeric stat value
+// ---
+// Note - To change color for positive/negative values,
+// toggle the utility classes 
+// .color-type-red
+// and
+// .color-type-green
+// which are both located in it7.trumps/_trumps.type.sass
 
-  .ups 
-    span,
-    i
-      color: $niagara
-  
-
-  .downs 
-    span,
-    i 
-      color: $torch-red
+.stat-panel_entry-value
+  font-size: 20px
+  margin-right: 4px
+  font-weight: 300  
