@@ -51,7 +51,8 @@
             <tr>
               <td><%= type_of_circle(c.type_of) %></td>
               <td><%= link_to c.title, c %></td>
-              <td><%= c.locations_string %></td>
+              <!-- <td><%= c.locations_string %></td> -->
+              <td class="overflow-more" data-entry-limit="13">Location 1, Location 2, Location 3, Location 4, Location 5, Location 6, Location 7, Location 8, Location 9, Location 10, Location 11, Location 12, Location 13, Location 14, Location 15, Location 16, Location 17, Location 18, Location 19, Location 20, Location 21, Location 22, Location 23, Location 24, Location 25, Location 26, Location 27, Location 28, Location 29</td>
               <td><%= c.schedule %></td>
               <td><%= yesno(c.featured) %></td>
               <td>
