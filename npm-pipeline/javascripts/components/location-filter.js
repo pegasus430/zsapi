@@ -22,9 +22,6 @@ Notes:
 
 
 
-
-
-
 module.exports = function() {
 
   updateUrl()
@@ -70,8 +67,6 @@ updateUrl = function() {
         var stringToReplace = /id/i
         var goToURL = urlPattern.replace( stringToReplace, targetID )
       }
-
-      console.log(goToURL)
 
       
       // navigate the window to the new url
