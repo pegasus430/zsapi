@@ -7,7 +7,7 @@
       <p><%#= @campaign.schedule.title %></p>
     </div>
     <div class="col-xs-12 col-sm-4">
-      <%= render 'shared/location_selector' %>
+      <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :show} %>
     </div>
   </div>
 

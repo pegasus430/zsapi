@@ -1,6 +1,17 @@
-<select class="fullWidth">
+<select id="locationFilter" class="fullWidth">
 	<% current_user.locations.each do |l| %>
-	  <option value="<%= l.id %>"><%= l.title %></option>
+		<%
+			url_for_opts = {
+				controller: type_of[:controller], 
+				action: type_of[:action]
+			}
+			if type_of[:use_id_for_location]
+				url_for_opts[:id] = l.id.to_s
+			else
+				url_for_opts[:location_id] = l.id.to_s
+			end
+		%>
+	  <option value="<%= url_for(url_for_opts) %>"><%= l.title %></option>
   <% end %>
-  	<option value="0">+ New Location</option>
+  	<option value="<%= new_location_url %>">+ New Location</option>
 </select>
