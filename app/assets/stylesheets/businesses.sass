@@ -138,34 +138,70 @@
     // padding-top: 90px
     padding-top: 0
 
-.mobileTemplate
+
+$mobile-preview--orange: #ecb348
+.mobilePreview
   height: 100%
-  .mobileTemplate-head
-    background-color: $c-location
+  .mobilePreview-head
     margin-bottom: 8px
-  .mobileTemplate-panel
+  .mobilePreview-header_bg-wrap
+    position: relative
+    background-color: $c-location
+    overflow: hidden
+  .mobilePreview_bg
+    position: absolute 
+    width: 100%
+    height: 100%
+    background-size: contain
+    background-repeat: no-repeat
+    filter: blur(50px)
+  .mobilePreview-panel
+    position: relative
     background-color: white
     margin-bottom: 8px
     padding: 25px 15px
-  .mobileTemplate_points-count,
-  .mobileTemplate_points-label
+    margin-left: 2px
+    margin-right: 2px
+    border-left: solid 3px #efefef
+    border-left: solid 3px #e4e4e4
+    border-right: solid 3px #e4e4e4
+    border-bottom: solid 3px #b7b7b7
+    overflow: hidden
+  .mobilePreview_banner
+    position: absolute
+    top: 8px
+    left: -21px
+    background-color: $mobile-preview--orange
+    font-style: italic
+    font-weight: 700
+    -webkit-transform: rotate(-45deg)
+    -ms-transform: rotate(-45deg)
+    transform: rotate(-51deg)
+    font-size: 10px
+    padding: 2px 20px
+  .mobilePreview_points-count,
+  .mobilePreview_points-label
     text-align: center
-  .mobileTemplate_points-count
+  .mobilePreview_points
+    padding: 0
+  .mobilePreview_points-count
     font-size: 33px
     line-height: 1
-  .mobileTemplate_points-label
+  .mobilePreview_points-label
     font-size: 10px
     text-transform: uppercase
-  .mobileTemplate_panel-text
+  .mobilePreview_panel-text
     font-size: 18px
     padding-top: 12px
-  .mobileTemplate-nav_ul
+    padding-right: 0
+    padding-left: 5px
+  .mobilePreview-nav_ul
     li 
       padding-bottom: 5px
       border-bottom: solid 4px transparent
       position: relative
       &.active
-        border-bottom-color: orange
+        border-bottom-color: $mobile-preview--orange
         &:after 
           content: ''
           position: absolute 
@@ -178,7 +214,20 @@
           bottom: -14px
           border-style: solid
           border-width: 12px 12px 0 12px
-          border-color: orange transparent transparent transparent
+          border-color: $mobile-preview--orange transparent transparent transparent
+          z-index: 50
+  .mobilePreview_header
+    width: 100%
+    height: 65px
+    background-size: contain
+    background-repeat: no-repeat
+    position: relative
+    z-index: 50
+  .mobilePreview_footer
+    width: 100%
+    height: 65px
+    background-size: contain
+    background-repeat: no-repeat
 
 
   .socialFooter
