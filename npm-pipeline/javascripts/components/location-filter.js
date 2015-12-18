@@ -29,7 +29,9 @@ updateUrl = function() {
   // Listen for location selections
   // and perform necessary logic
 
-  $('#locationFilter select').selectBox().change(function () {
+  // #locationFilter present on the select element
+
+  $('#locationFilter').selectBox().change(function () {
 
       // Get the id of the selected location 
 
