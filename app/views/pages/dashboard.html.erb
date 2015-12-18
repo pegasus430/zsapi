@@ -51,27 +51,23 @@
 			<div class="stat-panel">
 				<div class="row">
 					<div class="col-xs-6 col-sm-3">
-						<div class="ups">
-							<span><%= @stats[:today][:checkins] %></span></i>
-							Check-ins
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:checkins], "Check-in", positive: :green) %>
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-3">
-						<div class="downs">
-							<span><%= @stats[:today][:redemptions] %></span>
-							Redemptions
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:redemptions], "Redemption", positive: :green) %>
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-3">
-						<div class="ups">
-							<span><%= @stats[:today][:conversion] %>%</span>
-							Conversion
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:conversion], "Conversion", positive: :green) %>
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-3">
-						<div class="downs">
-							<span>+<%= @stats[:today][:new_customers] %></span>
-							Customers
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:new_customers], "Customer", positive: :green) %>
 						</div>
 					</div>
 				</div>
