@@ -10,7 +10,7 @@
 	    <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
 	  </div>
 	  <div class="col-xs-6 col-sm-3">
-	    <%= render 'shared/location_selector' %>
+      <%= render 'shared/location_selector', type_of: {controller: :locations, action: :show, use_id_for_location: true} %>
 	  </div>
 	</div>
 
