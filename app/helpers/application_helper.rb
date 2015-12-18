@@ -143,9 +143,12 @@ module ApplicationHelper
 	def green_red_stat(number, stat_title, opts)
 		opts.reverse_merge!({
 			positive: :green,
-			negative: :red
+			negative: :red,
+			pluralize: true
 		})
 
+		number ||= 0
+		
 		positive_class = "color-type-green"
 		negative_class = "color-type-red"
 
@@ -153,7 +156,7 @@ module ApplicationHelper
 		span_class = '' if number == 0
 
 		content_tag :span, number, class: ['stat-panel_entry-value', 'span_class', span_class]
-		pluralize(number, stat_title)
+		pluralize(number, stat_title) if opts[:pluralize]
 	end
 
 	# The circle icon (usually for active/inactive)
