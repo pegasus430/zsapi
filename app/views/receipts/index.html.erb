@@ -7,7 +7,7 @@
         <h2>Verified Receipts</h2>
       </div>
       <div class="col-xs-12 col-sm-3">
-        <%= render 'shared/location_selector' %>
+        <%= render 'shared/location_selector', type_of: {controller: :receipts, action: :index} %>
       </div>
     </div>
 

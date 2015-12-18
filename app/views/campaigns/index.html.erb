@@ -8,8 +8,8 @@
       <div class="col-xs-6 col-sm-5">
         <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
       </div>
-      <div id="locationFilter" data-url-pattern="/locations/id/campaigns" data-new-location="<%= new_location_url %>" class="col-xs-6 col-sm-3">
-        <%= render 'shared/location_selector' %>
+      <div class="col-xs-6 col-sm-3">
+        <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :index} %>
       </div>
     </div>
 

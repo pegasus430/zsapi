@@ -6,8 +6,8 @@
       <h2><%= @campaign.title %></h2>
       <p><%#= @campaign.schedule.title %></p>
     </div>
-    <div id="locationFilter" data-url-pattern="/locations/id/campaigns/<%= @campaign[:id] %>" data-new-location="<%= new_location_url %>" class="col-xs-12 col-sm-4">
-      <%= render 'shared/location_selector' %>
+    <div class="col-xs-12 col-sm-4">
+      <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :show} %>
     </div>
   </div>
 
