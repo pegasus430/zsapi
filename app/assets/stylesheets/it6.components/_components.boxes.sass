@@ -2,34 +2,38 @@
 // Campaign cards
 // TODO: consider refactoring this into something more generic?
 
-.card 
+.campaign-card
   @include transition(.4s)
   @include box-shadow()
   min-height: 300px
   background: $white
   position: relative
   overflow: hidden
- 
-  .card-info 
-    padding: 0 15px 15px
-    text-align: center
 
-    h3 
-      color: $c-label
-      font-size: 20px
-      font-weight: 800
+.campaign-card_info 
+  padding: 0 15px 15px
+  text-align: center
+.campaign-card_heading a
+  color: $c-label
+  font-size: 20px
+  font-weight: 800
+  &:hover
+    color: $c-campaign
 
-    a 
-      padding: 6px 8px
-      margin: 0 auto
-      border: 1px solid $c-border
-      border-radius: 20px
-      color: $c-border
-      &:hover
-        color: $c-campaign
-        border-color: $c-campaign
+.campaign-card_icon 
+  padding: 6px 8px
+  margin: 0 auto
+  border: 1px solid $c-border
+  border-radius: 20px
+  color: $c-border
+  &:hover
+    color: $c-campaign
+    border-color: $c-campaign
 
 
+// Badge
+// Question: Is this only used on campaign cards?
+// TODO: refactor accordingly
 
 .badge 
   width: 200px
