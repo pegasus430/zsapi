@@ -140,6 +140,21 @@ module ApplicationHelper
 
 
 	## HTML HELPERS ##
+	def green_red_stat(number, stat_title, opts)
+		opts.reverse_merge!({
+			positive: :green,
+			negative: :red
+		})
+
+		positive_class = "color-type-green"
+		negative_class = "color-type-red"
+
+		span_class = ( opts[:positive] == :green && number > 0 ) ? positive_class : negative_class
+		span_class = '' if number == 0
+
+		content_tag :span, number, class: ['stat-panel_entry-value', 'span_class', span_class]
+		pluralize(number, stat_title)
+	end
 
 	# The circle icon (usually for active/inactive)
 	def active_circle(boolean)
