@@ -1,14 +1,14 @@
 <% unless @campaigns.nil? %>
   <div class="row">
     <% @campaigns.each do |c| %>
-      <div class="col-xs-12 col-sm-3">
-        <div class="card">
+      <div class="col-sm-4 col-md-3">
+        <div class="campaign-card">
           <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>
-          <%= image_tag c.image, class: "img-responsive" %>
-          <div class="card-info">
-            <h3><%= c.title %></h3>
+          <%= link_to (image_tag c.image, class: "img-responsive fit"), c %>
+          <div class="campaign-card_info">
+            <h3 class="campaign-card_heading"><%= link_to c.title, c %></h3>
             <p><span><%= c.redemptions.where('created_at >= ?', Time.now.beginning_of_day).size %></span> uses today</p>
-            <%= link_to edit_campaign_url(c) do %>
+            <%= link_to edit_campaign_url(c), class: 'campaign-card_icon' do %>
               <i class="fa fa-pencil"></i>
             <% end %>
           </div>

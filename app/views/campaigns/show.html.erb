@@ -22,26 +22,22 @@
         <div class="row">
           <div class="col-xs-6 col-sm-3">
             <div class="stat-panel_entry">
-              <span class="stat-panel_entry-value color-type-green"><%= @stat_for[:total_redemptions] %></span>
-              Total Redemptions
+              <%= green_red_stat(@stat_for[:total_redemptions], "Total Redemption", positive: :green) %>
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
             <div class="stat-panel_entry">
-              <span class="stat-panel_entry-value color-type-red"><%= @stat_for[:todays_redemptions] %></span>
-              Redemptions Today
+              <%= green_red_stat(@stat_for[:todays_redemptions], "Redemptions Today", positive: :green, pluralize: false) %>
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
             <div class="stat-panel_entry">
-              <span class="stat-panel_entry-value"><%= @stat_for[:mtd_redemptions] %></span>
-              Compared MTD
+              <%= green_red_stat(@stat_for[:mtd_redemptions], "Compared MTD", positive: :green, pluralize: false) %>
             </div>
           </div>
           <div class="col-xs-6 col-sm-3">
             <div class="stat-panel_entry">
-              <span class="stat-panel_entry-value"><%= @stat_for[:total_redemption_customes] %></span>
-              Customers
+              <%= green_red_stat(@stat_for[:total_redemption_customers], "Customer", positive: :green) %>
             </div>
           </div>
         </div>

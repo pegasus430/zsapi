@@ -97,12 +97,18 @@ class CampaignsController < ApplicationController
 
 
     def campaign_stats
-      {
+      ret = {
         total_redemptions:            @campaign.redemptions.size,
         todays_redemptions:           @campaign.redemptions.today.size,
         mtd_redemptions:              (@campaign.redemptions.today.size) - (@campaign.redemptions.on_date(1.month.ago).size),
-        total_redemption_customers:   @campaign.redemptions.group(:customer_id).size
+        total_redemption_customers:   (@campaign.redemptions.group(:customer_id)).size
       }
+
+      if ret[:total_redemption_customers].empty?
+        ret[:total_redemption_customers] = 0
+      end
+
+      ret
     end
 
 
