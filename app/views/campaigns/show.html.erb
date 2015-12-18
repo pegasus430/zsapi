@@ -6,7 +6,7 @@
       <h2><%= @campaign.title %></h2>
       <p><%#= @campaign.schedule.title %></p>
     </div>
-    <div class="col-xs-12 col-sm-4">
+    <div id="locationFilter" data-url-pattern="/locations/id/campaigns/<%= @campaign[:id] %>" class="col-xs-12 col-sm-4">
       <%= render 'shared/location_selector' %>
     </div>
   </div>
