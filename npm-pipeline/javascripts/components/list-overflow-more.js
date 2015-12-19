@@ -15,31 +15,32 @@ module.exports = function() {
 
 overflowMore = function() {
 
+  var index = 0 
 
   entriesList.each(function() {
-    
     var td = $(this)
-
+    index++
+    
 
     var entryLimit = td.data('entry-limit')
-    console.log(entryLimit)
-
-
     var entryArray = td.text().split(',')
 
 
     if ( entryArray.length > entryLimit ) {
 
-      addMoreToggle(td, entryArray, entryLimit)
+
+      handleDOM(td, entryArray, entryLimit, index);
+   
 
     }
 
   })
+
 }
 
 
 
-function addMoreToggle(td, entryArray, entryLimit) {
+function handleDOM(td, entryArray, entryLimit, index) {
 
   var initial = entryArray.splice(0,entryLimit)
   
@@ -50,38 +51,56 @@ function addMoreToggle(td, entryArray, entryLimit) {
 
 
   // only show the initial text
-  td.html(initial)
-
-  // add 'read more' btn
-  // td.append(', <span class="more" style="display:none">' + more + '</span> <a href="#" class="toggleMore pointer">[ show more ]</a>')
-  $('<div/>', {
-    class: 'more',
-
-  }).appendTo(td)
+  td.text(initial)
 
 
-  // Handle more show/hide
-  // toggleMore(td)
-  // td.find('.toggleMore').click(function() {
-    // console.log('more!')
-    // td.find('.more').toggle()
-  // })
+  // add back last comma to overflow locations
+  var content = ',' + more
 
-// return function(event) {
-  handleToggle(td)
-// }
 
+  // add hidden div (with remaining locations)
+  td.append(
+    $('<span/>')
+      .addClass('more')
+      .attr('id', 'more-'+index)
+      .attr('style', 'display: none;')
+      .append("<span/>")
+        .text(content)
+  )
+
+
+  // add toggle element
+  td.append(
+    $("<span/>")
+      .addClass('toggleMore inline-block ml2 pointer')
+      .attr('id', 'toggleMore-'+index)
+      .text('[ Show More ]')
+  )
+
+
+  // handle toggle logic
+  $(document).on('click', ('#toggleMore-'+index), function() {
+    handleToggle(index)
+  })  
 
 }
 
 
-var handleToggle = function(td) {
-  $(document.body).click(function() {
-    console.log(td)
-  })
 
-  td.find('.toggleMore').click(function() {
-    console.log('more!')
-    td.find('.more').toggle()
-  })
+function handleToggle(index) {
+  
+  var btn = $('#toggleMore-'+index)
+  var target = $('#more-'+index)
+
+  target.toggle()
+  target.toggleClass('open')
+
+  if ( target.hasClass('open') ) {
+
+    btn.text('[ Show Less ]')
+
+  } else {
+
+    btn.text('[ Show More ]')
+  }
 }
