@@ -1,5 +1,6 @@
-var modalGallery = require('./components/modal-gallery')
-modalGallery()
+var modalGallery = require('./components/modal-gallery');
+modalGallery();
+
 
 
 
@@ -9,3 +10,10 @@ modalGallery()
 
 var locationFilter = require('./components/location-filter') 
 locationFilter()
+
+
+
+
+
+var listOverflowMore = require('./components/list-overflow-more')
+listOverflowMore()

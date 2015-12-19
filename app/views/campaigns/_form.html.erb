@@ -35,15 +35,17 @@
     <% end %>
 
 
-    <%= fr "Location(s)" do %>
-      <%= hidden_field_tag "campaign[location_ids][]", nil %>
-      <% current_user.locations.each do |l| %>
-        <div class="cbox">
-          <%= check_box_tag "campaign[location_ids][]", l.id, @campaign.location_ids.include?(l.id), id: "location_#{l.id}" %>
-          <label for="location_<%= l.id %>"><%= l.title %></label>
+      <%= fr "Location(s)" do %>
+        <%= hidden_field_tag "campaign[location_ids][]", nil %>
+        <div class="campaigns-location-list">
+        <% current_user.locations.each do |l| %>
+          <div class="cbox">
+            <%= check_box_tag "campaign[location_ids][]", l.id, @campaign.location_ids.include?(l.id), id: "location_#{l.id}" %>
+            <label for="location_<%= l.id %>"><%= l.title %></label>
+          </div>
+        <% end %>
         </div>
       <% end %>
-    <% end %>
   <% end %> <%# -wrapper %>
 
 
