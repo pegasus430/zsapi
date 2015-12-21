@@ -55,7 +55,7 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 		receipts = current_customer.receipts
 		receipts = receipts.where(status: params[:status]).all unless params[:status] == 'all'
 
-		collection receipts, include: [:location, :business], only: [
+		collection receipts, include: [:location, :business], methods: :image_url, only: [
 			:id,
 			:purchased_on,
 			:amount,
@@ -63,7 +63,8 @@ class Api::V1::ReceiptsController < Api::V1::BaseController
 			:created_at,
 			:status,
 			:actioned_on,
-			:image_file_name
+			:image_file_name,
+			:image_url
 		]
 	end
 
