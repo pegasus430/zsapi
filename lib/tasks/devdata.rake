@@ -6,6 +6,14 @@ namespace :devdata do
     puts "Hello"
   end
 
+  task :submit_receipt => :environment do
+    require 'open-uri'
+    image = open("http://i.stack.imgur.com/qjKuQ.jpg")
+
+    red = FactoryGirl.create(:redemption)
+    FactoryGirl.create(:receipt, image: image, redemption: red)
+  end
+
   task :all => :environment do
     # Create users with businesses
     users = FactoryGirl.create_list(:user, 1, :with_business, password: "demo1234")
