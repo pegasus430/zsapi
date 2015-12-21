@@ -124,6 +124,7 @@ RSpec.describe Api::V1::ReceiptsController, type: :controller do
         get :index, version: 1, status: 'all'
         expect(response).to be_collection_resource
         expect(JSON.parse(response.body)["count"]).to eq 3
+        byebug
       end
     end
   end
