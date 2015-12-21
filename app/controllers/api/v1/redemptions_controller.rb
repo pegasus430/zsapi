@@ -30,7 +30,8 @@ class Api::V1::RedemptionsController < Api::V1::BaseController
 			],
 			only: [
 				:campaign_id,
-				:location_id
+				:location_id,
+				:id
 			]
 		)
 	end
