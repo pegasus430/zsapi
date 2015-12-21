@@ -51,7 +51,6 @@ class Business < ActiveRecord::Base
   end
 
   ## Below is for the API
-
   def attributes
     super.merge({image_url: image_url})
   end
@@ -59,5 +58,6 @@ class Business < ActiveRecord::Base
   def image_url
     image.url
   end
+  ##
   
 end
