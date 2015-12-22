@@ -11,7 +11,7 @@ class Admin::ReceiptsController < Admin::AdminController
   def update
     respond_to do |format|
       @receipt.attributes = receipt_params
-      if @receipt.save(validate: false)
+      if @receipt.save
         if @receipt.approved?
           unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
             @receipt.redemption.award_points_to_customer!
