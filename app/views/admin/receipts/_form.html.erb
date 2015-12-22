@@ -18,7 +18,7 @@
           <div class="input-group date">
             <div class="row no-gutters">
               <div class="col-xs-9">
-                <%= f.text_field :purchased_on %>
+                <%= text_field_tag 'receipt[purchased_on]', receipt.purchased_on %>
               </div>
               <div class="col-xs-3">
                 <span class="input-group-addon"></span>
