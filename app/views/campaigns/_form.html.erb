@@ -152,7 +152,10 @@
 
   <%= wrapper do %>
     <%= section_header "Recurring Schedule" %>
-    <%= render 'schedules/form' %>
+
+    <%= f.fields_for @campaisn.schedule do |builder| %>
+      <%= render 'schedules/form', f: builder %>
+    <% end %>
   <% end %> <%# -wrapper %>
 
   

@@ -14,6 +14,8 @@ class Campaign < ActiveRecord::Base
   has_and_belongs_to_many :locations
   has_many :redemptions, dependent: :restrict_with_error
 
+  accepts_nested_attributes_for :schedule
+
   validates :type_of, :title, :discount_amount, :discount_type, :start_at, presence: true
   validates :reward_cost, numericality: { greater_than: 0 }, if: -> { type_of == 'reward' }
 

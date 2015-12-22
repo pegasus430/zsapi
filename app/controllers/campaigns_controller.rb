@@ -82,7 +82,8 @@ class CampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
-      @campaign = current_user.business.campaigns.where(id: params[:id]).first
+      @campaign = current_user.business.campaigns.find(params[:id])
+      @campaign.build_schedule if @campaign.schedule.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -102,6 +103,7 @@ class CampaignsController < ApplicationController
                                         :start_at, 
                                         :end_at, 
                                         :end_at_selector,
+                                        :schedule_attributes => [:title, :dom_selector, :days_of_week => [], :weeks_of_month => []],
                                         location_ids: [])
     end
 
