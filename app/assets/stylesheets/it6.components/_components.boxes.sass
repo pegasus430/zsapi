@@ -2,6 +2,11 @@
 // Campaign cards
 // TODO: consider refactoring this into something more generic?
 
+.campaign-card_wrap
+  @include below(768px)
+    width: 100%
+    min-width: 100%
+    
 .campaign-card
   @include transition(.4s)
   @include box-shadow()
@@ -10,6 +15,7 @@
   position: relative
   overflow: hidden
   margin-bottom: 30px
+  
 
 .campaign-card_info 
   padding: 0 15px 15px
