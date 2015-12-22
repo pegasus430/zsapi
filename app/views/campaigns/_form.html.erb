@@ -54,11 +54,11 @@
         desc: "When a customer refers this campaign their friends, you can choose whether or not the referrer and/or the referral get bonus points on top of their purchase. Enter \"0\" for no reward" %>
     
     <%= fr "Referrer Reward",
-        f.number_field(:referrer_reward, placeholder: 3),
+        f.number_field(:referrer_reward),
         info: "The referrer is the customer who shared the campaign with a friend." %>
 
     <%= fr "Referral Reward",
-        f.number_field(:referral_reward, placeholder: 0),
+        f.number_field(:referral_reward),
         info: "The referral is the friend who was sent the shared campaign." %>
   <% end %> <%# -wrapper dark %>
 
@@ -100,13 +100,12 @@
         info: "
           When the campaign will no longer reoccur.<br><br>
           <strong>Specific Date:</strong> The exact date of expiration.<br>
-          <strong>In XX:</strong> XX (example: 3 days) from today.<br>
           <strong>Never:</strong> The campaign will reoccur until set inactive.
         " do %>
       <div class="row">
         <div class="col-xs-6 col-sm-5 col-md-4">
           <div class="radio">
-            <%= radio_button_tag :end_at_selector, 'specific', (params[:end_at_selector] == "specific"), id: "endAtRadio1" %>
+            <%= radio_button_tag 'campaign[end_at_selector]', 'specific', (@campaign.end_at_selector == "specific"), id: "endAtRadio1" %>
             <label for="endAtRadio1">Specific Date</label>
           </div>
         </div>
@@ -124,29 +123,10 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="radio">
-          <div class="col-xs-6 col-sm-5 col-md-4">
-            <%= radio_button_tag :end_at_selector, 'from_now', (params[:end_at_selector] == "from_now"), id: "endAtRadio2" %>
-            <label for="endAtRadio2">In</label>
-          </div>
-          <div class="col-xs-6 col-sm-7 col-md-8">
-            <div class="row">
-              <div class="col-xs-6">
-                <%= text_field_tag 'from_now_number', '', class: 'input-number' %>
-              </div>
-              <div class="col-xs-6">
-                <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="row bb">
         <div class="col-xs-12">
           <div class="radio allWidth">
-            <%= radio_button_tag :end_at_selector, 'never', (params[:end_at_selector] == "never" || params[:end_at_selector].blank?), id: "endAtRadio3" %>
+            <%= radio_button_tag 'campaign[end_at_selector]', 'never', (@campaign.end_at_selector == "never" || @campaign.end_at.blank?), id: "endAtRadio3" %>
             <label for="endAtRadio3">Never</label>
           </div>
         </div>
@@ -172,6 +152,7 @@
 
   <%= wrapper do %>
     <%= section_header "Recurring Schedule" %>
+
     <%= render 'schedules/form' %>
   <% end %> <%# -wrapper %>
 
