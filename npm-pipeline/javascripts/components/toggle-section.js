@@ -14,21 +14,36 @@ Notes:
 
 
 var toggleSections = $('.toggle-section')
-var index = 0
 var height
 var sectionHeight
 var sectionToShow
 var currentID
+var nextBtns = $('.toggle-section_btn-next')
+var prevBtns = $('.toggle-section_btn-prev')
 
 
 
 module.exports = function() {
 
+  // First, remove first and last btns
+
+  removeFirstAndLastBtns() 
+
+
+  // Once images have loaded, set the toggle
+  // sections
+
   $(window).on("load", function() {
 
     toggle()
-    
-  }) // end window.on.load
+
+  })
+
+
+  // Set event listeners on the next/prev btns
+
+  setButtons()
+
 } // end exports
 
 
@@ -37,8 +52,7 @@ module.exports = function() {
 
 var toggle = function() {
 
-  toggleSections.each(function() {
-      index++
+  toggleSections.each(function(i) {
       var section = $(this)
 
 
@@ -48,13 +62,13 @@ var toggle = function() {
       // when done... hide sections
       section.attr('data-height', section.height()).promise().done( function() {
         // Collapse all sections
-        // section.attr('style', 'height:0')
+        section.attr('style', 'height:0')
       })
 
 
       // Prepare the section:
       // - add id with the section's index
-      section.attr('data-toggle-target', 'toggle-'+index)
+      section.attr('data-toggle-target', 'toggle-'+i)
 
 
       // Prepare the heading:
@@ -63,8 +77,10 @@ var toggle = function() {
       // but I'm unsure if this is worth the effort...
       // as the current rails helper doesn't yet allow for this)
       section.prev().find('h2')
-        .attr('id', 'toggle-'+index)
+        .attr('id', 'toggle-'+i)
         .addClass('section-toggle')
+
+
 
 
 
@@ -75,7 +91,7 @@ var toggle = function() {
       // attaching event handlers inside of a loop, as JS evaluates functions
       // at the time of execution)
 
-      $(document).on('click', ('#toggle-'+index), function() {
+      $(document).on('click', ('#toggle-'+i), function() {
         var $this = $(this)
         
         updateToggle($this)
@@ -89,7 +105,7 @@ var toggle = function() {
   Set first to open
   */
 
-  var fistSection = $('#toggle-1')
+  var fistSection = $('#toggle-0')
   updateToggle(fistSection)
 
       
@@ -143,4 +159,45 @@ var updateToggle = function(target) {
   sectionToShow.attr('style', 'height: '+sectionHeight)
 
 
+}
+
+
+
+
+
+var setButtons = function() {
+
+  nextBtns.each(function(i) {
+    $(this).on('click', function(e) {
+
+      e.preventDefault()
+
+      nextIndex = i + 1
+
+      var nextTarget = $('#toggle-'+nextIndex)
+      updateToggle(nextTarget)
+
+    })
+  })
+
+  prevBtns.each(function(i) {
+    $(this).on('click', function(e) {
+
+      e.preventDefault()
+
+      prevIndex = i - 1
+
+      var prevTarget = $('#toggle-'+prevIndex)
+      updateToggle(prevTarget)
+
+    })
+  })
+
+}
+
+
+
+var removeFirstAndLastBtns = function() {
+  prevBtns.first().addClass('hidden')
+  nextBtns.last().addClass('hidden')
 }

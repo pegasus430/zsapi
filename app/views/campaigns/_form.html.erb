@@ -46,6 +46,8 @@
         <% end %>
         </div>
       <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %> <%# -wrapper %>
 
@@ -62,6 +64,8 @@
       <%= fr "Referral Reward",
           f.number_field(:referral_reward, placeholder: 0),
           info: "The referral is the friend who was sent the shared campaign." %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %> <%# -wrapper dark %>
 
@@ -78,6 +82,8 @@
       <%= fr "" do %>
         <%= link_to 'or choose from gallery', '#', class: 'caps btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
       <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %> <%# -wrapper %>
 
@@ -176,6 +182,8 @@
           </div>
         </div>
       <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %> <%# -wrapper dark %>
 
@@ -183,6 +191,7 @@
     <%= section_header "Recurring Schedule" %>
     <div class="toggle-section">
       <%= render 'schedules/form' %>
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %> <%# -wrapper %>
 
@@ -215,7 +224,8 @@
             <% end %>
           </div>
         </div>
-
+        
+        <%= render 'shared/toggle_section_btns' %>
       </div>
     <% end %> <%# -IF SOCIAL %>
 

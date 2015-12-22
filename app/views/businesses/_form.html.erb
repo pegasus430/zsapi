@@ -45,7 +45,14 @@
           <%= link_to 'preview your mobile page', '#', class: 'preview-campaign caps', data: {toggle: 'modal', target: '#previewModal'} %>
         </div>
       </div>
-    </div>
+
+      <!-- TODO: Fix this...
+      this isn't displaying... 
+      it's not the erb partial rendering...
+      somehow it's being cleared from the html...
+      even if straight html is used here... -->
+      <%= render 'shared/toggle_section_btns' %>
+    </div> 
   <% end %> <%# -wrapper dark %>
 
 
@@ -56,6 +63,8 @@
       <%= fr "Yelp URL", f.text_field(:yelp_url, class: 'yelp_url', placeholder: 'http://www.yelp.com/...') %>
       <%= fr "TWITTER URL", f.text_field(:twitter, class: 'twitterUrl', placeholder: 'http://') %>
       <%= fr "FACEBOOK URL", f.text_field(:facebook, class: 'facebookUrl', placeholder: 'http://') %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %>
 
@@ -95,6 +104,8 @@
           <% end %>
         <% end %>
       <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div> <%# /.toggle-section &>
     
     <%# Form save button %>
