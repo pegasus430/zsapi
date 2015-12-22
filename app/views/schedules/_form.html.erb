@@ -1,6 +1,6 @@
 		<%= fr "Schedule Name", row: "row bb", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
 			info: "For example, if this schedule will be set to run every day forever, you could name it \"Always\"" do %>
-			<%= f.text_field :title %>
+			<%= text_field_tag "campaign[schedule_attributes][title]", @campaign.schedule.title %>
 		<% end %>
 
 		<%= fr "DAYS OF WEEK", row: "row bb", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="radio pull-left">
 					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "always", (@campaign.schedule.day_numbers.empty?), id: "EveryDay" %>
+						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "always", (@campaign.schedule.dom_selector == "always"), id: "EveryDay" %>
 					  <label for="EveryDay">Every day</label>
 				  </div>
 				</div>
@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="radio pull-left">
 					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "last", (@campaign.schedule.day_numbers == Schedule::LAST_DAY), id: "LastDay" %>
+						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "last", (@campaign.schedule.dom_selector == "last"), id: "LastDay" %>
 					  <label for="LastDay">Last day</label>
 				  </div>
 				</div>
@@ -46,7 +46,7 @@
 			<div class="row bb">
 				<div class="radio pull-left customDays">
 					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "custom", (@campaign.schedule.day_numbers != Schedule::LAST_DAY && !@campaign.schedule.day_numbers.empty?), id: "Custom" %>
+						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "custom", (@campaign.schedule.dom_selector == "custom"), id: "Custom" %>
 					  <label for="Custom">Custom</label>
 				  </div>
 				</div>

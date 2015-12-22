@@ -15,6 +15,7 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new(type_of: params[:type])
+    @campaign.build_schedule
   end
 
   def edit
@@ -62,7 +63,7 @@ class CampaignsController < ApplicationController
 
       if @campaign.update(campaign_params)
 
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully updated.' }
+        format.html { redirect_to edit_campaign_url(@campaign), notice: 'Your changes have been saved!' }
         format.json { render :show, status: :ok, location: @campaign }
       else
         format.html { render :edit }
