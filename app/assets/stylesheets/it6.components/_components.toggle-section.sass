@@ -19,11 +19,10 @@
     margin-right: 14px
   &.open:before
     content: "-"
-  &:hover
+  &:not(.open):hover
     color: lighten($c-header-font, 17)
-  &:hover:before 
+  &:not(.open):hover:before 
     border-color: lighten($c-header-font, 17)
-
 
 
 // Fix for padding on closed toggle section heading
@@ -37,5 +36,6 @@
 // an id (a big no no... as it greatly increases 
 // its specificity)
 
-.businesses #content-body .container
+.businesses #content-body .container,
+.campaigns #content-body .container
   padding-bottom: 15px

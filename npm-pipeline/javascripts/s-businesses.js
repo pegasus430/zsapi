@@ -7,7 +7,7 @@ Toggleable Sections
 */
 
 var toggleSections = require('./components/toggle-section')
-  toggleSections()
+toggleSections()
 
 
 

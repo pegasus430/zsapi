@@ -5,36 +5,36 @@
   <%= wrapper do %>
     <%= section_header "Create/Edit a New Campaign" %>
 
-    <%= fr "Campaign Title",
-      f.text_field(:title),
-      info: "This will be what primarily shows to your customers in the mobile app." %>
-
-    <%= fr "Description",
-        f.text_field(:description),
-        info: "This will only be visible when a customer shares your campaign on social media. 100 chars. max." %>
+    <div class="toggle-section">
+      <%= fr "Campaign Title",
+        f.text_field(:title),
+        info: "This will be what primarily shows to your customers in the mobile app." %>
       
-    <%= fr "POS Code",
-        f.text_field(:pos),
-        info: "If you set up this campaign in your POS, enter its ID here to enable barcode scanning." %>
-
-    <%= fr "Discount" do %>
-      <div class="row">
-        <div class="col-xs-5 col-sm-6">
-          <%= f.text_field :discount_amount %>
+      <%= fr "Description",
+          f.text_field(:description),
+          info: "This will only be visible when a customer shares your campaign on social media. 100 chars. max." %>
+        
+      <%= fr "POS Code",
+          f.text_field(:pos),
+          info: "If you set up this campaign in your POS, enter its ID here to enable barcode scanning." %>
+      
+      <%= fr "Discount" do %>
+        <div class="row">
+          <div class="col-xs-5 col-sm-6">
+            <%= f.text_field :discount_amount %>
+          </div>
+          <div class="col-xs-7 col-sm-6">
+            <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type, prompt: 'Choose', class: 'mobileFullWidth') %>
+          </div>
         </div>
-        <div class="col-xs-7 col-sm-6">
-          <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type, prompt: 'Choose', class: 'mobileFullWidth') %>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @campaign.type_of == 'reward' %>
-      <%= fr "Reward Costs",
-          f.text_field(:reward_cost),
-          info: "The amount of reward points it costs to redeem this reward." %>
-    <% end %>
-
-
+      <% end %>
+      
+      <% if @campaign.type_of == 'reward' %>
+        <%= fr "Reward Costs",
+            f.text_field(:reward_cost),
+            info: "The amount of reward points it costs to redeem this reward." %>
+      <% end %>
+      
       <%= fr "Location(s)" do %>
         <%= hidden_field_tag "campaign[location_ids][]", nil %>
         <div class="campaigns-location-list">
@@ -46,6 +46,7 @@
         <% end %>
         </div>
       <% end %>
+    </div>
   <% end %> <%# -wrapper %>
 
 
@@ -53,126 +54,136 @@
     <%= section_header "Share Rewards",
         desc: "When a customer refers this campaign their friends, you can choose whether or not the referrer and/or the referral get bonus points on top of their purchase. Enter \"0\" for no reward" %>
     
-    <%= fr "Referrer Reward",
-        f.number_field(:referrer_reward, placeholder: 3),
-        info: "The referrer is the customer who shared the campaign with a friend." %>
+    <div class="toggle-section">
+      <%= fr "Referrer Reward",
+          f.number_field(:referrer_reward, placeholder: 3),
+          info: "The referrer is the customer who shared the campaign with a friend." %>
 
-    <%= fr "Referral Reward",
-        f.number_field(:referral_reward, placeholder: 0),
-        info: "The referral is the friend who was sent the shared campaign." %>
+      <%= fr "Referral Reward",
+          f.number_field(:referral_reward, placeholder: 0),
+          info: "The referral is the friend who was sent the shared campaign." %>
+    </div>
   <% end %> <%# -wrapper dark %>
 
 
   <%= wrapper do %>
     <%= section_header "Campaign Image" %>
-    <%= fr "Click image to edit" do %>
-      <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
-      <%= hidden_field_tag :image_datafile %>
-    <% end %>
 
-    <%= fr "" do %>
-      <%= link_to 'or choose from gallery', '#', class: 'caps btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
-    <% end %>
+    <div class="toggle-section">
+      <%= fr "Click image to edit" do %>
+        <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+        <%= hidden_field_tag :image_datafile %>
+      <% end %>
+
+      <%= fr "" do %>
+        <%= link_to 'or choose from gallery', '#', class: 'caps btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
+      <% end %>
+    </div>
   <% end %> <%# -wrapper %>
 
   <%= wrapper :dark do %>
     <%= section_header "Campaign Start/End Dates" %>
 
-    <%= fr "Status",
-        f.select(:status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status)),
-        row: "row bb",
-        info: "The campaign is only visible when Active or Featured." %>
-    
-    <%= fr "Starts", row: "row bb" do %>
-      <div class="input-group date">
-        <div class="row no-gutters">
-          <div class="col-xs-9">
-            <%= f.text_field :start_at, class: 'form-control', value: @campaign.start_at %>
-          </div>
-          <div class="col-xs-3">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <%= fr "Expires", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9", id: "campaignExpires",
-        info: "
-          When the campaign will no longer reoccur.<br><br>
-          <strong>Specific Date:</strong> The exact date of expiration.<br>
-          <strong>In XX:</strong> XX (example: 3 days) from today.<br>
-          <strong>Never:</strong> The campaign will reoccur until set inactive.
-        " do %>
-      <div class="row">
-        <div class="col-xs-6 col-sm-5 col-md-4">
-          <div class="radio">
-            <%= radio_button_tag :end_at_selector, 'specific', (params[:end_at_selector] == "specific"), id: "endAtRadio1" %>
-            <label for="endAtRadio1">Specific Date</label>
-          </div>
-        </div>
-        <div class="col-xs-6 col-sm-7 col-md-8">
-          <div class="input-group date">
-            <div class="row no-gutters">
-              <div class="col-xs-9">
-                <%= f.text_field :end_at, class: 'form-control', value: @campaign.end_at %>
-              </div>
-              <div class="col-xs-3">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-              </div>
+    <div class="toggle-section">
+        
+      <%= fr "Status",
+          f.select(:status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status)),
+          row: "row bb",
+          info: "The campaign is only visible when Active or Featured." %>
+      
+      <%= fr "Starts", row: "row bb" do %>
+        <div class="input-group date">
+          <div class="row no-gutters">
+            <div class="col-xs-9">
+              <%= f.text_field :start_at, class: 'form-control', value: @campaign.start_at %>
+            </div>
+            <div class="col-xs-3">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
 
-      <div class="row">
-        <div class="radio">
+      <%= fr "Expires", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9", id: "campaignExpires",
+          info: "
+            When the campaign will no longer reoccur.<br><br>
+            <strong>Specific Date:</strong> The exact date of expiration.<br>
+            <strong>In XX:</strong> XX (example: 3 days) from today.<br>
+            <strong>Never:</strong> The campaign will reoccur until set inactive.
+          " do %>
+        <div class="row">
           <div class="col-xs-6 col-sm-5 col-md-4">
-            <%= radio_button_tag :end_at_selector, 'from_now', (params[:end_at_selector] == "from_now"), id: "endAtRadio2" %>
-            <label for="endAtRadio2">In</label>
+            <div class="radio">
+              <%= radio_button_tag :end_at_selector, 'specific', (params[:end_at_selector] == "specific"), id: "endAtRadio1" %>
+              <label for="endAtRadio1">Specific Date</label>
+            </div>
           </div>
           <div class="col-xs-6 col-sm-7 col-md-8">
-            <div class="row">
-              <div class="col-xs-6">
-                <%= text_field_tag 'from_now_number', '', class: 'input-number' %>
-              </div>
-              <div class="col-xs-6">
-                <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
+            <div class="input-group date">
+              <div class="row no-gutters">
+                <div class="col-xs-9">
+                  <%= f.text_field :end_at, class: 'form-control', value: @campaign.end_at %>
+                </div>
+                <div class="col-xs-3">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row bb">
-        <div class="col-xs-12">
-          <div class="radio allWidth">
-            <%= radio_button_tag :end_at_selector, 'never', (params[:end_at_selector] == "never" || params[:end_at_selector].blank?), id: "endAtRadio3" %>
-            <label for="endAtRadio3">Never</label>
+        <div class="row">
+          <div class="radio">
+            <div class="col-xs-6 col-sm-5 col-md-4">
+              <%= radio_button_tag :end_at_selector, 'from_now', (params[:end_at_selector] == "from_now"), id: "endAtRadio2" %>
+              <label for="endAtRadio2">In</label>
+            </div>
+            <div class="col-xs-6 col-sm-7 col-md-8">
+              <div class="row">
+                <div class="col-xs-6">
+                  <%= text_field_tag 'from_now_number', '', class: 'input-number' %>
+                </div>
+                <div class="col-xs-6">
+                  <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %> <%# -fr for expires %>
 
-    <%# fr "Time Between Uses",
-      info: "The minimum amount of time between each use of this campaign." do %
-      <div class="row">
-        <div class="col-xs-5">
-          <input type="text" class="pull-left" placeholder="How many?">
+        <div class="row bb">
+          <div class="col-xs-12">
+            <div class="radio allWidth">
+              <%= radio_button_tag :end_at_selector, 'never', (params[:end_at_selector] == "never" || params[:end_at_selector].blank?), id: "endAtRadio3" %>
+              <label for="endAtRadio3">Never</label>
+            </div>
+          </div>
         </div>
-        <div class="col-xs-7">
-          <select class="">
-            <option value="day">days</option>
-            <option value="week">weeks</option>
-            <option value="month">months</option>
-          </select>
+      <% end %> <%# -fr for expires %>
+
+      <%# fr "Time Between Uses",
+        info: "The minimum amount of time between each use of this campaign." do %
+        <div class="row">
+          <div class="col-xs-5">
+            <input type="text" class="pull-left" placeholder="How many?">
+          </div>
+          <div class="col-xs-7">
+            <select class="">
+              <option value="day">days</option>
+              <option value="week">weeks</option>
+              <option value="month">months</option>
+            </select>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% end %> <%# -wrapper dark %>
 
   <%= wrapper do %>
     <%= section_header "Recurring Schedule" %>
-    <%= render 'schedules/form' %>
+    <div class="toggle-section">
+      <%= render 'schedules/form' %>
+    </div>
   <% end %> <%# -wrapper %>
 
   
@@ -180,27 +191,31 @@
     <% if current_user.facebook || current_user.twitter %>
       <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
 
-      <div id="campaignSyndication">
-        <div class="row">
+      <div class="toggle-section">
+        
+        <div id="campaignSyndication">
+          <div class="row">
 
-          <% if current_user.facebook %>
-            <div class="col-xs-12 col-sm-6 text-center">
-              <div class="socialBox">
-                <label class="facebookImg" for="facebook"></label>
-                <%= cbox "facebook", "", value: "1", checked: true %>
+            <% if current_user.facebook %>
+              <div class="col-xs-12 col-sm-6 text-center">
+                <div class="socialBox">
+                  <label class="facebookImg" for="facebook"></label>
+                  <%= cbox "facebook", "", value: "1", checked: true %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
 
-          <% if current_user.twitter %>
-            <div class="col-xs-12 col-sm-6 text-center">
-              <div class="socialBox">
-                <label class="twitterImg" for="twitter"></label>
-                <%= cbox "twitter", "", value: "1", checked: true %>
+            <% if current_user.twitter %>
+              <div class="col-xs-12 col-sm-6 text-center">
+                <div class="socialBox">
+                  <label class="twitterImg" for="twitter"></label>
+                  <%= cbox "twitter", "", value: "1", checked: true %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
+        
       </div>
     <% end %> <%# -IF SOCIAL %>
 
