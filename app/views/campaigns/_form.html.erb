@@ -100,7 +100,6 @@
         info: "
           When the campaign will no longer reoccur.<br><br>
           <strong>Specific Date:</strong> The exact date of expiration.<br>
-          <strong>In XX:</strong> XX (example: 3 days) from today.<br>
           <strong>Never:</strong> The campaign will reoccur until set inactive.
         " do %>
       <div class="row">
@@ -118,25 +117,6 @@
               </div>
               <div class="col-xs-3">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="radio">
-          <div class="col-xs-6 col-sm-5 col-md-4">
-            <%= radio_button_tag :end_at_selector, 'from_now', (params[:end_at_selector] == "from_now"), id: "endAtRadio2" %>
-            <label for="endAtRadio2">In</label>
-          </div>
-          <div class="col-xs-6 col-sm-7 col-md-8">
-            <div class="row">
-              <div class="col-xs-6">
-                <%= text_field_tag 'from_now_number', '', class: 'input-number' %>
-              </div>
-              <div class="col-xs-6">
-                <%= select_tag 'from_now_type', options_for_select( %w(days weeks).map{|o| [o.humanize,o] }) %>
               </div>
             </div>
           </div>
