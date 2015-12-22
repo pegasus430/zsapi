@@ -1,13 +1,17 @@
 class Receipt < ActiveRecord::Base
   enum status: [:untouched, :approved, :rejected]
 
+  include DatePickable
+  datepicker [:purchased_on]
+
+
   belongs_to :redemption
   has_one :location, through: :redemption
   has_one :business, through: :location
   has_one :customer, through: :redemption
 
   validates_presence_of :redemption_id
-  validates_presence_of :amount, :purchased_on, on: [:update]
+  validates_presence_of :amount, :purchased_on, on: [:update], if: "status == 'approved'"
   validates_presence_of :reject_reason, if: "status == 'rejected'"
 
   has_attached_file :image,
