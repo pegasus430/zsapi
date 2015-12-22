@@ -54,11 +54,11 @@
         desc: "When a customer refers this campaign their friends, you can choose whether or not the referrer and/or the referral get bonus points on top of their purchase. Enter \"0\" for no reward" %>
     
     <%= fr "Referrer Reward",
-        f.number_field(:referrer_reward, placeholder: 3),
+        f.number_field(:referrer_reward),
         info: "The referrer is the customer who shared the campaign with a friend." %>
 
     <%= fr "Referral Reward",
-        f.number_field(:referral_reward, placeholder: 0),
+        f.number_field(:referral_reward),
         info: "The referral is the friend who was sent the shared campaign." %>
   <% end %> <%# -wrapper dark %>
 
