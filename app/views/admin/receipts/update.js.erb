@@ -16,5 +16,5 @@
 	<%# RELOAD THE FORM %>
 	$('#edit-form').html("<%= j(render('form', receipt: Receipt.untouched.first)) %>");
 <% else %>
-	alert('<%= html_escape(@receipt.errors.to_a.join("\n")) %>')
+	alert("<%= @receipt.errors.to_a.join("\\n") %>")
 <% end %>
