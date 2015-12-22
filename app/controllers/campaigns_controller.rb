@@ -15,6 +15,7 @@ class CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new(type_of: params[:type])
+    @campaign.build_schedule
   end
 
   def edit
@@ -62,7 +63,7 @@ class CampaignsController < ApplicationController
 
       if @campaign.update(campaign_params)
 
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully updated.' }
+        format.html { redirect_to edit_campaign_url(@campaign), notice: 'Your changes have been saved!' }
         format.json { render :show, status: :ok, location: @campaign }
       else
         format.html { render :edit }
@@ -82,12 +83,29 @@ class CampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
-      @campaign = current_user.business.campaigns.where(id: params[:id]).first
+      @campaign = current_user.business.campaigns.find(params[:id])
+      @campaign.build_schedule if @campaign.schedule.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:type_of, :title, :description, :pos, :discount_amount, :discount_type, :reward_cost, :referral_reward, :referrer_reward, :image, :status, :frequency_id, :start_at, :end_at, location_ids: [])
+      params.require(:campaign).permit( :type_of,
+                                        :title, 
+                                        :description, 
+                                        :pos, 
+                                        :discount_amount, 
+                                        :discount_type, 
+                                        :reward_cost, 
+                                        :referral_reward, 
+                                        :referrer_reward, 
+                                        :image, 
+                                        :status, 
+                                        :frequency_id, 
+                                        :start_at, 
+                                        :end_at, 
+                                        :end_at_selector,
+                                        :schedule_attributes => [:title, :dom_selector, :days_of_week => [], :weeks_of_month => []],
+                                        location_ids: [])
     end
 
     def load_image_gallery

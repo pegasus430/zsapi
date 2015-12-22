@@ -10,8 +10,7 @@ class Admin::ReceiptsController < Admin::AdminController
 
   def update
     respond_to do |format|
-      @receipt.attributes = receipt_params
-      if @receipt.save(validate: false)
+      if @receipt.update(receipt_params)
         if @receipt.approved?
           unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
             @receipt.redemption.award_points_to_customer!
@@ -24,6 +23,7 @@ class Admin::ReceiptsController < Admin::AdminController
       else
         format.html { render :index }
         format.json { render json: @receipt.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
