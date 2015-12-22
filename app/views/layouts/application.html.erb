@@ -92,8 +92,8 @@
 							<% end %>
 		
 
-							<div id="your-account" class="dropdown">
-								<%= link_to edit_user_registration_url, id: "profile-label", data: {target: '#', toggle: "dropdown"} do %>
+							<div id="your-account" class="dropdown header-site_dropdown-account">
+								<%= link_to edit_user_registration_url, id: "profile-label", class: "dropdown-account_primary-label", data: {target: '#', toggle: "dropdown"} do %>
 									Your Account
 									<% if current_user.business.in_trial? %>
 										(<%= current_user.business.trial_days_remaining %> days)
