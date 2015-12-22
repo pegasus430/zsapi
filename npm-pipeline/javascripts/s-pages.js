@@ -17,3 +17,9 @@ Notes:
 
 var locationFilter = require('./components/location-filter') 
 locationFilter()
+
+
+
+
+var masonryLayout = require('./components/dash-masonry')
+masonryLayout()

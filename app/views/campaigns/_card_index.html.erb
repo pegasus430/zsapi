@@ -1,7 +1,9 @@
 <% unless @campaigns.nil? %>
-  <div class="row">
+
+  <div class="row masonryContainer">
+    <div id="masonrySizer" class="col-sm-4 col-md-3"></div>
     <% @campaigns.each do |c| %>
-      <div class="col-sm-4 col-md-3">
+      <div class="campaign-card_wrap col-sm-4 col-md-3">
         <div class="campaign-card">
           <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>
           <%= link_to (image_tag c.image, class: "img-responsive fit"), c %>
@@ -16,10 +18,12 @@
       </div>
     <% end %>
   </div>
+
 <% else %>
 
   <div id="no-records">
     <h2>No campaigns!</h2>
     <p>There are no approved campaigns available to show. <%= link_to 'Create One!', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %></p>
   </div>
+
 <% end %>
