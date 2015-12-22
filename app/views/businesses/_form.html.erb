@@ -12,6 +12,8 @@
         <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
         <%= hidden_field_tag :image_datafile %>
       <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
     </div>
   <% end %>
 
@@ -46,11 +48,6 @@
         </div>
       </div>
 
-      <!-- TODO: Fix this...
-      this isn't displaying... 
-      it's not the erb partial rendering...
-      somehow it's being cleared from the html...
-      even if straight html is used here... -->
       <%= render 'shared/toggle_section_btns' %>
     </div> 
   <% end %> <%# -wrapper dark %>
