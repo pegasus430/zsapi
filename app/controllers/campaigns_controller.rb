@@ -104,7 +104,7 @@ class CampaignsController < ApplicationController
                                         :start_at, 
                                         :end_at, 
                                         :end_at_selector,
-                                        :schedule_attributes => [:title, :dom_selector, :days_of_week => [], :weeks_of_month => []],
+                                        :schedule_attributes => [:title, :dom_selector, :day_selector, days_of_week: [], weeks_of_month: []],
                                         location_ids: [])
     end
 
