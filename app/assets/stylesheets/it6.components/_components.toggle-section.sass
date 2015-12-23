@@ -1,5 +1,6 @@
 
 .toggle-section
+  height: 0
   overflow: hidden
   transition: height .2s ease
 
@@ -12,9 +13,10 @@
     border-width: 2px
     border-color: $c-header-font
     border-radius: 50%
+    display: block
+    float: left
     width: 30px
     height: 30px
-    display: inline-block
     text-align: center
     margin-right: 14px
   &.open:before
