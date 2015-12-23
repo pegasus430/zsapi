@@ -14,6 +14,4 @@
 
 
 
-
-var dateSorter = require('./shared/dateSorter')
-dateSorter()
+//= require shared/dateSorter

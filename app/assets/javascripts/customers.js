@@ -1,3 +1,3 @@
 //= require shared/files
 
-// require s-customers
+//= require s-customers
