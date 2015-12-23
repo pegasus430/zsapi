@@ -17,6 +17,13 @@ FactoryGirl.define do
 			welcome_message ''
 			exit_message 		''
 		end
+
+		trait :with_campaign do
+			after :create do |g|
+				g.campaign = create(:campaign)
+				g.save
+			end
+		end
   end
 
 end

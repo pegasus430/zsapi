@@ -102,19 +102,26 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		loc = Location.near([params[:lat], params[:lon]], 10).limit(20)
 
 		if loc
-			collection loc, include: [:business, beacon: {only: [:uuid, :status]}], only: [
-				:id,
-				:title,
-				:address,
-				:address2,
-				:city,
-				:state,
-				:zipcode,
-				:latitude,
-				:longitude,
-				:status,
-				:distance
-			]
+			collection loc,
+				include: [
+					:business, 
+					# greeting: {include: [:campaign]},
+					beacon: {only: [:uuid, :status]},
+				],
+				methods: [:exit_campaign],
+				only: [
+					:id,
+					:title,
+					:address,
+					:address2,
+					:city,
+					:state,
+					:zipcode,
+					:latitude,
+					:longitude,
+					:status,
+					:distance
+				]
 		else
 			error! :not_found
 		end
