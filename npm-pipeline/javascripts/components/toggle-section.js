@@ -47,23 +47,31 @@ module.exports = function() {
 } // end exports
 
 
-
-
+// $("#first").animate({height: $("#first").get(0).scrollHeight}, 1000 );
 
 var toggle = function() {
+
 
   toggleSections.each(function(i) {
       var section = $(this)
 
 
-      // Grab height
+      // Height is set to 0 in css
+      // by using the incredibly niffty scrollHeight, 
+      // we can get the height anyways 
+      // see: 
+      // http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height#answer-24762848
+      height = section.get(0).scrollHeight
+
+      section.attr('data-height', height)
+      // Set height on data attribute
       // height = section.height()
       // Store it for later use
       // when done... hide sections
-      section.attr('data-height', section.height()).promise().done( function() {
-        // Collapse all sections
-        section.attr('style', 'height:0')
-      })
+      // section.attr('data-height', section.height()).promise().done( function() {
+      //   // Collapse all sections
+      //   section.attr('style', 'height:0')
+      // })
 
 
       // Prepare the section:
