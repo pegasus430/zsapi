@@ -25,37 +25,37 @@
 
 		<%= fr "Days of the Month", row: "row", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
 			info: "The day number(s) of the month which this campaign will be valid on" do %>
-			<div class="row">
-				<div class="radio pull-left">
-					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "always", (@campaign.schedule.dom_selector == "always"), id: "EveryDay" %>
-					  <label for="EveryDay">Every day</label>
-				  </div>
-				</div>
-			</div>
+			<div class="daysOfTheMonth">
+				
+				<div class="customDaySelector"></div>
+				<input type="hidden" id="customDaySelector_input" />
 
-			<div class="row">
-				<div class="radio pull-left">
-					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "last", (@campaign.schedule.dom_selector == "last"), id: "LastDay" %>
-					  <label for="LastDay">Last day</label>
-				  </div>
+				<div class="row ">
+					<div class="radio pull-left">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "always", (@campaign.schedule.dom_selector == "always"), id: "EveryDay" %>
+						  <label for="EveryDay">Every day</label>
+					  </div>
+					</div>
 				</div>
-			</div>
-
-			<div class="row bb">
-				<div class="radio pull-left customDays">
-					<div class="col-xs-12">
-						<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "custom", (@campaign.schedule.dom_selector == "custom"), id: "Custom" %>
-					  <label for="Custom">Custom</label>
-				  </div>
+				
+				<div class="row">
+					<div class="radio pull-left">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "last", (@campaign.schedule.dom_selector == "last"), id: "LastDay" %>
+						  <label for="LastDay">Last day</label>
+					  </div>
+					</div>
 				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="customDaySelector"></div>
-					<input type="hidden" id="customDaySelector_input" />
+				
+				<div class="row bb">
+					<div class="radio pull-left customDays">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "custom", (@campaign.schedule.dom_selector == "custom"), id: "Custom" %>
+						  <label for="Custom">Custom</label>
+					  </div>
+					</div>
 				</div>
+				
 			</div>
 		<% end %>

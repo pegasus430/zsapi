@@ -7,7 +7,7 @@
 
 // This is put into a function so that it can be
 // easily reloaded in ajax calls (admin receipt manager)
-initDatepicker = function(){
+var initDatepicker = function(){
   $('.input-group.date').datepicker({
     autoclose: true,
     orientation: 'top',
