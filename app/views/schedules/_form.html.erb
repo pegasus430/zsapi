@@ -28,7 +28,7 @@
 			<div class="daysOfTheMonth">
 				
 				<div class="customDaySelector"></div>
-				<input type="hidden" id="customDaySelector_input" />
+				<%= hidden_field_tag "campaign[schedule_attributes][day_selector]", @campaign.schedule.day_selector, id: "customDaySelector_input" %>
 
 				<div class="row ">
 					<div class="radio pull-left">
