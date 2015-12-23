@@ -1,22 +1,26 @@
 //= require shared/cropbox_setup
 //= require shared/datepicker
 
+
+
 //= require s-campaigns
 
 
-
-
-(function($) {
+var customDaySelector = function() {
 
 
   // Show custom days selector
 
-  $('.daysOfTheMonth .radio').click(function(e) {
+  var customDaySelector = $('.customDaySelector');
+
+  $('.daysOfTheMonth input:radio').on('click', function() {
+  
     if ($('.customDays').find('input').is(':checked')) {
-      $('.customDaySelector').addClass('active');
+      customDaySelector.addClass('active');
     } else {
-      $('.customDaySelector').removeClass('active');
+      customDaySelector.removeClass('active');
     }
+
   });
 
 
@@ -24,6 +28,7 @@
   // Days Picker
 
   if ($('.customDaySelector').length) {
+    
     $('.customDaySelector').datepicker({
       startDate: '05/01/2016',
       endDate: '05/31/2016',
@@ -32,10 +37,11 @@
       calendarWeeks: true,
       todayHighlight: true
     });
-    return $('.customDaySelector').on('changeDate', function(event) {
+    
+    $('.customDaySelector').on('changeDate', function(event) {
       var aux, dates, day, i;
-      dates = new Array;
-      day = new Array;
+      dates = [];
+      day = [];
       aux = '';
       dates = $('.customDaySelector').datepicker('getFormattedDate').split(',');
       i = dates.length - 1;
@@ -45,9 +51,10 @@
         i--;
       }
       $('#customDaySelector_input').val(aux);
-    });
+    })
+
   }
+}
 
 
-
-})(jQuery);
+customDaySelector()
