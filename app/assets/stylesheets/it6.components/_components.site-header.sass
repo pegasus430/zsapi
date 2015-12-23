@@ -104,6 +104,10 @@
   margin-left: $row-gutter/2
   display: inline-block
   .dropdown-menu
+    // this is an override of the bootstrap
+    // default, which is 160
+    @include below(1100px)
+      min-width: 126px
     li
       a 
         line-height: rem(85)
@@ -115,6 +119,9 @@
         display: block
         img 
           margin-right: $row-gutter/2        
+          @include below(1100px)
+            margin-left: -5px
+            // margin-right: 5px
       &:last-child a
         border-bottom: 0
 
