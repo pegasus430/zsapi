@@ -7,6 +7,7 @@ class Location < ActiveRecord::Base
   has_one :beacon
   has_one :subscription
   has_one :user, through: :business
+  has_one :exit_campaign, through: :greeting, source: :campaign
 
   has_many :customers, through: :visits
   has_many :visits

@@ -64,7 +64,6 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
         it 'returns the location' do
           get :show, version: 1, id: @location.id
           expect(response).to be_singular_resource
-          byebug
         end
 
         context "[Using UUID to find location]" do
@@ -89,9 +88,11 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
   # GET /near/:lat|:lon
   describe 'GET #fetch_nearby' do
     before :each do
-      @mcdonalds      = FactoryGirl.create(:location_with_business, :with_beacon, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
-      @waffle_house   = FactoryGirl.create(:location_with_business, :with_beacon, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
-      @titans_stadium = FactoryGirl.create(:location_with_business, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
+      greeting = FactoryGirl.create(:greeting, :with_campaign)
+
+      @mcdonalds      = FactoryGirl.create(:location_with_business, :with_beacon, greeting: greeting, address: '724 Sango Road', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @waffle_house   = FactoryGirl.create(:location_with_business, :with_beacon, greeting: greeting, address: '1114 Tennessee 76', address2: '', city: 'Clarksville', state: 'TN', zipcode: '37043')
+      @titans_stadium = FactoryGirl.create(:location_with_business, greeting: greeting, address: '1 Titans Way', address2: '', city: 'Nashville', state: 'TN', zipcode: '37213')
       
       customer = FactoryGirl.create(:facebook_customer)
       controller.stub(:current_customer).and_return(customer)
