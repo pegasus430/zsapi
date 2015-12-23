@@ -14,22 +14,24 @@
     <%= fr "Address", f.text_field(:address) %>
     <%= fr "", f.text_field(:address2) %>
 
-    <div class="row">
-      <div class="col-xs-3 col-xs-offset-3">
-        <%= f.text_field :city, placeholder: "City" %>
+    <%= fr "" do %>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.text_field :city, placeholder: "City" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :state, placeholder: "State" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :zipcode, placeholder: "Zipcode" %>
+        </div>
       </div>
-      <div class="col-xs-3">
-        <%= f.text_field :state, placeholder: "State" %>
-      </div>
-      <div class="col-xs-3">
-        <%= f.text_field :zipcode, placeholder: "Zipcode" %>
-      </div>
-    </div>
+    <% end %>
   <% end %>
 
   
   <%= wrapper :dark do %>
-    <%= section_header 'Location Image' %>
+    <%= section_header 'Location Images' %>
     <%= fr "Click to upload" do %>
       <div class="row">
         <div class="col-sm-4">
