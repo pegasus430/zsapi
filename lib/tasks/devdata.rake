@@ -14,6 +14,13 @@ namespace :devdata do
     FactoryGirl.create(:receipt, image: image, redemption: red)
   end
 
+  task :new_user => :environment do
+    # Create user with business
+    password = "demo1234"
+    user = FactoryGirl.create(:user, :with_business, password: password)
+    puts "Login with #{user.email} and #{password}"
+  end
+
   task :all => :environment do
     # Create users with businesses
     users = FactoryGirl.create_list(:user, 1, :with_business, password: "demo1234")
