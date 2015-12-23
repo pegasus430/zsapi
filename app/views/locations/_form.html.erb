@@ -27,28 +27,26 @@
         </div>
       </div>
     <% end %>
-  <% end %>
 
-  
-  <%= wrapper :dark do %>
-    <%= section_header 'Location Images' %>
-    <%= fr "Click to upload" do %>
+    
+    <%= fr "Location Images" do %>
       <div class="row">
         <div class="col-sm-4">
           <%= image_tag 'img-placeholder.png', id: "saved_image", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
         </div>
         <div class="col-sm-4">
-          <%= image_tag 'img-placeholder.png', id: "saved_image", class: "fit mr1 thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag 'img-placeholder.png', id: "saved_image", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
         </div>
         <div class="col-sm-4">
           <%= image_tag 'img-placeholder.png', id: "saved_image", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
         </div>
       </div>
     <% end %>
-  <% end %> <%# -wrapper dark %>
+
+  <% end %>
 
 
-  <%= wrapper do %>
+  <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
     <%= fr 'Select a Greeting',
       info: "A greeting contains your location's welcome and exit messages. You may reuse greetings, or create a new one." do %>
@@ -79,5 +77,9 @@
       </div>
     <% end %>
 
-  <% end %> <%# -wrapper %>
+  <% end %> <%# -wrapper dark %>
 <% end %> <%# -form %>
+
+
+<%# CROP MODAL %>
+<!-- render 'shared/crop_modal', resource: @location -->
