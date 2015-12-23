@@ -1,0 +1,41 @@
+
+.toggle-section
+  overflow: hidden
+  transition: height .2s ease
+
+// The sections heading, effectively the toggle
+.section-toggle
+  cursor: pointer
+  &:before 
+    content: "+"
+    border-style: solid 
+    border-width: 2px
+    border-color: $c-header-font
+    border-radius: 50%
+    width: 30px
+    height: 30px
+    display: inline-block
+    text-align: center
+    margin-right: 14px
+  &.open:before
+    content: "-"
+  &:not(.open):hover
+    color: lighten($c-header-font, 17)
+  &:not(.open):hover:before 
+    border-color: lighten($c-header-font, 17)
+
+
+// Fix for padding on closed toggle section heading
+// ---
+// - A nasty hack to create desired padding
+// on closed toggle section
+// - Needs to be scoped for each controller-specific
+// class name (ie: .business, .receipts, etc)
+// - The reason this has to be so nasty is because
+// of the container padding, which is set using a
+// an id (a big no no... as it greatly increases 
+// its specificity)
+
+.businesses #content-body .container,
+.campaigns #content-body .container
+  padding-bottom: 15px
