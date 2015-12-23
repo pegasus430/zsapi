@@ -4,15 +4,15 @@ class Location < ActiveRecord::Base
   belongs_to :business
   belongs_to :greeting
   
-  has_one :beacon
-  has_one :subscription
+  has_one :beacon, dependent: :destroy
+  has_one :subscription, dependent: :destroy
   has_one :user, through: :business
   has_one :exit_campaign, through: :greeting, source: :campaign
 
   has_many :customers, through: :visits
-  has_many :visits
-  has_many :redemptions
-  has_many :receipts, through: :redemptions
+  has_many :visits, dependent: :destroy
+  has_many :redemptions, dependent: :destroy
+  has_many :receipts, through: :redemptions, dependent: :destroy
   
   has_and_belongs_to_many :campaigns
 
