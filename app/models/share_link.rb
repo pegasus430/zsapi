@@ -9,13 +9,13 @@ class ShareLink < ActiveRecord::Base
 
   # Display the URL
   def url
-  	"http://app.zippyspot.com/#{code}"
+  	"http://www.zippyspot.com/share/#{code}"
   end
 
 	# The characters to be used in a share code
 	def self.generate_unique_code
 		length 	= 10
-		charset = ('a'..'z').to_a + (0..0).to_a
+		charset = ('a'..'z').to_a + (0..9).to_a
 
 		(0...length).map{ charset[rand(charset.size)] }.join
 	end
