@@ -53,55 +53,61 @@
 .header-right 
   float: right
 
-  #battery-status 
-    display: inline-block
+.dropdown_bat-stat
+  display: inline-block
+  .ico 
+    border-radius: 50%
+    @include transition(.3s)
+    display: block
+    background: $white
+    height: 42px
+    padding: 4px
+    position: relative
+    top: -6px
+    width: 42px
+    &.active,
+    &:hover 
+      @include box-shadow(0,1px,3px,rgba(0,0,0,0.12))
+      @include transition(.5s)
 
-    .ico 
-      border-radius: 50%
-      @include transition(.3s)
-      display: block
-      background: $white
-      height: 42px
-      padding: 4px
-      position: relative
-      top: -6px
-      width: 42px
-    
-      &.active,
-      &:hover 
-        @include box-shadow(0,1px,3px,rgba(0,0,0,0.12))
-        @include transition(.5s)
+.dropdown_bat-stat_ul
+  width: 250px
+  li 
+    a
+      padding: 0 $row-gutter/2
+      color: #848c8f
+      line-height: rem(85)
+      display: block 
 
-    .dropdown-menu
-      width: 250px
+$percent-circle-size: 26px
+$c-percentage-empty: #DEDEDE
+$c-percentage-full: #F5C500
+.bat-stat_percent-icon_wrap
+  display: inline-block
+  width: $percent-circle-size
+  height: $percent-circle-size
+  text-align: center 
+.percent-icon_border
+  top: 10px
+  position: relative
+  text-align: center
+  width: $percent-circle-size
+  height: $percent-circle-size
+  border-radius: 50%
+  background-color: $c-percentage-full
+  background-image: linear-gradient(162deg, transparent 50%, $c-percentage-empty 50%), linear-gradient(90deg, $c-percentage-empty 50%, transparent 50%)
+.percent-icon_circle
+  position: relative 
+  top: 5px 
+  left: 5px 
+  text-align: center 
+  width: 16px
+  height: 16px
+  border-radius: 50%
+  background-color: white
 
-      li 
-        a
-          padding: 0 $row-gutter/2
-          color: #848c8f
-          line-height: rem(85)
-          display: block
+// .bat-stat_percent-text
 
-          span
-            display: block
-            width: 70px
-            height: 3px
-            background: #cdcdcd
-            position: relative
-            top: 25px
-
-            em 
-              position: absolute
-              height: 3px
-              top: 0
-              left: 0px
-            
-              &.green 
-                background: #6aa725
-              &.yellow 
-                background: $c-location
-              &.red 
-                background: #ea232a   
 
 .header-site_dropdown-account
   margin-left: $row-gutter/2

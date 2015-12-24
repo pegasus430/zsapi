@@ -70,19 +70,22 @@
 						<div class="header-right">
 
 							<% unless current_user.business.locations.blank? %>
-								<div id="battery-status" class="dropdown">
+								<div id="battery-status" class="dropdown_bat-stat dropdown">
 									<a class="ico" href="#" data-toggle="dropdown">
 										<%= image_tag('ico/ico_storeBattery.svg') %>
 									</a>
-									<ul class="dropdown-menu arrow">
+									<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
 										<% current_user.locations.active.each do |location| %>
 											<li>
 												<%= link_to location do %>
-													<div class="row no-gutters">
-														<div class="col-xs-6"><%= location.title %></div>
-														<div class="col-xs-6">
-															<span><em class="yellow" style="width:50%"></em></span>
-														</div>
+													<%= location.title %>
+													<div class="inline-block right">
+														<span class="bat-stat_percent-icon_wrap">
+															<div class="percent-icon_border">
+																<div class="percent-icon_circle"></div>
+															</div>
+														</span>
+														<span class="bat-stat_percent-text">25%</span>
 													</div>
 												<% end %>
 											</li>
