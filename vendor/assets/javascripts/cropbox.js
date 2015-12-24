@@ -1,5 +1,6 @@
 /**
  * Created by ezgoing on 14/9/2014.
+ * https://github.com/hongkhanh/cropbox
  */
 
 "use strict";
