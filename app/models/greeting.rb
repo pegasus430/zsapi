@@ -12,7 +12,6 @@ class Greeting < ActiveRecord::Base
   validates :campaign_wait_time, numericality: { greater_than: 0 }, unless: "campaign_id.to_i == 0"
   validates :welcome_wait_time, numericality: { greater_than: 0 }
 
-
   def welcome_wait_time=(span)
   	time_span = case span
   	when 'day' 		then 1.day
