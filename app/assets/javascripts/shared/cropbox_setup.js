@@ -65,50 +65,40 @@ var modalLogic = function(scopeTo, cropbox_options) {
 }
 
 
+var cropper
+var reader
+var modalLogic_multiple = function(scopeTo, cropbox_options, currentImageID) {
 
-var modalLogic_multiple = function(scopeTo, cropbox_options) {
+  cropper = $('.imageBox', scopeTo).cropbox(cropbox_options);
 
-  var cropper = $('.imageBox', scopeTo).cropbox(cropbox_options);
-
-  $(document).on('change', $(".file_field", scopeTo), function() {
-    // var reader = new FileReader;
-    // reader.onload = function(e) {
-    //   cropbox_options.imgSrc = e.target.result;
-    //   window.cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options);
-    //   return $('.btnCrop, .btnZoomIn, .btnZoomOut', scopeTo).removeClass('disabled');
-    // };
-    // reader.readAsDataURL(this.files[0]);
-    // return this.files = [];
-
-    var reader = new FileReader;
+  scopeTo.on('change', $(".file_field", scopeTo), function(e) {
+    reader = new FileReader();
     reader.onload = function(e) {
       cropbox_options.imgSrc = e.target.result;
       cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options);
-      console.log(cropper)
       return $('.btnCrop, .btnZoomIn, .btnZoomOut', scopeTo).removeClass('disabled');
     };
-    // TODO: 
-    // problem here...
-    reader.readAsDataURL($(".file_field", scopeTo)[0].files[0]);
-    return this.files = [];
+    reader.readAsDataURL(this.querySelector('.file_field').files[0])
+    return this.querySelector('.file_field').files = []
   });
 
 
   // Zoom Btns
-  $(document).on('click', $('.btnZoomIn', scopeTo), function(){
-    console.log('test')
+  scopeTo.on('click', $('.btnZoomIn', scopeTo), function(){
     cropper.zoomIn()
   })
-  $(document).on('click', $('.btnZoomOut', scopeTo), function(){
+  scopeTo.on('click', $('.btnZoomOut', scopeTo), function(){
     cropper.zoomOut()
   })
 
   // Crop handler
   // Note - this was selected by a class of 
   //        the same name (as the id)... 
-  $(document).on('click', $('.btnCrop', scopeTo), function() {
+  var img
+  scopeTo.on('click', $('.btnCrop', scopeTo), function() {
 
-    var img = cropper.getDataURL();
+    img = cropper.getDataURL();
+    console.log(img)
 
     // Place the cropped image's datafile.
     return $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">');
@@ -117,7 +107,7 @@ var modalLogic_multiple = function(scopeTo, cropbox_options) {
 
 
   // Crop handler
-  $(document).on('click', $('.btnSaveClose', scopeTo), function() {
+  scopeTo.on('click', $('.btnSaveClose', scopeTo), function() {
 
     var img = cropper.getDataURL();
 
@@ -125,14 +115,10 @@ var modalLogic_multiple = function(scopeTo, cropbox_options) {
     $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">');
 
     // Place it to the default image. The one that triggers the modal.
-    $('#saved_image').attr('src', img);
+    $('[data-target="#'+currentImageID+'"]').attr('src', img);
 
     // Place the datafile value in the hidden field
-    $('.image_datafile', scopeTo).val(img);
-
-    if ($('#refreshDetectedColors').is('*')) {
-      return $('#refreshDetectedColors').trigger('click');
-    }
+    $('[data-uploadtarget="'+currentImageID+'"').val(img);
 
   });
 }
@@ -183,17 +169,14 @@ var handleMultipleModals = function() {
     currentImageID = $(modals[i]).attr('id')
     // console.log(currentImageID)
     scopeTo = $('#'+currentImageID)
-
+console.log(currentImageID)
     cropbox_options = {
       thumbBox: $('.thumbBox', scopeTo),
       spinner: $('.spinner', scopeTo),
       imgSrc: $(this).attr('src')
     };
 
-    console.log(scopeTo)
-    console.log(cropbox_options)
-
-    modalLogic_multiple(scopeTo, cropbox_options)
+    modalLogic_multiple(scopeTo, cropbox_options, currentImageID);
 
   })
 
@@ -230,4 +213,3 @@ Single Exported Function
 
 
 })(jQuery);
-
