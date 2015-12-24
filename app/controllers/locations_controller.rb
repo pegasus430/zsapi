@@ -38,7 +38,7 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = current_user.business.locations.build
-    3.times { @location.location_pictures.build }
+    3.times { @location.location_photos.build }
   end
 
   # GET /locations/1/edit

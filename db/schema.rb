@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 20151224002855) do
   add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
-  create_table "location_pictures", force: :cascade do |t|
+  create_table "location_photos", force: :cascade do |t|
     t.string   "name"
     t.integer  "location_id"
     t.string   "image_file_name"
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 20151224002855) do
     t.datetime "updated_at",         null: false
   end
 
-  add_index "location_pictures", ["location_id"], name: "index_location_pictures_on_location_id", using: :btree
+  add_index "location_photos", ["location_id"], name: "index_location_photos_on_location_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
@@ -321,7 +321,7 @@ ActiveRecord::Schema.define(version: 20151224002855) do
   add_foreign_key "greetings", "campaigns"
   add_foreign_key "identities", "customers"
   add_foreign_key "identities", "users"
-  add_foreign_key "location_pictures", "locations"
+  add_foreign_key "location_photos", "locations"
   add_foreign_key "locations", "greetings"
   add_foreign_key "memberships", "businesses"
   add_foreign_key "memberships", "campaigns"

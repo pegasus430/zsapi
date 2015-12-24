@@ -14,7 +14,7 @@ class Location < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :redemptions, dependent: :destroy
   has_many :receipts, through: :redemptions, dependent: :destroy
-  has_many :location_pictures, dependent: :destroy
+  has_many :location_photos, dependent: :destroy
   
   has_and_belongs_to_many :campaigns
 

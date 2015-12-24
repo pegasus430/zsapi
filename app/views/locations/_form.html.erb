@@ -29,18 +29,18 @@
     <% end %>
 
     
-    <%= fr "Location Images" do %>
+    <%= fr "Location Photos" do %>
       <div class="row">
         <div class="col-sm-4">
-          <%= image_tag @location.location_pictures[0].image.url(:thumb), id: "saved_image_1", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[0].image.url(:thumb), id: "saved_image_1", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_1" %>
         </div>
         <div class="col-sm-4">
-          <%= image_tag @location.location_pictures[1].image.url(:thumb), id: "saved_image_2", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[1].image.url(:thumb), id: "saved_image_2", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_2" %>
         </div>
         <div class="col-sm-4">
-          <%= image_tag @location.location_pictures[2].image.url(:thumb), id: "saved_image_3", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[2].image.url(:thumb), id: "saved_image_3", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_3" %>
         </div>
       </div>
