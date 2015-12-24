@@ -38,6 +38,7 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = current_user.business.locations.build
+    3.times { @location.location_pictures.build }
   end
 
   # GET /locations/1/edit
@@ -51,6 +52,14 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     @location = current_user.business.locations.build(location_params)
+
+    # Create each image
+    if params[:image_datafiles]
+      params[:image_datafiles].each do |image|
+        @location.location_images.create(image: convert_data_uri_to_upload(image)) unless image.blank?
+      end
+    end
+
     respond_to do |format|
       if @location.save
         format.html { redirect_to location_new_subscription_path(@location), notice: 'Location was successfully created. Create the subscription now' }      else
