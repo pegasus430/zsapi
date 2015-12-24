@@ -1,6 +1,7 @@
 class Location < ActiveRecord::Base
   enum status: [:pending, :active, :locked]
 
+  # Associations
   belongs_to :business
   belongs_to :greeting
   
@@ -13,19 +14,23 @@ class Location < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :redemptions, dependent: :destroy
   has_many :receipts, through: :redemptions, dependent: :destroy
+  has_many :location_images, dependent: :destroy
   
   has_and_belongs_to_many :campaigns
 
   accepts_nested_attributes_for :greeting, reject_if: proc { |a| a['welcome_message'].blank? || a['welcome_message'].nil? }
   accepts_nested_attributes_for :campaigns
 
+  # Validations
   validates_presence_of :address, :city, :state, :zipcode
   validates_length_of :state, is: 2
+  after_validation :geocode, on: [:create], if: Proc.new { |l| l.address.present? && l.address2 != 'ignore' }
 
+  # Actions
   before_save { |l| l.title = l.address + " Location" if l.title.nil? }
 
+  # Geocoder
   geocoded_by :full_address
-  after_validation :geocode, on: [:create], if: Proc.new { |l| l.address.present? && l.address2 != 'ignore' }
 
   def full_address(params = {})
   	if params[:multiline]
