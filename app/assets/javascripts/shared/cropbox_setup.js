@@ -6,7 +6,7 @@
 
 
 var handleSingleModal = function() {
-  var singleModal = $('#cropImageModal')
+  var scope_singleModal = $('#cropImageModal')
 
   // START CROPBOX
   var cropbox_options = {
@@ -20,8 +20,8 @@ var handleSingleModal = function() {
     var reader = new FileReader;
     reader.onload = function(e) {
       cropbox_options.imgSrc = e.target.result;
-      window.cropper = $('.avatarBox', singleModal).cropbox(cropbox_options);
-      return $('.btnCrop, .btnZoomIn, .btnZoomOut', singleModal).removeClass('disabled');
+      window.cropper = $('.avatarBox', scope_singleModal).cropbox(cropbox_options);
+      return $('.btnCrop, .btnZoomIn, .btnZoomOut', scope_singleModal).removeClass('disabled');
     };
     reader.readAsDataURL(this.files[0]);
     return this.files = [];
@@ -29,40 +29,40 @@ var handleSingleModal = function() {
 
 
   // Zoom Btns
-  $('.btnZoomIn', singleModal).on('click', function(){
+  $('.btnZoomIn', scope_singleModal).on('click', function(){
     console.log('clicked!')
     cropper.zoomIn()
   })
-  $('.btnZoomOut', singleModal).on('click', function(){
+  $('.btnZoomOut', scope_singleModal).on('click', function(){
     cropper.zoomOut()
   })
 
   // Crop handler
   // Note - this was selected by a class of 
   //        the same name (as the id)... 
-  $('.btnCrop', singleModal).on('click', function() {
+  $('.btnCrop', scope_singleModal).on('click', function() {
 
     var img = window.cropper.getDataURL();
 
     // Place the cropped image's datafile.
-    return $('.cropped_image', singleModal).html('<img src="' + img + '" width="420">');
+    return $('.cropped_image', scope_singleModal).html('<img src="' + img + '" width="420">');
   });
 
 
 
   // Crop handler
-  $('.btnSaveClose', singleModal).on('click', function() {
+  $('.btnSaveClose', scope_singleModal).on('click', function() {
 
     var img = window.cropper.getDataURL();
 
     // Place the cropped image's datafile.
-    $('.cropped_image', singleModal).html('<img src="' + img + '" width="420">');
+    $('.cropped_image', scope_singleModal).html('<img src="' + img + '" width="420">');
 
     // Place it to the default image. The one that triggers the modal.
     $('#saved_image').attr('src', img);
 
     // Place the datafile value in the hidden field
-    $('.image_datafile', singleModal).val(img);
+    $('.image_datafile', scope_singleModal).val(img);
 
     if ($('#refreshDetectedColors').is('*')) {
       return $('#refreshDetectedColors').trigger('click');
@@ -70,6 +70,14 @@ var handleSingleModal = function() {
 
   });
 
+
+};
+
+
+
+var handleMultipleModals = function() {
+
+  console.log('has multiple modals!')
 
 };
 
@@ -87,14 +95,18 @@ Single Exported Function
   // When only one modal is on the page, 
   // it has this id, so we can avoid having
   // to iterate and keep things simple
-  var singleModal = $('#cropImageModal')
+  if ( $('#cropImageModal').length ) {
 
-
-  if ( !!singleModal ) {
     handleSingleModal()
+
+
+  // If not a single modal, check for existence 
+  // of multiple modals (by checking for .js-cropModal)
+  // and handle them
+  } else if ( $(".js-cropModal").length ) {
+    handleMultipleModals()
   }
 
-  
 
 })(jQuery);
 
