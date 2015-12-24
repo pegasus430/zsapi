@@ -32,15 +32,15 @@
     <%= fr "Location Photos" do %>
       <div class="row">
         <div class="col-sm-4">
-          <%= image_tag @location.location_photos[0].image.url(:thumb), id: "saved_image_1", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[0].image.url(:thumb), id: "saved_image_1", class: "fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-1'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_1" %>
         </div>
         <div class="col-sm-4">
-          <%= image_tag @location.location_photos[1].image.url(:thumb), id: "saved_image_2", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[1].image.url(:thumb), id: "saved_image_2", class: "fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-2'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_2" %>
         </div>
         <div class="col-sm-4">
-          <%= image_tag @location.location_photos[2].image.url(:thumb), id: "saved_image_3", class: "fit thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
+          <%= image_tag @location.location_photos[2].image.url(:thumb), id: "saved_image_3", class: "fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-3'} %>
           <%= hidden_field_tag 'image_datafile[]', "", id: "image_datafile_3" %>
         </div>
       </div>
@@ -57,7 +57,9 @@
     <% end  %>
 
     <%= fr '' do %>
-      <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      <div class="mt2 inline-block">
+        <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      </div>
     <% end %>
 
     <div class="collapse" id="collapseGreeting">
@@ -84,5 +86,7 @@
 <% end %> <%# -form %>
 
 
-<%# CROP MODAL %>
-<!-- render 'shared/crop_modal', resource: @location -->
+<%# CROP MODAL  %>
+<%= render 'shared/crop_modal', resource: @location.location_photos[0], id: "cropImageModal-1" %>
+<%= render 'shared/crop_modal', resource: @location.location_photos[1], id: "cropImageModal-2" %>
+<%= render 'shared/crop_modal', resource: @location.location_photos[2], id: "cropImageModal-3" %>
