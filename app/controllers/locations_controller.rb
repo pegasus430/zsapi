@@ -46,7 +46,7 @@ class LocationsController < ApplicationController
       render :confirm
     end
 
-    @new_greeting = @location.build_greeting
+    @new_greeting = Greeting.new
   end
 
   # POST /locations
@@ -54,8 +54,8 @@ class LocationsController < ApplicationController
   def create
     @location = current_user.business.locations.build(location_params.except(:greeting))
 
-    if location_params[:greeting_id].blank? || params[:new_greeting]
-      greeting = @location.build_greeting(location_params[:greeting].merge(business_id: current_user.business.id))
+    if params[:new_greeting]
+      @location.build_greeting(location_params[:greeting])
     end
 
     respond_to do |format|
@@ -70,11 +70,11 @@ class LocationsController < ApplicationController
   # PATCH/PUT /locations/1.json
   def update
     respond_to do |format|
-      if location_params[:greeting_id].blank? || params[:new_greeting]
-        @location.greeting = @location.build_greeting(location_params[:greeting].merge(business_id: current_user.business.id))
-      end
-
       if @location.update(location_params.except(:greeting))
+        if params[:new_greeting]
+          new_greeting = Greeting.create(location_params[:greeting].merge(business_id: @location.business_id))
+          @location.update_attribute(:greeting_id, new_greeting.id)
+        end
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render :show, status: :ok, location: @location }
       else
