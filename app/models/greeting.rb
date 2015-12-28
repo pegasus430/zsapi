@@ -5,12 +5,23 @@ class Greeting < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :business
 
-  attr_accessor :campaign_wait_time_quantity, :campaign_wait_time_span
   before_validation :generate_campaign_wait_time!
 
   validates_presence_of :welcome_message, :exit_message
   validates :campaign_wait_time, numericality: { greater_than: 0 }, unless: "campaign_id.to_i == 0"
   validates :welcome_wait_time, numericality: { greater_than: 0 }
+
+  def welcome_wait_time
+    %w(month week day).each do |span|
+      if self[:welcome_wait_time] % 1.send(span) == 0
+        return span
+      end
+    end
+
+    # Default
+    'day'
+  end
+
 
   def welcome_wait_time=(span)
   	time_span = case span
@@ -26,8 +37,8 @@ class Greeting < ActiveRecord::Base
 
   private
     def generate_campaign_wait_time!
-    	quantity = (campaign_wait_time_quantity.to_i > 0) ? campaign_wait_time_quantity.to_i : 1
-    	span	   = (%w(day days week weeks month months).include?(campaign_wait_time_span)) ? campaign_wait_time_span : 'days'
+    	quantity = (self[:campaign_wait_time_quantity].to_i > 0) ? self[:campaign_wait_time_quantity].to_i : 1
+    	span	   = (%w(day days week weeks month months).include?(self[:campaign_wait_time_span])) ? self[:campaign_wait_time_span] : 'days'
 
     	time_span = case span
     	when 'day', 	'days' 		then 1.day.to_i

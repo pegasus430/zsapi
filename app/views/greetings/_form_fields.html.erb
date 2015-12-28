@@ -29,7 +29,7 @@
 		"attach",
 		"Attach a Campaign?",
 		checkbox: {
-			checked: !(@greeting.campaign.nil?),
+			checked: !(greeting_campaign.nil?),
 			data: {
 				toggle: "collapse", 
 				target: "#collapseCampaign"
@@ -38,7 +38,7 @@
 	) %>
 <% end %>
 
-<div class="collapse <%= "in" if !(@greeting.campaign.nil?) %>" id="collapseCampaign">
+<div class="collapse <%= "in" if !(greeting_campaign.nil?) %>" id="collapseCampaign">
 	<%= fr "Campaign",
 		f.collection_select(:campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace') %>
 	

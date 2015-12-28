@@ -41,7 +41,7 @@
 
     <div class="collapse" id="collapseGreeting">
       <%= f.fields_for @location.build_greeting do |builder| %>
-        <%= render 'greetings/form_fields', f: builder %>
+        <%= render 'greetings/form_fields', f: builder, greeting_campaign: nil %>
       <% end %>
     </div>
 
