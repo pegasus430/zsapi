@@ -45,12 +45,19 @@ class LocationsController < ApplicationController
     if @location.pending?
       render :confirm
     end
+
+    @new_greeting = Greeting.new
   end
 
   # POST /locations
   # POST /locations.json
   def create
-    @location = current_user.business.locations.build(location_params)
+    @location = current_user.business.locations.build(location_params.except(:greeting))
+
+    if params[:new_greeting]
+      @location.build_greeting(location_params[:greeting])
+    end
+
     respond_to do |format|
       if @location.save
         format.html { redirect_to location_new_subscription_path(@location), notice: 'Location was successfully created. Create the subscription now' }      else
@@ -63,7 +70,11 @@ class LocationsController < ApplicationController
   # PATCH/PUT /locations/1.json
   def update
     respond_to do |format|
-      if @location.update(location_params)
+      if @location.update(location_params.except(:greeting))
+        if params[:new_greeting]
+          new_greeting = Greeting.create(location_params[:greeting].merge(business_id: @location.business_id))
+          @location.update_attribute(:greeting_id, new_greeting.id)
+        end
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
         format.json { render :show, status: :ok, location: @location }
       else
@@ -102,8 +113,28 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:title, :address, :address2, :city, :state, :zipcode, :greeting_id, :latitude, :longitude, :status, :business,
-        :greeting_attributes => [:id, :welcome_message, :welcome_reward, :welcome_wait_time, :exit_message, :campaign_id, :campaign_wait_time_quantity, :campaign_wait_time_span]
+      params.require(:location).permit(
+        :title, 
+        :address, 
+        :address2, 
+        :city, 
+        :state, 
+        :zipcode, 
+        :greeting_id, 
+        :latitude, 
+        :longitude, 
+        :status, 
+        :business,
+        greeting: [
+          :id, 
+          :welcome_message, 
+          :welcome_reward, 
+          :welcome_wait_time, 
+          :exit_message, 
+          :campaign_id, 
+          :campaign_wait_time_quantity, 
+          :campaign_wait_time_span
+        ]
       )
     end
 end

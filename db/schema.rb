@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108163212) do
+ActiveRecord::Schema.define(version: 20151228200649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,11 +123,13 @@ ActiveRecord::Schema.define(version: 20151108163212) do
     t.integer  "welcome_reward"
     t.string   "exit_message"
     t.integer  "campaign_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "campaign_wait_time", default: 0, null: false
-    t.integer  "welcome_wait_time",  default: 0, null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "campaign_wait_time",          default: 0,      null: false
+    t.integer  "welcome_wait_time",           default: 0,      null: false
     t.integer  "business_id"
+    t.integer  "campaign_wait_time_quantity", default: 0
+    t.string   "campaign_wait_time_span",     default: "days"
   end
 
   add_index "greetings", ["business_id"], name: "index_greetings_on_business_id", using: :btree
@@ -151,6 +153,19 @@ ActiveRecord::Schema.define(version: 20151108163212) do
   add_index "identities", ["customer_id"], name: "index_identities_on_customer_id", using: :btree
   add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "location_photos", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "location_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "location_photos", ["location_id"], name: "index_location_photos_on_location_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "business_id"
@@ -308,6 +323,7 @@ ActiveRecord::Schema.define(version: 20151108163212) do
   add_foreign_key "greetings", "campaigns"
   add_foreign_key "identities", "customers"
   add_foreign_key "identities", "users"
+  add_foreign_key "location_photos", "locations"
   add_foreign_key "locations", "greetings"
   add_foreign_key "memberships", "businesses"
   add_foreign_key "memberships", "campaigns"

@@ -29,7 +29,7 @@ class GreetingsController < ApplicationController
   def update
     respond_to do |format|
       if @greeting.update(greeting_params)
-        format.html { redirect_to greetings_path, notice: 'Greeting was successfully updated.' }
+        format.html { redirect_to edit_greeting_path(@greeting), notice: 'Greeting was successfully updated.' }
         format.json { render :edit, status: :ok, greeting: @greeting }
       else
         format.html { render :edit }
