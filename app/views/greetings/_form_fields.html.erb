@@ -25,10 +25,20 @@
 
 <%= fr "",
 	{info: "You can display a special campaign to your customers as they exit to entice them to return."} do %>
-	<%= cbox("attach", "Attach a Campaign?", checkbox: {data: {toggle: "collapse", target: "#collapseCampaign"}}) %>
+	<%= cbox(
+		"attach",
+		"Attach a Campaign?",
+		checkbox: {
+			checked: !(@greeting.campaign.nil?),
+			data: {
+				toggle: "collapse", 
+				target: "#collapseCampaign"
+			}
+		}
+	) %>
 <% end %>
 
-<div class="collapse" id="collapseCampaign">
+<div class="collapse <%= "in" if !(@greeting.campaign.nil?) %>" id="collapseCampaign">
 	<%= fr "Campaign",
 		f.collection_select(:campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace') %>
 	
