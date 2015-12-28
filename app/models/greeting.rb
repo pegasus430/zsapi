@@ -10,6 +10,8 @@ class Greeting < ActiveRecord::Base
   validates_presence_of :welcome_message, :exit_message
   validates :campaign_wait_time, numericality: { greater_than: 0 }, unless: "campaign_id.to_i == 0"
   validates :welcome_wait_time, numericality: { greater_than: 0 }
+  validates :welcome_message, :exit_message, length: {maximum: 35}
+
 
   def welcome_wait_time
     %w(month week day).each do |span|
