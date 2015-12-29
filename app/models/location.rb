@@ -1,4 +1,6 @@
 class Location < ActiveRecord::Base
+  MAX_PHOTOS = 3
+  
   enum status: [:pending, :active, :locked]
 
   # Associations

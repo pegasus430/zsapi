@@ -38,7 +38,7 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = current_user.business.locations.build
-    3.times { @location.location_photos.build }
+    Location::MAX_PHOTOS.times { @location.location_photos.build }
   end
 
   # GET /locations/1/edit
@@ -47,7 +47,7 @@ class LocationsController < ApplicationController
       render :confirm
     end
     
-    (3 - @location.location_photos.size).times { @location.location_photos.build }
+    (Location::MAX_PHOTOS - @location.location_photos.size).times { @location.location_photos.build }
 
     @new_greeting = Greeting.new
   end
@@ -60,7 +60,7 @@ class LocationsController < ApplicationController
     # Create each image
     if params[:image_datafiles]
       params[:image_datafiles].each do |image|
-        @location.location_images.create(image: convert_data_uri_to_upload(image)) unless image.blank?
+        @location.location_photos.create(image: convert_data_uri_to_upload(image)) unless image.blank?
       end
     end
 
@@ -79,13 +79,20 @@ class LocationsController < ApplicationController
   # PATCH/PUT /locations/1
   # PATCH/PUT /locations/1.json
   def update
+    # Create each image
+    if params[:image_datafiles]
+      params[:image_datafiles].each_with_index do |image, index|
+        @location.location_photos[index].update_attributes(image: convert_data_uri_to_upload(image)) unless @location.location_photos[index].blank?
+      end
+    end
+
     respond_to do |format|
       if @location.update(location_params.except(:greeting))
         if params[:new_greeting]
           new_greeting = Greeting.create(location_params[:greeting].merge(business_id: @location.business_id))
           @location.update_attribute(:greeting_id, new_greeting.id)
         end
-        format.html { redirect_to @location, notice: 'Location was successfully updated.' }
+        format.html { redirect_to edit_location_path(@location), notice: 'Location was successfully updated.' }
         format.json { render :show, status: :ok, location: @location }
       else
         format.html { render :edit }

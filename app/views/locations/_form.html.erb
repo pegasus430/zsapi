@@ -31,18 +31,12 @@
     
     <%= fr "Location Photos" do %>
       <div class="row">
-        <div class="col-sm-4">
-          <%= image_tag @location.location_photos[0].image.url(:thumb), id: "saved_image_1", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-1'} %>
-          <%= hidden_field_tag 'image_datafile[]', "", data: {uploadtarget: 'cropImageModal-1'} %>
-        </div>
-        <div class="col-sm-4">
-          <%= image_tag @location.location_photos[1].image.url(:thumb), id: "saved_image_2", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-2'} %>
-          <%= hidden_field_tag 'image_datafile[]', "", data: {uploadtarget: 'cropImageModal-2'} %>
-        </div>
-        <div class="col-sm-4">
-          <%= image_tag @location.location_photos[2].image.url(:thumb), id: "saved_image_3", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: '#cropImageModal-3'} %>
-          <%= hidden_field_tag 'image_datafile[]', "", data: {uploadtarget: 'cropImageModal-3'} %>
-        </div>
+        <% Location::MAX_PHOTOS.times do |i| %>
+          <div class="col-sm-4">
+            <%= image_tag @location.location_photos[0].image.url(:thumb), id: "saved_image_#{i}", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-#{i}"} %>
+            <%= hidden_field_tag 'image_datafiles[]', "", data: {uploadtarget: "cropImageModal-#{i}"} %>
+          </div>
+        <% end %>
       </div>
     <% end %>
 
@@ -86,7 +80,7 @@
 <% end %> <%# -form %>
 
 
-<%# CROP MODAL  %>
-<%= render 'shared/crop_modal', resource: @location.location_photos[0], id: "cropImageModal-1" %>
-<%= render 'shared/crop_modal', resource: @location.location_photos[1], id: "cropImageModal-2" %>
-<%= render 'shared/crop_modal', resource: @location.location_photos[2], id: "cropImageModal-3" %>
+<%# CROP MODALS  %>
+<% Location::MAX_PHOTOS.times do |i| %>
+  <%= render 'shared/crop_modal', resource: @location.location_photos[i], id: "cropImageModal-#{i}" %>
+<% end %>
