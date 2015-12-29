@@ -46,6 +46,8 @@ class LocationsController < ApplicationController
     if @location.pending?
       render :confirm
     end
+    
+    (3 - @location.location_photos.size).times { @location.location_photos.build }
   end
 
   # POST /locations

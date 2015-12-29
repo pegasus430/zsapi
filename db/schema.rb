@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224002855) do
+ActiveRecord::Schema.define(version: 20151228200649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 20151224002855) do
     t.string   "title",                              null: false
     t.decimal  "discount_amount",    default: 0.0,   null: false
     t.integer  "discount_type",      default: 0,     null: false
-    t.integer  "referrer_reward"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -91,6 +90,7 @@ ActiveRecord::Schema.define(version: 20151224002855) do
     t.string   "pos"
     t.string   "description"
     t.integer  "business_id"
+    t.integer  "referrer_reward",    default: 0
     t.integer  "referral_reward",    default: 0
     t.integer  "reward_cost",        default: 0,     null: false
   end
@@ -123,11 +123,13 @@ ActiveRecord::Schema.define(version: 20151224002855) do
     t.integer  "welcome_reward"
     t.string   "exit_message"
     t.integer  "campaign_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "campaign_wait_time", default: 0, null: false
-    t.integer  "welcome_wait_time",  default: 0, null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "campaign_wait_time",          default: 0,      null: false
+    t.integer  "welcome_wait_time",           default: 0,      null: false
     t.integer  "business_id"
+    t.integer  "campaign_wait_time_quantity", default: 0
+    t.string   "campaign_wait_time_span",     default: "days"
   end
 
   add_index "greetings", ["business_id"], name: "index_greetings_on_business_id", using: :btree
@@ -190,9 +192,7 @@ ActiveRecord::Schema.define(version: 20151224002855) do
     t.integer  "business_id",                              null: false
     t.integer  "customer_id",                              null: false
     t.integer  "points",                   default: 0,     null: false
-    t.datetime "last_visit_at"
     t.datetime "welcome_reward_valid_at"
-    t.datetime "last_exit_at"
     t.integer  "campaign_id"
     t.datetime "exit_campaign_expires_at"
     t.boolean  "notified",                 default: false, null: false
@@ -306,15 +306,17 @@ ActiveRecord::Schema.define(version: 20151224002855) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
-    t.integer  "customer_id",             null: false
-    t.integer  "location_id",             null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "total",       default: 0
+    t.integer  "customer_id",   null: false
+    t.integer  "location_id",   null: false
+    t.datetime "last_visit_at"
+    t.datetime "last_exit_at"
+    t.integer  "total"
   end
 
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree
   add_index "visits", ["location_id"], name: "index_visits_on_location_id", using: :btree
 
+  add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "businesses"
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "greetings", "businesses"
