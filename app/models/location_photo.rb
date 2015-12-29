@@ -9,4 +9,15 @@ class LocationPhoto < ActiveRecord::Base
 
   validates_attachment_content_type :image,
                                     content_type: ["images/jpg", "image/jpeg", "image/gif", "image/png"]
+
+
+  ## Below is for the API
+  def attributes
+    super.merge({image_url: image_url})
+  end
+
+  def image_url
+    image.url
+  end
+  ##
 end
