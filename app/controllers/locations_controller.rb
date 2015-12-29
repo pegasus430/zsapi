@@ -82,7 +82,11 @@ class LocationsController < ApplicationController
     # Create each image
     if params[:image_datafiles]
       params[:image_datafiles].each_with_index do |image, index|
-        @location.location_photos[index].update_attributes(image: convert_data_uri_to_upload(image)) unless @location.location_photos[index].blank?
+        if @location.location_photos[index].nil?
+          @location.location_photos.create(image: convert_data_uri_to_upload(image)) unless image.blank?
+        else
+          @location.location_photos[index].update_attributes(image: convert_data_uri_to_upload(image))
+        end
       end
     end
 
