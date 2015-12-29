@@ -35,6 +35,7 @@
           <div class="col-sm-4">
             <%= image_tag @location.location_photos[i].image.url(:thumb), id: "saved_image_#{i}", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-#{i}"} %>
             <%= hidden_field_tag 'image_datafiles[]', "", data: {uploadtarget: "cropImageModal-#{i}"} %>
+            <%= link_to "Clear", "#", data: {removeImage: i} %>
           </div>
         <% end %>
       </div>
