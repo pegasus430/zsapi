@@ -131,14 +131,14 @@ RSpec.describe LocationsController, type: :controller do
     context '[Valid Location/Greeting Params]' do
       it 'creates the location' do
         expect {
-          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_attributes: FactoryGirl.attributes_for(:greeting))
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location).merge(greeting: FactoryGirl.attributes_for(:greeting)), new_greeting: "on"
         }.to change(Location,:count).by 1
       end
 
-      context '[Custom greeting created]'do
+      context '[Custom greeting checkbox is checked]' do
         it 'creates the greeting' do
           expect {
-            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_attributes: FactoryGirl.attributes_for(:greeting))
+            post :create, id: @location, location: FactoryGirl.attributes_for(:location).merge(greeting: FactoryGirl.attributes_for(:greeting)), new_greeting: "on"
           }.to change(Greeting,:count).by 1
         end
       end
@@ -147,13 +147,14 @@ RSpec.describe LocationsController, type: :controller do
         it 'does not create a new greeting' do
           selected_greeting = FactoryGirl.create(:greeting)
           expect {
-            post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting: selected_greeting, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+            post :create, id: @location, location: FactoryGirl.attributes_for(:location).merge(greeting: FactoryGirl.attributes_for(:invalid_greeting)), new_greeting: "on"
           }.to change(Greeting,:count).by 0
         end
 
         it 'assigns a greeting to the location' do
           selected_greeting = FactoryGirl.create(:greeting, business: @location.business)
-          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_id: selected_greeting.id, greeting_attributes: FactoryGirl.attributes_for(:invalid_greeting))
+          post :create, id: @location, location: FactoryGirl.attributes_for(:location, greeting_id: selected_greeting.id).merge(greeting: FactoryGirl.attributes_for(:invalid_greeting))
+          @location.reload
           expect(@location.greeting.id).to eq selected_greeting.id
         end
       end
@@ -214,52 +215,52 @@ RSpec.describe LocationsController, type: :controller do
   end
 
 
-  # describe "PUT #update" do
-  #   before :each do
-  #     @location = FactoryGirl.create(:location)
-  #   end
+  describe "PUT #update" do
+    before :each do
+      @location = FactoryGirl.create(:location, business: @user.business, status: 'active')
+    end
 
-  #   context "with valid params" do
-  #     it "locates the requested location" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location)
-  #       expect(assigns(:location)).to eq(@location)
-  #     end
+    context "with valid params" do
+      it 'creates a new greeting if checked', focus: true do
+        expect{
+          put :update, id: @location, location: FactoryGirl.attributes_for(:location).merge(greeting: FactoryGirl.attributes_for(:greeting)), new_greeting: "on"
+        }.to change(Greeting,:count).by 1
+      end
 
-  #     it "changes the attributes on save" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
-  #       @location.reload
-  #       expect(@location.amount.to_i).to eq 15
-  #     end
+      it "locates the requested location" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:location)
+        expect(assigns(:location)).to eq(@location)
+      end
 
-  #     it "updates the actioned_on date when saved" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
-  #       @location.reload
-  #       expect(@location.actioned_on).not_to be_blank
-  #     end
+      it "changes the attributes on save" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
+        @location.reload
+        expect(@location.amount.to_i).to eq 15
+      end
 
-  #     it "redirects to the locations list" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
-  #       expect(response).to redirect_to(admin_locations_url)
-  #     end
-  #   end
+      it "redirects to the location" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:location, amount: 15)
+        expect(response).to redirect_to(admin_locations_url)
+      end
+    end
 
-  #   context "with invalid params" do
-  #     it "locates the requested location" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:location)
-  #       expect(assigns(:location)).to eq(@location)
-  #     end
+    context "with invalid params" do
+      it "locates the requested location" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:location)
+        expect(assigns(:location)).to eq(@location)
+      end
 
-  #     it "does not change the attributes" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location, amount: 15)
-  #       @location.reload
-  #       expect(@location.amount.to_i).not_to eq 15
-  #     end
+      it "does not change the attributes" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location, amount: 15)
+        @location.reload
+        expect(@location.amount.to_i).not_to eq 15
+      end
 
-  #     it "re-renders the index template" do
-  #       put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location)
-  #       expect(response).to render_template :index
-  #     end
-  #   end
-  # end
+      it "re-renders the index template" do
+        put :update, id: @location, location: FactoryGirl.attributes_for(:invalid_location)
+        expect(response).to render_template :index
+      end
+    end
+  end
 
 end

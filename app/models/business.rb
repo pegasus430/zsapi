@@ -2,7 +2,6 @@ class Business < ActiveRecord::Base
   enum status: [:unpublished, :published, :locked]
 
   belongs_to :user
-  has_many :greetings
   has_many :locations
   has_many :redemptions, through: :locations
   has_many :receipts, through: :redemptions
