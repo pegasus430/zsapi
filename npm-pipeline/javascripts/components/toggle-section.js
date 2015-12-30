@@ -175,6 +175,8 @@ var updateToggle = function(target) {
 
 var setButtons = function() {
 
+  var nextIndex
+  var nextTarget
   nextBtns.each(function(i) {
     $(this).on('click', function(e) {
 
@@ -182,12 +184,14 @@ var setButtons = function() {
 
       nextIndex = i + 1
 
-      var nextTarget = $('#toggle-'+nextIndex)
+      nextTarget = $('#toggle-'+nextIndex)
       updateToggle(nextTarget)
 
     })
   })
 
+  var preIndex
+  var prevTarget
   prevBtns.each(function(i) {
     $(this).on('click', function(e) {
 
@@ -195,7 +199,7 @@ var setButtons = function() {
 
       prevIndex = i - 1
 
-      var prevTarget = $('#toggle-'+prevIndex)
+      prevTarget = $('#toggle-'+prevIndex)
       updateToggle(prevTarget)
 
     })
