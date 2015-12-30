@@ -13,7 +13,7 @@ Notes:
 
 
 
-updateUrl = function() {
+module.exports = function() {
 
 
   // Listen for location selections
@@ -39,15 +39,3 @@ updateUrl = function() {
   }
 
 }
-
-
-
-
-module.exports = function() {
-
-  updateUrl()
-
-}
-
-
-
