@@ -54,6 +54,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    ansi (1.5.0)
     api_smith (1.3.0)
       hashie (>= 1.0, < 3.0)
       httparty
@@ -96,6 +97,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     commonjs (0.2.7)
+    concurrent-ruby (1.0.0)
     constantcontact (2.1.0)
       json (~> 1.8, >= 1.8.1)
       mime-types (~> 2.4, >= 2.4.1)
@@ -150,7 +152,6 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashie (2.1.2)
-    hike (1.2.3)
     http (0.9.6)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -215,6 +216,7 @@ GEM
     multipart-post (2.0.0)
     naught (1.1.0)
     nenv (0.2.0)
+    net-http-persistent (2.9.4)
     netrc (0.11.0)
     nokogiri (1.6.6.3)
       mini_portile (~> 0.6.0)
@@ -317,6 +319,13 @@ GEM
       moneta
       railties (>= 3.0, < 5.0)
       will_paginate (~> 3.0)
+    rpush (2.5.0)
+      activesupport
+      ansi
+      multi_json (~> 1.0)
+      net-http-persistent
+      railties
+      thor (>= 0.18.1, < 2.0)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -357,11 +366,9 @@ GEM
     smarter_csv (1.1.0)
     spring (1.4.0)
       rack (> 1, < 3)
-    sprockets (3.4.0)
-      hike (~> 1.2)
-      multi_json (~> 1.0)
-      rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
+    sprockets (3.5.2)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -382,7 +389,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (1.4.1)
+    tilt (2.0.1)
     traceroute (0.5.0)
       rails (>= 3.0.0)
     turbolinks (2.5.3)
@@ -456,6 +463,7 @@ DEPENDENCIES
   rails-erd
   rails_12factor
   rocket_pants (~> 1.0)
+  rpush
   rspec-rails
   sass-rails (~> 5.0.4)
   sdoc (~> 0.4.0)
