@@ -20,6 +20,10 @@ var sectionToShow
 var currentID
 var nextBtns = $('.toggle-section_btn-next')
 var prevBtns = $('.toggle-section_btn-prev')
+var nextIndex
+var nextTarget
+var preIndex
+var prevTarget
 
 
 
@@ -175,8 +179,6 @@ var updateToggle = function(target) {
 
 var setButtons = function() {
 
-  var nextIndex
-  var nextTarget
   nextBtns.each(function(i) {
     $(this).on('click', function(e) {
 
@@ -190,8 +192,6 @@ var setButtons = function() {
     })
   })
 
-  var preIndex
-  var prevTarget
   prevBtns.each(function(i) {
     $(this).on('click', function(e) {
 
