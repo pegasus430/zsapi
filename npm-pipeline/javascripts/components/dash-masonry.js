@@ -7,24 +7,21 @@ var imagesLoaded = require('imagesloaded')
 
 
 
-var initiateMasonry = function() {  
+module.exports = function() {  
 
   var isoContainer = document.querySelector('.masonryContainer');
-  imagesLoaded( isoContainer, function() {
 
-    var msnry = new Masonry( isoContainer, {
-      itemSelector: '.campaign-card_wrap',
-      columnWidth: '#masonrySizer',
-      percentPosition: true
+  if ( isoContainer !== undefined || isoContainer !== null ) { 
+
+    imagesLoaded( isoContainer, function() {
+
+      var msnry = new Masonry( isoContainer, {
+        itemSelector: '.campaign-card_wrap',
+        columnWidth: '#masonrySizer',
+        percentPosition: true
+      })
+
     })
 
-  })
-}
-
-
-
-module.exports = function() {
-
-  initiateMasonry()
-
+  }
 }
