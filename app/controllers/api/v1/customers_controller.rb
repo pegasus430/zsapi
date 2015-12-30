@@ -147,6 +147,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 			n.save!
 
 			Rpush.push # TEMP TODO SET AS SCHEDULED SERVICE
+			Rpush.apns_feedback
 		end
 	end
 
