@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.string   "title",                              null: false
     t.decimal  "discount_amount",    default: 0.0,   null: false
     t.integer  "discount_type",      default: 0,     null: false
+    t.integer  "referrer_reward"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -90,7 +91,6 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.string   "pos"
     t.string   "description"
     t.integer  "business_id"
-    t.integer  "referrer_reward",    default: 0
     t.integer  "referral_reward",    default: 0
     t.integer  "reward_cost",        default: 0,     null: false
   end
@@ -192,7 +192,9 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.integer  "business_id",                              null: false
     t.integer  "customer_id",                              null: false
     t.integer  "points",                   default: 0,     null: false
+    t.datetime "last_visit_at"
     t.datetime "welcome_reward_valid_at"
+    t.datetime "last_exit_at"
     t.integer  "campaign_id"
     t.datetime "exit_campaign_expires_at"
     t.boolean  "notified",                 default: false, null: false
@@ -306,17 +308,15 @@ ActiveRecord::Schema.define(version: 20151228200649) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
-    t.integer  "customer_id",   null: false
-    t.integer  "location_id",   null: false
-    t.datetime "last_visit_at"
-    t.datetime "last_exit_at"
-    t.integer  "total"
+    t.integer  "customer_id",             null: false
+    t.integer  "location_id",             null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total",       default: 0
   end
 
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree
   add_index "visits", ["location_id"], name: "index_visits_on_location_id", using: :btree
 
-  add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "businesses"
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "greetings", "businesses"

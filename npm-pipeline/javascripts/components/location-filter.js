@@ -13,6 +13,35 @@ Notes:
 
 
 
+updateUrl = function() {
+
+
+  // Listen for location selections
+  // and perform necessary logic
+
+  // #locationFilter present on the select element
+  var locationFilter = $('#locationFilter')
+
+  if ( locationFilter !== undefined || locationFilter !== null ) {
+
+    $('#locationFilter').selectBox().change(function () {
+
+        // Get the id of the selected location 
+
+        var targetURL = $(this).val()
+
+        
+        // navigate the window to the new url
+
+        window.location = targetURL
+
+    })
+  }
+
+}
+
+
+
 
 module.exports = function() {
 
@@ -22,26 +51,3 @@ module.exports = function() {
 
 
 
-
-updateUrl = function() {
-
-
-  // Listen for location selections
-  // and perform necessary logic
-
-  // #locationFilter present on the select element
-
-  $('#locationFilter').selectBox().change(function () {
-
-      // Get the id of the selected location 
-
-      var targetURL = $(this).val()
-
-      
-      // navigate the window to the new url
-
-      window.location = targetURL
-
-  })
-
-}
