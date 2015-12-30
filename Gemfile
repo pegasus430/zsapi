@@ -45,6 +45,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem "google_visualr", ">= 2.5"
   gem 'groupdate'
 
+  gem 'rails-push-notifications', '~> 0.2.0'  # Rails notifications for android/ios
+
   # Identities++
     gem 'omniauth'
 
