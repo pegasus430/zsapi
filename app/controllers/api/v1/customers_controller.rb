@@ -132,6 +132,25 @@ class Api::V1::CustomersController < Api::V1::BaseController
 		current_customer.save
 	end
 
+
+	api!
+	desc "Test the notifications. Ensure the customer has an ios_token or a gcm_token set!"
+	example ""
+	def get_notification
+		if current_customer.ios_token
+			# IOS Notification
+			n = Rpush::Apns::Notification.new
+			n.app = Rpush::Apns::App.find_by_name("ios_sandbox")
+			n.device_token = current_customer.ios_token
+			n.alert = "The notification has made it from the server to you!"
+			n.data = { foo: :bar }
+			n.save!
+
+			Rpush.push # TEMP TODO SET AS SCHEDULED SERVICE
+		end
+	end
+
+
 	api!
 	desc "Returns the current_customer in JSON"
 	example <<-EOS
