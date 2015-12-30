@@ -181,6 +181,7 @@ var handleMultipleModals = function() {
   
   var cropbox_options
   var scopeTo
+  var currentImageID
 
   // Set cropbox options for each
   
