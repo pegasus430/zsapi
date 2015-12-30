@@ -20,11 +20,6 @@ var sectionToShow
 var currentID
 var nextBtns = $('.toggle-section_btn-next')
 var prevBtns = $('.toggle-section_btn-prev')
-var nextIndex
-var nextTarget
-var preIndex
-var prevTarget
-
 
 
 module.exports = function() {
@@ -40,18 +35,19 @@ module.exports = function() {
   $(window).on("load", function() {
 
     toggle()
+    
+
+    // Set event listeners on the next/prev btns
+    setButtons()
 
   })
 
 
-  // Set event listeners on the next/prev btns
-
-  setButtons()
 
 } // end exports
 
 
-// $("#first").animate({height: $("#first").get(0).scrollHeight}, 1000 );
+
 
 var toggle = function() {
 
@@ -68,14 +64,6 @@ var toggle = function() {
       height = section.get(0).scrollHeight
 
       section.attr('data-height', height)
-      // Set height on data attribute
-      // height = section.height()
-      // Store it for later use
-      // when done... hide sections
-      // section.attr('data-height', section.height()).promise().done( function() {
-      //   // Collapse all sections
-      //   section.attr('style', 'height:0')
-      // })
 
 
       // Prepare the section:
@@ -91,9 +79,6 @@ var toggle = function() {
       section.prev().find('h2')
         .attr('id', 'toggle-'+i)
         .addClass('section-toggle')
-
-
-
 
 
 
@@ -181,26 +166,18 @@ var setButtons = function() {
 
   nextBtns.each(function(i) {
     $(this).on('click', function(e) {
-
       e.preventDefault()
 
-      nextIndex = i + 1
-
-      nextTarget = $('#toggle-'+nextIndex)
-      updateToggle(nextTarget)
+      updateToggle($('#toggle-'+(i+1)))
 
     })
   })
 
   prevBtns.each(function(i) {
     $(this).on('click', function(e) {
-
       e.preventDefault()
 
-      prevIndex = i - 1
-
-      prevTarget = $('#toggle-'+prevIndex)
-      updateToggle(prevTarget)
+      updateToggle($('#toggle-'+(i-1)))
 
     })
   })
