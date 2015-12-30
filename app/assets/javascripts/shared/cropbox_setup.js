@@ -181,21 +181,28 @@ var handleMultipleModals = function() {
   
   var cropbox_options
   var scopeTo
-  // Set cropbox options for each
 
+  // Set cropbox options for each
+  
   savedImages.each( function(i) {
 
     currentImageID = $(modals[i]).attr('id')
     
-    scopeTo = $('#'+currentImageID)
+    // Since placeholder images have the class '.js-savedImage', it's 
+    // necessary to check for the presence of 
+    if ( currentImageID !== undefined || currentImageID !== null ) {
 
-    cropbox_options = {
-      thumbBox: $('.thumbBox', scopeTo),
-      spinner: $('.spinner', scopeTo),
-      imgSrc: $(this).attr('src')
-    }
+      scopeTo = $('#'+currentImageID)
 
-    modalLogic_multiple(scopeTo, cropbox_options, currentImageID)
+      cropbox_options = {
+        thumbBox: $('.thumbBox', scopeTo),
+        spinner: $('.spinner', scopeTo),
+        imgSrc: $(this).attr('src')
+      }
+
+      modalLogic_multiple(scopeTo, cropbox_options, currentImageID)
+
+    } // end if
 
   })
 
