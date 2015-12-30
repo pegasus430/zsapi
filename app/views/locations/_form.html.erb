@@ -14,20 +14,36 @@
     <%= fr "Address", f.text_field(:address) %>
     <%= fr "", f.text_field(:address2) %>
 
-    <div class="row">
-      <div class="col-xs-3 col-xs-offset-3">
-        <%= f.text_field :city, placeholder: "City" %>
+    <%= fr "" do %>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.text_field :city, placeholder: "City" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :state, placeholder: "State" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :zipcode, placeholder: "Zipcode" %>
+        </div>
       </div>
-      <div class="col-xs-3">
-        <%= f.text_field :state, placeholder: "State" %>
+    <% end %>
+
+    
+    <%= fr "Location Photos" do %>
+      <div class="row">
+        <% Location::MAX_PHOTOS.times do |i| %>
+          <div class="col-sm-4">
+            <%= image_tag @location.location_photos[i].image.url(:thumb), id: "saved_image_#{i}", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-#{i}"} %>
+            <%= hidden_field_tag 'image_datafiles[]', "", data: {uploadtarget: "cropImageModal-#{i}"} %>
+            <%#= link_to "Clear", "#", data: {removeImage: i} %>
+          </div>
+        <% end %>
       </div>
-      <div class="col-xs-3">
-        <%= f.text_field :zipcode, placeholder: "Zipcode" %>
-      </div>
-    </div>
+    <% end %>
+
   <% end %>
 
-  
+
   <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
     <%= fr 'Select a Greeting',
@@ -36,7 +52,9 @@
     <% end  %>
 
     <%= fr '' do %>
-      <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      <div class="mt2 inline-block">
+        <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      </div>
     <% end %>
 
     <div class="collapse" id="collapseGreeting">
@@ -61,3 +79,9 @@
 
   <% end %> <%# -wrapper dark %>
 <% end %> <%# -form %>
+
+
+<%# CROP MODALS  %>
+<% Location::MAX_PHOTOS.times do |i| %>
+  <%= render 'shared/crop_modal', resource: @location.location_photos[i], id: "cropImageModal-#{i}" %>
+<% end %>

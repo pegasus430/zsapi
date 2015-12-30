@@ -1,5 +1,6 @@
 /**
  * Created by ezgoing on 14/9/2014.
+ * https://github.com/hongkhanh/cropbox
  */
 
 "use strict";
@@ -124,7 +125,12 @@
 
             el.bind('mousedown', imgMouseDown);
             el.bind('mousemove', imgMouseMove);
-            $(window).bind('mouseup', imgMouseUp);
+            // Note: Changed from binding to window 
+            // here to bind to the element... 
+            // In efforts to fix "sticky" panning issue
+            // https://github.com/hongkhanh/cropbox/issues/19
+            // $(window).bind('mouseup', imgMouseUp);
+            el.bind('mouseup', imgMouseUp);
             el.bind('mousewheel DOMMouseScroll', zoomImage);
         };
         obj.image.src = options.imgSrc;
