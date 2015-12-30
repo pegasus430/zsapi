@@ -125,14 +125,11 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	api!
 	desc "Updates the notification_token for the current customer"
 	param :notification_token, String, desc: "The notification token to be stored", required: true
+	param :device_type, ["gcm", "ios"], desc: "The device that the token belongs to (gcm for android; ios for apple)", required: true
 	example "200 OK"
 	def notification_token
-		if params[:notification_token]
-			current_customer.notification_token = params[:notification_token]
-			current_customer.save
-		else
-			error! :bad_request
-		end
+		current_customer.send("#{params[:device_type]}_token=", params[:notification_token])
+		current_customer.save
 	end
 
 	api!
@@ -147,7 +144,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	    social_id,
 	    social_type,
 	    social_friends,
-	    notification_token
+	    ios_token,
+	    gcm_token
     }
 	}
 	EOS
@@ -248,7 +246,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
  		end
 
  		def customer_expose_fields
- 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token, :avatar_url]
+ 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :ios_token, :gcm_token, :avatar_url]
  		end
 
 end
