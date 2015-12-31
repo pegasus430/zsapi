@@ -29,8 +29,7 @@ module.exports = function() {
   removeFirstAndLastBtns() 
 
 
-  // Once images have loaded, set the toggle
-  // sections
+  // Once images have loaded, set the toggle sections
 
   $(window).on("load", function() {
 
@@ -63,6 +62,8 @@ var toggle = function() {
       // http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height#answer-24762848
       height = section.get(0).scrollHeight
 
+
+      // Store height
       section.attr('data-height', height)
 
 

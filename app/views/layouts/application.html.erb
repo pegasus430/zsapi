@@ -70,19 +70,35 @@
 						<div class="header-right">
 
 							<% unless current_user.business.locations.blank? %>
-								<div id="battery-status" class="dropdown">
+								<div id="battery-status" class="dropdown_bat-stat dropdown">
 									<a class="ico" href="#" data-toggle="dropdown">
 										<%= image_tag('ico/ico_storeBattery.svg') %>
 									</a>
-									<ul class="dropdown-menu arrow">
+									<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
 										<% current_user.locations.active.each do |location| %>
 											<li>
 												<%= link_to location do %>
-													<div class="row no-gutters">
-														<div class="col-xs-6"><%= location.title %></div>
-														<div class="col-xs-6">
-															<span><em class="yellow" style="width:50%"></em></span>
-														</div>
+													<%= location.title %>
+													<div class="inline-block right">
+														<span class="percent-circle_wrap">
+															<!-- 
+																Percentage value and color handled by this div.
+																Color classes: 
+																	.percent-circle_color-orange 
+																	.percent-circle_color-yellow
+																	.percent-circle_color-green
+																	.percent-circle_color-red 
+																Percentage value: 
+																	- Handled by the attribute `data-percentage` 
+																	- Can be any positive integegar, 1 - 100 
+															-->
+															<div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
+																<div class="percent-circle_inner"></div>
+															</div>
+														</span>
+														<!-- Note: The value for this needs to be dynamic... should come from same source
+																			 as the above data-percentage attribute. -->
+														<span class="bat-stat_percent-text">75%</span>
 													</div>
 												<% end %>
 											</li>
