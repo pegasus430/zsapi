@@ -72,6 +72,11 @@
 
     <div class="toggle-section">
       
+      <%= fr "Kontakt.io API Key",
+        info: "Set up a web panel account on http://kontakt.io in order to better manage your beacons." do %>
+        <%= f.text_field :kontakt_api_key %>
+      <% end %>
+
       <div class="row mt3">
         <div class="col-xs-12 col-sm-3 text-center">
           <%= image_tag('facebook.png') %>
@@ -91,8 +96,7 @@
         </div>
       </div>
       
-      
-      <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+        <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
         <%= section_header "Select a Facebook Page" %>
         
         <%= fr "Facebook Page" do %>
