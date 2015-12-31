@@ -7,8 +7,18 @@ class Kontaktio
 		@api_key = api_key
 	end
 
-	def devices(query="")
+	def device(query="")
 		get "/device?#{query}"
+		response_to_json
+	end
+
+	def device_by_unique_id(unique_id)
+		get "/device/#{unique_id}"
+		response_to_json
+	end
+
+	def device_status(unique_id)
+		get "/device/#{unique_id}/status"
 		response_to_json
 	end
 

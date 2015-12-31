@@ -1,3 +1,5 @@
+require 'kontaktio'
+
 class Beacon < ActiveRecord::Base
   enum status: [:processing, :shipped, :active]
 
@@ -18,11 +20,11 @@ class Beacon < ActiveRecord::Base
 
   def kontaktio
     @kontaktio ||= Kontaktio.new(location.business.kontakt_api_key)
-    @kontaktio.device("proximity=#{uuid}")
+    @kontaktio.device_by_unique_id(unique_id)
   end
 
   def battery_level
-    kontaktio[:devices][:status][:batteryLevel] rescue nil
+    kontaktio[:status][:batteryLevel] rescue nil
   end
 
 
