@@ -80,12 +80,25 @@
 												<%= link_to location do %>
 													<%= location.title %>
 													<div class="inline-block right">
-														<span class="bat-stat_percent-icon_wrap">
-															<div class="percent-icon_border">
-																<div class="percent-icon_circle"></div>
+														<span class="percent-circle_wrap">
+															<!-- 
+																Percentage value and color handled by this div.
+																Color classes: 
+																	.percent-circle_color-orange 
+																	.percent-circle_color-yellow
+																	.percent-circle_color-green
+																	.percent-circle_color-red 
+																Percentage value: 
+																	- Handled by the attribute `data-percentage` 
+																	- Can be any positive integegar, 1 - 100 
+															-->
+															<div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
+																<div class="percent-circle_inner"></div>
 															</div>
 														</span>
-														<span class="bat-stat_percent-text">25%</span>
+														<!-- Note: The value for this needs to be dynamic... should come from same source
+																			 as the above data-percentage attribute. -->
+														<span class="bat-stat_percent-text">75%</span>
 													</div>
 												<% end %>
 											</li>

@@ -15,3 +15,6 @@ sidebarInit()
 
 var globalModals = require('./global/global.modals')
 globalModals()
+
+var batteryStatuses = require('./global/global.bat-stats')
+batteryStatuses()
