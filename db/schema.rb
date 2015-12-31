@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228200649) do
+ActiveRecord::Schema.define(version: 20151231220651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.integer  "status",             default: 0, null: false
     t.string   "yelp_url"
     t.date     "trial_ends_at"
+    t.string   "kontakt_api_key"
   end
 
   add_index "businesses", ["user_id"], name: "index_businesses_on_user_id", using: :btree
@@ -76,7 +77,6 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.string   "title",                              null: false
     t.decimal  "discount_amount",    default: 0.0,   null: false
     t.integer  "discount_type",      default: 0,     null: false
-    t.integer  "referrer_reward"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.string   "pos"
     t.string   "description"
     t.integer  "business_id"
+    t.integer  "referrer_reward",    default: 0
     t.integer  "referral_reward",    default: 0
     t.integer  "reward_cost",        default: 0,     null: false
   end
@@ -104,18 +105,19 @@ ActiveRecord::Schema.define(version: 20151228200649) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string   "first_name",                     null: false
-    t.string   "last_name",                      null: false
-    t.string   "email",                          null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "first_name",                 null: false
+    t.string   "last_name",                  null: false
+    t.string   "email",                      null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "social_type"
     t.string   "social_id"
     t.string   "social_token"
-    t.string   "notification_token"
+    t.string   "ios_token"
     t.text     "social_friends"
-    t.integer  "status",             default: 0, null: false
+    t.integer  "status",         default: 0, null: false
     t.string   "avatar_url"
+    t.string   "gcm_token"
   end
 
   create_table "greetings", force: :cascade do |t|
@@ -192,9 +194,7 @@ ActiveRecord::Schema.define(version: 20151228200649) do
     t.integer  "business_id",                              null: false
     t.integer  "customer_id",                              null: false
     t.integer  "points",                   default: 0,     null: false
-    t.datetime "last_visit_at"
     t.datetime "welcome_reward_valid_at"
-    t.datetime "last_exit_at"
     t.integer  "campaign_id"
     t.datetime "exit_campaign_expires_at"
     t.boolean  "notified",                 default: false, null: false
@@ -245,6 +245,65 @@ ActiveRecord::Schema.define(version: 20151228200649) do
   add_index "referrals", ["customer_id"], name: "index_referrals_on_customer_id", using: :btree
   add_index "referrals", ["referrer_id"], name: "index_referrals_on_referrer_id", using: :btree
   add_index "referrals", ["share_link_id"], name: "index_referrals_on_share_link_id", using: :btree
+
+  create_table "rpush_apps", force: :cascade do |t|
+    t.string   "name",                                null: false
+    t.string   "environment"
+    t.text     "certificate"
+    t.string   "password"
+    t.integer  "connections",             default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",                                null: false
+    t.string   "auth_key"
+    t.string   "client_id"
+    t.string   "client_secret"
+    t.string   "access_token"
+    t.datetime "access_token_expiration"
+  end
+
+  create_table "rpush_feedback", force: :cascade do |t|
+    t.string   "device_token", limit: 64, null: false
+    t.datetime "failed_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "app_id"
+  end
+
+  add_index "rpush_feedback", ["device_token"], name: "index_rpush_feedback_on_device_token", using: :btree
+
+  create_table "rpush_notifications", force: :cascade do |t|
+    t.integer  "badge"
+    t.string   "device_token",      limit: 64
+    t.string   "sound",                        default: "default"
+    t.string   "alert"
+    t.text     "data"
+    t.integer  "expiry",                       default: 86400
+    t.boolean  "delivered",                    default: false,     null: false
+    t.datetime "delivered_at"
+    t.boolean  "failed",                       default: false,     null: false
+    t.datetime "failed_at"
+    t.integer  "error_code"
+    t.text     "error_description"
+    t.datetime "deliver_after"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "alert_is_json",                default: false
+    t.string   "type",                                             null: false
+    t.string   "collapse_key"
+    t.boolean  "delay_while_idle",             default: false,     null: false
+    t.text     "registration_ids"
+    t.integer  "app_id",                                           null: false
+    t.integer  "retries",                      default: 0
+    t.string   "uri"
+    t.datetime "fail_after"
+    t.boolean  "processing",                   default: false,     null: false
+    t.integer  "priority"
+    t.text     "url_args"
+    t.string   "category"
+  end
+
+  add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
 
   create_table "schedules", force: :cascade do |t|
     t.string  "title",                        null: false
@@ -308,15 +367,17 @@ ActiveRecord::Schema.define(version: 20151228200649) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
-    t.integer  "customer_id",             null: false
-    t.integer  "location_id",             null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "total",       default: 0
+    t.integer  "customer_id",   null: false
+    t.integer  "location_id",   null: false
+    t.datetime "last_visit_at"
+    t.datetime "last_exit_at"
+    t.integer  "total"
   end
 
   add_index "visits", ["customer_id"], name: "index_visits_on_customer_id", using: :btree
   add_index "visits", ["location_id"], name: "index_visits_on_location_id", using: :btree
 
+  add_foreign_key "businesses", "users"
   add_foreign_key "campaigns", "businesses"
   add_foreign_key "campaigns", "schedules"
   add_foreign_key "greetings", "businesses"
