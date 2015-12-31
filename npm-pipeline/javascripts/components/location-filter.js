@@ -13,35 +13,29 @@ Notes:
 
 
 
-
 module.exports = function() {
-
-  updateUrl()
-
-}
-
-
-
-
-updateUrl = function() {
 
 
   // Listen for location selections
   // and perform necessary logic
 
   // #locationFilter present on the select element
+  var locationFilter = $('#locationFilter')
 
-  $('#locationFilter').selectBox().change(function () {
+  if ( locationFilter !== undefined || locationFilter !== null ) {
 
-      // Get the id of the selected location 
+    $('#locationFilter').selectBox().change(function () {
 
-      var targetURL = $(this).val()
+        // Get the id of the selected location 
 
-      
-      // navigate the window to the new url
+        var targetURL = $(this).val()
 
-      window.location = targetURL
+        
+        // navigate the window to the new url
 
-  })
+        window.location = targetURL
+
+    })
+  }
 
 }

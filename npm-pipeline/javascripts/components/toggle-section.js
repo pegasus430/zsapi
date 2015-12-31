@@ -22,7 +22,6 @@ var nextBtns = $('.toggle-section_btn-next')
 var prevBtns = $('.toggle-section_btn-prev')
 
 
-
 module.exports = function() {
 
   // First, remove first and last btns
@@ -35,15 +34,17 @@ module.exports = function() {
   $(window).on("load", function() {
 
     toggle()
+    
+
+    // Set event listeners on the next/prev btns
+    setButtons()
 
   })
 
 
-  // Set event listeners on the next/prev btns
-
-  setButtons()
 
 } // end exports
+
 
 
 
@@ -79,6 +80,7 @@ var toggle = function() {
       section.prev().find('h2')
         .attr('id', 'toggle-'+i)
         .addClass('section-toggle')
+
 
 
       // Click Listener
@@ -165,26 +167,18 @@ var setButtons = function() {
 
   nextBtns.each(function(i) {
     $(this).on('click', function(e) {
-
       e.preventDefault()
 
-      nextIndex = i + 1
-
-      var nextTarget = $('#toggle-'+nextIndex)
-      updateToggle(nextTarget)
+      updateToggle($('#toggle-'+(i+1)))
 
     })
   })
 
   prevBtns.each(function(i) {
     $(this).on('click', function(e) {
-
       e.preventDefault()
 
-      prevIndex = i - 1
-
-      var prevTarget = $('#toggle-'+prevIndex)
-      updateToggle(prevTarget)
+      updateToggle($('#toggle-'+(i-1)))
 
     })
   })

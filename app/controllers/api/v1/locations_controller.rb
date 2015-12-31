@@ -31,7 +31,9 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		      "longitude" => ,
 		      "status" => ,
 		      "points" => , 	# The current customer's points for this location
-		      "visits" =>   	# The number of checkins for the current customer at this location
+		      "visits" => ,  	# The number of checkins for the current customer at this location
+		      "beacon" => {Beacon Object},
+		      "photos" => [{Location Photos Object}]
 		    },
 		    # ...
 		  ]
@@ -61,7 +63,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
 				status: 		 loc.status,
 				points: 		 current_customer.membership_for(loc.business).points,
 				visits: 		 current_customer.total_visits_for(loc),
-				beacon:      beacon
+				beacon:      beacon,
+				photos: 		 loc.location_photos
 			})
 		else
 			error! :not_found

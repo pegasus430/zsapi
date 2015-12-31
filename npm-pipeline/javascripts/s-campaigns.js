@@ -1,6 +1,21 @@
+
+
+/*
+Toggleable Sections
+*/
+
+var toggleSections = require('./components/toggle-section');
+toggleSections();
+
+
+
+
+/*
+Modal Gallery
+*/
+
 var modalGallery = require('./components/modal-gallery');
 modalGallery();
-
 
 
 
@@ -18,16 +33,3 @@ locationFilter();
 
 var listOverflowMore = require('./components/list-overflow-more');
 listOverflowMore();
-
-
-
-
-
-
-
-/*
-Toggleable Sections
-*/
-
-var toggleSections = require('./components/toggle-section');
-toggleSections();

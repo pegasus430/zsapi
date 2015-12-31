@@ -1,10 +1,30 @@
-<%= modal :large, id: "cropImageModal", title: "Live Image Crop",
+<%# 
+
+CROP MODAL
+
+Notes:
+- To allow for multiple upload modals on a page, there's a default 
+  id (#cropImageModal) and the ability to pass-in a custom id
+  ex (in erb): render 'shared/crop_modal', resource: @location.location_photos[0], id: "cropImageModal-0"
+
+ %>
+
+
+<%# Default ID %>
+
+<% id ||= "cropImageModal" %>
+
+
+
+<%# Modal module id%>
+
+<%= modal :large, id: id, classes: "js-cropModal", title: "Live Image Crop",
     body: capture { %>
 
-    <div class="row mb">
+    <div class="row mb <%= id %>">
       <div class="col-xs-12">
         <div class="file-upload">
-          <a href="#" id="findImage" class="btn btn-browse upload-trigger">Browse</a>
+          <a href="#" class="findImage btn btn-browse upload-trigger">Browse</a>
           <%= file_field_tag "uploaded_image", accept: "image/*", class: "file_field" %>
           <span>Choose a file</span>
         </div>
@@ -14,7 +34,7 @@
     <div class="row form-set">
      <div class="col-md-6">
     
-         <div class="imageBox" id="avatarBox">
+         <div class="imageBox avatarBox">
             <div class="thumbBox"></div>
             <div class="spinner" style="display: none">
               Loading...
@@ -22,9 +42,9 @@
          </div>
     
          <div class="action">
-             <input type="button" id="btnZoomIn" class="btnZoomIn avatar btn btn-default disabled" value="+">
-             <input type="button" id="btnZoomOut" class="btnZoomOut avatar btn btn-default disabled" value="-">
-             <input type="button" id="btnCrop" class="btnCrop avatar btn btn-default disabled" value="Preview Crop">
+             <input type="button" class="btnZoomIn avatar btn btn-default disabled" value="+">
+             <input type="button" class="btnZoomOut avatar btn btn-default disabled" value="-">
+             <input type="button" class="btnCrop avatar btn btn-default disabled" value="Preview Crop">
          </div>
      </div>
      <div class="col-md-6">
@@ -34,7 +54,7 @@
      </div>
     </div>
 <% }, footer: capture { %>
-  <button id="btnSaveClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close">
+  <button type="button" class="btnSaveClose btn btn-default pull-right" data-dismiss="modal" aria-label="Close">
     Save and Close Window
   </button>
 <% } %>

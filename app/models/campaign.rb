@@ -17,6 +17,9 @@ class Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :schedule
 
   validates :type_of, :title, :discount_amount, :discount_type, :start_at, presence: true
+  validates :title, length: {maximum: 20}
+  validates :description, length: {maximum: 60}, allow_blank: true
+
   validates :reward_cost, numericality: { greater_than: 0 }, if: -> { type_of == 'reward' }
 
   has_attached_file :image, styles: { index: '210x170', :medium => "630x510" }, default_url: 'img-placeholder.png'

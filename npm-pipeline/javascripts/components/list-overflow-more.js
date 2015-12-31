@@ -3,40 +3,37 @@ var entriesList = $('.overflow-more')
 
 
 
+
 module.exports = function() {
 
-  overflowMore()
+  if ( entriesList !== undefined || entriesList !== null ) { 
+
+    var index = 0 
+
+    entriesList.each(function() {
+      var td = $(this)
+      index++
+      
+
+      var entryLimit = td.data('entry-limit')
+      var entryArray = td.text().split(',')
+
+
+      if ( entryArray.length > entryLimit ) {
+
+
+        handleDOM(td, entryArray, entryLimit, index);
+     
+
+      }
+
+    })
+  } // end if
 
 }
 
 
 
-
-
-overflowMore = function() {
-
-  var index = 0 
-
-  entriesList.each(function() {
-    var td = $(this)
-    index++
-    
-
-    var entryLimit = td.data('entry-limit')
-    var entryArray = td.text().split(',')
-
-
-    if ( entryArray.length > entryLimit ) {
-
-
-      handleDOM(td, entryArray, entryLimit, index);
-   
-
-    }
-
-  })
-
-}
 
 
 
