@@ -16,6 +16,15 @@ class Beacon < ActiveRecord::Base
     subscription.start!
   end
 
+  def kontaktio
+    @kontaktio ||= Kontaktio.new(location.business.kontakt_api_key)
+    @kontaktio.device("proximity=#{uuid}")
+  end
+
+  def battery_level
+    kontaktio[:devices][:status][:batteryLevel] rescue nil
+  end
+
 
   private
 
