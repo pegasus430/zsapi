@@ -19,7 +19,7 @@ class Beacon < ActiveRecord::Base
   end
 
   def kontaktio
-    @kontaktio ||= Kontaktio.new(api_key: location.business.kontakt_api_key)
+    @kontaktio ||= Kontaktio.new(private_api_key: location.business.kontakt_api_key)
   end
 
   def device

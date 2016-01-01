@@ -5,10 +5,10 @@ class Kontaktio
 
 	def initialize(opts)
 		opts.reverse_merge!({
-			api_key: nil
+			private_api_key: nil
 		})
 
-		@api_key = opts[:api_key]
+		@private_api_key = opts[:private_api_key]
 	end
 
 	def device(query="")
@@ -34,7 +34,7 @@ class Kontaktio
 
 	private
 
-		attr_accessor :api_key
+		attr_accessor :private_api_key
 
 		def get(path="")
 			send_curl("get", path)
@@ -50,7 +50,7 @@ class Kontaktio
 			headers = {
 				'Content-Type' => "application/x-www-form-urlencoded",
 				'Accept'       => "application/vnd.com.kontakt+json;version=5",
-				'Api-Key'      => @api_key
+				'Api-Key'      => @private_api_key
 			}
 
 			connection = Excon.new(url)
