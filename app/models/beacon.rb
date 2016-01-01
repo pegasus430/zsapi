@@ -19,12 +19,15 @@ class Beacon < ActiveRecord::Base
   end
 
   def kontaktio
-    @kontaktio ||= Kontaktio.new(location.business.kontakt_api_key)
-    @kontaktio.device_by_unique_id(unique_id)
+    @kontaktio ||= Kontaktio.new(api_key: location.business.kontakt_api_key)
+  end
+
+  def device
+    kontaktio.device_by_unique_id(unique_id) rescue nil
   end
 
   def battery_level
-    kontaktio[:status][:batteryLevel] rescue nil
+    kontaktio.device_status(unique_id) rescue nil
   end
 
 

@@ -3,8 +3,12 @@ class Kontaktio
 
 	attr_accessor :response
 
-	def initialize(api_key)
-		@api_key = api_key
+	def initialize(opts)
+		opts.reverse_merge!({
+			api_key: nil
+		})
+
+		@api_key = opts[:api_key]
 	end
 
 	def device(query="")
