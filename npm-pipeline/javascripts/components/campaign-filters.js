@@ -17,58 +17,77 @@ Notes:
 
 module.exports = function() {
 
+  // Get the two filters
 
   var filterStatus = $('#campaignFilter-status')
   var filterType   = $('#campaignFilter-type')
 
+  
+  // Get each of their values
+
+  var initialStatus = $('#campaignFilter-status :selected').val().toLowerCase()
+  var initialType   = $('#campaignFilter-type :selected').val().toLowerCase()
+
+
+  // Set their values in an object
 
   var urlObject = {
-    type: '',
-    status: ''
+    type: initialType,
+    status: initialStatus
   };
+
+
+  // Helper function for updating the url on change of filter value
 
   function updateURL() {
    
     return Object.keys(urlObject).map(function(k) {
       return encodeURIComponent(urlObject[k])
-    }).join('/')    
+    }).join('/')
 
   }
 
   
   /*
-  URI Pattern = campaigns/:type/:status
+  Update url on filter
+  URI Pattern: campaigns/:type/:status
   */
 
+
+  // Status filter
 
   if ( filterStatus !== undefined || filterStatus !== null ) {
 
     filterStatus.selectBox().change(function() {
 
+      // Update the status property
+
       urlObject.status = $(this).val().toLowerCase()
       
-      console.log(updateURL())
-      console.log(window.location)
-      // window.location.pathname = 'campaigns/' + updateURL()
+      // Update the url
+
+      window.location.pathname = 'campaigns/' + updateURL()
 
     })
-
-
   }
+
+
+  // Type filter
 
   if ( filterType !== undefined || filterType !== null ) {
 
     filterType.selectBox().change(function() {
 
+      // Update the type propery 
+
       urlObject.type = $(this).val().toLowerCase()
 
-      console.log(updateURL())
-      console.log(window.location)
-      // window.location.pathname = 'campaigns/' + updateURL()
+
+      // Update the url 
+
+      window.location.pathname = 'campaigns/' + updateURL()
 
     })
-
-
   }
 
 
