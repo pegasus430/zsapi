@@ -1,0 +1,24 @@
+<select id="campaignFilter-<%= type_of[:content] %>" class="selectBox2">
+  
+  <% type_of[:options].each do |option| %>
+  
+    <%# Filter - Status %>
+
+    <% if ( type_of[:content] == "status" ) %>
+
+      <option id="<%= campaigns_url(status: option, type: params[:type]) %>"><%= option.capitalize %></option>
+
+
+
+    <%# Fitler - Type %>
+
+    <% else %>
+
+      <option id"<%= campaigns_url(type: option, status: params[:status]) %>"><%= option.capitalize %></option>
+
+    <% end %>
+
+
+  <% end %>
+  
+</select>
