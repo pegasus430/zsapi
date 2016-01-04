@@ -19,11 +19,11 @@
       </div>
       <%# Filter - status %>
       <div class="col-xs-5 col-sm-3 col-md-2">
-        <%= render 'filter', type_of: { content: "status", options: ["all", "featured", "active", "inactive"] } %>
+        <%= render 'filter', filter_type: "status", options: Campaign.statuses.keys.unshift("all") %>
       </div>
       <%# Filter - type %>
       <div class="col-xs-5 col-sm-3 col-md-2">
-        <%= render 'filter', type_of: { content: "type", options: ["all", "coupon", "reward", "special"] } %>
+        <%= render 'filter', filter_type: "type", options: Campaign.type_ofs.keys.unshift("all") %>
       </div>
     </div>
     
