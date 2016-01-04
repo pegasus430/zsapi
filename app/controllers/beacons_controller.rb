@@ -9,7 +9,7 @@ class BeaconsController < ApplicationController
 
   # POST /beacon/:key
   def update
-    if params[:beacon][:uid] != params[:beacon][:uuid_confirmation]
+    if params[:beacon][:uid] != params[:beacon][:uid_confirmation]
       flash[:alert] = "Your UID does not match!"
       return render :edit
     end

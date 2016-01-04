@@ -101,8 +101,8 @@ Rails.application.routes.draw do
       get '/customers/feed',                to: 'customers#feed'
       get '/customers/visits',              to: 'customers#visits'
 
-      # Finds a location via UUID
-      get '/beacons/:uuid/location',            to: 'locations#show'
+      # Finds a location via UID
+      get '/beacons/:uid/location',            to: 'locations#show'
 
       # Locations
       get '/locations/:id',                     to: 'locations#show'

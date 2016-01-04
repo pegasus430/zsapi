@@ -42,7 +42,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 	def show
 		if params[:id]
 			loc = Location.find(params[:id])
-		elsif params[:uuid]
+		elsif params[:uid]
 			loc = Beacon.find_by_uid(params[:uid]).location
 		end
 
