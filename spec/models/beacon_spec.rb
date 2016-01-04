@@ -12,15 +12,15 @@ RSpec.describe Beacon, type: :model do
 		end
 
   	# Presence
-  	it "allows a blank uuid on creation" do
+  	it "allows a blank uid on creation" do
   		expect{
-  			FactoryGirl.create(:beacon, uuid: nil)
+  			FactoryGirl.create(:beacon, uid: nil)
 			}.to change{Beacon.count}.by 1
 	 	end
 
-  	it "requires a uuid on update" do
-  		beacon = FactoryGirl.create(:beacon, uuid: nil)
-  		beacon.uuid = nil
+  	it "requires a uid on update" do
+  		beacon = FactoryGirl.create(:beacon, uid: nil)
+  		beacon.uid = nil
 	  	expect(beacon).not_to be_valid
 	 	end
 	end

@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20151231235346) do
     t.datetime "updated_at",               null: false
     t.integer  "status",       default: 0, null: false
     t.string   "creation_key"
-    t.string   "unique_id"
+    t.string   "uid"
   end
 
   add_index "beacons", ["location_id"], name: "index_beacons_on_location_id", using: :btree

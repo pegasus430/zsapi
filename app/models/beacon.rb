@@ -6,7 +6,7 @@ class Beacon < ActiveRecord::Base
   belongs_to :location
   has_one :subscription, through: :location
 
-  validates :uuid, presence: true, confirmation: true, on: :update
+  validates :unique_id, presence: true, confirmation: true, on: :update
 
   before_create :generate_random_key
 
@@ -19,7 +19,7 @@ class Beacon < ActiveRecord::Base
   end
 
   def kontaktio
-    @kontaktio ||= Kontaktio.new(private_api_key: location.business.kontakt_api_key)
+    @kontaktio ||= Kontaktio.new(private_api_key: ENV['KONTAKT_API_KEY'])
   end
 
   def device

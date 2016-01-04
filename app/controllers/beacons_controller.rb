@@ -9,12 +9,12 @@ class BeaconsController < ApplicationController
 
   # POST /beacon/:key
   def update
-    if params[:beacon][:uuid] != params[:beacon][:uuid_confirmation]
-      flash[:alert] = "Your UUID does not match!"
+    if params[:beacon][:uid] != params[:beacon][:uuid_confirmation]
+      flash[:alert] = "Your UID does not match!"
       return render :edit
     end
 
-    @beacon.uuid = params[:beacon][:uuid]
+    @beacon.uid = params[:beacon][:uid]
     @beacon.creation_key = nil
     @beacon.status = 'shipped'
 
@@ -23,7 +23,7 @@ class BeaconsController < ApplicationController
       
       render :success
     else
-      flash[:alert] = "The UUID you entered is invalid."
+      flash[:alert] = "The UID you entered is invalid."
       render :edit
     end
   end
@@ -35,7 +35,7 @@ class BeaconsController < ApplicationController
 
   private
     def beacon_params
-      params.require(:beacon).permit(:uuid)
+      params.require(:beacon).permit(:uid)
     end
 
     def validate_key
