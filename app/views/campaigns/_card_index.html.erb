@@ -1,7 +1,6 @@
 <% unless @campaigns.nil? %>
 
-  <div class="row masonryContainer">
-    <!-- <div id="masonrySizer" class="col-sm-4 col-md-3"></div> -->
+  <div class="row">
     <% @campaigns.each do |c| %>
       <div class="campaign-card_wrap col-sm-4 col-md-3">
         <div class="campaign-card">
@@ -27,3 +26,7 @@
   </div>
 
 <% end %>
+
+<%# Note: Masonry removed via commit #
+7d0fb400dd18ddec161eade2de23989f82307196
+%>
