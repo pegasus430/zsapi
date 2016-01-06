@@ -1,3 +1,7 @@
+//= require s-receipts
+
+
+
 // Remotely load the receipt-show page
 
 (function($) {
@@ -11,7 +15,6 @@
     });
   });
 })(jQuery);
-
 
 
 //= require shared/dateSorter
