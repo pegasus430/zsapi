@@ -6,12 +6,11 @@
     <% if ( filter_type == "status" ) %>
       <option id="<%= campaigns_url(status: option, type: params[:type]) %>" <%= selected %>><%= option.capitalize %></option>
 
-    <%# Fitler - Type %>
+    <%# Filter - Type %>
     <% else %>
       <option id"<%= campaigns_url(type: option, status: params[:status]) %>" <%= selected %>><%= option.capitalize %></option>
 
     <% end %>
-
 
   <% end %>
 </select>
