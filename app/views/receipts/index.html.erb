@@ -16,8 +16,11 @@
         <h4>Filter by Date</h4>
       </div>
       <div class="col-xs-10">
+        <%# Filter form %>
         <form action="<%= receipts_url %>" method="get">
+          <%# Start date %>
           <input type="text" name="start_date" value="<%= params[:start_date] %>">
+          <%# End date %>
           <input type="text" name="end_date" value="<%= params[:end_date] %>">
           <input type="submit">
           
@@ -57,7 +60,7 @@
     </div>
 
 
-    <!-- Modal -->
+    <%# Modal %>
     <div class="modal fade" id="viewReceiptModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
