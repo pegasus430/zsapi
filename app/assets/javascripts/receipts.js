@@ -1,3 +1,5 @@
+//= require shared/datepicker
+
 //= require s-receipts
 
 
