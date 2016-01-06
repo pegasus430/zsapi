@@ -32,8 +32,12 @@
           </div>
           <%# End date %>
           <div class="input-group date mb3">
-            <input class="mr2" style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <div class="relative left">
+              <input class="mr2" style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
+            </div>
+            <div class="relative left">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
           </div>
           <%# Submit %>
           <input type="submit" class="no-fit btn btn-default btn-submit caps m0">
