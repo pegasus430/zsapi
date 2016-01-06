@@ -8,6 +8,11 @@ class ReceiptsController < ApplicationController
       receipts = current_user.business.receipts
     end
 
+    # Validate each query-string param
+    %w(start_date end_date).each do |d|
+      params[d.to_s] = Date.parse(params[d.to_s]) rescue nil
+    end
+
     if params[:start_date] && params[:end_date]
       receipts = receipts.where(purchased_on: params[:start_date]..params[:end_date])
     elsif params[:start_date]

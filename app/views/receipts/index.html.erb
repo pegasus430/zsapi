@@ -12,15 +12,23 @@
     </div>
 
     <div class="row filter-options">
-      <div class="col-xs-2 col-sm-1">
-        <h4>View</h4>
+      <div class="col-xs-2">
+        <h4>Filter by Date</h4>
       </div>
-      <div class="col-xs-10 col-sm-11">
-        <select class="selectBox2">
-          <% %w(all today 30_days).each do |w| %>
-            <option id="<%= receipts_url(span: w) %>"><%= w.humanize.capitalize %></option>
+      <div class="col-xs-10">
+        <form action="<%= receipts_url %>" method="get">
+          <input type="text" name="start_date" value="<%= params[:start_date] %>">
+          <input type="text" name="end_date" value="<%= params[:end_date] %>">
+          <input type="submit">
+          
+          <% if params[:start_date] %>
+            <%# We only need to show this if the params are set.
+                Since end_date is optional we only check for the
+                presence of start_date.
+            %>
+            <a href="<%= receipts_url %>" class="btn">Clear Filters</a>
           <% end %>
-        </select>
+        </form>
       </div>
     </div>
 
