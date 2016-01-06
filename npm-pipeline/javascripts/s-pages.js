@@ -21,5 +21,5 @@ locationFilter()
 
 
 
-var masonryLayout = require('./components/dash-masonry')
-masonryLayout()
+// var masonryLayout = require('./components/dash-masonry')
+// masonryLayout()
