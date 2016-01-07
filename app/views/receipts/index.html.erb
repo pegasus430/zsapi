@@ -15,31 +15,35 @@
       <div class="col-xs-2">
         <h4>Filter by Date</h4>
       </div>
-      <div class="col-xs-10">
+      <%# Filter form %>
+      <form action="<%= receipts_url %>" method="get">
 
-      
-
-        <%# Filter form %>
-        <form action="<%= receipts_url %>" method="get">
-          <%# Start date %>
-          <div class="input-group date">
+        <%# Start date %>
+        <div class="col-xs-4 col-sm-3">
+          <div class="input-group date" data-format="yyyy-mm-dd">
             <div class="relative left">
               <input class="mr2" style="width: 126px" type="text" name="start_date" placeholder="start" value="<%= params[:start_date] %>">
             </div>
             <div class="relative left">
-              <div class="input-group-addon"><i class="glyphicon glyphicon-th"></i></div>
+              <div class="input-group-addon"></div>
             </div>
           </div>
-          <%# End date %>
-          <div class="input-group date mb3">
+        </div>
+        
+        <%# End date %>
+        <div class="col-xs-4 col-sm-3">
+          <div class="input-group date mb3" data-format="yyyy-mm-dd">
             <div class="relative left">
               <input class="mr2" style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
             </div>
             <div class="relative left">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+              <span class="input-group-addon"></span>
             </div>
           </div>
-          <%# Submit %>
+        </div>
+        
+        <%# Submit %>
+        <div class="col-xs-2 col-sm-4">
           <input type="submit" class="no-fit btn btn-default btn-submit caps m0">
           <% if params[:start_date] %>
             <%# We only need to show this if the params are set.
@@ -49,8 +53,8 @@
             <br>
             <a href="<%= receipts_url %>" class="mt2 btn btn-reject no-fit">Clear Filters</a>
           <% end %>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
 
   <% unless @approved_receipts.blank? %>
