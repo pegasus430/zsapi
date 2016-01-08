@@ -25,6 +25,8 @@ class Campaign < ActiveRecord::Base
   has_attached_file :image, styles: { index: '210x170', :medium => "630x510" }, default_url: 'img-placeholder.png'
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
+  after_create :notify_customers_with_push_notification
+
   scope :valid_for, ->(date) {
   	# Add '99' (the last day criteria) to the query if 'date.day' is equal to the last day of the month
   	add_last_day = (date.day == date.end_of_month.day) ? Schedule::LAST_DAY : nil
@@ -65,5 +67,21 @@ class Campaign < ActiveRecord::Base
   def image_url
     image.url
   end
+
+  private
+
+    def notify_customers_with_push_notification
+      if active?
+        business.customers.each do |c|
+          c.create_push_notification(
+            alert: "#{location.business.name} has added a new campaign. Go to the store to find out more!",
+            deliver_now: false
+          )
+        end
+
+        Rpush.push
+        Rpush.apns_feedback
+      end
+    end
 
 end
