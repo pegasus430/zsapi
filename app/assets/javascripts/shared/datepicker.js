@@ -18,7 +18,7 @@ var initDatepicker = function(){
 var theFormat
 
 	if ( $specifiedFormat !== undefined || $specifiedFormat !== null ) {
-		theFormat = $datePickerObject.data("format")
+		theFormat = $specifiedFormat
 	}
 	else {
 		theFormat = "mm/dd/yyyy"
