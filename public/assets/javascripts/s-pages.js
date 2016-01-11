@@ -19,7 +19,7 @@ module.exports = function() {
 
   // Listen for location selections
   // and perform necessary logic
-
+  
   // #locationFilter present on the select element
   var locationFilter = $('#locationFilter')
 
@@ -60,7 +60,6 @@ Notes:
 
 var locationFilter = require('./components/location-filter') 
 locationFilter()
-
 
 
 
