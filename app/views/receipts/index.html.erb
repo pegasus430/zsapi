@@ -22,7 +22,7 @@
         <div class="col-xs-4 col-sm-3">
           <div class="input-group date" data-format="yyyy-mm-dd">
             <div class="relative left">
-              <input class="mr2" style="width: 126px" type="text" name="start_date" placeholder="start" value="<%= params[:start_date] %>">
+              <input style="width: 126px" type="text" name="start_date" placeholder="start" value="<%= params[:start_date] %>">
             </div>
             <div class="relative left">
               <div class="input-group-addon"></div>
@@ -34,24 +34,23 @@
         <div class="col-xs-4 col-sm-3">
           <div class="input-group date mb3" data-format="yyyy-mm-dd">
             <div class="relative left">
-              <input class="mr2" style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
+              <input style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
             </div>
             <div class="relative left">
-              <span class="input-group-addon"></span>
+              <div class="input-group-addon"></div>
             </div>
           </div>
         </div>
         
         <%# Submit %>
-        <div class="col-xs-2 col-sm-4">
-          <input type="submit" class="no-fit btn btn-default btn-submit caps m0">
+        <div class="col-xs-2 col-sm-4 mt2">
+          <input type="submit" class="no-fit btn btn-submit caps m0">
           <% if params[:start_date] %>
             <%# We only need to show this if the params are set.
                 Since end_date is optional we only check for the
                 presence of start_date.
             %>
-            <br>
-            <a href="<%= receipts_url %>" class="mt2 btn btn-reject no-fit">Clear Filters</a>
+            <a href="<%= receipts_url %>" class="no-fit btn btn-reject m0">Clear</a>
           <% end %>
         </div>
       </form>

@@ -26,6 +26,6 @@ var initDatepicker = function(){
   });
 }
 
-if ($datePickerObject.length) {
+if ( $datePickerObject.length ) {
 	initDatepicker();
 }
