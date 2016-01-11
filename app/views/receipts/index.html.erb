@@ -11,39 +11,35 @@
       </div>
     </div>
 
-    <div class="row filter-options">
-      <div class="col-xs-2">
-        <h4>Filter by Date</h4>
+    <div class="filter-options">
+      <div class="left mb3 mr3">
+        <h4 class="caps m0">Filter<br> by Date:</h4>
       </div>
       <%# Filter form %>
       <form action="<%= receipts_url %>" method="get">
 
         <%# Start date %>
-        <div class="col-xs-4 col-sm-3">
-          <div class="input-group date" data-format="yyyy-mm-dd">
-            <div class="left">
-              <input style="width: 126px" type="text" name="start_date" placeholder="start" value="<%= params[:start_date] %>">
-            </div>
-            <div class="left">
-              <div class="input-group-addon"></div>
-            </div>
+        <div class="left mr3 input-group date" data-format="yyyy-mm-dd">
+          <div class="left">
+            <input class="m0" style="width: 120px" type="text" name="start_date" placeholder="start" value="<%= params[:start_date] %>">
+          </div>
+          <div class="left">
+            <div class="input-group-addon"></div>
           </div>
         </div>
         
         <%# End date %>
-        <div class="col-xs-4 col-sm-3">
-          <div class="relative input-group date mb3" data-format="yyyy-mm-dd">
-            <div class="left">
-              <input style="width: 126px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
-            </div>
-            <div class="left">
-              <div class="input-group-addon"></div>
-            </div>
+        <div class="left mr3 input-group date mb2" data-format="yyyy-mm-dd">
+          <div class="left">
+            <input class="m0" style="width: 120px" type="text" name="end_date" placeholder="end" value="<%= params[:end_date] %>">
+          </div>
+          <div class="left">
+            <div class="input-group-addon"></div>
           </div>
         </div>
-        
+
         <%# Submit %>
-        <div class="col-xs-2 col-sm-4 mt2">
+        <div class="pt2">
           <input type="submit" class="no-fit btn btn-submit caps m0">
           <% if params[:start_date] %>
             <%# We only need to show this if the params are set.
@@ -53,6 +49,7 @@
             <a href="<%= receipts_url %>" class="no-fit btn btn-reject m0">Clear</a>
           <% end %>
         </div>
+        <div class="clearfix"></div>
       </form>
     </div>
 
@@ -92,7 +89,7 @@
   <% else %> <%# !receipts %>
 
     <div id="no-records">
-      <h2>No Receipts!</h2>
+      <h2 class="nowrap">No Receipts!</h2>
       <p>There are no approved receipts available to show.</p>
     </div>
 
