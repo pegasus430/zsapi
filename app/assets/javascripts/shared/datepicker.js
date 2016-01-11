@@ -8,14 +8,20 @@
 // This is put into a function so that it can be
 // easily reloaded in ajax calls (admin receipt manager)
 
-var $datePickerObject = $('.input-group.date');
+
+var $datePickerObject = $('.input-group.date')
+var $specifiedFormat = $datePickerObject.data("format")
+
+
 
 var initDatepicker = function(){
-	if ( $datePickerObject.data("format").length ) {
-		theFormat = $datePickerObject.data("format");
+var theFormat
+
+	if ( $specifiedFormat !== undefined || $specifiedFormat !== null ) {
+		theFormat = $datePickerObject.data("format")
 	}
 	else {
-		theFormat = "mm/dd/yyyy";
+		theFormat = "mm/dd/yyyy"
 	}
 
   $datePickerObject.datepicker({
@@ -23,9 +29,12 @@ var initDatepicker = function(){
     orientation: 'top',
     todayHighlight: true,
     format: theFormat
-  });
+  })
 }
 
-if ( $datePickerObject.length ) {
-	initDatepicker();
+
+
+
+if ( $datePickerObject !== undefined || $datePickerObject !== null ) {
+	initDatepicker()
 }

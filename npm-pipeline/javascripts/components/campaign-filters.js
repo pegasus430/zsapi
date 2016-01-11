@@ -23,10 +23,17 @@ module.exports = function() {
   var filterType   = $('#campaignFilter-type')
 
   
-  // Get each of their values
+  // Get each of their values,
+  // lowercasing only if there's a value, otherwise
+  // they'll be a runtime error
 
-  var initialStatus = $('#campaignFilter-status :selected').val().toLowerCase()
-  var initialType   = $('#campaignFilter-type :selected').val().toLowerCase()
+  var initialStatus = $('#campaignFilter-status :selected').val()
+  if ( initialStatus.length ) 
+    initialStatus = initialStatus.toLowerCase()
+
+  var initialType = $('#campaignFilter-type :selected').val()
+  if ( initialType.length ) 
+    initialType = initialType.toLowerCase()
 
 
   // Set their values in an object
