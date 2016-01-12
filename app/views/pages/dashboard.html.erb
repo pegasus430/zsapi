@@ -2,16 +2,20 @@
 
 <%= wrapper do %>
 
-	<div class="row mb-gutter">
-	  <div class="col-xs-12 col-sm-4">
+	<div class="mb-gutter">
+	  <div class="page-top_left">
 	    <h2>Your Campaigns</h2>
 	  </div>
-	  <div class="col-xs-6 col-sm-5">
-	    <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+	  <div class="page-top_utils">
+		  <%# location selector floated right, which is why it's here in the DOM %>
+		  <div class="page-top_right" style="max-width: 240px; min-width: 100px;">
+	      <%= render 'shared/location_selector', type_of: {controller: :locations, action: :show, use_id_for_location: true} %>
+		  </div>
+		  <div class="page-top_center">
+		    <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+		  </div>
 	  </div>
-	  <div class="col-xs-6 col-sm-3">
-      <%= render 'shared/location_selector', type_of: {controller: :locations, action: :show, use_id_for_location: true} %>
-	  </div>
+	  <div class="clearfix"></div>
 	</div>
 
 	<%# CAMPAIGN CONTENT %>
