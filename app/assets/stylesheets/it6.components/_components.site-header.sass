@@ -51,9 +51,6 @@
     padding-left: 15px
 
 
-.header-right 
-  float: right
-
 .dropdown_bat-stat
   display: inline-block
   .ico 
@@ -72,7 +69,8 @@
       @include transition(.5s)
 
 .dropdown_bat-stat_ul
-  width: 250px
+  max-width: 250px
+  min-width: 205px
   li 
     a
       padding: 0 $row-gutter/2

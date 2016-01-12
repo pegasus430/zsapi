@@ -57,75 +57,70 @@
 		<%# HEADER Start %>
 		<header class="header">
 			<div class="container">
-				
-				<div class="row">
-					<div class="col-xs-3 col-sm-6">
-						<div id="navTrigger" class="nav-trigger"><i class="fa fa-bars"></i></div>
-						<div class="header-left">
-							<%= current_user.business.name %>
-						</div>
-					</div>
 
-					<div class="col-xs-9 col-sm-6">
-						<div class="header-right">
+				<div id="navTrigger" class="nav-trigger"><i class="fa fa-bars"></i></div>
+				<div class="header-left">
+					<%= current_user.business.name %>
+				</div>
 
-							<% unless current_user.business.locations.blank? %>
-								<div id="battery-status" class="dropdown_bat-stat dropdown">
-									<a class="ico" href="#" data-toggle="dropdown">
-										<%= image_tag('ico/ico_storeBattery.svg') %>
-									</a>
-									<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
-										<% current_user.locations.active.each do |location| %>
-											<li>
-												<%= link_to location do %>
-													<%= location.title %>
-													<div class="inline-block right">
-														<span class="percent-circle_wrap">
-															<!-- 
-																Percentage value and color handled by this div.
-																Color classes: 
-																	.percent-circle_color-orange 
-																	.percent-circle_color-yellow
-																	.percent-circle_color-green
-																	.percent-circle_color-red 
-																Percentage value: 
-																	- Handled by the attribute `data-percentage` 
-																	- Can be any positive integegar, 1 - 100 
-															-->
-															<div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
-																<div class="percent-circle_inner"></div>
-															</div>
-														</span>
-														<!-- Note: The value for this needs to be dynamic... should come from same source
-																			 as the above data-percentage attribute. -->
-														<span class="bat-stat_percent-text">75%</span>
-													</div>
-												<% end %>
-											</li>
-										<% end %>
-									</ul>
-								</div>
-							<% end %>
-		
-
-							<div id="your-account" class="dropdown header-site_dropdown-account">
-								<%= link_to edit_user_registration_url, id: "profile-label", class: "dropdown-account_primary-label", data: {target: '#', toggle: "dropdown"} do %>
-									Your Account
-									<% if current_user.business.in_trial? %>
-										(<%= current_user.business.trial_days_remaining %> days)
-									<% end %>
-								<% end %>
-							  <ul class="dropdown-menu arrow">
+				<div class="right">
+					<% unless current_user.business.locations.blank? %>
+						<div id="battery-status" class="dropdown_bat-stat dropdown">
+							<a class="ico" href="#" data-toggle="dropdown">
+								<%= image_tag('ico/ico_storeBattery.svg') %>
+							</a>
+							<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
+								<% current_user.locations.active.each do |location| %>
 									<li>
-										<%= link_to edit_user_registration_url do %>
-											<%= image_tag('ico/icon-profile.svg') %> Profile
+										<%= link_to location do %>
+											<div class="inline left m0 truncate" style="max-width: 98px">
+												<%= location.title %>
+											</div>
+											<div class="inline right">
+												<span class="percent-circle_wrap">
+													<!-- 
+														Percentage value and color handled by this div.
+														Color classes: 
+															.percent-circle_color-orange 
+															.percent-circle_color-yellow
+															.percent-circle_color-green
+															.percent-circle_color-red 
+														Percentage value: 
+															- Handled by the attribute `data-percentage` 
+															- Can be any positive integegar, 1 - 100 
+													-->
+													<div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
+														<div class="percent-circle_inner"></div>
+													</div>
+												</span>
+												<!-- Note: The value for this needs to be dynamic... should come from same source
+																	 as the above data-percentage attribute. -->
+												<span class="bat-stat_percent-text">75%</span>
+											</div>
 										<% end %>
 									</li>
-							    <li><a href="#"><%= image_tag('ico/icon-heart.svg') %> Help</a></li>
-							    <li><%= link_to image_tag('ico/icon-logout.svg') + "Log Out", destroy_user_session_path, method: :delete %></li>
-							  </ul>
-							</div>
+								<% end %>
+							</ul>
 						</div>
+					<% end %>
+
+
+					<div id="your-account" class="dropdown header-site_dropdown-account">
+						<%= link_to edit_user_registration_url, id: "profile-label", class: "dropdown-account_primary-label", data: {target: '#', toggle: "dropdown"} do %>
+							Your Account
+							<% if current_user.business.in_trial? %>
+								(<%= current_user.business.trial_days_remaining %> days)
+							<% end %>
+						<% end %>
+					  <ul class="dropdown-menu arrow">
+							<li>
+								<%= link_to edit_user_registration_url do %>
+									<%= image_tag('ico/icon-profile.svg') %> Profile
+								<% end %>
+							</li>
+					    <li><a href="#"><%= image_tag('ico/icon-heart.svg') %> Help</a></li>
+					    <li><%= link_to image_tag('ico/icon-logout.svg') + "Log Out", destroy_user_session_path, method: :delete %></li>
+					  </ul>
 					</div>
 				</div>
 			</div>
