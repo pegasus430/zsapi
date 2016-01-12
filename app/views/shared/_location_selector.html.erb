@@ -1,4 +1,4 @@
-<select id="locationFilter" class="fullWidth">
+<select id="locationFilter" class="mr3"> <%# margin right here to account for angle icon %>
 	<% current_user.locations.each do |l| %>
 		<%
 			url_for_opts = {
