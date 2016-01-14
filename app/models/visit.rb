@@ -33,7 +33,7 @@ class Visit < ActiveRecord::Base
     
     # Update the membership
     membership.increment(:points, points_earned )
-    membership.set_new_welcome_reward_valid_at(greeting.welcome_wait_time)
+    membership.set_new_welcome_reward_valid_at(1.send(greeting.welcome_wait_time))
     membership.save
 
     # Check if we have a valid exit-campaign to show

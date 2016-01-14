@@ -1,7 +1,7 @@
 class Greeting < ActiveRecord::Base
   include Locationable
   
-	has_many :locations, dependent: :nullify
+  has_many :locations, dependent: :nullify
   belongs_to :campaign
   belongs_to :business
 
@@ -26,28 +26,28 @@ class Greeting < ActiveRecord::Base
 
 
   def welcome_wait_time=(span)
-  	time_span = case span
-  	when 'day' 		then 1.day
-  	when 'week' 	then 1.week
-  	when 'month' 	then 1.month
+    time_span = case span
+    when 'day'    then 1.day
+    when 'week'   then 1.week
+    when 'month'  then 1.month
     else 1.day
-  	end
+    end
 
-  	self[:welcome_wait_time] = time_span.to_i
+    self[:welcome_wait_time] = time_span.to_i
   end
 
 
   private
     def generate_campaign_wait_time!
-    	quantity = (self[:campaign_wait_time_quantity].to_i > 0) ? self[:campaign_wait_time_quantity].to_i : 1
-    	span	   = (%w(day days week weeks month months).include?(self[:campaign_wait_time_span])) ? self[:campaign_wait_time_span] : 'days'
+      quantity = (self[:campaign_wait_time_quantity].to_i > 0) ? self[:campaign_wait_time_quantity].to_i : 1
+      span     = (%w(day days week weeks month months).include?(self[:campaign_wait_time_span])) ? self[:campaign_wait_time_span] : 'days'
 
-    	time_span = case span
-    	when 'day', 	'days' 		then 1.day.to_i
-    	when 'week', 	'weeks' 	then 1.week.to_i
-    	when 'month', 'months' 	then 1.month.to_i
-    	end
+      time_span = case span
+      when 'day',   'days'    then quantity.day.to_i
+      when 'week',  'weeks'   then quantity.week.to_i
+      when 'month', 'months'  then quantity.month.to_i
+      end
 
-    	self[:campaign_wait_time] = quantity * time_span
+      self[:campaign_wait_time] = time_span
     end
 end

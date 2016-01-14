@@ -33,7 +33,11 @@ RSpec.describe Visit, type: :model do
 			before :each do
 				@business = FactoryGirl.create(:business)
 				@customer = FactoryGirl.create(:customer)
-				@greeting = FactoryGirl.create(:greeting)
+				@greeting = FactoryGirl.create(:greeting, 
+					welcome_message: "Hey", 
+					welcome_reward: 100, 
+					welcome_wait_time: 'day'
+				)
 				@location = FactoryGirl.create(:location, business: @business, greeting: @greeting)
 			end
 
@@ -44,7 +48,7 @@ RSpec.describe Visit, type: :model do
 						customer: @customer,
 						campaign: nil,
 						welcome_reward_valid_at: nil,
-						points: 500
+						points: 0
 					)
 				end
 				
@@ -66,18 +70,36 @@ RSpec.describe Visit, type: :model do
 				it 'adds points earned to customer' do
 					result = @customer.check_in_to!(@location)
 					@membership.reload
-					expect(@membership.points).to eq 600
+					expect(@membership.points).to eq 100
+				end
+
+				it 'does not add the points to the customer twice' do
+					result = @customer.check_in_to!(@location)
+					result = @customer.check_in_to!(@location)
+					@membership.reload
+					expect(@membership.points).to eq 100
 				end
 			end
 
 
 			context '[Customer returned after exit]' do
 				before :each do
+					@business = FactoryGirl.create(:business)
+					@customer = FactoryGirl.create(:customer)
 					@campaign = FactoryGirl.create(:coupon)
+					@greeting = FactoryGirl.create(:greeting, 
+						welcome_message: "Hey", 
+						welcome_reward: 100, 
+						welcome_wait_time: 'day',
+						campaign: @campaign
+					)
+					@location = FactoryGirl.create(:location, business: @business, greeting: @greeting)
 					@membership = FactoryGirl.create(:membership,
 						business: @business,
-						customer: @customer,
-						campaign: @campaign)
+						customer: @customer)
+
+					@customer.check_in_to!(@location)
+					@customer.check_out_from!(@location)
 				end
 				
 				it 'returns the exit campaign' do
@@ -87,7 +109,7 @@ RSpec.describe Visit, type: :model do
 
 				context '[Before welcome_freq has expired]' do
 					it 'does not award points' do
-						@membership.welcome_reward_valid_at = Date.tomorrow
+						@membership.welcome_reward_valid_at = DateTime.tomorrow
 						@membership.save
 
 						result = @customer.check_in_to!(@location)
@@ -115,7 +137,11 @@ RSpec.describe Visit, type: :model do
 			before :each do
 				@business = FactoryGirl.create(:business)
 				@customer = FactoryGirl.create(:customer)
-				@greeting = FactoryGirl.create(:greeting)
+				@greeting = FactoryGirl.create(:greeting, 
+					welcome_message: "Hey", 
+					welcome_reward: 100, 
+					welcome_wait_time: 'day'
+				)
 				@location = FactoryGirl.create(:location, business: @business, greeting: @greeting)
 				@membership = FactoryGirl.create(:membership,
 					business: @business,
