@@ -93,8 +93,10 @@ Rpush.reflect do |on|
 
   # Called when the GCM returns a canonical registration ID.
   # You will need to replace old_id with canonical_id in your records.
-  # on.gcm_canonical_id do |old_id, canonical_id|
-  # end
+  on.gcm_canonical_id do |old_id, canonical_id|
+    c = Customer.find_by_gcm_token(old_id)
+    c.update_attributes(gcm_token: canonical_id)
+  end
 
   # Called when the GCM returns a failure that indicates an invalid registration id.
   # You will need to delete the registration_id from your records.
