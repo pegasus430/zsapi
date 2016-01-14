@@ -137,17 +137,25 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	desc "Test the notifications. Ensure the customer has an ios_token or a gcm_token set!"
 	example ""
 	def get_notification
-		if current_customer.ios_token
+		unless current_customer.ios_token.blank?
 			# IOS Notification
 			n = Rpush::Apns::Notification.new
-			n.app = Rpush::Apns::App.find_by_name("ios_sandbox")
+			n.app = Rpush::Apns::App.find_by_name("ios_production")
 			n.device_token = current_customer.ios_token
-			n.alert = "The notification has made it from the server to you!"
+			n.alert = "The notification has made it from the server to you on IOS!"
 			n.data = { foo: :bar }
 			n.save!
 
 			Rpush.push # TEMP TODO SET AS SCHEDULED SERVICE
 			Rpush.apns_feedback
+		end
+
+		unless current_customer.gcm_token.blank?
+			n = Rpush::Gcm::Notification.new
+			n.app = Rpush::Gcm::App.find_by_name("gcm_production")
+			n.registration_ids = [current_customer.gcm_token]
+			n.data = { message: "The notification has made it from the server to you on ANDROID!" }
+			n.save!
 		end
 	end
 
