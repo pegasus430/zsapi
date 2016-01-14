@@ -138,12 +138,20 @@ class Customer < ActiveRecord::Base
 		})
 
 		unless ios_token.blank?
-			ios_notification = Rpush::Apns::Notification.new
-			ios_notification.app = Rpush::Apns::App.find_by_name("ios_sandbox")
-			ios_notification.device_token = ios_token
-			ios_notification.alert = opts[:alert]
-			# ios_notification.data = { foo: :bar }
-			ios_notification.save!
+			n = Rpush::Apns::Notification.new
+			n.app = Rpush::Apns::App.find_by_name("ios_production")
+			n.device_token = ios_token
+			n.alert = opts[:alert]
+			# n.data = { foo: :bar }
+			n.save!
+		end
+
+		unless gcm_token.blank?
+			n = Rpush::Gcm::Notification.new
+			n.app = Rpush::Gcm::App.find_by_name("gcm_production")
+			n.registration_ids = [gcm_token]
+			n.data = { message: opts[:alert] }
+			n.save!
 		end
 
 		if opts[:deliver_now]
