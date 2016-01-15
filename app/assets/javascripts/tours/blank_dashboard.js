@@ -14,7 +14,9 @@
         title: 'Account and Help',
         content: 'Clicking your email address will give you the option to view help docs, edit your account, or log out from ZippySpot.',
         target: '#your-account',
-        placement: 'bottom'
+        placement: 'bottom',
+        arrowOffset: 252,
+        xOffset: -210
       }, {
         title: 'Sidebar',
         content: 'Your sidebar is always here and allows you to navigate the Zippy Spot app. You can collapse or expand the sidebar by clicking this icon.',
