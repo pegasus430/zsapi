@@ -50,46 +50,68 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
 
   # POST /share_link
   describe 'POST #create' do
-    before :each do
-      @customer = FactoryGirl.create(:customer)
-      controller.stub(:current_customer).and_return(@customer)
-      @campaign = FactoryGirl.create(:campaign)
-    end
-
     context '[Does not exist for customer/campaign]' do
       it 'creates the share link' do
+        customer = FactoryGirl.create(:customer)
+        controller.stub(:current_customer).and_return(customer)
+        campaign = FactoryGirl.create(:campaign)
+
         expect{
-          post :create, version: 1, share_link: {campaign_id: @campaign.id}
+          post :create, version: 1, share_link: {campaign_id: campaign.id}
         }.to change{ShareLink.count}.by 1
       end
 
       it 'returns the URL' do
-        post :create, version: 1, share_link: {campaign_id: @campaign.id}
+        customer = FactoryGirl.create(:customer)
+        controller.stub(:current_customer).and_return(customer)
+        campaign = FactoryGirl.create(:campaign)
+
+        post :create, version: 1, share_link: {campaign_id: campaign.id}
         expect(response).to be_singular_resource
       end
     end
 
     context '[Exists for campaign (not customer)]' do
       it 'creates a new share link' do
+        customer = FactoryGirl.create(:customer)
         other_customer = FactoryGirl.create(:customer)
+        campaign = FactoryGirl.create(:campaign)
         controller.stub(:current_customer).and_return(other_customer)
+        
         # Existing share link for customer and campaign
-        FactoryGirl.create(:share_link, customer: @customer, campaign: @campaign)
+        FactoryGirl.create(:share_link, customer: customer, campaign: campaign)
 
         expect{
-          post :create, version: 1, share_link: {campaign_id: @campaign.id}
+          post :create, version: 1, share_link: {campaign_id: campaign.id}
         }.to change{ShareLink.count}.by 1
       end
     end
 
     context '[Exists for customer/campaign]' do
       it 'does not create a new link' do
+        customer = FactoryGirl.create(:customer)
+        campaign = FactoryGirl.create(:campaign)
+        controller.stub(:current_customer).and_return(customer)
+        
         # Existing share link for customer and campaign
-        FactoryGirl.create(:share_link, customer: @customer, campaign: @campaign)
+        FactoryGirl.create(:share_link, customer: customer, campaign: campaign)
 
         expect{
-          post :create, version: 1, share_link: {campaign_id: @campaign.id}
+          post :create, version: 1, share_link: {campaign_id: campaign.id}
         }.to change{ShareLink.count}.by 0
+      end
+
+      it 'returns the existing share link' do
+        customer = FactoryGirl.create(:customer)
+        campaign = FactoryGirl.create(:campaign)
+        controller.stub(:current_customer).and_return(customer)
+        
+        # Existing share link for customer and campaign
+        share_link = FactoryGirl.create(:share_link, customer: customer, campaign: campaign)
+
+        post :create, version: 1, share_link: {campaign_id: campaign.id}
+        
+        expect(JSON.parse(response.body)['response']['url']).to eq share_link.url
       end
     end
   end
