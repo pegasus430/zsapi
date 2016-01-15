@@ -1,3 +1,10 @@
+// How is this conditionally displayed (if dashboard is blank or not)
+// for testing purposes? 
+// Need to ensure that position of walkthrough-boxes here are correct, 
+// adjust as needed using plugin options `arrowOffset` and `xOffset`, 
+// see business-edit.js (same directory) for an example
+
+
 (function($) {
   
   var tour = {
