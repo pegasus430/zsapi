@@ -3,9 +3,7 @@ class ShareLink < ActiveRecord::Base
   belongs_to :referrer, class: Customer
   belongs_to :customer
 
-  validates :code, presence: true
-
-  before_validation :set_unique_code
+  before_create :set_unique_code
 
   # Display the URL
   def url
