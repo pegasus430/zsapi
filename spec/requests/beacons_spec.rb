@@ -39,14 +39,14 @@ RSpec.describe "Beacons", type: :feature do
 
         describe "Beacon.create" do
           context "[invalid params]" do
-            it "ensures both UUID match each other"
+            it "ensures both UID match each other"
           end
 
           context "[valid params]" do
             before :each do
               visit "/beacon/abcdefg"
-              fill_in "UUID", with: "123456789"
-              fill_in "Uuid confirm", with: "123456789"
+              fill_in "UID", with: "123456789"
+              fill_in "uid confirm", with: "123456789"
               click_button "Create beacon"
             end
 

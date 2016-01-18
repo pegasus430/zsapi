@@ -111,12 +111,12 @@ class LocationsController < ApplicationController
     @location = current_user.locations.find(params[:location_id])
     beacon = @location.beacon
 
-    if !beacon.nil? && params[:uuid] == beacon.uuid
+    if !beacon.nil? && params[:uid] == beacon.uid
       beacon.activate!
       @location.reload
       redirect_to @location, notice: 'Your location has been confirmed!'
     else
-      @location.errors.add(:beacon, "The UUID code you entered is invalid. Please try again.")
+      @location.errors.add(:beacon, "The UID code you entered is invalid. Please try again.")
       render 'confirm'
     end
   end

@@ -61,14 +61,14 @@ RSpec.describe LocationsController, type: :controller do
 
 
   describe "PUT #confirm" do
-    context "[Valid UUID]" do
+    context "[Valid UID]" do
       before :each do
         FactoryGirl.create(:beacon, location: @location)
         FactoryGirl.create(:subscription, location: @location)
-        @location.beacon.uuid = "testing"
+        @location.beacon.uid = "testing"
         @location.beacon.save
 
-        put :confirm, location_id: @location, uuid: "testing"
+        put :confirm, location_id: @location, uid: "testing"
       end
 
       it "validates the location on confirm" do
@@ -80,7 +80,7 @@ RSpec.describe LocationsController, type: :controller do
     context "[Beacon doesn't exist]" do
       before :each do
         FactoryGirl.create(:subscription, location: @location)
-        put :confirm, location_id: @location, uuid: "balls"
+        put :confirm, location_id: @location, uid: "balls"
       end
 
       it "does not validates the location on confirm" do
@@ -88,14 +88,14 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
 
-    context "[Beacon exists, but invalid UUID]" do
+    context "[Beacon exists, but invalid UID]" do
       before :each do
         FactoryGirl.create(:beacon, location: @location)
         FactoryGirl.create(:subscription, location: @location)
-        @location.beacon.uuid = "testing"
+        @location.beacon.uid = "testing"
         @location.beacon.save
 
-        put :confirm, location_id: @location, uuid: "balls"
+        put :confirm, location_id: @location, uid: "balls"
       end
 
       it "does not validates the location on confirm" do

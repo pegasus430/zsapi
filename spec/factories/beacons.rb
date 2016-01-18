@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :beacon do
   	creation_key nil
     location
-		uuid 			{ Faker::Number.number(10) }
+		uid 			{ Faker::Number.number(10) }
 		status    'processing'
 
 	  factory :processing_beacon do

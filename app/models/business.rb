@@ -3,6 +3,7 @@ class Business < ActiveRecord::Base
 
   belongs_to :user
   has_many :locations
+  has_many :beacons, through: :locations
   has_many :redemptions, through: :locations
   has_many :receipts, through: :redemptions
   has_many :campaigns
