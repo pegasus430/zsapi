@@ -96,8 +96,8 @@ Rails.application.routes.draw do
       # Temp test for notifications
       get '/customers/notification',        to: 'customers#get_notification'
 
-      # Finds a location via UUID
-      get '/beacons/:uuid/location',            to: 'locations#show'
+      # Finds a location via UID
+      get '/beacons/:uid/location',            to: 'locations#show'
 
       # Locations
       get '/locations/:id',                     to: 'locations#show'
