@@ -6,35 +6,64 @@ RSpec.describe Api::V1::ShareLinksController, type: :controller do
 
   # GET /share_link/:id
   describe 'GET #show' do
-    before :each do
-      @customer = FactoryGirl.create(:customer)
-      controller.stub(:current_customer).and_return(@customer)
-      location = FactoryGirl.create(:location, :with_campaign)
-      campaign = location.campaigns.first
-      @share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: @customer)
-    end
-
     context '[Valid code]' do
       it 'returns the share link campaign' do
-        get :show, version: 1, id: @share_link.code
+        location = FactoryGirl.create(:location, :with_campaign)
+        campaign = location.campaigns.first
+        
+        customer = FactoryGirl.create(:customer)
+        share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: customer)
+
+        friend = FactoryGirl.create(:customer)
+        controller.stub(:current_customer).and_return(friend)
+        ##
+
+        get :show, version: 1, id: share_link.code
         expect(response).to be_singular_resource
       end
 
       context '[No referral exists]' do
         it 'creates a referral entry' do
+          location = FactoryGirl.create(:location, :with_campaign)
+          campaign = location.campaigns.first
+          
+          customer = FactoryGirl.create(:customer)
+          share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: customer)
+          
+          friend = FactoryGirl.create(:customer)
+          controller.stub(:current_customer).and_return(friend)
+          ##
+
           expect {
-            get :show, version: 1, id: @share_link.code
+            get :show, version: 1, id: share_link.code
           }.to change{Referral.count}.by 1
         end
-      end
 
-      context '[Referral exists]' do
-        it 'does not create a new referral entry' do
-          FactoryGirl.create(:referral, customer_id: @customer.id, referrer: @share_link.customer, campaign: @share_link.campaign, share_link: @share_link)
+        context '[Referral exists already]' do
+          it 'does not create a new referral entry' do
+            location = FactoryGirl.create(:location, :with_campaign)
+            campaign = location.campaigns.first
+            
+            customer = FactoryGirl.create(:customer)
+            share_link = FactoryGirl.create(:share_link, campaign: campaign, customer: customer)
 
-          expect {
-            get :show, version: 1, id: @share_link.code
-          }.to change{Referral.count}.by 0
+            friend = FactoryGirl.create(:customer)
+            controller.stub(:current_customer).and_return(friend)
+            ##
+
+            # FactoryGirl.create(:referral, 
+            #   customer_id: friend.id, 
+            #   referrer: share_link.customer, 
+            #   campaign: share_link.campaign, 
+            #   share_link: share_link
+            # )
+
+            get :show, version: 1, id: share_link.code
+            
+            expect {
+              get :show, version: 1, id: share_link.code
+            }.to change{Referral.count}.by 0
+          end
         end
       end
     end
