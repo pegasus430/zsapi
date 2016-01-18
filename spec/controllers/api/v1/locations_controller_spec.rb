@@ -66,10 +66,10 @@ RSpec.describe Api::V1::LocationsController, type: :controller do
           expect(response).to be_singular_resource
         end
 
-        context "[Using UUID to find location]" do
+        context "[Using UID to find location]" do
           it "returns the location" do
             beacon = FactoryGirl.create(:active_beacon, location: @location)
-            get :show, version: 1, uuid: beacon.uuid
+            get :show, version: 1, uid: beacon.uid
             expect(response).to be_singular_resource
           end
         end

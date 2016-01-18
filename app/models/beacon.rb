@@ -1,10 +1,12 @@
+require 'kontaktio'
+
 class Beacon < ActiveRecord::Base
   enum status: [:processing, :shipped, :active]
 
   belongs_to :location
   has_one :subscription, through: :location
 
-  validates :uuid, presence: true, confirmation: true, on: :update
+  validates :uid, presence: true, confirmation: true, on: :update
 
   before_create :generate_random_key
 
@@ -14,6 +16,18 @@ class Beacon < ActiveRecord::Base
     active!
     location.active! if location.pending?
     subscription.start!
+  end
+
+  def kontaktio
+    @kontaktio ||= Kontaktio.new(private_api_key: ENV['KONTAKT_API_KEY'])
+  end
+
+  def device
+    kontaktio.device_by_unique_id(uid) rescue nil
+  end
+
+  def battery_level
+    kontaktio.device_status(uid) rescue nil
   end
 
 

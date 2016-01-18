@@ -117,6 +117,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
     erubis (2.7.0)
+    excon (0.45.4)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -439,6 +440,7 @@ DEPENDENCIES
   constantcontact (~> 2.1.0)
   database_cleaner
   devise
+  excon
   factory_girl_rails
   faker
   font-awesome-rails

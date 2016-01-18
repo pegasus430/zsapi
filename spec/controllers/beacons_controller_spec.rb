@@ -11,9 +11,9 @@ RSpec.describe BeaconsController, type: :controller do
 	  end
 
 	  describe 'PATCH #update' do
-	  	context "[UUID doesn't match]" do
+	  	context "[UID doesn't match]" do
 	  		before :each do
-	  			patch :update, key: @beacon.creation_key, beacon: {uuid: "12345"}, uuid_confirmation: "54321"
+	  			patch :update, key: @beacon.creation_key, beacon: {uid: "12345"}, uid_confirmation: "54321"
 	  		end
 
 	  		it "gives the error" do
@@ -23,7 +23,7 @@ RSpec.describe BeaconsController, type: :controller do
 
 	  	context "[creation_key doesn't exist]" do
 	  		before :each do
-	  			patch :update, key: "12345", beacon: {uuid: "12345"}, uuid_confirmation: "12345"
+	  			patch :update, key: "12345", beacon: {uid: "12345"}, uid_confirmation: "12345"
 	  		end
 
 	  		it "gives the error" do
@@ -39,9 +39,9 @@ RSpec.describe BeaconsController, type: :controller do
 	  		end
 	  	end
 
-	  	context "[UUID is valid]" do
+	  	context "[UID is valid]" do
 	  		before :each do
-	  			patch :update, key: @beacon.creation_key, beacon: {uuid: "12345"}, uuid_confirmation: "12345"
+	  			patch :update, key: @beacon.creation_key, beacon: {uid: "12345"}, uid_confirmation: "12345"
 	  		end
 
 	  		it "marks the beacon as shipped" do

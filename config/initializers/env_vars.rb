@@ -29,6 +29,6 @@
   ENV['BEACON_DESCRIPTION'] ||= "A new beacon for you!"
 
   # Kontakt.io
-  ENV['KONTAKT_API_KEY'] ||= "cOeQnJkxamlpulJRnNzFwsmlgYAsQnYZ"
+  ENV['KONTAKT_API_KEY'] ||= "QwfskYCFauNuSAkhofJsPTDRyveBKvqs"
   ENV['KONTAKT_PUBLIC_KEY'] ||= "YVMS1AZhgAEjC1Krg5X5tiI9AhhmpgbP"
 # end

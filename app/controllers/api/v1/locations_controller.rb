@@ -9,10 +9,10 @@ class Api::V1::LocationsController < Api::V1::BaseController
 	desc <<-EOS
 	Returns a location object and includes information relevant to the current customer.
 
-	There are two ways to retreive data for a single location, by inputting the beacon's UUID, or by inputting the location's ID. Use the proper route depending on what you're trying to do.
+	There are two ways to retreive data for a single location, by inputting the beacon's UID, or by inputting the location's ID. Use the proper route depending on what you're trying to do.
 	EOS
 	param :id, :number, desc: "The location ID. *Required* *if:* Using the ID route"
-	param :uuid, String, desc: "The beacon's UUID. *Required* *if:* Using the UUID route"
+	param :uid, String, desc: "The beacon's UID. *Required* *if:* Using the UID route"
 	example <<-EOS
 		{
 		  "count" => 0,
@@ -42,8 +42,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
 	def show
 		if params[:id]
 			loc = Location.find(params[:id])
-		elsif params[:uuid]
-			loc = Beacon.find_by_uuid(params[:uuid]).location
+		elsif params[:uid]
+			loc = Beacon.find_by_uid(params[:uid]).location
 		end
 
 		if loc
@@ -109,7 +109,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 				include: [
 					:business, 
 					# greeting: {include: [:campaign]},
-					beacon: {only: [:uuid, :status]},
+					beacon: {only: [:uid, :status]},
 				],
 				methods: [:exit_campaign],
 				only: [
@@ -167,7 +167,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 		loc = Location.within_bounding_box(box)
 
 		if loc
-			collection loc, include: [:business, beacon: {only: [:uuid, :status]}], only: [
+			collection loc, include: [:business, beacon: {only: [:uid, :status]}], only: [
 				:id,
 				:title,
 				:address,
