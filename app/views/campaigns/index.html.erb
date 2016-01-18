@@ -1,35 +1,32 @@
 <% content_for(:page_title) { "Campaigns" } %>
 
 <%= wrapper do %>
-    <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <h2>Your Campaigns</h2>
-      </div>
-      <div class="col-xs-6 col-sm-5">
-        <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
-      </div>
-      <div class="col-xs-6 col-sm-3">
+
+    <div class="page-top_left">
+      <h2>Your Campaigns</h2>
+    </div>
+    <div class="page-top_utils">
+      <%# location selector floated right, which is why it's here in the DOM %>
+      <div class="page-top_right" style="max-width: 240px; min-width: 100px;">
         <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :index} %>
       </div>
+      <div class="page-top_center">
+        <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+      </div>
     </div>
+    <div class="clearfix"></div>
 
     <div class="row filter-options">
       <div class="col-xs-2 col-sm-1">
         <h4>View</h4>
       </div>
+      <%# Filter - status %>
       <div class="col-xs-5 col-sm-3 col-md-2">
-        <select class="selectBox2">
-          <% %w(all featured active inactive).each do |w| %>
-            <option id="<%= campaigns_url(status: w, type: params[:type]) %>"><%= w.capitalize %></option>
-          <% end %>
-        </select>
+        <%= render 'filter', filter_type: "status", options: Campaign.statuses.keys.unshift("all") %>
       </div>
+      <%# Filter - type %>
       <div class="col-xs-5 col-sm-3 col-md-2">
-        <select class="selectBox2">
-          <% %w(all coupon reward special).each do |w| %>
-            <option id="<%= campaigns_url(type: w, status: params[:status]) %>"><%= w.capitalize %></option>
-          <% end %>
-        </select>
+        <%= render 'filter', filter_type: "type", options: Campaign.type_ofs.keys.unshift("all") %>
       </div>
     </div>
     

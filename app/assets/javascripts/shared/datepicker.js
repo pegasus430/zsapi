@@ -7,15 +7,34 @@
 
 // This is put into a function so that it can be
 // easily reloaded in ajax calls (admin receipt manager)
+
+
+var $datePickerObject = $('.input-group.date')
+var $specifiedFormat = $datePickerObject.data("format")
+
+
+
 var initDatepicker = function(){
-  $('.input-group.date').datepicker({
+var theFormat
+
+	if ( $specifiedFormat !== undefined || $specifiedFormat !== null ) {
+		theFormat = $specifiedFormat
+	}
+	else {
+		theFormat = "mm/dd/yyyy"
+	}
+
+  $datePickerObject.datepicker({
     autoclose: true,
     orientation: 'top',
     todayHighlight: true,
-    format: "mm/dd/yyyy"
-  });
+    format: theFormat
+  })
 }
 
-if ($('.input-group.date').length) {
-	initDatepicker();
+
+
+
+if ( $datePickerObject !== undefined || $datePickerObject !== null ) {
+	initDatepicker()
 }

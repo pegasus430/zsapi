@@ -7,7 +7,9 @@
         title: 'Account and Help',
         content: 'Clicking your email address will give you the option to view help docs, edit your account, or log out from ZippySpot.',
         target: '#your-account',
-        placement: 'bottom'
+        placement: 'bottom',
+        arrowOffset: 252,
+        xOffset: -210
       }
     ]
   };

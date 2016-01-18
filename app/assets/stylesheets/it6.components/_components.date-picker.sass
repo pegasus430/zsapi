@@ -1,0 +1,70 @@
+// initially ported from campaigns.sass
+
+
+// DATE PICKER STYLES
+
+
+.customDaySelector
+  display: none
+
+.customDaySelector.active
+  display: block
+
+.datepicker.dropdown-menu
+  z-index: 9999 !important
+
+.input-group
+  position: inherit
+  .form-control
+    width: 120px !important
+    border-radius: 4px !important
+    box-shadow: none
+    border: none
+  
+  .input-group-addon
+    margin-left: 10px
+    background: image-url('ico/ico_calendar.png') center center no-repeat !important
+    border: none
+    width: 37px
+    height: 43px
+    display: inline-block
+    .glyphicon
+      display: none
+
+
+
+
+
+/* Day picker */
+
+.datepicker.datepicker-inline
+  position: absolute
+  z-index: 100
+  left: 160px
+  top: 15px
+  border: solid 1px #979797
+  padding: 15px
+  width: 234px
+  height: 180px
+  table
+    background-color: #FFF
+    thead
+      display: none
+    
+    .cw, .disabled.day
+      display: none
+    
+    td
+      border: solid 1px #eee
+      color: #838d8f
+      font-size: 12px
+    
+    td:hover, 
+    td.active.active,
+    td.active.active:hover
+      color: #FFF
+      background-color: #838d8f !important
+      border: solid 1px #eee
+      -webkit-border-radius: 0px
+      -moz-border-radius: 0px
+      border-radius: 0px

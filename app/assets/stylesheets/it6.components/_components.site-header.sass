@@ -22,6 +22,7 @@
     margin-right: 13px
     position: fixed
     left: 92px
+    top: 16px
     @include transition(.4s)
     cursor: pointer
     @include below($bp-xsmall)
@@ -46,64 +47,50 @@
   text-overflow: ellipsis
   overflow: hidden
   white-space: nowrap
+  @include below(1165px)
+    padding-left: 15px
 
-.header-right 
-  float: right
 
-  #battery-status 
-    display: inline-block
+.dropdown_bat-stat
+  display: inline-block
+  .ico 
+    border-radius: 50%
+    @include transition(.3s)
+    display: block
+    background: $white
+    height: 42px
+    padding: 4px
+    position: relative
+    top: -6px
+    width: 42px
+    &.active,
+    &:hover 
+      @include box-shadow(0,1px,3px,rgba(0,0,0,0.12))
+      @include transition(.5s)
 
-    .ico 
-      border-radius: 50%
-      @include transition(.3s)
-      display: block
-      background: $white
-      height: 42px
-      padding: 4px
-      position: relative
-      top: -6px
-      width: 42px
-    
-      &.active,
-      &:hover 
-        @include box-shadow(0,1px,3px,rgba(0,0,0,0.12))
-        @include transition(.5s)
+.dropdown_bat-stat_ul
+  max-width: 250px
+  min-width: 205px
+  li 
+    a
+      padding: 0 $row-gutter/2
+      color: #848c8f
+      line-height: rem(85)
+      display: block 
 
-    .dropdown-menu
-      width: 250px
+.bat-stat_percent-text
+  font-size: 95%
 
-      li 
-        a
-          padding: 0 $row-gutter/2
-          color: #848c8f
-          line-height: rem(85)
-          display: block
 
-          span
-            display: block
-            width: 70px
-            height: 3px
-            background: #cdcdcd
-            position: relative
-            top: 25px
-
-            em 
-              position: absolute
-              height: 3px
-              top: 0
-              left: 0px
-            
-              &.green 
-                background: #6aa725
-              &.yellow 
-                background: $c-location
-              &.red 
-                background: #ea232a   
 
 .header-site_dropdown-account
   margin-left: $row-gutter/2
   display: inline-block
   .dropdown-menu
+    // this is an override of the bootstrap
+    // default, which is 160
+    @include below(1100px)
+      min-width: 126px
     li
       a 
         line-height: rem(85)
@@ -115,6 +102,9 @@
         display: block
         img 
           margin-right: $row-gutter/2        
+          @include below(1100px)
+            margin-left: -5px
+            // margin-right: 5px
       &:last-child a
         border-bottom: 0
 

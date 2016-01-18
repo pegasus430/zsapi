@@ -3,13 +3,6 @@ Rails.application.routes.draw do
   apipie
   # if Rails.env.development? || Rails.env.test?
 
-    concern :datable do
-      member do
-        get 'dated/:start_date/(:end_date)', as: 'dated', constraints: {start_date: /\d{4}-\d{2}-\d{2}/, end_date: /\d{4}-\d{2}-\d{2}/}
-      end
-    end
-
-
     # Beacons
     get   '/beacon/:key',     to: 'beacons#edit',     as: 'edit_beacon'
     patch '/beacon/:key',     to: 'beacons#update',   as: 'beacon'
@@ -47,7 +40,6 @@ Rails.application.routes.draw do
       # Locationable routes
       get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
       resources :campaigns, only: :show
-      resources :receipts, only: :index, concerns: :datable, action: :index
     end
 
 

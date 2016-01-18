@@ -1,0 +1,16 @@
+<select id="campaignFilter-<%= filter_type %>" class="selectBox2">
+  <% options.each do |option| %>
+  	<% selected = (params[filter_type.to_s] == option) ? "selected='selected'" : "" %>
+  
+    <%# Filter - Status %>
+    <% if ( filter_type == "status" ) %>
+      <option id="<%= campaigns_url(status: option, type: params[:type]) %>" <%= selected %>><%= option.capitalize %></option>
+
+    <%# Filter - Type %>
+    <% else %>
+      <option id"<%= campaigns_url(type: option, status: params[:status]) %>" <%= selected %>><%= option.capitalize %></option>
+
+    <% end %>
+
+  <% end %>
+</select>

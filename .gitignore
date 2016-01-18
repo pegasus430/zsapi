@@ -18,8 +18,10 @@
 # DB Config
 # /config/database.yml
 
+# Node related
+/node_modules
+.npm-debug.log
+
 # Other local
 /Progress.txt
 /ZSAPIDoc.pdf
-
-/node_modules
