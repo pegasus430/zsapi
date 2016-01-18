@@ -31,7 +31,7 @@
 </head>
 
 <body data-no-turbolinks="true" class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
-
+	<div class="swipe-area"></div>
 	<div id="wrapper">
 
 		<%# NAV / VERTICAL SIDEMENU Start %>
