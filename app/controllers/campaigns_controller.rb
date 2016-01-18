@@ -48,6 +48,20 @@ class CampaignsController < ApplicationController
         end
         # End social
 
+        # Push notifications
+        if @campaign.active?
+          current_user.business.customers.each do |c|
+            c.create_push_notification(
+              alert: "#{current_user.business.name} has added a new campaign. Go to the store to find out more!",
+              deliver_now: false
+            )
+          end
+
+          Rpush.push
+          Rpush.apns_feedback
+        end
+        # End push notifications
+
         format.html { redirect_to campaigns_url, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else

@@ -125,15 +125,40 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	api!
 	desc "Updates the notification_token for the current customer"
 	param :notification_token, String, desc: "The notification token to be stored", required: true
+	param :device_type, ["gcm", "ios"], desc: "The device that the token belongs to (gcm for android; ios for apple)", required: true
 	example "200 OK"
 	def notification_token
-		if params[:notification_token]
-			current_customer.notification_token = params[:notification_token]
-			current_customer.save
-		else
-			error! :bad_request
+		current_customer.send("#{params[:device_type]}_token=", params[:notification_token])
+		current_customer.save
+	end
+
+
+	api!
+	desc "Test the notifications. Ensure the customer has an ios_token or a gcm_token set!"
+	example ""
+	def get_notification
+		unless current_customer.ios_token.blank?
+			# IOS Notification
+			n = Rpush::Apns::Notification.new
+			n.app = Rpush::Apns::App.find_by_name("ios_production")
+			n.device_token = current_customer.ios_token
+			n.alert = "The notification has made it from the server to you on IOS!"
+			n.data = { foo: :bar }
+			n.save!
+
+			Rpush.push # TEMP TODO SET AS SCHEDULED SERVICE
+			Rpush.apns_feedback
+		end
+
+		unless current_customer.gcm_token.blank?
+			n = Rpush::Gcm::Notification.new
+			n.app = Rpush::Gcm::App.find_by_name("gcm_production")
+			n.registration_ids = [current_customer.gcm_token]
+			n.data = { message: "The notification has made it from the server to you on ANDROID!" }
+			n.save!
 		end
 	end
+
 
 	api!
 	desc "Returns the current_customer in JSON"
@@ -147,7 +172,8 @@ class Api::V1::CustomersController < Api::V1::BaseController
 	    social_id,
 	    social_type,
 	    social_friends,
-	    notification_token
+	    ios_token,
+	    gcm_token
     }
 	}
 	EOS
@@ -248,7 +274,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
  		end
 
  		def customer_expose_fields
- 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :notification_token, :avatar_url]
+ 			[:id, :first_name, :last_name, :email, :social_id, :social_type, :social_friends, :ios_token, :gcm_token, :avatar_url]
  		end
 
 end

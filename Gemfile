@@ -46,6 +46,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'groupdate'
   gem 'excon'                               # Easy HTTP requests
 
+  gem 'rpush'                               # Rails notifications for android/ios
+
   # Identities++
     gem 'omniauth'
 

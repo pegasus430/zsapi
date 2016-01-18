@@ -93,6 +93,9 @@ Rails.application.routes.draw do
       get '/customers/feed',                to: 'customers#feed'
       get '/customers/visits',              to: 'customers#visits'
 
+      # Temp test for notifications
+      get '/customers/notification',        to: 'customers#get_notification'
+
       # Finds a location via UID
       get '/beacons/:uid/location',            to: 'locations#show'
 

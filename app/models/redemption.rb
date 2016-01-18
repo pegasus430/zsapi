@@ -18,6 +18,11 @@ class Redemption < ActiveRecord::Base
 
   def award_points_to_customer!
   	customer.membership_for(location.business).increment!(:points, receipt.reward_points)
+
+    customer.create_push_notification(
+      alert: "#{location.business.name} has accepted your receipt! You earned #{receipt.reward_points} points!",
+      deliver_now: true
+    )
   end
 
   def award_points_to_referrer!

@@ -83,14 +83,14 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
   describe 'POST #notification_token' do
     context '[Customer social token exists]' do
       before :each do
-        @customer = FactoryGirl.create(:facebook_customer, notification_token: 'AAA')
+        @customer = FactoryGirl.create(:facebook_customer, ios_token: 'AAA')
         controller.stub(:current_customer).and_return(@customer)
-        post :notification_token, version: 1, notification_token: 'BBB'
+        post :notification_token, version: 1, notification_token: 'BBB', device_type: 'ios'
       end
       
       it 'finds the customer and replaces the token' do
         @customer.reload
-        expect(@customer.notification_token).to eq 'BBB'
+        expect(@customer.ios_token).to eq 'BBB'
       end
 
       it 'returns true' do
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
     context '[Customer social token does not exist]' do
       before :each do
         FactoryGirl.create(:facebook_customer, social_token: nil)
-        post :notification_token, version: 1, notification_token: 'BBB'
+        post :notification_token, version: 1, notification_token: 'BBB', device_type: 'ios'
       end
 
       it 'returns an error' do

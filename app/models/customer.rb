@@ -131,6 +131,36 @@ class Customer < ActiveRecord::Base
 	end
 
 
+	def create_push_notification(opts={})
+		opts.reverse_merge({
+			alert: "Default alert message",
+			deliver_now: true
+		})
+
+		unless ios_token.blank?
+			n = Rpush::Apns::Notification.new
+			n.app = Rpush::Apns::App.find_by_name("ios_production")
+			n.device_token = ios_token
+			n.alert = opts[:alert]
+			# n.data = { foo: :bar }
+			n.save!
+		end
+
+		unless gcm_token.blank?
+			n = Rpush::Gcm::Notification.new
+			n.app = Rpush::Gcm::App.find_by_name("gcm_production")
+			n.registration_ids = [gcm_token]
+			n.data = { message: opts[:alert] }
+			n.save!
+		end
+
+		if opts[:deliver_now]
+			Rpush.push
+			Rpush.apns_feedback
+		end
+	end
+
+
 	private
 
 		def self.open_csv(file)

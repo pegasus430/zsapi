@@ -54,6 +54,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    ansi (1.5.0)
     api_smith (1.3.0)
       hashie (>= 1.0, < 3.0)
       httparty
@@ -216,6 +217,7 @@ GEM
     multipart-post (2.0.0)
     naught (1.1.0)
     nenv (0.2.0)
+    net-http-persistent (2.9.4)
     netrc (0.11.0)
     nokogiri (1.6.6.3)
       mini_portile (~> 0.6.0)
@@ -318,6 +320,13 @@ GEM
       moneta
       railties (>= 3.0, < 5.0)
       will_paginate (~> 3.0)
+    rpush (2.5.0)
+      activesupport
+      ansi
+      multi_json (~> 1.0)
+      net-http-persistent
+      railties
+      thor (>= 0.18.1, < 2.0)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -456,6 +465,7 @@ DEPENDENCIES
   rails-erd
   rails_12factor
   rocket_pants (~> 1.0)
+  rpush
   rspec-rails
   sass-rails (~> 5.0.4)
   sdoc (~> 0.4.0)
