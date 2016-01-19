@@ -11,6 +11,8 @@ body
   overflow-x: hidden
   background: $c-background
   padding-top: 72px
+  @include below(700px)
+    padding-top: $height-header-mobile
   @include transition(.4s)
 
   // This is essentially a hack to fix a 
