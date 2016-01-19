@@ -1,1 +1,1 @@
-$('#viewReceiptModal .modal-content').html('<%= j( render("receipt_modal") ) %>');
+$('#viewReceiptModal .modal-content').html('<%= j( render("receipt_modal", receipt: @receipt) ) %>');
