@@ -6,7 +6,7 @@
   
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <img src="<%= @receipt.image.url %>" alt="Receipt image">
+      <%= image_tag @receipt.image.url(:medium) %>
     </div>
     <div class="col-xs-12 col-sm-6">
       <table>
