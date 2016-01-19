@@ -2,7 +2,7 @@
 
   <div class="row">
     <% @campaigns.each do |c| %>
-      <div class="campaign-card_wrap col-sm-4 col-md-3">
+      <div class="campaign-card_wrap col-xs-6 col-sm-4 col-md-3">
         <div class="campaign-card">
           <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>
           <%= link_to (image_tag c.image, class: "img-responsive fit"), c %>
