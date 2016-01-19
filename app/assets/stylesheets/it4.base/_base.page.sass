@@ -25,3 +25,17 @@ body
     
   @include above($bp-xsmall)
     padding-left: 75px
+
+
+// A pseudo selector to use via
+// JS for js-media-queries
+// idea from:
+// https://davidwalsh.name/device-state-detection-css-media-queries-javascript#comment-73889
+
+.width-indicator
+  position: absolute
+  top: -999px
+  left: -999px
+.width-indicator:before
+  @include below(700px)
+    content: "mobile"

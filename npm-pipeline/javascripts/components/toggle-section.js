@@ -24,14 +24,15 @@ var prevBtns = $('.toggle-section_btn-prev')
 
 module.exports = function() {
 
-  // First, remove first and last btns
-
-  removeFirstAndLastBtns() 
 
 
   // Once images have loaded, set the toggle sections
 
   $(window).on("load", function() {
+    
+    // First, remove first and last btns
+
+    removeFirstAndLastBtns() 
 
     toggle()
     
