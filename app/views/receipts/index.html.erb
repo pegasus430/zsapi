@@ -68,7 +68,7 @@
           <% @approved_receipts.each do |receipt| %>
             <tr>
               <td><%= receipt.id %></td>
-              <td><%= link_to 'View Receipt', receipt, data: {toggle: 'modal', target: '#viewReceiptModal'} %>
+              <td><%= link_to 'View Receipt', receipt, remote: true, data: {toggle: 'modal', target: '#viewReceiptModal'} %>
               <td><%= receipt.purchased_on %></td>
               <td><%= receipt.amount %></td>
             </tr>
