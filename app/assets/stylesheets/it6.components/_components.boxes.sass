@@ -1,9 +1,11 @@
-
 // Campaign cards
 // TODO: consider refactoring this into something more generic?
 
 .campaign-card_wrap
-  @include below(768px)
+  display: inline-block
+  @include below(830px)
+    width: 50%
+  @include below(500px)
     width: 100%
     min-width: 100%
     
