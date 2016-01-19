@@ -1,5 +1,4 @@
 class ReceiptsController < ApplicationController
-  before_action :set_receipt, only: [:show]
 
   def index
     if params[:location_id]
@@ -24,15 +23,15 @@ class ReceiptsController < ApplicationController
 
 
   def show
-    render layout: false
+    @receipt = current_user.business.receipts.find(params[:id])
+
+    respond_to do |format|
+      format.js { render :show }
+    end
   end
 
   
   private
-    def set_receipt
-      @receipt = current_user.business.receipts.find(params[:id])
-    end
-
     def receipt_params
       #permit nothing
       params.require(:receipt).permit()
