@@ -1,5 +1,7 @@
 .header 
   height: 72px
+  @include below($bp-sb-default-closed)
+    height: $height-header-mobile
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.2)
   background: $white none repeat scroll 0% 0%
   padding: 23px 20px
@@ -50,6 +52,12 @@
   @include below(1165px)
     padding-left: 15px
 
+.header-right
+  float: right 
+  @include below(700px)
+    position: absolute
+    left: 7px
+    bottom: 0px
 
 .dropdown_bat-stat
   display: inline-block

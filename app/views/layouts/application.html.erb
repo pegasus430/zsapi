@@ -31,7 +31,8 @@
 </head>
 
 <body data-no-turbolinks="true" class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
-
+	<div class="width-indicator"></div>
+	
 	<div id="wrapper">
 
 		<%# NAV / VERTICAL SIDEMENU Start %>
@@ -63,7 +64,7 @@
 					<%= current_user.business.name %>
 				</div>
 
-				<div class="right">
+				<div class="header-right">
 							<% unless current_user.business.beacons.blank? %>
 								<div id="battery-status" class="dropdown_bat-stat dropdown">
 									<a class="ico" href="#" data-toggle="dropdown">
