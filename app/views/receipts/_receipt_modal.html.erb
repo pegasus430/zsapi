@@ -1,34 +1,34 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">Receipt #<%= @receipt.id %></h4>
+  <h4 class="modal-title">Receipt #<%= receipt.id %></h4>
 </div>
 <div class="modal-body">
   
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <%= image_tag @receipt.image.url(:medium) %>
+      <%= image_tag receipt.image.url(:medium), style: "width: 300px" %>
     </div>
     <div class="col-xs-12 col-sm-6">
       <table>
         <tr>
           <td>Receipt ID:</td>
-          <td><%= @receipt.id %></td>
+          <td><%= receipt.id %></td>
         </tr>
         <tr>
           <td>Location:</td>
-          <td><%= @receipt.location.title %></td>
+          <td><%= receipt.location.title %></td>
         </tr>
         <tr>
           <td>Purchased on:</td>
-          <td><%= @receipt.purchased_on %></td>
+          <td><%= receipt.purchased_on %></td>
         </tr>
         <tr>
           <td>Amount:</td>
-          <td><%= @receipt.amount %></td>
+          <td><%= receipt.amount %></td>
         </tr>
         <tr>
           <td>Approved on:</td>
-          <td><%= @receipt.updated_at %></td>
+          <td><%= receipt.updated_at %></td>
         </tr>
         </tbody>
       </table>
@@ -38,5 +38,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  <%= link_to 'Report a problem', "mailto:support@zippyspot.com?subject=Receipt Issue [#{@receipt.id}]", class: "btn btn-primary" %>
+  <%= link_to 'Report a problem', "mailto:support@zippyspot.com?subject=Receipt Issue [#{receipt.id}]", class: "btn btn-primary" %>
 </div>
