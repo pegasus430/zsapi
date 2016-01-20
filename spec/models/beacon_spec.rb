@@ -67,4 +67,13 @@ RSpec.describe Beacon, type: :model do
 		end
 	end
 
+
+	describe '.grab_uuid_from_kontaktio' do
+		it 'grabs the UUID from kontaktio on save' do
+			beacon = FactoryGirl.create(:beacon, uid: "C57o")
+			# aa630198-c4e3-41f3-a1ff-0aab9a575eeb
+			expect(beacon.uuid).not_to be_nil
+		end
+	end
+
 end
