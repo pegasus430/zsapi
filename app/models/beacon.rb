@@ -9,6 +9,7 @@ class Beacon < ActiveRecord::Base
   validates :uid, presence: true, confirmation: true, on: :update
 
   before_create :generate_random_key
+  before_save :grab_uuid_from_kontaktio
 
   # Change the beacon and location status
   # also start the subscription
@@ -32,6 +33,11 @@ class Beacon < ActiveRecord::Base
 
 
   private
+    def grab_uuid_from_kontaktio
+      unless uid.blank?
+        self[:uuid] = device['proximity']
+      end
+    end
 
   	def generate_random_key
   		self[:creation_key] = SecureRandom.hex(15)
