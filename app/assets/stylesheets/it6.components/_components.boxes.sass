@@ -2,9 +2,15 @@
 // TODO: consider refactoring this into something more generic?
 
 .campaign-card_wrap
-  display: inline-block
-  @include below(830px)
-    width: 50%
+  // col-sm-4 (3 columns)
+  @include between(992px, 768px)
+    &:nth-child(4)
+      clear: both
+  // col-md-3 (4 columns)
+  @include above(993px)
+    &:nth-child(5)
+      clear: both
+  // full width
   @include below(500px)
     width: 100%
     min-width: 100%
