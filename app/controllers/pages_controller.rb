@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   
   def dashboard
   	@locations = current_user.business.locations rescue nil
-  	@campaigns = current_user.business.campaigns rescue nil
+  	@campaigns = current_user.business.campaigns.limit(4) rescue nil
   	@todays_campaigns = @campaigns.valid_for(Date.today)
 
   	# Stats
