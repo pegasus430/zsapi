@@ -27,14 +27,15 @@ class Visit < ActiveRecord::Base
     # Check if we've waited long enough before returning so we can get the reward
     if membership.can_receive_welcome_reward?
       points_earned = greeting.welcome_reward
-    end
-    points_earned ||= 0
 
+      # Update the membership
+      membership.increment(:points, points_earned )
+      membership.set_new_welcome_reward_valid_at(1.send(greeting.welcome_wait_time))
+      membership.save
+    else
+      points_earned = 0
+    end
     
-    # Update the membership
-    membership.increment(:points, points_earned )
-    membership.set_new_welcome_reward_valid_at(1.send(greeting.welcome_wait_time))
-    membership.save
 
     # Check if we have a valid exit-campaign to show
     exit_campaign = membership.exit_campaign_valid? ? membership.campaign : nil
