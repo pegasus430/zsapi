@@ -75,6 +75,17 @@ RSpec.describe Redemption, type: :model do
             expect(@referrer_membership.reload.points).to eq 50
           end
         end
+
+        context '[When the REFERRAL was rewarded first]' do
+          it 'awards the referrer' do
+            @campaign.update_attribute(:referrer_reward, 100)
+            @campaign.reload
+
+            @redemption.award_points_to_referral!
+            @redemption.award_points_to_referrer!
+            expect(@referrer_membership.reload.points).to eq 150
+          end
+        end
       end
 
       describe '#award_points_to_referral!' do
@@ -93,6 +104,17 @@ RSpec.describe Redemption, type: :model do
 
             @redemption.award_points_to_referral!
             expect(@referral_membership.reload.points).to eq 50
+          end
+        end
+
+        context '[When the REFERRER was rewarded first]' do
+          it 'awards the referral' do
+            @campaign.update_attribute(:referral_reward, 100)
+            @campaign.reload
+
+            @redemption.award_points_to_referrer!
+            @redemption.award_points_to_referral!
+            expect(@referral_membership.reload.points).to eq 150
           end
         end
       end
