@@ -58,8 +58,7 @@ RSpec.describe Admin::ReceiptsController, type: :controller do
 
           put :update, id: receipt, receipt: { status: 'approved', amount: 15 }
 
-          customer.reload
-          expect(customer.membership_for(business).points).to eq 15
+          expect(customer.reload.membership_for(business).reload.points).to eq 15
         end
 
         context "[Redeemer has a referrer]" do

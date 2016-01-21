@@ -14,8 +14,7 @@ class Admin::ReceiptsController < Admin::AdminController
         if @receipt.approved?
           unless @receipt.redemption.location.business.nil? # to prevent rspec test errors
             @receipt.redemption.award_points_to_customer!
-            @receipt.redemption.award_points_to_referrer!
-            @receipt.redemption.award_points_to_referral!
+            @receipt.redemption.award_share_points!
           end
         end
         format.html { redirect_to admin_receipts_url, notice: 'Receipt was successfully updated.' }
