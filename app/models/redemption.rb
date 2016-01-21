@@ -25,33 +25,28 @@ class Redemption < ActiveRecord::Base
     )
   end
 
-  def award_points_to_referrer!
+
+  def award_share_points!
     unless campaign.blank?
-      if campaign.referrer_reward > 0
-        referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
-        unless referral_record.nil?
+      referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
+      
+      unless referral_record.nil?
+        if campaign.referrer_reward > 0
+          # Award the referrer
           referral_record.referrer.membership_for(location.business).increment!(:points, campaign.referrer_reward)
-          referral_record.used! # mark the referral row as used
-          return true
         end
+
+        if campaign.referral_reward > 0
+          # Award the friend (referral)
+          referral_record.customer.membership_for(location.business).increment!(:points, campaign.referral_reward)
+        end
+
+        referral_record.used! # mark the referral row as used
+
+        return true
       end
     end
     
-    false
-  end
-
-  def award_points_to_referral!
-    unless campaign.blank?
-      if campaign.referral_reward > 0
-        referral_record = Referral.where(campaign: campaign, customer_id: customer.id, status: 'unused').first
-        unless referral_record.nil?
-          referral_record.customer.membership_for(location.business).increment!(:points, campaign.referral_reward)
-          referral_record.used! # mark the referral row as used
-          return true
-        end
-      end
-    end
-
     false
   end
 
