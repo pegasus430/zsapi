@@ -33,20 +33,24 @@ RSpec.describe Redemption, type: :model do
 
     describe 'Share Awards' do
       before :each do
+        @original_point_amount = 50
+        @share_point_amount = 100
+        @sum_point_amount = @original_point_amount + @share_point_amount
+
         @location   = FactoryGirl.create(:location_with_business)
         @business   = @location.business
         @referrer   = FactoryGirl.create(:customer)
         @referrer_membership = FactoryGirl.create(:membership, 
           business: @business, 
           customer_id: @referrer.id, 
-          points: 50
+          points: @original_point_amount
         )
         
         @referral   = FactoryGirl.create(:customer)
         @referral_membership = FactoryGirl.create(:membership, 
           business: @business, 
           customer_id: @referral.id, 
-          points: 50
+          points: @original_point_amount
         )
 
         @campaign   = FactoryGirl.create(:active_campaign, locations: [@location])
@@ -56,65 +60,83 @@ RSpec.describe Redemption, type: :model do
         @receipt    = FactoryGirl.create(:receipt_approved, redemption: @redemption, amount: 35.24)
       end
 
-      describe '#award_points_to_referrer!' do
-        context '[Campaign has a referrer_reward]' do
-          it 'awards the referrer' do
-            @campaign.update_attribute(:referrer_reward, 100)
-            @campaign.reload
+      describe '#award_share_points!' do
+        context '[First time trying to get rewarded]' do
+          context '[Campaign has a referrer_reward]' do
+            it 'awards the referrer' do
+              @campaign.update_attribute(:referrer_reward, @share_point_amount)
 
-            @redemption.award_points_to_referrer!
-            expect(@referrer_membership.reload.points).to eq 150
+              @redemption.award_share_points!
+              expect(@referrer_membership.reload.points).to eq @sum_point_amount
+            end
+          end
+
+          context '[Campaign DOES NOT have a referrer_reward' do
+            it 'does not award the referrer' do
+              @campaign.update_attribute(:referrer_reward, 0)
+
+              @redemption.award_share_points!
+              expect(@referrer_membership.reload.points).to eq @original_point_amount
+            end
+          end
+
+          context '[Campaign has a referral_reward]' do
+            it 'awards the referral' do
+              @campaign.update_attribute(:referral_reward, @share_point_amount)
+
+              @redemption.award_share_points!
+              expect(@referral_membership.reload.points).to eq @sum_point_amount
+            end
+          end
+
+          context '[Campaign DOES NOT have a referral_reward' do
+            it 'does not award the referral' do
+              @campaign.update_attribute(:referral_reward, 0)
+
+              @redemption.award_share_points!
+              expect(@referral_membership.reload.points).to eq @original_point_amount
+            end
+          end
+
+          context '[Campaign has NO REWARD]' do
+            it 'awards nobody' do
+              @campaign.update_attributes(referral_reward: 0, referrer_reward: 0)
+
+              @redemption.award_share_points!
+              expect(@referrer_membership.reload.points).to eq @original_point_amount
+              expect(@referral_membership.reload.points).to eq @original_point_amount
+            end
+          end
+
+          context '[Campaign REWARDS BOTH referrer and referral]' do
+            it 'awards nobody' do
+              @campaign.update_attributes(referral_reward: @share_point_amount, referrer_reward: @share_point_amount)
+
+              @redemption.award_share_points!
+              expect(@referrer_membership.reload.points).to eq @sum_point_amount
+              expect(@referral_membership.reload.points).to eq @sum_point_amount
+            end
           end
         end
 
-        context '[Campaign DOES NOT have a referrer_reward' do
-          it 'does not award the referrer' do
-            @campaign.update_attribute(:referrer_reward, 0)
-
-            @redemption.award_points_to_referrer!
-            expect(@referrer_membership.reload.points).to eq 50
+        context '[Second time trying to be rewarded]' do
+          before :each do
+            @campaign.update_attributes(referral_reward: @share_point_amount, referrer_reward: @share_point_amount)
+            @redemption.award_share_points!
           end
-        end
 
-        context '[When the REFERRAL was rewarded first]' do
-          it 'awards the referrer' do
-            @campaign.update_attribute(:referrer_reward, 100)
-            @campaign.reload
+          it 'does not awards the referrer' do
+            @campaign.update_attribute(:referrer_reward, @share_point_amount)
 
-            @redemption.award_points_to_referral!
-            @redemption.award_points_to_referrer!
-            expect(@referrer_membership.reload.points).to eq 150
+            @redemption.award_share_points!
+            expect(@referrer_membership.reload.points).to eq @sum_point_amount
           end
-        end
-      end
 
-      describe '#award_points_to_referral!' do
-        context '[Campaign has a referral_reward]' do
-          it 'awards the referral' do
-            @campaign.update_attribute(:referral_reward, 100)
+          it 'does not awards the referral' do
+            @campaign.update_attribute(:referral_reward, @share_point_amount)
 
-            @redemption.award_points_to_referral!
-            expect(@referral_membership.reload.points).to eq 150
-          end
-        end
-
-        context '[Campaign DOES NOT have a referral_reward' do
-          it 'does not award the referral' do
-            @campaign.update_attribute(:referral_reward, 0)
-
-            @redemption.award_points_to_referral!
-            expect(@referral_membership.reload.points).to eq 50
-          end
-        end
-
-        context '[When the REFERRER was rewarded first]' do
-          it 'awards the referral' do
-            @campaign.update_attribute(:referral_reward, 100)
-            @campaign.reload
-
-            @redemption.award_points_to_referrer!
-            @redemption.award_points_to_referral!
-            expect(@referral_membership.reload.points).to eq 150
+            @redemption.award_share_points!
+            expect(@referral_membership.reload.points).to eq @sum_point_amount
           end
         end
       end
