@@ -7,7 +7,7 @@
         <h2>Your Customers</h2>
       </div>
       <div class="col-xs-12 col-sm-6 text-right">
-        <a href="#" class="btn btn-import">Import</a>
+        <a href="#import" class="btn btn-import">Import</a>
         <div class="btn-group">
           <button type="button" class="btn btn-export dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Export <span class="caret"></span>
@@ -73,6 +73,7 @@
 
   <%= wrapper :dark do %>
     <%= section_header "Import Customers" %>
+    <a name="import"></a>
 
     <%= form_tag import_customers_path, multipart: true, html: {class: "notify-form"} do %>
 
