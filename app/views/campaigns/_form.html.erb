@@ -75,8 +75,8 @@
 
     <div class="toggle-section">
       <%= fr "Click image to edit" do %>
-        <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
-        <%= hidden_field_tag :image_datafile %>
+        <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image_1", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-1"} %>
+        <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_1", data: {uploadtarget: "cropImageModal-1"} %>
       <% end %>
 
       <%= fr "" do %>
@@ -203,7 +203,7 @@
 
 
 <%# CROP MODAL %>
-<%= render 'shared/crop_modal', resource: @campaign %>
+<%= render 'shared/crop_modal', resource: @campaign, id: "cropImageModal-1"  %>
 
 
 <%# GALLERY MODAL %>

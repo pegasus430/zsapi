@@ -9,8 +9,8 @@
       <%= fr 'Business Name', f.text_field(:name, class: 'businessName') %>
 
       <%= fr "Logo (click to edit)" do %>
-        <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
-        <%= hidden_field_tag :image_datafile %>
+        <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image_1", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-1"} %>
+        <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_1", data: {uploadtarget: "cropImageModal-1"} %>
       <% end %>
 
       <%= render 'shared/toggle_section_btns' %>
@@ -163,4 +163,4 @@
 
 
 <%# CROP MODAL %>
-<%= render 'shared/crop_modal', resource: @business %>
+<%= render 'shared/crop_modal', resource: @business, id: "cropImageModal-1" %>
