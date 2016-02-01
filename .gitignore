@@ -15,8 +15,10 @@
 # Test files
 /public/system/*
 
-# DB Config
+# Config
 # /config/database.yml
+/config/application.yml
+zs-aws-key.pem
 
 # Node related
 /node_modules
