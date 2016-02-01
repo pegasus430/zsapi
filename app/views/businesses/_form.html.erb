@@ -10,7 +10,7 @@
 
       <%= fr "Logo (click to edit)" do %>
         <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image", class: "thumbnail", data: {toggle: 'modal', target: '#cropImageModal'} %>
-        <%= hidden_field_tag :image_datafile, "", data: {uploadtarget: 'cropImageModal'} %>
+        <%= hidden_field_tag :image_datafile %>
       <% end %>
 
       <%= render 'shared/toggle_section_btns' %>
