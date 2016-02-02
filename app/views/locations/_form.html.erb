@@ -9,6 +9,7 @@
     <% end %>
 
     <%= fr "Location Title", f.text_field(:title),
+      id: "tour-location-title",
       info: "The name of this location. If the name is the same as other locations, simply enter the street name to differentiate it." %>
 
     <%= fr "Address", f.text_field(:address) %>
@@ -29,7 +30,7 @@
     <% end %>
 
     
-    <%= fr "Location Photos" do %>
+    <%= fr "Location Photos", id: 'tour-location-photos' do %>
       <div class="row">
         <% Location::MAX_PHOTOS.times do |i| %>
           <div class="col-sm-4">
@@ -47,6 +48,7 @@
   <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
     <%= fr 'Select a Greeting',
+      id: "tour-location-greetings",
       info: "A greeting contains your location's welcome and exit messages. You may reuse greetings, or create a new one." do %>
       <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message', @location.greeting_id), prompt: 'Choose a greeting') %>
     <% end  %>

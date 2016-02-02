@@ -208,6 +208,7 @@ module ApplicationHelper
 		opts = input_or_opts_with_block if (block_given? && input_or_opts_with_block.is_a?(Hash))
 
 		opts.reverse_merge!({
+			id:  "",
 			row:  "row",
 			col1: "col-xs-5 col-sm-3",
 			col2: "col-xs-7 col-sm-9",
@@ -216,7 +217,7 @@ module ApplicationHelper
 
 		content_tag :div, class: opts[:row] do
 			info = field_info(opts[:info]) if opts[:info]
-			concat(content_tag(:div, label_tag(label), class: opts[:col1]))
+			concat(content_tag(:div, label_tag(label), id: opts[:id], class: opts[:col1]))
 			
 			if block_given?
 				concat(content_tag(:div, capture(&block) + info, class: opts[:col2]))

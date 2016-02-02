@@ -86,7 +86,7 @@ TODO: refactor this into a module
   $('#refreshDetectedColors').click(function(e) {
     var img;
     img = new Image();
-    img.src = window.cropper.getDataURL();
+    img.src = cropper.getDataURL();
     detectColors(img);
     return false;
     return e.preventDefault();

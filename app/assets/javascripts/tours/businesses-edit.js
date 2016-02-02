@@ -1,15 +1,13 @@
 (function($) {
 
   var tour = {
-    id: 'menu-tour',
+    id: 'tour-businesses-edit',
     steps: [
       {
-        title: 'Account and Help',
-        content: 'Clicking your email address will give you the option to view help docs, edit your account, or log out from ZippySpot.',
-        target: '#your-account',
-        placement: 'bottom',
-        arrowOffset: 252,
-        xOffset: -210
+        title: 'Start by Uploading you Logo',
+        content: 'Click the image placeholder and upload your business logo. You can crop it to ensure it is proportioned correctly.',
+        target: '#logo-row label',
+        placement: 'left'
       }
     ]
   };
@@ -18,5 +16,5 @@
 
   return setTimeout((function() {
     hopscotch.startTour(tour);
-  }), 300);
+  }), 400);
 })(jQuery);
