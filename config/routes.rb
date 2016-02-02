@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     end
 
     get '/users/toggleSidebar', to: "users#toggleSidebar"
+    post '/users/endTour', to: "users#endTour"
 
     # Admins
     devise_for :admins

@@ -12,9 +12,6 @@ module ApplicationHelper
 			# IT SHOULD BE SHOWN IN PRODUCTION
 			
 			# unless current_user.meta["hopscotch_#{name}".to_sym].to_i == 1
-				# current_user.meta["hopscotch_#{name}".to_sym] = 1
-				# current_user.save
-
 				content_for :hopscotch_js do
 					javascript_include_tag "tours/#{name}"
 				end

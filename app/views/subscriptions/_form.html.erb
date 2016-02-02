@@ -4,7 +4,7 @@
   <%= wrapper do %>
     <%= section_header 'Purchase a Beacon' %>
 
-    <%= fr "Choose a Subscription" do %>
+    <%= fr "Choose a Subscription", id: "tour-plans" do %>
       <% @stripe_plans.data.each do |plan| %>
         <div class="row">
           <div class="col-xs-12">
@@ -31,7 +31,8 @@
     <div class="payment-errors alert"></div>
 
     <%= fr 'Name on Card',
-      text_field_tag(:card_name, "", name: "", data: {stripe: "name"}) %>
+      text_field_tag(:card_name, "", name: "", data: {stripe: "name"}),
+      id: "tour-card" %>
 
     <%= fr 'Card Number',
       text_field_tag(:card_number, "", name: "", data: {stripe: "number"}) %>
@@ -57,7 +58,7 @@
     </div>
 
     <%= fr '' do %>
-      <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://zippyspot.com/terms/')) %>
+      <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://www.zippyspot.com/terms/')) %>
     <% end  %>
 
     <%#
@@ -73,7 +74,7 @@
 
     <div class="row">
       <div class="col-xs-12 text-center">
-        <%= f.button "Create Subscription" %>
+        <%= f.button "Create Subscription", id: "tour-button" %>
       </div>
     </div>
 
