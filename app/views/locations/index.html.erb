@@ -74,11 +74,4 @@
 <% end %>
 
 
-<%# Hopscotch logic %>
-<% unless @pending_locations.blank? %>
-  <%# The user has already created a location, so let's load a new tour %>
-  <% hopscotch "locations-new-has-pending" %>
-<% else %>
-  <%# Load the normal tour for this page %>
-  <% hopscotch %>
-<% end %>
+<% hopscotch %>
