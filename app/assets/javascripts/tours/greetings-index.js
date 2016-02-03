@@ -1,9 +1,9 @@
 // These steps are initiated inside of shared/init_tour.js
 var tour_steps = [
   {
-    title: 'Create your First Location',
-    content: 'A "location" is your physical storefront, and you can have many of them. Each location is linked to a beacon, which allows the mobile app to communicate with your platform. Get started by creating your first location!',
-    target: '#tour-new-location',
+    title: 'Greetings',
+    content: 'When a customer enters or leaves your store, they receive a "Greeting" the form of a notification on their mobile. This can be anything from a simple "Hello" and "Goodbye", to offering special campaigns and rewarding bonus points. Create your first Greeting now!',
+    target: '#tour-new-greeting',
     placement: 'left',
     showNextButton: false
   }

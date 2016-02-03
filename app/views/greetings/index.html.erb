@@ -1,10 +1,11 @@
+<% hopscotch %>
 <% content_for(:page_title) { "Push Greetings" } %>
 
 <%= wrapper do %>
   <%= section_header "Your Greetings" %>
 
   <% if @greetings %>
-    <%= link_to 'New Greeting', new_greeting_path, class: 'btn btn-new' %>
+    <%= link_to 'New Greeting', new_greeting_path, id: "tour-new-greeting", class: 'btn btn-new' %>
 
     <div class="table-responsive">
       <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
