@@ -2,6 +2,7 @@
 
 <%= fr "Welcome Message",
 	f.text_field(:welcome_message, placeholder: 'Drank coffee today?'),
+	id: "tour-welcome",
 	info: "This message will be shown to customers as they enter your store." %>
 
 <%= fr "Check-in Points",
@@ -21,6 +22,7 @@
 
 <%= fr "Exit Message",
 	f.text_field(:exit_message, placeholder: 'Have a great day!'),
+	id: "tour-exit",
 	info: "This message is shown to customers as they exit your store." %>
 
 <%= fr "",
@@ -43,7 +45,8 @@
 		f.collection_select(:campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace') %>
 	
 	<%= fr "Valid for",
-		{info: "A customer must return to your store within the assigned timeframe to receive the campaign."} do %>
+		id: "tour-valid",
+		info: "A customer must return to your store within the assigned timeframe to receive the campaign." do %>
 		<div class="row">
 			<div class="col-xs-5">
 				<%= f.number_field :campaign_wait_time_quantity, placeholder: "(enter 0 for no restriction)" %>

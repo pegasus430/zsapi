@@ -15,6 +15,6 @@
   // Start the tour!
 
   return setTimeout((function() {
-    hopscotch.startTour(tour);
+    hopscotch.startTour(tour, 0);
   }), 400);
 })(jQuery);

@@ -1,23 +1,26 @@
 // These steps are initiated inside of shared/init_tour.js
 var tour_steps = [
   {
-    title: 'The specifics',
-    content: 'Enter your storefront\'s physical address, along with a title (such as the street name).',
-    target: '#tour-title',
+    title: 'Entrance Greeting',
+    content: 'When a customer enters your store location, they will receive this welcome message. Optionally, you can offer them bonus rewards per day, week, or month.',
+    target: '#tour-welcome',
     placement: 'left'
   }, {
-    title: 'Photos',
-    content: 'You can list up to 3 photos to show your customers in the mobile app when they are browsing for a place to visit.',
-    target: '#tour-photos',
-    placement: 'left'
+    title: 'Exit Greeting',
+    content: 'When a customer exits your store location, they will see what you write here.',
+    target: '#tour-exit',
+    placement: 'left',
+    onNext: function(){
+      $('#attach').click();
+    }
   }, {
-    title: 'Assign a Greeting',
-    content: 'A greeting is a message that your customer will receive when they enter and exit your store. You can choose a greeting from the list, or create a new one. Click the (i) icons to get more information about each option.',
-    target: '#tour-greetings',
-    placement: 'left'
+    title: 'Campaigns',
+    content: 'If you would like to mention a campaign that is available when they return, you can attach it to the exit greeting here.',
+    target: '#attach',
+    placement: 'top'
   }, {
     title: 'Finishing up',
-    content: 'Once you have the form filled out, you are ready to initiate the beacon ordering process.',
+    content: 'Click Submit to save your Greeting. Once saved, you can assign it to a specific location by editing that location and choosing this greeting.',
     target: '#tour-button',
     placement: 'top'
   }
