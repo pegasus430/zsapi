@@ -13,7 +13,9 @@ module ApplicationHelper
 			
 			# unless current_user.meta["hopscotch_#{name}".to_sym].to_i == 1
 				content_for :hopscotch_js do
-					javascript_include_tag "tours/#{name}"
+					concat javascript_tag("var tour_name = '#{name}';")
+					concat javascript_include_tag "tours/#{name}"
+					concat javascript_include_tag "shared/init_tour"
 				end
 			# end
 		end
