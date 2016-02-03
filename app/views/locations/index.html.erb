@@ -32,7 +32,7 @@
 <% unless @pending_locations.blank? %>
   <%= wrapper :dark do %>
     <%= section_header "Pending Locations" %>
-    <div class="table-responsive">
+    <div class="table-responsive" id="tour-pending">
       <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
         <thead>
           <tr>
@@ -47,14 +47,14 @@
             <tr>
               <td><%= location.id %></td>
               <td><%= link_to location.title, location %></td>
-              <td>
+              <td id="tour-pending-status">
                 <% if location.beacon.blank? %>
                   Not Ordered
                 <% else %>
                   <%= location.beacon.status.humanize %>
                 <% end %>
               </td>
-              <td>
+              <td id="tour-pending-options">
                 <% if location.beacon.blank? %>
                   <%= link_to 'Purchase a Beacon', location_new_subscription_path(location) %>
                 <% else %>
@@ -73,4 +73,12 @@
   <% end %> <%# -wrapper %>
 <% end %>
 
-<% hopscotch %>
+
+<%# Hopscotch logic %>
+<% unless @pending_locations.blank? %>
+  <%# The user has already created a location, so let's load a new tour %>
+  <% hopscotch "locations-new-has-pending" %>
+<% else %>
+  <%# Load the normal tour for this page %>
+  <% hopscotch %>
+<% end %>

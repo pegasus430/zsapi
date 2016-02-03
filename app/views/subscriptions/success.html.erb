@@ -1,5 +1,3 @@
-<% content_for(:page_title) { "Locations" } %>
-
 <%= wrapper do %>
 
 <div id="payment-success" class="row">
@@ -8,14 +6,12 @@
 
 		<h2>Your order has been placed!</h2>
 
-		<p>Thank you for your order. You will receive an email once your iBeacon ships.</p>
-
-		<p>Within 3-5 business days you will recieve your store's iBeacon device. Once you recieve this, you will enter its unique UID code onto this location's confirmation page to complete the process and activate your location.</p>
+		<p>Within 3-5 business days you will recieve your store's iBeacon device. Once you receive this device, you will enter its unique UID code onto this location's confirmation page to complete the process and activate your location.</p>
 
 		<% if current_user.business.in_trial? %>
 			<p>You will not be billed until you receive and activate your new beacon.</p>
 		<% else %>
-			<p>Your trial will start until you receive and activate your new beacon.</p>
+			<p>Your trial will start once you receive and activate your new beacon.</p>
 		<% end %>
 	</div>
 </div>
