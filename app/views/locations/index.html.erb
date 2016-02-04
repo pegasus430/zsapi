@@ -1,4 +1,3 @@
-<% hopscotch %>
 <% content_for(:page_title) { "Locations" } %>
 
 <%= wrapper do %>
@@ -31,6 +30,7 @@
 
 
 <% unless @pending_locations.blank? %>
+  <% hopscotch "locations-index-has-pending" %>
   <%= wrapper :dark do %>
     <%= section_header "Pending Locations" %>
     <div class="table-responsive" id="tour-pending">
@@ -72,4 +72,6 @@
       </table>
     </div>
   <% end %> <%# -wrapper %>
+<% else %>
+  <% hopscotch %>
 <% end %>
