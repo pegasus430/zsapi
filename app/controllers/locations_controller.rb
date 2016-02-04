@@ -57,19 +57,19 @@ class LocationsController < ApplicationController
   def create
     @location = current_user.business.locations.build(location_params.except(:greeting))
 
-    # Create each image
-    if params[:image_datafiles]
-      params[:image_datafiles].each do |image|
-        @location.location_photos.create(image: convert_data_uri_to_upload(image)) unless image.blank?
-      end
-    end
-
     if params[:new_greeting]
       @location.build_greeting(location_params[:greeting])
     end
 
     respond_to do |format|
       if @location.save
+        # Create each image
+        if params[:image_datafiles]
+          params[:image_datafiles].each do |image|
+            @location.location_photos.create(image: convert_data_uri_to_upload(image)) unless image.blank?
+          end
+        end
+
         format.html { redirect_to location_new_subscription_path(@location), notice: 'Location was successfully created. Create the subscription now' }      else
         format.html { render :new }
       end

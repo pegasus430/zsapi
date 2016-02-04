@@ -22,7 +22,8 @@
 
   <div id="no-records">
     <h2>No campaigns!</h2>
-    <p>There are no approved campaigns available to show. <%= link_to 'Create One!', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %></p>
+    <p>There are either no campaigns, or they are simply not active today (and therefore, not showing).</p>
+    <p><%= link_to 'Let\'s Create one!', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %></p>
   </div>
 
 <% end %>

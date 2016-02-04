@@ -26,15 +26,19 @@ module.exports = function() {
   // Get each of their values,
   // lowercasing only if there's a value, otherwise
   // they'll be a runtime error
+  // Wes: Added try block to prevent errors on pages with no element
+  try {
+    var initialStatus = $('#campaignFilter-status :selected').val()
+    if ( initialStatus.length ) 
+      initialStatus = initialStatus.toLowerCase()
 
-  var initialStatus = $('#campaignFilter-status :selected').val()
-  if ( initialStatus.length ) 
-    initialStatus = initialStatus.toLowerCase()
-
-  var initialType = $('#campaignFilter-type :selected').val()
-  if ( initialType.length ) 
-    initialType = initialType.toLowerCase()
-
+    var initialType = $('#campaignFilter-type :selected').val()
+    if ( initialType.length ) 
+      initialType = initialType.toLowerCase()
+  }
+  catch(err){
+    console.log(err);
+  }
 
   // Set their values in an object
 

@@ -63,6 +63,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
     gem 'omniauth-twitter'
     gem 'twitter'
   # Identities--
+
+  gem 'puma'
 # Wesfed--
 
 # Taken these two out of dev/test group so it will work with rake devdata:all

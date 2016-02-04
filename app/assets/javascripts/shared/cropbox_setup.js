@@ -12,63 +12,63 @@ This was more or less the original logic for the
 upload when I (Isaac) came on board the project
 */
 
-var modalLogic = function(scopeTo, cropbox_options) {
+// var modalLogic = function(scopeTo, cropbox_options) {
   
-  $(".file_field").on('change', function() {
-    var reader = new FileReader;
-    reader.onload = function(e) {
-      cropbox_options.imgSrc = e.target.result
-      window.cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options)
-      return $('.btnCrop, .btnZoomIn, .btnZoomOut', scopeTo).removeClass('disabled')
-    }
-    reader.readAsDataURL(this.files[0])
-    return this.files = []
-  })
+//   $(".file_field").on('change', function() {
+//     var reader = new FileReader;
+//     reader.onload = function(e) {
+//       cropbox_options.imgSrc = e.target.result
+//       window.cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options)
+//       return $('.btnCrop, .btnZoomIn, .btnZoomOut', scopeTo).removeClass('disabled')
+//     }
+//     reader.readAsDataURL(this.files[0])
+//     return this.files = []
+//   })
 
 
-  function updatePreview() {
-    var img = window.cropper.getDataURL()
-    // Place the cropped image's datafile.
-    return $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')
-  }
+//   function updatePreview() {
+//     var img = window.cropper.getDataURL()
+//     // Place the cropped image's datafile.
+//     return $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')
+//   }
 
-  // Zoom Btns
-  $('.btnZoomIn', scopeTo).on('click', function(){
-    cropper.zoomIn()
-    updatePreview()
-  })
-  $('.btnZoomOut', scopeTo).on('click', function(){
-    cropper.zoomOut()
-    updatePreview()
-  })
+//   // Zoom Btns
+//   $('.btnZoomIn', scopeTo).on('click', function(){
+//     cropper.zoomIn()
+//     updatePreview()
+//   })
+//   $('.btnZoomOut', scopeTo).on('click', function(){
+//     cropper.zoomOut()
+//     updatePreview()
+//   })
 
-  // Crop handler
-  // Note - this was selected by a class of 
-  //        the same name (as the id)... 
-  $('.btnCrop', scopeTo).on('click', function() {
-    updatePreview()
-  })
+//   // Crop handler
+//   // Note - this was selected by a class of 
+//   //        the same name (as the id)... 
+//   $('.btnCrop', scopeTo).on('click', function() {
+//     updatePreview()
+//   })
 
-  // Crop handler
-  $('.btnSaveClose', scopeTo).on('click', function() {
+//   // Crop handler
+//   $('.btnSaveClose', scopeTo).on('click', function() {
 
-    var img = window.cropper.getDataURL()
+//     var img = window.cropper.getDataURL()
 
-    // Place the cropped image's datafile.
-    $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')
+//     // Place the cropped image's datafile.
+//     $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')
 
-    // Place it to the default image. The one that triggers the modal.
-    $('#saved_image').attr('src', img)
+//     // Place it to the default image. The one that triggers the modal.
+//     $('#saved_image').attr('src', img)
 
-    // Place the datafile value in the hidden field
-    $('.image_datafile', scopeTo).val(img)
+//     // Place the datafile value in the hidden field
+//     $('.image_datafile', scopeTo).val(img)
 
-    if ($('#refreshDetectedColors').is('*')) {
-      return $('#refreshDetectedColors').trigger('click')
-    }
+//     if ($('#refreshDetectedColors').is('*')) {
+//       return $('#refreshDetectedColors').trigger('click')
+//     }
 
-  })
-}
+//   })
+// }
 
 
 
@@ -85,13 +85,13 @@ var modalLogic_multiple = function(scopeTo, cropbox_options, currentImageID) {
   var reader
   var img
 
-  cropper = $('.imageBox', scopeTo).cropbox(cropbox_options)
+  window.cropper = $('.imageBox', scopeTo).cropbox(cropbox_options)
 
   scopeTo.on('change', $(".file_field", scopeTo), function(e) {
     reader = new FileReader()
     reader.onload = function(e) {
       cropbox_options.imgSrc = e.target.result
-      cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options)
+      window.cropper = $('.avatarBox', scopeTo).cropbox(cropbox_options)
       return $('.btnCrop, .btnZoomIn, .btnZoomOut', scopeTo).removeClass('disabled')
     }
     reader.readAsDataURL(this.querySelector('.file_field').files[0])
@@ -100,18 +100,18 @@ var modalLogic_multiple = function(scopeTo, cropbox_options, currentImageID) {
 
 
   function updatePreview() {
-    img = cropper.getDataURL()
+    img = window.cropper.getDataURL()
     // Place the cropped image's datafile.
     return $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')
   }
 
   // Zoom Btns
   $('.btnZoomIn', scopeTo).on('click', function(){
-    cropper.zoomIn()
+    window.cropper.zoomIn()
     updatePreview()
   })
   $('.btnZoomOut', scopeTo).on('click', function(){
-    cropper.zoomOut()
+    window.cropper.zoomOut()
     updatePreview()
   })
 
@@ -126,7 +126,7 @@ var modalLogic_multiple = function(scopeTo, cropbox_options, currentImageID) {
   // Crop handler
   $('.btnSaveClose', scopeTo).on('click', function() {
 
-    img = cropper.getDataURL()
+    img = window.cropper.getDataURL()
 
     // Place the cropped image's datafile.
     $('.cropped_image', scopeTo).html('<img src="' + img + '" width="420">')

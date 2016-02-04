@@ -9,6 +9,7 @@
     <% end %>
 
     <%= fr "Location Title", f.text_field(:title),
+      id: "tour-title",
       info: "The name of this location. If the name is the same as other locations, simply enter the street name to differentiate it." %>
 
     <%= fr "Address", f.text_field(:address) %>
@@ -29,12 +30,12 @@
     <% end %>
 
     
-    <%= fr "Location Photos" do %>
+    <%= fr "Location Photos", id: 'tour-photos' do %>
       <div class="row">
         <% Location::MAX_PHOTOS.times do |i| %>
           <div class="col-sm-4">
             <%= image_tag @location.location_photos[i].image.url(:thumb), id: "saved_image_#{i}", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-#{i}"} %>
-            <%= hidden_field_tag 'image_datafiles[]', "", data: {uploadtarget: "cropImageModal-#{i}"} %>
+            <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_#{i}", data: {uploadtarget: "cropImageModal-#{i}"} %>
             <%#= link_to "Clear", "#", data: {removeImage: i} %>
           </div>
         <% end %>
@@ -47,6 +48,7 @@
   <%= wrapper :dark do %>
     <%= section_header 'Greetings' %>
     <%= fr 'Select a Greeting',
+      id: "tour-greetings",
       info: "A greeting contains your location's welcome and exit messages. You may reuse greetings, or create a new one." do %>
       <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message', @location.greeting_id), prompt: 'Choose a greeting') %>
     <% end  %>
@@ -65,7 +67,7 @@
 
     <div class="row">
       <div class="col-xs-12 text-center">
-        <%= f.button %>
+        <%= f.button id: "tour-button" %>
       </div>
     </div>
 

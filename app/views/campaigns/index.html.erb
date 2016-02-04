@@ -1,3 +1,4 @@
+<% hopscotch %>
 <% content_for(:page_title) { "Campaigns" } %>
 
 <%= wrapper do %>
@@ -7,18 +8,18 @@
     </div>
     <div class="page-top_utils">
       <%# location selector floated right, which is why it's here in the DOM %>
-      <div class="page-top_right" style="max-width: 240px; min-width: 100px;">
+      <div class="page-top_right" id="tour-location-menu" style="max-width: 240px; min-width: 100px;">
         <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :index} %>
       </div>
       <div class="page-top_center">
-        <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+        <%= link_to 'New Campaign', '#', id: "tour-new-campaign", class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
       </div>
     </div>
     <div class="clearfix"></div>
 
     <div class="row filter-options">
       <div class="col-xs-2 col-sm-1">
-        <h4>View</h4>
+        <h4 id="tour-filter">View</h4>
       </div>
       <%# Filter - status %>
       <div class="col-xs-5 col-sm-3 col-md-2">

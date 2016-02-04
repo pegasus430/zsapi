@@ -12,4 +12,15 @@ class UsersController < ApplicationController
 		render nothing: true
 	end
 
+	# This is ran via ajax when the sidebar icon is clicked
+	def endTour
+		name = params[:name]
+		if File.exists?("#{Rails.root}/app/assets/javascripts/tours/#{name}.js")
+			current_user.meta["hopscotch_#{name}".to_sym] = 1
+			current_user.save
+		end
+
+		render nothing: true
+	end
+
 end

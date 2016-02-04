@@ -19,7 +19,7 @@ class GreetingsController < ApplicationController
 
     respond_to do |format|
       if @greeting.save
-        format.html { redirect_to greetings_path, notice: 'Greeting was successfully created. Create the payment now' }
+        format.html { redirect_to greetings_path, notice: 'Greeting was successfully created!' }
       else
         format.html { render :new }
       end

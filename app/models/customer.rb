@@ -26,7 +26,7 @@ class Customer < ActiveRecord::Base
 	def self.import(file, opts)
 		newly_imported_customers = []
 
-	  SmarterCSV.process(file, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |chunk_row|
+	  SmarterCSV.process(file.path, chunk_size: 100, key_mapping: {first: :first_name, last: :last_name}) do |chunk_row|
 	  	chunk_row.each do |row|
 	  		customer, is_new_to_business = Customer.find_or_create_with_membership(row.merge({business: opts[:business]}))
 	  		if customer

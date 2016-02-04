@@ -23,7 +23,15 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign = current_user.business.campaigns.build(campaign_params)
-    @campaign.image = convert_data_uri_to_upload(params[:image_datafile]) unless params[:image_datafile].blank?
+
+    # Create each image
+    # copied from locations controller
+    if params[:image_datafiles]
+      params[:image_datafiles].each do |image|
+        @campaign.image = convert_data_uri_to_upload(image) unless image.blank?
+      end
+    end
+    ##
 
     respond_to do |format|
       if @campaign.save
@@ -73,7 +81,14 @@ class CampaignsController < ApplicationController
 
   def update
     respond_to do |format|
-      @campaign.image = convert_data_uri_to_upload(params[:image_datafile]) unless params[:image_datafile].blank?
+      # Update each image
+      ## copied from locations controller
+      if params[:image_datafiles]
+        params[:image_datafiles].each do |image|
+          @business.image = convert_data_uri_to_upload(image) unless image.blank?
+        end
+      end
+      ##
 
       if @campaign.update(campaign_params)
 

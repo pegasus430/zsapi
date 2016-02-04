@@ -31,6 +31,15 @@ class BusinessesController < ApplicationController
   def create
     @business = Business.new(business_params)
 
+    # Create each image
+    # copied from locations controller
+    if params[:image_datafiles]
+      params[:image_datafiles].each do |image|
+        @business.image = convert_data_uri_to_upload(image) unless image.blank?
+      end
+    end
+    ##
+
     respond_to do |format|
       if @business.save
         format.html { redirect_to new_location_path, notice: 'Business was successfully created.' }
@@ -43,6 +52,15 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
+    # Update each image
+    ## copied from locations controller
+    if params[:image_datafiles]
+      params[:image_datafiles].each do |image|
+        @business.image = convert_data_uri_to_upload(image) unless image.blank?
+      end
+    end
+    ##
+
     # The user is publishing the business
     if params[:publish]
       publish_errors = []
