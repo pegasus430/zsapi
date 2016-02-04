@@ -1,7 +1,8 @@
 <% content_for(:page_title) { "Receipts" } %>
 
 <%= wrapper do %>
-
+  <% unless @approved_receipts.blank? %>
+    <% hopscotch "receipts-index-has-receipts" %>
     <div class="row mb2">
       <div class="col-xs-12 col-sm-8">
         <h2>Verified Receipts</h2>
@@ -13,7 +14,7 @@
 
     <div class="filter-options">
       <div class="left mb3 mr4">
-        <h4 class="caps m0">Filter<br> by Date:</h4>
+        <h4 id="tour-filter" class="caps m0">Filter<br> by Date:</h4>
       </div>
       <%# Filter form %>
       <form action="<%= receipts_url %>" method="get">
@@ -53,9 +54,8 @@
       </form>
     </div>
 
-  <% unless @approved_receipts.blank? %>
     <div class="table-responsive">
-      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+      <table id="tour-table" data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
         <thead>
           <tr>
             <th class="first" data-align="left" data-sortable="true">ID</th>
@@ -87,8 +87,8 @@
     </div>
 
   <% else %> <%# !receipts %>
-
-    <div id="no-records">
+    <% hopscotch %>
+    <div id="tour-no-records">
       <h2 class="nowrap">No Receipts!</h2>
       <p>There are no approved receipts available to show.</p>
     </div>
