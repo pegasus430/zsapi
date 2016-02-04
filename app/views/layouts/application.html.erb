@@ -9,7 +9,7 @@
 	<meta name="author" content="The coffee-loving enthusiasts at Wesfed.com">
 	<meta name="h-version" content="<%= ENV['HEROKU_RELEASE_VERSION'] || "n/a" %>">
 
-	<title>ZippySpot | <%= @html_title || "Admin Panel" %></title>
+	<title>Zippy Spot | <%= @html_title || "Admin Panel" %></title>
 
 	<%# Mobile Metas %>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,7 +113,7 @@
 						<%= link_to edit_user_registration_url, id: "profile-label", class: "dropdown-account_primary-label", data: {target: '#', toggle: "dropdown"} do %>
 							Your Account
 							<% if current_user.business.in_trial? %>
-								(<%= current_user.business.trial_days_remaining %> days)
+								<span id="tour-trial">(<%= current_user.business.trial_days_remaining %> days)</span>
 							<% end %>
 						<% end %>
 					  <ul class="dropdown-menu arrow">

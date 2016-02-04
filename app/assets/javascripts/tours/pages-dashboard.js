@@ -6,24 +6,26 @@ var tour_steps = [
     target: '.page-top_left h2',
     placement: 'left',
   }, {
-    title: 'Sidebar',
-    content: 'Your sidebar is always here and allows you to navigate the Zippy Spot app. You can collapse or expand the sidebar by clicking this icon.',
-    target: '#navTrigger',
-    placement: 'right'
+    title: 'View Other Campaigns',
+    content: 'When there are more active campaigns than being shown, click this button to view your list of campaigns.',
+    target: '#tour-view-campaign',
+    placement: 'top'
   }, {
-    title: 'Getting Started',
-    content: 'This green menu shows you a list of tasks that need to be completed prior to publishing your business.',
-    target: '#progress_finger',
+    title: 'Business Stats',
+    content: 'These charts and numbers give you and overview to the activity of the customers and campaigns in your store.',
+    target: '#tour-activity',
     placement: 'left'
-  }, {
-    content: 'Let\'s make sure your business profile is up-to-date! Click to begin.',
-    target: '.profile-progress-list li:first a',
-    placement: 'bottom',
-    showNextButton: false,
-    showCTAButton: true,
-    ctaLabel: "Setup Business Profile",
-    onCTA: function() {
-      return $('.profile-progress-list li:first a').trigger('click');
-    }
   }
 ];
+
+if ( $('#tour-trial').length )
+{
+  tour_steps.push({
+    title: 'Your Trial',
+    content: 'This shows you how many days you have remaining in your trial. Once this hits 0, you will be billed according to the subscription you selected.',
+    target: '#tour-trial',
+    placement: 'bottom',
+    arrowOffset: 252,
+    xOffset: -210
+  });
+}

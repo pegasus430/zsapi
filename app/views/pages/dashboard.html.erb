@@ -24,7 +24,7 @@
 	<% if @campaigns %>
 		<div class="row">
 			<div class="col-xs-12 text-right">
-				<%= link_to "View All Campaigns", campaigns_url, class: "btn btn-browse" %>
+				<%= link_to "View All Campaigns", campaigns_url, id: "tour-view-campaign", class: "btn btn-browse" %>
 			</div>
 		</div>
 	<% end %>
@@ -37,7 +37,7 @@
 	<%# ACTIVITY %>
 	<div class="row">
 	  <div class="col-xs-12 col-sm-4">
-	    <h2>Today's Activity</h2>
+	    <h2 id="tour-activity">Today's Activity</h2>
 	  </div>
 	  <div class="col-xs-12 col-sm-8">
 	    <ul class="camp-stats">
