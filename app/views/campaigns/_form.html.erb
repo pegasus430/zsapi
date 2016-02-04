@@ -42,7 +42,7 @@
         <% current_user.locations.each do |l| %>
           <div class="cbox">
             <%= check_box_tag "campaign[location_ids][]", l.id, @campaign.location_ids.include?(l.id), id: "location_#{l.id}" %>
-            <label for="location_<%= l.id %>"><%= l.title %></label>
+            <label for="location_<%= l.id %>"><%= l.title %> <%= "(pending)" if l.pending? %></label>
           </div>
         <% end %>
         </div>
