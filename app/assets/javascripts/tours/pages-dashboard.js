@@ -4,17 +4,19 @@ var tour_steps = [
     title: 'Active Campaigns',
     content: 'The top campaigns that are active and are set to be available today are shown here.',
     target: '.page-top_left h2',
-    placement: 'left',
+    placement: 'top',
   }, {
     title: 'View Other Campaigns',
     content: 'When there are more active campaigns than being shown, click this button to view your list of campaigns.',
     target: '#tour-view-campaign',
-    placement: 'top'
+    placement: 'top',
+    arrowOffset: 252,
+    xOffset: -96
   }, {
     title: 'Business Stats',
     content: 'These charts and numbers give you and overview to the activity of the customers and campaigns in your store.',
     target: '#tour-activity',
-    placement: 'left'
+    placement: 'right'
   }
 ];
 
