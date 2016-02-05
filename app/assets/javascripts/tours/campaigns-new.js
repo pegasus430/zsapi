@@ -4,7 +4,7 @@ var tour_steps = [
     title: 'Creating your Campaign',
     content: 'Go through this form and enter as much information as you can. If you are not sure of what something means, refer to the small (i) icon next to the field for an explanation.',
     target: '#tour-title',
-    placement: 'left',
+    placement: 'top',
     onNext: function(){
       $('#toggle-3').click();
     }
@@ -13,7 +13,7 @@ var tour_steps = [
     title: 'Campaign Schedule',
     content: 'Schedules allow you to ensure your campaigns are only active when you want them to be active. The scheduling system is very flexible, so understanding how it works is key. Be sure to refer to the help icons, or the help docs, when creating complex schedules.',
     target: '#toggle-3',
-    placement: 'left',
+    placement: 'top',
     onNext: function(){
       $('#toggle-0').click();
     }
