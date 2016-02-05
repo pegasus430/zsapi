@@ -3,7 +3,7 @@
     body: capture { %>
       <div class="row" id="tour-modal">
         <div id="tour-coupon" class="col-xs-12 col-md-4">
-          <%= link_to new_campaign_url('coupon'), class: "item" do %>
+          <%= link_to new_campaign_url('coupon'), 'data-no-turbolink' => true, class: "item" do %>
             <%= image_tag 'percent.png', class: 'percent' %>
             <h4>New Coupon</h4>
             <span>Ex: Get 10% Off an Item</span>
@@ -11,7 +11,7 @@
         </div>
 
         <div id="tour-reward" class="col-xs-12 col-md-4">
-          <%= link_to new_campaign_url('reward'), class: "item" do %>
+          <%= link_to new_campaign_url('reward'), 'data-no-turbolink' => true, class: "item" do %>
             <%= image_tag 'cup.png', class: 'cup' %>
             <h4>New Reward</h4>
             <span>Ex: Redeem your points</span>
@@ -19,7 +19,7 @@
         </div>
 
         <div id="tour-special" class="col-xs-12 col-md-4">
-          <%= link_to new_campaign_url('special'), class: "item" do %>
+          <%= link_to new_campaign_url('special'), 'data-no-turbolink' => true, class: "item" do %>
             <%= image_tag 'star.png', class: 'star' %>
             <h4>New Special</h4>
             <span>Ex: Half-Price Wednesdays</span>
