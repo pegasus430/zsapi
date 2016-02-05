@@ -22,7 +22,11 @@ body
 
   &.bare,
   &.admin
-    padding: $row-gutter
+    // padding: $row-gutter
+    margin-left: auto
+    margin-right: auto
+    @include above($bp-xsmall)
+      padding-left: 0
 
     
   @include above($bp-xsmall)
