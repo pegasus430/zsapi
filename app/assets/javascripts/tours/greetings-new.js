@@ -4,12 +4,12 @@ var tour_steps = [
     title: 'Entrance Greeting',
     content: 'When a customer enters your store location, they will receive this welcome message. Optionally, you can offer them bonus rewards per day, week, or month.',
     target: '#tour-welcome',
-    placement: 'left'
+    placement: 'top'
   }, {
     title: 'Exit Greeting',
     content: 'When a customer exits your store location, they will see what you write here.',
     target: '#tour-exit',
-    placement: 'left',
+    placement: 'top',
     onNext: function(){
       $('#attach').click();
     }

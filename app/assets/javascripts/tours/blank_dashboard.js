@@ -4,7 +4,7 @@ var tour_steps = [
     title: 'Welcome to Zippy Spot!',
     content: 'Youre on your way to interacting with your customers and becoming a better business because of it. Let us show you around!',
     target: '#welcome-heading',
-    placement: 'left'
+    placement: 'top'
   }, {
     title: 'Account and Help',
     content: 'Your account dropdown give you the option to view help docs, edit your account, or log out from Zippy Spot.',

@@ -4,12 +4,12 @@ var tour_steps = [
     title: 'Campaigns',
     content: 'A campaign is what you are wanting to show your customers. It can be a coupon, a reward, or a special.',
     target: '.page-top_utils',
-    placement: 'left'
+    placement: 'top'
   }, {
     title: 'Filters',
     content: 'You don\'t have any campaigns to view currently, but when you do, these filters allow you to find just what you\'re looking for.',
     target: '#tour-filter',
-    placement: 'left'
+    placement: 'top'
   }, {
     title: 'Location Views',
     content: 'If you have more than one location and want to view campaigns for that location only, you can do so by choosing the location from this dropdown menu.',
@@ -21,7 +21,7 @@ var tour_steps = [
     title: 'Get Started',
     content: 'Let\s go ahead and create your first campaign. Click on "New Campaign" to continue.',
     target: '#tour-new-campaign',
-    placement: 'left',
+    placement: 'top',
     nextOnTargetClick: '#tour-new-campaign',
     showNextButton: false
   }, {
