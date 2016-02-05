@@ -22,7 +22,12 @@ body
 
   &.bare,
   &.admin
-    padding: $row-gutter
+    // center login form and remove body padding
+    // for login-only pages (otherwise needed for the sidebar)
+    margin-left: auto
+    margin-right: auto
+    @include above($bp-xsmall)
+      padding-left: 0
 
     
   @include above($bp-xsmall)
