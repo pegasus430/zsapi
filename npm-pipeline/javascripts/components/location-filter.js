@@ -38,4 +38,17 @@ module.exports = function() {
     })
   }
 
+  
+  // Update current location selection
+
+  var currentRelURL = window.location.pathname
+  var currentValue
+  
+  $('#locationFilter > option').each(function() {
+    var currentValue = $(this).val()
+    if ( currentRelURL === currentValue ) {
+      $('#locationFilter').selectBox('value', currentValue)
+    }
+  })
+
 }

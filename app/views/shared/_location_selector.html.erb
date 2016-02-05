@@ -1,4 +1,5 @@
-<select id="locationFilter" class="mr3"> <%# margin right here to account for angle icon %>
+<select id="locationFilter" class="mr3"> <%# margin-right here to account for angle icon %>
+	<option value="/campaigns">All Locations</option>
 	<% current_user.locations.each do |l| %>
 		<%
 			url_for_opts = {
@@ -13,5 +14,5 @@
 		%>
 	  <option value="<%= url_for(url_for_opts) %>"><%= l.title %></option>
   <% end %>
-  	<option value="<%= new_location_url %>">+ New Location</option>
+	<option value="<%= new_location_url %>">+ New Location</option>
 </select>
