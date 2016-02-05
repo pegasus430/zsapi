@@ -90,7 +90,7 @@ var updateSelection = function() {
 Core Custom day selector function 
 */
 
-var customDaySelector = function() {
+!function() {
   var customDaySelector = $('.customDaySelector')
 
   // Check to see if custom is pre-selected, 
@@ -142,7 +142,4 @@ var customDaySelector = function() {
     })
 
   }
-}
-
-
-customDaySelector()
+}()

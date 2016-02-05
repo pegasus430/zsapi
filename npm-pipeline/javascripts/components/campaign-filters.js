@@ -29,11 +29,11 @@ module.exports = function() {
   // Wes: Added try block to prevent errors on pages with no element
   try {
     var initialStatus = $('#campaignFilter-status :selected').val()
-    if ( initialStatus.length ) 
+    if ( initialStatus !== undefined && initialStatus.length ) 
       initialStatus = initialStatus.toLowerCase()
 
     var initialType = $('#campaignFilter-type :selected').val()
-    if ( initialType.length ) 
+    if ( initialType !== undefined && initialType.length ) 
       initialType = initialType.toLowerCase()
   }
   catch(err){
