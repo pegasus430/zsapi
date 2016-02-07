@@ -44,12 +44,12 @@ class PagesController < ApplicationController
 	  	# Charts
 	  	chart_area_row_data = []
 			7.days.ago.to_date.upto(Date.today) do |date|
-				visits_on_date = @locations.collect(&:visits).where('last_visit_at >= ? AND last_visit_at <= ?', date.beginning_of_day, date.end_of_day)
+				visits_on_date = Visit.where(location: @locations).where('last_visit_at >= ? AND last_visit_at <= ?', date.beginning_of_day, date.end_of_day)
 				chart_area_row_data << {c: [
 	  			date.to_s,
 	  			visits_on_date.count,
 	  			visits_on_date.where(total: 1).count,
-	  			@locations.collect(&:redemptions).where('created_at >= ? AND created_at <= ?', date.beginning_of_day, date.end_of_day).count
+	  			Redemption.where(location: @locations).where('created_at >= ? AND created_at <= ?', date.beginning_of_day, date.end_of_day).count
 				]}
 			end
 
@@ -61,7 +61,7 @@ class PagesController < ApplicationController
 		  			{type: 'number', label: 'New Visits'},
 		  			{type: 'number', label: 'Redemptions'},
 		  		],
-		  		rows: [chart_area_row_data]
+		  		rows: chart_area_row_data
 		  	),
 		  	{
 		  		title: 'Visitors (last 7 days)',
