@@ -155,18 +155,21 @@ class CampaignsController < ApplicationController
 
     def campaign_charts
       # Charts
+      redemptions = Redemption.where('created_at >= ?', 30.days.ago.beginning_of_day)
+      
+      if params[:location_id]
+        redemptions = redemptions.where(location_id: params[:location_id])
+      end
+
+      redemption_row_data = redemptions.group_by{|r| r.created_at.to_date}.map{ |k,r| {c: [k.strftime("%m/%d").to_s, r.length.to_i]} }
+
       redemptions_in_30_days = GoogleVisualr::Interactive::AreaChart.new(
         GoogleVisualr::DataTable.new(
           cols: [
             {type: 'string', label: 'Date'},
             {type: 'number', label: 'Redemptions'},
           ],
-          rows: [
-            {c: ['9/21/15', 14]},
-            {c: ['9/22/15', 3]},
-            {c: ['9/23/15', 12]},
-            {c: ['9/24/15', 19]},
-          ]
+          rows: redemption_row_data
         ),
         {
           title: 'Redemptions (last 30 days)',
@@ -176,7 +179,7 @@ class CampaignsController < ApplicationController
             easing: 'inAndOut',
             duration: 400,
           },
-          hAxis: {textPosition: 'none'},
+          hAxis: {title: "Date", showTextEvery: 1, textPosition: 'none'},
           vAxis: {minValue: 0},
           legend: {
             position: 'bottom',

@@ -10,6 +10,10 @@ class Visit < ActiveRecord::Base
     customer.membership_for(location.business).points
   end
 
+  def first_visit?
+    total == 1
+  end
+
   def self.check_in!(opts)
     customer = opts[:customer]
     location = opts[:location]

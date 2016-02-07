@@ -28,6 +28,18 @@ RSpec.describe Visit, type: :model do
 
 
 	describe 'Methods' do
+		describe '#first_visit?' do
+			it 'returns true if it is the first visit' do
+				v = FactoryGirl.create(:visit, total: 1)
+				expect(v.first_visit?).to be truthy
+			end
+
+			it 'returns false if it is NOT the first visit' do
+				v = FactoryGirl.create(:visit, total: 46)
+				expect(v.first_visit?).to be falsey
+			end
+		end
+
 
 		describe '.check_in!' do
 			before :each do

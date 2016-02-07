@@ -42,6 +42,17 @@ class PagesController < ApplicationController
 
 
 	  	# Charts
+	  	chart_area_row_data = []
+			7.days.ago.to_date.upto(Date.today) do |date|
+				visits_on_date = @locations.collect(&:visits).where('last_visit_at >= ? AND last_visit_at <= ?', date.beginning_of_day, date.end_of_day)
+				chart_area_row_data << {c: [
+	  			date.to_s,
+	  			visits_on_date.count,
+	  			visits_on_date.where(total: 1).count,
+	  			@locations.collect(&:redemptions).where('created_at >= ? AND created_at <= ?', date.beginning_of_day, date.end_of_day).count
+				]}
+			end
+
 	  	chart_area = GoogleVisualr::Interactive::AreaChart.new(
 		  	GoogleVisualr::DataTable.new(
 		  		cols: [
@@ -50,12 +61,7 @@ class PagesController < ApplicationController
 		  			{type: 'number', label: 'New Visits'},
 		  			{type: 'number', label: 'Redemptions'},
 		  		],
-		  		rows: [
-		  			{c: ['9/21/15', 14, 	0, 	2]},
-		  			{c: ['9/22/15', 3, 	1, 	4]},
-		  			{c: ['9/23/15', 12, 	6,	7]},
-		  			{c: ['9/24/15', 19, 	0, 	15]}
-		  		]
+		  		rows: [chart_area_row_data]
 		  	),
 		  	{
 		  		title: 'Visitors (last 7 days)',
@@ -89,9 +95,9 @@ class PagesController < ApplicationController
 		  			{type: 'number', label: 'Value'},
 		  		],
 		  		rows: [
-		  			{c: ['Coupon', [@stats[:today][:coupons], 3].max]},
-		  			{c: ['Reward', [@stats[:today][:rewards], 2].max]},
-		  			{c: ['Special', [@stats[:today][:specials], 1].max]}
+		  			{c: ['Coupon', [@stats[:today][:coupons], 0].max]},
+		  			{c: ['Reward', [@stats[:today][:rewards], 0].max]},
+		  			{c: ['Special', [@stats[:today][:specials], 0].max]}
 		  		]
 		  	),
 		  	{
