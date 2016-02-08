@@ -31,7 +31,7 @@
 	<%= yield :js_header %>
 </head>
 
-<body class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>">
+<body class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>" data-no-turbolink>
 	<div class="width-indicator"></div>
 	
 	<div id="wrapper">
