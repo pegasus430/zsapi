@@ -76,6 +76,9 @@ GEM
       thor (~> 0.19)
     buftok (0.2.0)
     builder (3.2.2)
+    bullet (5.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (6.0.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -415,6 +418,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
+    uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -435,6 +439,7 @@ DEPENDENCIES
   autoprefixer-rails
   aws-sdk (< 2.0)
   bourbon
+  bullet
   byebug
   capybara
   coffee-rails (~> 4.1.0)

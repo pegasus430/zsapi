@@ -65,6 +65,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   # Identities--
 
   gem 'puma'
+
+  gem "bullet", group: :development
 # Wesfed--
 
 # Taken these two out of dev/test group so it will work with rake devdata:all
