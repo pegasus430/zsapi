@@ -76,7 +76,7 @@
 									<% current_user.business.beacons.includes(:location).active.each do |beacon| %>
 										<li>
 											<%= link_to beacon.location do %>
-												<%= beacon.location.title %>
+												<span class="battery-status_location"><%= beacon.location.title %></span>
 												<div class="inline-block right">
 													<span class="percent-circle_wrap">
 														<%# 
