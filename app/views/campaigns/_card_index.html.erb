@@ -1,7 +1,7 @@
-<% unless @campaigns.nil? %>
+<% unless @todays_campaigns.nil? %>
 
   <div class="row">
-    <% @campaigns.each do |c| %>
+    <% @todays_campaigns.includes(:redemptions).each do |c| %>
       <div class="campaign-card_wrap col-xs-6 col-sm-4 col-md-3">
         <div class="campaign-card">
           <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>

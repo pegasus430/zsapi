@@ -4,7 +4,7 @@ class Stat < ActiveRecord::Base
 		query  = opts[:query]
 		range  = opts[:range]
 
-		Visit.all.where(location: query, last_visit_at: range).size rescue 0
+		Visit.all.count(conditions: {location: query, last_visit_at: range}) rescue 0
 	end
 
 	def self.total_redemptions(opts)
