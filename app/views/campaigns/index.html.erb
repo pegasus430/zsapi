@@ -45,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @campaigns.each do |c| %>
+          <% @campaigns.includes(:schedule, :locations).each do |c| %>
             <tr>
               <td><%= type_of_circle(c.type_of) %></td>
               <td><%= link_to c.title, c %></td>

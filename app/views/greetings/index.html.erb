@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @greetings.each do |greeting| %>
+          <% @greetings.includes(:campaign, :locations).each do |greeting| %>
             <tr>
               <td><%= active_circle(greeting.assigned_to_location?) %></td>
               <td><%= link_to greeting.welcome_message, edit_greeting_path(greeting) %></td>
