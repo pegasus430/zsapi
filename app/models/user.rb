@@ -53,8 +53,8 @@ class User < ActiveRecord::Base
   def twitter_client
   	if twitter
 	    @twitter_client ||= Twitter::REST::Client.new do |config|
-	      config.consumer_key        = Rails.configuration.x.TWITTER_APP_ID
-	      config.consumer_secret     = Rails.configuration.x.TWITTER_APP_SECRET
+	      config.consumer_key        = ENV['TWITTER_APP_ID']
+	      config.consumer_secret     = ENV['TWITTER_APP_SECRET']
 	      config.access_token        = twitter.access_token
 	      config.access_token_secret = twitter.secret_token
 	    end
@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
   end
 
   def constantcontact_client
-    @constantcontact_client ||= ConstantContact::Api.new( Rails.configuration.x.CONSTANTCONTACT_APP_ID, constantcontact.access_token ) if constantcontact
+    @constantcontact_client ||= ConstantContact::Api.new( ENV['CONSTANTCONTACT_APP_ID'], constantcontact.access_token ) if constantcontact
     @constantcontact_client
   end
 
