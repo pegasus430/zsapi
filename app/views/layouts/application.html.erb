@@ -73,7 +73,7 @@
 							</a>
 							<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
 								<% unless current_user.business.beacons.active.blank? %>
-									<% current_user.business.beacons.active.each do |beacon| %>
+									<% current_user.business.beacons.includes(:location).active.each do |beacon| %>
 										<li>
 											<%= link_to beacon.location do %>
 												<%= beacon.location.title %>
