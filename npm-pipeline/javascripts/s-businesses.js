@@ -1,6 +1,15 @@
 // todo: refactor these into helper module(s)
 
 
+/*
+Watch for changes on business 
+logo and styles and update the
+mobile preview accordingly
+*/
+
+var mobilePreviewWatch = require('./components/mobile-preview-watchers')
+mobilePreviewWatch()
+
 
 /*
 Toggleable Sections
