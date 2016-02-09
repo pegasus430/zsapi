@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @pending_locations.each do |location| %>
+          <% @pending_locations.includes(:beacon).each do |location| %>
             <tr>
               <td><%= location.id %></td>
               <td><%= link_to location.title, location %></td>
