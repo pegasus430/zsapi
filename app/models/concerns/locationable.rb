@@ -6,7 +6,7 @@ module Locationable
   end
 
 	def locations_string
-	  if locations.size > 0
+	  unless locations.blank?
 	    locations.order('title ASC').map(&:title).join(', ')
 	  else
 	    "None"
