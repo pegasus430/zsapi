@@ -11,7 +11,9 @@ module ApplicationHelper
 			# THE CODE BELOW IS COMMENTED OUT FOR TESTING.
 			# IT SHOULD BE SHOWN IN PRODUCTION
 			
-			unless current_user.meta["hopscotch_#{name}".to_sym].to_i == 1 && Rails.env.production?
+			show_tour = current_user.meta["hopscotch_#{name}".to_sym].to_i == 0 || Rails.env.development?
+
+			if show_tour
 				content_for :hopscotch_js do
 					concat javascript_tag("var tour_name = '#{name}';")
 					concat javascript_include_tag "tours/#{name}"
