@@ -7,7 +7,7 @@ var tour_steps = [
     placement: 'left'
   }, {
     title: 'Placing the Order',
-    content: 'After you fill in the billing details and have read the Terms and Condition. Click the button to place your beacon order.',
+    content: 'After you fill in the billing details and have read the Terms and Condition click the button to place your beacon order.',
     target: '#tour-button',
     placement: 'top'
   }

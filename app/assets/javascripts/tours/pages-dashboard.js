@@ -14,7 +14,7 @@ var tour_steps = [
     xOffset: -96
   }, {
     title: 'Business Stats',
-    content: 'These charts and numbers give you and overview to the activity of the customers and campaigns in your store.',
+    content: 'These charts and numbers give you an overview to the activity of the customers and campaigns in your store.',
     target: '#tour-activity',
     placement: 'right'
   }
