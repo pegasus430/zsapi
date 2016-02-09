@@ -90,13 +90,13 @@
 																- Handled by the attribute `data-percentage` 
 																- Can be any positive integegar, 1 - 100 
 														%>
-														<div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
+														<div class="js_percent-circle percent-circle_border percent-circle_color-green" data-percentage="<%= "#{beacon.battery_level}" %>">
 															<div class="percent-circle_inner"></div>
 														</div>
 													</span>
 													<%# Note: The value for this needs to be dynamic... should come from same source
 																		 as the above data-percentage attribute. %>
-													<span class="bat-stat_percent-text"><%= "#{beacon.battery_level}%" rescue "?"%></span>
+													<span class="bat-stat_percent-text"><%= "#{beacon.battery_level}%" %></span>
 												</div>
 											<% end %>
 										</li>
