@@ -23,7 +23,7 @@ Notes:
 //= require bootstrap-table
 //= require hopscotch/hopscotch
 
-//= require turbolinks
+// require turbolinks
 //= require_self
 
 

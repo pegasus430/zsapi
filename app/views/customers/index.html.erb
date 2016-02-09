@@ -99,22 +99,19 @@
       </div>
     <% end %>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <%= cbox "notify", "Notify newly imported users of new rewards system?" %>
-      </div>
-    </div>
+  <%= fr "" do %>
+    <%= cbox "notify", "Notify newly imported users of new rewards system?" %>
+  <% end %>
 
-    <div class="row mb">
-      <div class="col-xs-12">
-        <%= text_area_tag :message, 
-            "", 
-            class: "form-control", 
-            rows: 3, 
-            placeholder: "Type what you would like to send to your imported customers. (Tags available: {FIRST_NAME}, {LAST_NAME}, {EMAIL}, {REWARD_POINTS})" 
-        %>
-      </div>
-    </div>
+  <%= fr "Message:",
+    info: "Available Tags: {FIRST_NAME}, {LAST_NAME}, {EMAIL}, {REWARD_POINTS}" do %>
+    <%= text_area_tag :message, 
+      "", 
+      class: "form-control", 
+      rows: 3, 
+      placeholder: "Type a message that you would like to send to your imported customers."
+    %>
+  <% end %>
 
     <div class="row">
       <div class="col-xs-12 text-center">

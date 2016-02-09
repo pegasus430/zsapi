@@ -34,15 +34,20 @@ $c-percent_red: red
 
 
 .percent-circle_border
-  top: 10px
+  top: -5px
   position: relative
   text-align: center
   width: $percent-circle-size
   height: $percent-circle-size
   border-radius: 50%
+  // without a border the edge of the circle is jagged...
+  border: 1px solid transparent
   // The percentage full is set using the following css, but via JS
   // Leaving here for clarity
   // background-image: linear-gradient(162deg, transparent 50%, $c-percentage-empty 50%), linear-gradient(90deg, $c-percentage-empty 50%, transparent 50%)
+.bat-stat_percent-text
+  position: relative
+  top: -15px
 
 
 
@@ -53,8 +58,8 @@ $c-percent_red: red
   top: 4px
   left: 4px 
   text-align: center 
-  width: 14px
-  height: 14px
+  width: 12px
+  height: 12px
   border-radius: 50%
   background-color: white
 

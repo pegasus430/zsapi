@@ -28,7 +28,12 @@ class Beacon < ActiveRecord::Base
   end
 
   def battery_level
-    kontaktio.device_status(uid) rescue nil
+    returned_json = kontaktio.device_status(uid)
+    unless returned_json[:batteryLevel].nil?
+      return 0
+    else
+      return returned_json[:batteryLevel]
+    end
   end
 
 
