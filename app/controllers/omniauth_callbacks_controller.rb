@@ -1,8 +1,4 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def instagram
-    generic_callback( 'instagram' )
-  end
-
   def facebook
     generic_callback( 'facebook' )
   end
