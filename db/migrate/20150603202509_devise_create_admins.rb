@@ -2,7 +2,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration
   def change
     create_table(:admins) do |t|
       ## NON-Devise
-      t.bool :manage_receipts, default: false
+      t.boolean :manage_receipts, default: false
       
       ## Database authenticatable
       t.string :email,              null: false, default: ""

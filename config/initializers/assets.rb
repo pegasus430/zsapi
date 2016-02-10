@@ -9,3 +9,10 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+%w(beacons businesses campaigns customers greetings locations pages subscriptions receipts admin/receipts shared/init_tour).each do |controller|
+  Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
+end
+
+# Pre-compile the tours
+Rails.application.config.assets.precompile += ["tours/*.js"]

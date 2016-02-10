@@ -1,0 +1,22 @@
+<%= form_for(@beacon, url: edit_beacon_path(@beacon, key: @beacon.creation_key)) do |f| %>
+  <%= form_errors_for @beacon %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.text_field :uid, placeholder: "Beacon UID" %>
+      <i class="fa fa-barcode"></i>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.text_field :uid_confirmation, placeholder: "Beacon UID (again)" %>
+      <i class="fa fa-barcode"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <%= f.button "Create the Beacon" %>
+    </div>
+  </div>
+<% end %>

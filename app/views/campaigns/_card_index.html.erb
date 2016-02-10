@@ -1,0 +1,33 @@
+<% unless @todays_campaigns.nil? %>
+
+  <div class="row">
+    <% @todays_campaigns.includes(:redemptions).each do |c| %>
+      <div class="campaign-card_wrap col-xs-6 col-sm-4 col-md-3">
+        <div class="campaign-card">
+          <div class="badge <%= c.type_of %>"><%= c.type_of.humanize %></div>
+          <%= link_to (image_tag c.image, class: "img-responsive fit"), c %>
+          <div class="campaign-card_info">
+            <h3 class="campaign-card_heading"><%= link_to c.title, c %></h3>
+            <p><span><%= c.redemptions.where('created_at >= ?', Time.now.beginning_of_day).size %></span> uses today</p>
+            <%= link_to edit_campaign_url(c), class: 'campaign-card_icon' do %>
+              <i class="fa fa-pencil"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+
+  <div id="no-records">
+    <h2>No campaigns!</h2>
+    <p>There are either no campaigns, or they are simply not active today (and therefore, not showing).</p>
+    <p><%= link_to 'Let\'s Create one!', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %></p>
+  </div>
+
+<% end %>
+
+<%# Note: Masonry removed via commit #
+7d0fb400dd18ddec161eade2de23989f82307196
+%>

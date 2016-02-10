@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'no-reply@zippyspot.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -205,7 +205,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -232,7 +232,10 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :facebook,  ENV['FACEBOOK_APP_ID'],   ENV['FACEBOOK_APP_SECRET'], setup: true
+  config.omniauth :twitter,   ENV['TWITTER_APP_ID'],    ENV['TWITTER_APP_SECRET'], setup: true
+  config.omniauth :mailchimp, ENV['MAILCHIMP_APP_ID'],  ENV['MAILCHIMP_APP_SECRET'], setup: true
+  config.omniauth :constantcontact, ENV['CONSTANTCONTACT_APP_ID'],  ENV['CONSTANTCONTACT_APP_SECRET'], setup: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

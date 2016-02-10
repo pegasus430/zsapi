@@ -1,0 +1,59 @@
+<%= section_header "Create a New Greeting" %>
+
+<%= fr "Welcome Message",
+	f.text_field(:welcome_message, placeholder: 'Drank coffee today?'),
+	id: "tour-welcome",
+	info: "This message will be shown to customers as they enter your store." %>
+
+<%= fr "Check-in Points",
+	row: "row bb", info: "Customers can be awarded points for checking into your store on a daily, weekly, or monthly basis." do %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-5">
+			<%= f.number_field :welcome_reward, placeholder: 'ie: 100', min: 0 %>
+		</div>
+		<div class="col-xs-5 col-sm-2">
+			<%= f.label "per", class: "inline" %>
+		</div>
+		<div class="col-xs-7 col-sm-5">
+			<%= f.select :welcome_wait_time, %w(day week month) %>
+		</div>
+	</div>
+<% end %>
+
+<%= fr "Exit Message",
+	f.text_field(:exit_message, placeholder: 'Have a great day!'),
+	id: "tour-exit",
+	info: "This message is shown to customers as they exit your store." %>
+
+<%= fr "",
+	{info: "You can display a special campaign to your customers as they exit to entice them to return."} do %>
+	<%= cbox(
+		"attach",
+		"Attach a Campaign?",
+		checkbox: {
+			checked: !(greeting_campaign.nil?),
+			data: {
+				toggle: "collapse", 
+				target: "#collapseCampaign"
+			}
+		}
+	) %>
+<% end %>
+
+<div class="collapse <%= "in" if !(greeting_campaign.nil?) %>" id="collapseCampaign">
+	<%= fr "Campaign",
+		f.collection_select(:campaign_id, @campaigns, :id, :title, prompt: 'Choose a campaign', class: 'extraSpace') %>
+	
+	<%= fr "Valid for",
+		id: "tour-valid",
+		info: "A customer must return to your store within the assigned timeframe to receive the campaign." do %>
+		<div class="row">
+			<div class="col-xs-5">
+				<%= f.number_field :campaign_wait_time_quantity, placeholder: "(enter 0 for no restriction)", min: 0 %>
+			</div>
+			<div class="col-xs-7">
+				<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
+			</div>
+		</div>
+  <% end %>
+</div>

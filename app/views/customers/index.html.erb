@@ -1,0 +1,145 @@
+<% hopscotch %>
+<% content_for(:page_title) { "Customers" } %>
+
+<%= wrapper do %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h2 id="tour-title">Your Customers</h2>
+    </div>
+    <div class="col-xs-12 col-sm-6 text-right">
+      <% unless @customers.blank? %>
+        <a href="#import" class="btn btn-import">Import</a>
+        <div class="btn-group">
+          <button type="button" class="btn btn-export dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Export <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <% if current_user.mailchimp %>
+              <li>
+                <%= link_to 'Save to Mailchimp list', '#', data: {toggle: 'modal', target: '#mailchimpModal'} %>
+              </li>
+            <% end %>
+
+            <% if current_user.constantcontact %>
+              <li>
+                <%= link_to 'Save to Constant Contact list', '#', data: {toggle: 'modal', target: '#constantcontactModal'} %>
+              </li>
+            <% end %>
+
+            <li>
+              <%= link_to 'To Excel', customers_url(status: params[:status], format: 'xls') %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% unless @customers.blank? %>
+    <div class="row filter-options">
+      <div class="col-xs-2 col-sm-1">
+        <h4 id="tour-filter">VIEW</h4>
+      </div>
+      <div class="col-xs-5 col-sm-3 col-md-2">
+        <select>
+          <% %w(all active inactive).each do |w| %>
+            <option id="<%= customers_url(status: w) %>"><%= w.capitalize %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="first">Active</th>
+            <th data-align="left" data-sortable="true">Name</th>
+            <th data-align="left" data-sortable="true">Email</th>
+            <th data-align="left" data-sortable="true">Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |customer| %>
+            <tr>
+              <td><%= active_circle(customer.active?) %></td>
+              <td><%= customer.name_reversed %></td>
+              <td><%= customer.email %></td>
+              <td><%= customer.membership_for(current_user.business).points %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %> <%# !customers %>
+
+    <div id="no-records">
+      <h2 id="tour-no-customers">No customers!</h2>
+      <p>There are no customers available to show.</p>
+    </div>
+
+  <% end %> <%# customers? %>
+<% end %> <%#- wrapper %>
+
+
+<%= wrapper :dark do %>
+  <%= section_header "Import Customers" %>
+  <a name="import" id="tour-import"></a>
+
+  <%= form_tag import_customers_path, multipart: true, html: {class: "notify-form"} do %>
+
+    <%= fr "Upload Your CSV File",
+      {row: "row mb"} do %>
+      <div class="file-upload">
+        <a href="#" class="btn btn-browse upload-trigger">Browse</a>
+        <%= file_field_tag :file, class: "file_field" %>
+        <span>
+          <%= link_to("(CSV Formatting Help)", "https://zippyspot.zendesk.com/hc/en-us/articles/216678297-How-do-I-import-customers-from-my-old-reward-system-", id: "tour-import-help", target: "_blank") %>
+        </span>
+      </div>
+    <% end %>
+
+  <%= fr "" do %>
+    <%= cbox "notify", "Notify newly imported users of new rewards system?" %>
+  <% end %>
+
+  <%= fr "Message:",
+    info: "Available Tags: {FIRST_NAME}, {LAST_NAME}, {EMAIL}, {REWARD_POINTS}" do %>
+    <%= text_area_tag :message, 
+      "", 
+      class: "form-control", 
+      rows: 3, 
+      placeholder: "Type a message that you would like to send to your imported customers."
+    %>
+  <% end %>
+
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= button_tag "Process CSV", class: "btn btn-submit" %>
+      </div>
+    </div>
+  <% end %> <%# -form %>
+<% end %> <%# -dark wrapper %>
+
+
+<%# MAILCHIMP MODAL %>
+<% if current_user.mailchimp_lists %>
+  <%= modal :small, id: "mailchimpModal", title: "Select a Mailchimp List", body: capture { %>
+    <ul>
+      <% current_user.mailchimp_lists['data'].each do |list| %>
+        <li><%= link_to list['name'], customers_url(status: params[:status], export: 'mc', list: list['id']) %></li>
+      <% end %>
+    </ul>
+  <% } %>
+<% end %>
+
+<%# CCONTACT MODAL %>
+<% if current_user.constantcontact_lists %>
+  <%= modal :small, id: "constantcontactModal", title: "Select a Constant Contact List", body: capture { %>
+    <ul>
+      <% current_user.constantcontact_lists.each do |list| %>
+        <li><%= link_to list.name, customers_url(status: params[:status], export: 'cc', list: list.id) %></li>
+      <% end %>
+    </ul>
+  <% } %>
+<% end %>

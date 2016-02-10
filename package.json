@@ -1,0 +1,31 @@
+{
+  "name": "zippyspot",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "browser-sync": "^2.10.0",
+    "browserify": "^12.0.1",
+    "imagesloaded": "^3.2.0",
+    "jquery": "^2.1.4",
+    "masonry-layout": "^3.3.2",
+    "parallelshell": "^2.0.0",
+    "watchify": "^3.6.1"
+  },
+  "scripts": {
+    "js-w--1": "watchify npm-pipeline/javascripts/globals.js -o public/assets/javascripts/globals.js -v -d",
+    "js-w--2": "watchify npm-pipeline/javascripts/s-beacons.js -o public/assets/javascripts/s-beacons.js -v -d",
+    "js-w--3": "watchify npm-pipeline/javascripts/s-businesses.js -o public/assets/javascripts/s-businesses.js -v -d",
+    "js-w--4": "watchify npm-pipeline/javascripts/s-campaigns.js -o public/assets/javascripts/s-campaigns.js -v -d",
+    "js-w--5": "watchify npm-pipeline/javascripts/s-pages.js -o public/assets/javascripts/s-pages.js -v -d",
+    "js-w--6": "watchify npm-pipeline/javascripts/s-subscriptions.js -o public/assets/javascripts/s-subscriptions.js -v -d",
+    "js-w--7": "watchify npm-pipeline/javascripts/s-greetings.js -o public/assets/javascripts/s-greetings.js -v -d",
+    "js-w--8": "watchify npm-pipeline/javascripts/s-customers.js -o public/assets/javascripts/s-customers.js -v -d",
+    "js-w--9": "watchify npm-pipeline/javascripts/s-receipts.js -o public/assets/javascripts/s-receipts.js -v -d",
+    "js-w": "parallelshell 'npm run js-w--1' 'npm run js-w--2' 'npm run js-w--3' 'npm run js-w--4' 'npm run js-w--5' 'npm run js-w--6' 'npm run js-w--7' 'npm run js-w--8' 'npm run js-w--9' ",
+    "bs": "browser-sync start --port 3003 --proxy 127.0.0.1:3000 --logLevel 'info' --no-ghost-mode --no-open --no-notify --files 'app/assets/**/*, app/views/**/*, public/assets/javascripts/**/*.js, public/assets/stylesheets/**/*.css' ",
+    "watch": "parallelshell 'npm run bs' 'npm run js-w' ",
+    "start": "npm run watch"
+  }
+}

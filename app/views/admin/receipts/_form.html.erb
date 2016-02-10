@@ -1,0 +1,56 @@
+<div class="row">
+  <% if receipt %>
+    <div class="col-xs-12 col-sm-6">
+      <h2><%= "#{receipt.location.business.name} - #{receipt.location.title}" %></h2>
+
+      <div id="receipt_image">
+        <%= image_tag receipt.image %>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6" id="receipt_form">
+      
+      <%= form_for([:admin, receipt], remote: true) do |f| %>
+        <%= form_errors_for receipt %>
+
+        
+        <%= fr "Purchased on" do %>
+          <div class="input-group date">
+            <div class="row no-gutters">
+              <div class="col-xs-9">
+                <%= text_field_tag 'receipt[purchased_on]', receipt.purchased_on %>
+              </div>
+              <div class="col-xs-3">
+                <span class="input-group-addon"></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <%= fr "Receipt Amount", f.number_field(:amount, min: 0) %>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div id="approved">
+              <%= f.button "Approve!", name: 'receipt[status]', value: "approved", class: "btn btn-approve" %>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div id="rejected">
+              <% Receipt.reject_reasons.each do |r| %>
+                <%= f.button r[:label], name: 'receipt[reject_reason]', value: r[:id], class: "btn btn-reject" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+
+    </div>
+
+  <% else %>
+    <div class="col-xs-12">
+      No receipts!
+    </div>
+  <% end %>
+</div>

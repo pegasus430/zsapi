@@ -1,0 +1,61 @@
+		<%= fr "Schedule Name", row: "row bb", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
+			info: "For example, if this schedule will be set to run every day forever, you could name it \"Always\"" do %>
+			<%= text_field_tag "campaign[schedule_attributes][title]", @campaign.schedule.title %>
+		<% end %>
+
+		<%= fr "DAYS OF WEEK", row: "row bb", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
+			info: "The days of the week that this campaign will be valid on." do %>
+			<% %w(s m t w t f s).map{|o| [o.upcase!, o] }.each_with_index do |day,index| %>
+				<div class="cbox pull-left">
+					<%= check_box_tag "campaign[schedule_attributes][days_of_week][]", index, (@campaign.schedule.days_of_week.blank? || @campaign.schedule.days_of_week.include?(index)), id: "dow_#{index}", multiple: true %>
+					<label for="dow_<%= index %>"><%= day[1] %></label>
+				</div>
+			<% end %>
+		<% end %>
+
+		<%= fr "VALID WEEKS", row: "row bb", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
+			info: "The week number that this campaign will be valid on." do %>
+			<% %w(first second third fourth fifth).map{|o| [o.humanize, o] }.each_with_index do |day,index| %>
+				<div class="cbox pull-left">
+					<%= check_box_tag "campaign[schedule_attributes][weeks_of_month][]", index, (@campaign.schedule.weeks_of_month.blank? || @campaign.schedule.weeks_of_month.include?(index)), id: "wom_#{index}", multiple: true %>
+					<label for="wom_<%= index %>"><%= day[1] %></label>
+				</div>
+			<% end %>
+		<% end %>
+
+		<%= fr "Days of the Month", row: "row", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9",
+			info: "The day number(s) of the month which this campaign will be valid on" do %>
+			<div class="daysOfTheMonth">
+				
+				<div class="customDaySelector"></div>
+				<%= hidden_field_tag "campaign[schedule_attributes][day_selector]", @campaign.schedule.day_selector, id: "customDaySelector_input" %>
+
+				<div class="row ">
+					<div class="radio pull-left">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "always", (@campaign.schedule.dom_selector == "always"), id: "EveryDay" %>
+						  <label for="EveryDay">Every day</label>
+					  </div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="radio pull-left">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "last", (@campaign.schedule.dom_selector == "last"), id: "LastDay" %>
+						  <label for="LastDay">Last day</label>
+					  </div>
+					</div>
+				</div>
+				
+				<div class="row bb">
+					<div class="radio pull-left customDays">
+						<div class="col-xs-12">
+							<%= radio_button_tag 'campaign[schedule_attributes][dom_selector]', "custom", (@campaign.schedule.dom_selector == "custom"), id: "Custom" %>
+						  <label for="Custom">Custom</label>
+					  </div>
+					</div>
+				</div>
+				
+			</div>
+		<% end %>

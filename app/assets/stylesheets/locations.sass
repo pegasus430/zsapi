@@ -1,0 +1,37 @@
+//= require jquery.minicolors
+//= require cropbox
+
+
+@import 'it1.settings/settings.global'
+@import 'it1.settings/settings.breakpoints'
+@import 'it1.settings/settings.colors'
+
+@import 'it2.tools/tools.mixins'
+@import 'it2.tools/tools.functions'
+
+
+
+#location-stats
+  .stat-panel
+    text-align: center
+
+    img 
+      padding: $row-gutter/2
+      height: 130px
+      
+    .panel-footer
+      span
+        color: $niagara
+        font-size: 16px
+
+#location-confirm
+  text-align: center
+  img
+    margin-bottom: $row-gutter
+  input[type="text"] 
+    display: block
+    width: 50%
+    margin: 0 auto
+  a
+    display: block
+    margin-top: $row-gutter/2

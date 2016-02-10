@@ -1,0 +1,228 @@
+<%= form_for(@campaign, multipart: true, html: {class: 'campaign-form form'}) do |f| %>
+  <%= f.hidden_field :type_of, value: @campaign.type_of %>
+  <%= form_errors_for @campaign %>
+
+  <%= wrapper do %>
+    <%= section_header "Create/Edit a New Campaign" %>
+
+    <div class="toggle-section">
+      <%= fr "Campaign Title",
+        f.text_field(:title),
+        id: "tour-title",
+        info: "This will be what primarily shows to your customers in the mobile app." %>
+      
+      <%= fr "Description",
+          f.text_field(:description),
+          info: "This will only be visible when a customer shares your campaign on social media. 100 chars. max." %>
+        
+      <%= fr "POS Code",
+          f.text_field(:pos),
+          info: "If you set up this campaign in your POS, enter its ID here to enable barcode scanning." %>
+      
+      <%= fr "Discount" do %>
+        <div class="row">
+          <div class="col-xs-5 col-sm-6">
+            <%= f.text_field :discount_amount %>
+          </div>
+          <div class="col-xs-7 col-sm-6">
+            <%= f.select :discount_type, options_for_select(Campaign.discount_types.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.discount_type, prompt: 'Choose', class: 'mobileFullWidth') %>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if @campaign.type_of == 'reward' %>
+        <%= fr "Reward Costs",
+            f.text_field(:reward_cost),
+            info: "The amount of reward points it costs to redeem this reward." %>
+      <% end %>
+      
+      <%= fr "Location(s)" do %>
+        <%= hidden_field_tag "campaign[location_ids][]", nil %>
+        <div class="campaigns-location-list">
+        <% current_user.locations.each do |l| %>
+          <div class="cbox">
+            <%= check_box_tag "campaign[location_ids][]", l.id, @campaign.location_ids.include?(l.id), id: "location_#{l.id}" %>
+            <label for="location_<%= l.id %>"><%= l.title %> <%= "(pending)" if l.pending? %></label>
+          </div>
+        <% end %>
+        </div>
+      <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %> <%# -wrapper %>
+
+
+  <%= wrapper :dark do %>
+    <%= section_header "Share Rewards",
+        desc: "When a customer refers this campaign their friends, you can choose whether or not the referrer and/or the referral get bonus points on top of their purchase. Enter \"0\" for no reward" %>
+    
+    <div class="toggle-section">
+      <%= fr "Referrer Reward",
+          f.number_field(:referrer_reward, placeholder: 3, min: 0),
+          info: "The referrer is the customer who shared the campaign with a friend." %>
+
+      <%= fr "Referral Reward",
+          f.number_field(:referral_reward, placeholder: 0, min: 0),
+          info: "The referral is the friend who was sent the shared campaign." %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %> <%# -wrapper dark %>
+
+
+  <%= wrapper do %>
+    <%= section_header "Campaign Image" %>
+
+    <div class="toggle-section">
+      <%= fr "Click image to edit" do %>
+        <%= image_tag @campaign.image.url(:index), style: "width:210px", id: "saved_image_1", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-1"} %>
+        <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_1", data: {uploadtarget: "cropImageModal-1"} %>
+      <% end %>
+
+      <%= fr "" do %>
+        <%= link_to 'or choose from gallery', '#', class: 'caps btn btn-default', data: {toggle: 'modal', target: '#galleryModal'} %>
+      <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %> <%# -wrapper %>
+
+  <%= wrapper :dark do %>
+    <%= section_header "Campaign Start/End Dates" %>
+
+    <div class="toggle-section">
+        
+      <%= fr "Status",
+          f.select(:status, options_for_select(Campaign.statuses.collect { |s| [s[0].humanize, s[0]] }, selected: @campaign.status)),
+          row: "row bb",
+          info: "The campaign is only visible when Active or Featured." %>
+      
+      <%= fr "Starts", row: "row bb" do %>
+        <div class="input-group date">
+          <div class="row no-gutters">
+            <div class="col-xs-9">
+              <%= f.text_field :start_at, class: 'form-control', value: @campaign.start_at %>
+            </div>
+            <div class="col-xs-3">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%= fr "Expires", col1: "col-xs-12 col-sm-3", col2: "col-xs-12 col-sm-9", id: "campaignExpires",
+          info: "
+            When the campaign will no longer reoccur.<br><br>
+            <strong>Specific Date:</strong> The exact date of expiration.<br>
+            <strong>Never:</strong> The campaign will reoccur until set inactive.
+          " do %>
+        <div class="row">
+          <div class="col-xs-6 col-sm-5 col-md-4">
+            <div class="radio">
+              <%= radio_button_tag 'campaign[end_at_selector]', 'specific', (@campaign.end_at_selector == "specific"), id: "endAtRadio1" %>
+              <label for="endAtRadio1">Specific Date</label>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-7 col-md-8">
+            <div class="input-group date">
+              <div class="row no-gutters">
+                <div class="col-xs-9">
+                  <%= f.text_field :end_at, class: 'form-control', value: @campaign.end_at %>
+                </div>
+                <div class="col-xs-3">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row bb">
+          <div class="col-xs-12">
+            <div class="radio allWidth">
+              <%= radio_button_tag 'campaign[end_at_selector]', 'never', (@campaign.end_at_selector == "never" || @campaign.end_at.blank?), id: "endAtRadio3" %>
+              <label for="endAtRadio3">Never</label>
+            </div>
+          </div>
+        </div>
+      <% end %> <%# -fr for expires %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %> <%# -wrapper dark %>
+
+  <%= wrapper do %>
+    <%= section_header "Recurring Schedule" %>
+    <div class="toggle-section">
+      <%= render 'schedules/form' %>
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %> <%# -wrapper %>
+
+  
+  <%= wrapper :dark do %>
+    <% if current_user.facebook || current_user.twitter %>
+      <%= section_header "Syndication", desc: "Choose which connected account you'd like to publish this new campaign to." %>
+
+      <div class="toggle-section">
+        
+        <div id="campaignSyndication">
+          <div class="row">
+
+            <% if current_user.facebook %>
+              <div class="col-xs-12 col-sm-6 text-center">
+                <div class="socialBox">
+                  <label class="facebookImg" for="facebook"></label>
+                  <%= cbox "facebook", "", value: "1", checked: true %>
+                </div>
+              </div>
+            <% end %>
+
+            <% if current_user.twitter %>
+              <div class="col-xs-12 col-sm-6 text-center">
+                <div class="socialBox">
+                  <label class="twitterImg" for="twitter"></label>
+                  <%= cbox "twitter", "", value: "1", checked: true %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        
+        <%= render 'shared/toggle_section_btns' %>
+      </div>
+    <% end %> <%# -IF SOCIAL %>
+
+    <div class="row mb4">
+      <div class="col-xs-12 text-center">
+        <%= f.button id: "tour-button" %>
+      </div>
+    </div>
+  <% end %> <%# -wrapper dark %>
+<% end %>
+
+
+<%# CROP MODAL %>
+<%= render 'shared/crop_modal', resource: @campaign, id: "cropImageModal-1"  %>
+
+
+<%# GALLERY MODAL %>
+<%= modal :large, id: "galleryModal", title: "Campaign Image Gallery", classes: "modal-gallery",
+    body: capture { %>
+        <div class="row">
+      <div class="modal-gallery_container">
+
+          <div id="modalGallerySizer" class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+
+          <% @gallery_images.each do |img| %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center modal-gallery_item">
+              <%= image_tag "campaign_gallery/#{img.split('/').last}", class: "fit modal-gallery_image" %>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+<% }, footer: capture { %>
+  <button class="btn btn-default caps" id="btnGalleryConfirm">Save</button>
+<% } %>

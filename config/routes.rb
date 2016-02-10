@@ -1,63 +1,125 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  devise_for :users
-  # get 'pages/dashboard'
+
+  apipie
+  # if Rails.env.development? || Rails.env.test?
+
+    # Beacons
+    get   '/beacon/:key',     to: 'beacons#edit',     as: 'edit_beacon'
+    patch '/beacon/:key',     to: 'beacons#update',   as: 'beacon'
+    get   '/beacon/success',  to: 'beacons#success',  as: 'beacon_success'
+
+    # Businesses
+    get '/business', to: 'businesses#edit', as: 'edit_business'
+    resources :businesses, only: [:new, :create, :update]
+
+    # Customers
+    get  '/customers/:status/(:export/:list)',  to: 'customers#index',   as: 'customers',  constraints: {status: /(all|active|inactive)/}, defaults: {status: 'all'}
+    post '/customers/import',                   to: 'customers#import',  as: 'import_customers'
+
+    # Greetings
+    resources :greetings, except: [:show]
 
 
-  
+    # All Receipts
+    resources :receipts, only: [:index, :show]
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+    # All Campaigns
+    get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
+    get '/campaigns/new/:type',         to: 'campaigns#new',    as: 'new_campaign', constraints: {type: /(coupon|reward|special)/}, defaults: {type: 'coupon'}
+    resources :campaigns, except: [:index, :new]
 
-  # You can have the root of your site routed with "root"
-  root 'pages#dashboard'
+    # Locations and Locationable Routes
+    resources :locations, except: [:destroy] do
+      get     '/subscription/success',    to: 'subscriptions#success',   as: 'subscription_success'
+      get     '/subscription',            to: 'subscriptions#show',      as: 'subscription'
+      get     '/subscription/new',        to: 'subscriptions#new',       as: 'new_subscription'
+      post    '/subscription/new',        to: 'subscriptions#create',    as: 'subscriptions'
+      delete  '/subscription/cancel',     to: 'subscriptions#destroy',   as: 'cancel_subscription'
+      patch '/confirm',   to: 'locations#confirm', as: 'confirm'
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+      # Locationable routes
+      get '/campaigns/(:type)/(:status)', to: 'campaigns#index',  as: 'campaigns',    constraints: {status: /(all|featured|active|inactive|upcoming)/, type: /(all|coupon|reward|special)/}, defaults: {status: 'all', type: 'all'}
+      resources :campaigns, only: :show
+    end
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+    # Users
+    devise_for :users, skip: [:sessions], controllers: {
+      confirmations:  'users/confirmations',
+      registrations:  'users/registrations',
+      omniauth_callbacks: 'omniauth_callbacks'
+    }
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+    devise_scope :user do
+      get '/users/login'     => 'devise/sessions#new',     as: :new_user_session
+      post '/users/login'    => 'devise/sessions#create',  as: :user_session
+      delete '/users/logout' => 'devise/sessions#destroy', as: :destroy_user_session
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+      get '/users/auth/:provider/upgrade' => 'omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
+      get '/users/auth/:provider/setup'   => 'omniauth_callbacks#setup'
+    end
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+    get '/users/toggleSidebar', to: "users#toggleSidebar"
+    post '/users/endTour', to: "users#endTour"
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
+    # Admins
+    devise_for :admins
 
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+    namespace :admin do
+      root 'pages#dashboard'
+      resources :receipts, only: [:index, :update, :destroy]
+    end
+
+    # Normal Pages
+    get '/lock_business/:id',   to: 'businesses#lock'
+    get '/locked',   to: 'pages#locked_business',  as: 'locked_business'
+    get '/subscription_canceled',   to: 'pages#subscription_canceled',  as: 'subscription_canceled'
+
+
+    # Root
+    root 'pages#dashboard'
+  # end
+
+
+  ## API
+  namespace :api do
+    api versions: 1, module: "v1" do
+      # Customer actions
+      post '/customers/sign_in',            to: 'customers#sign_in'
+      post '/customers/sign_out',           to: 'customers#sign_out'
+      post '/customers/check_in',           to: 'customers#check_in'
+      post '/customers/check_out',          to: 'customers#check_out'
+      post '/customers/notification_token', to: 'customers#notification_token'
+      get '/customers/profile',             to: 'customers#show'
+      get '/customers/feed',                to: 'customers#feed'
+      get '/customers/visits',              to: 'customers#visits'
+
+      # Temp test for notifications
+      # get '/customers/notification',        to: 'customers#get_notification'
+
+      # Finds a location via UID
+      get '/beacons/:uid/location',            to: 'locations#show'
+
+      # Locations
+      get '/locations/:id',                     to: 'locations#show'
+      get '/locations/:id/campaigns',           to: 'campaigns#index'
+      # Fetch nearest 20 beacons. Similar to fetch map, but return top 20 by proximity
+      get '/locations/near/:lat/:lon',          to: 'locations#fetch_nearby', constraints: {lat: /\-?\d+(.\d+)?/, lon: /\-?\d+(.\d+)?/}
+      get '/locations/map/:lat/:lon/:distance', to: 'locations#fetch_map', constraints: {lat: /\-?\d+(.\d+)?/, lon: /\-?\d+(.\d+)?/}
+
+      # Campaigns
+      resources :campaigns, only: [:show]
+
+      # Receipts
+      post '/receipts',              to: 'receipts#create'
+      get  '/receipts(/:status)',   to: 'receipts#index', defaults: {status: 'untouched'}
+
+      # Redemptions
+      resources :redemptions, only: [:index, :create]
+
+      # Referrals
+      resources :share_links, only: [:show, :create]
+    end
+  end
+
 end

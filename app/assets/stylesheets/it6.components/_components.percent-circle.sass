@@ -1,0 +1,81 @@
+// -----------------------------------------------------
+// Percent circle
+//
+//
+// DOM structure
+// <span class="percent-circle_wrap">
+//   <div class="js_percent-circle percent-circle_border percent-circle_color-yellow" data-percentage="75">
+//     <div class="percent-circle_inner"></div>
+//   </div>
+// </span>
+
+
+
+$percent-circle-size: 22px
+$c-percentage-empty: #DEDEDE
+$c-percent_orange: #F5C500
+$c-percent_yellow: #F4C400
+$c-percent_red: red
+$c-percent_green: green
+$c-percent_red: red
+
+
+
+
+// Controls the placement of the circle...
+// currently tweaked for the battery status circles
+// in the beacon dropdown... need to generalize this
+
+.percent-circle_wrap
+  display: inline-block
+  width: 26px
+  height: 26px
+  text-align: center 
+
+
+.percent-circle_border
+  top: -5px
+  position: relative
+  text-align: center
+  width: $percent-circle-size
+  height: $percent-circle-size
+  border-radius: 50%
+  // without a border the edge of the circle is jagged...
+  border: 1px solid transparent
+  // The percentage full is set using the following css, but via JS
+  // Leaving here for clarity
+  // background-image: linear-gradient(162deg, transparent 50%, $c-percentage-empty 50%), linear-gradient(90deg, $c-percentage-empty 50%, transparent 50%)
+.bat-stat_percent-text
+  position: relative
+  top: -15px
+
+
+
+// The white inner circle...
+
+.percent-circle_inner
+  position: relative 
+  top: 4px
+  left: 4px 
+  text-align: center 
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  background-color: white
+
+
+
+// Color Classes
+// Note - one of these must be present for the precent circle to 
+// properly work (including the js)
+// These should be added to the same div that has .percent-circle_border
+
+.percent-circle_color-orange
+  background-color: $c-percent_orange
+.percent-circle_color-yellow
+  background-color: $c-percent_yellow
+.percent-circle_color-green
+  background-color: $c-percent_green
+.percent-circle_color-red
+  background-color: $c-percent_red
+

@@ -1,2 +1,111 @@
-<h1>Pages#dashboard</h1>
-<p>Find me in app/views/pages/dashboard.html.erb</p>
+<% content_for(:page_title) { "Your Dashboard" } %>
+
+<%= wrapper do %>
+
+	<div class="mb-gutter">
+	  <div class="page-top_left">
+	    <h2>Your Campaigns</h2>
+	  </div>
+	  <div class="page-top_utils">
+		  <%# location selector floated right, which is why it's here in the DOM %>
+		  <div class="page-top_right" style="max-width: 240px; min-width: 200px;">
+	      <%= render 'shared/location_selector', type_of: {controller: :locations, action: :show, use_id_for_location: true} %>
+		  </div>
+		  <div class="page-top_center">
+		    <%= link_to 'New Campaign', '#', class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+		  </div>
+	  </div>
+	  <div class="clearfix"></div>
+	</div>
+
+	<%# CAMPAIGN CONTENT %>
+	<%= render 'campaigns/card_index', todays_campaigns: @todays_campaigns %>
+
+	<% if @campaigns %>
+		<div class="row">
+			<div class="col-xs-12 text-right">
+				<%= link_to "View All Campaigns", campaigns_url, id: "tour-view-campaign", class: "btn btn-browse" %>
+			</div>
+		</div>
+	<% end %>
+<% end %> <%# -wrapper %>
+
+
+<%= wrapper :dark do %>
+	<%# GRAPH / CHART %>
+
+	<%# ACTIVITY %>
+	<div class="row">
+	  <div class="col-xs-12 col-sm-4">
+	    <h2 id="tour-activity">Today's Activity</h2>
+	  </div>
+	  <div class="col-xs-12 col-sm-8">
+	    <ul class="camp-stats">
+	    	<li class="active"><span><%= @stats[:active_campaigns] %></span> Campaigns</li>
+	    	<li class="redemptions"><span><%= current_user.locations.size %></span> Locations</li>
+	    	<li class="visits"><span><%= current_user.business.customers.size %></span> Customers</li>
+	    </ul>
+	  </div>
+	</div>
+	<%# -ACTIVITY %>
+
+	<%# ANALYSIS %>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="stat-panel">
+				<div class="row">
+					<div class="col-xs-6 col-sm-3">
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:checkins], "Check-in", positive: :green) %>
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:redemptions], "Redemption", positive: :green) %>
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:conversion], "Conversion", positive: :green) %>
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="stat-panel_entry">
+							<%= green_red_stat(@stats[:today][:new_customers], "Customer", positive: :green) %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%# -ANALYSIS %>
+
+	<div class="row">
+		<%# AREA CHART %>
+		<div class="col-xs-12 col-md-7">
+			<div class="stat-panel">
+				<div id="area-chart"></div>
+				<%= render_chart(@chart[:area], 'area-chart') %>
+			</div>
+		</div>
+		<%# -AREA CHART %>
+
+		<%# PIE/DONUT CHART %>
+		<div class="col-xs-12 col-md-5">
+			<div class="stat-panel">
+				<div id="pie-chart"></div>
+				<%= render_chart(@chart[:pie], 'pie-chart') %>
+			</div>
+		</div>
+		<%# -PIE/DONUT CHART %>
+	</div>
+<% end %> <%# -wrapper dark %>
+
+
+<%= render 'campaigns/modal_new' %>
+
+<%= content_for :js_header do %>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<% end %>
+
+<%= hopscotch %>

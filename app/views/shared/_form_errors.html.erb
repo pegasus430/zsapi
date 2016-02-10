@@ -1,0 +1,34 @@
+<% content_for :form_errors do %>
+	<div class="flash <%= type %>">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<% unless object.nil?%>
+						<i class="fa fa-exclamation-triangle"></i>
+						<p>
+							<%= pluralize(object.errors.count, "error") %> prevented the form from being saved:
+						</p>
+						
+						<ul>
+					    <% object.errors.full_messages.each do |message| %>
+					      <li><%= message %></li>
+					    <% end %>
+					  </ul>
+				  <% end %>
+
+				  <% if flash[:alert] %>
+						<i class="fa fa-exclamation-triangle"></i>
+						<p><%= flash[:alert] %></p>
+				  <% elsif flash[:notice] %>
+						<i class="fa fa-star"></i>
+				  	<p><%= flash[:notice] %></p>
+				  <% elsif flash[:success] %>
+						<i class="fa fa-check"></i>
+				  	<p><%= flash[:success] %></p>
+					<% end %>
+
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

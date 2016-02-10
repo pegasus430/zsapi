@@ -1,0 +1,40 @@
+// - the top head area of pages
+// - not the page "header"
+// - section in the page body
+// - named "left, right, center"
+//   according to layout at widest viewports
+
+
+
+// Usually a title
+.page-top_left
+  margin-bottom: $space-2
+  @include above(500px)
+    float: left
+
+
+// Wrapper for 
+// "new X" button and 
+// location dropdown 
+
+.page-top_utils
+  @include between(850px, 500px)
+    float: right
+    display: block
+    margin-bottom: $space-2
+
+// Usually a location dropdown select box
+.page-top_right
+  margin-bottom: $space-2
+  @include above(850px)
+    float: right
+
+
+// Usually a "new X" button
+.page-top_center
+  margin-bottom: $space-2
+  @include above(850px)
+    float: none
+    margin-left: auto
+    margin-right: auto
+    text-align: center

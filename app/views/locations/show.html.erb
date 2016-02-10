@@ -1,0 +1,60 @@
+<% content_for(:page_title) { "Locations" } %>
+
+<%= wrapper do %>
+  <%= section_header "Today's Activity (#{@location.title})" %>
+
+  <div id="location-stats" class="row">
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'coupons') do %>
+          <%= image_tag 'percent.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:coupons] %></span> Coupons
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'rewards') do %>
+          <%= image_tag 'cup.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:rewards] %></span> Rewards
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= link_to location_campaigns_url(@location, 'all', 'specials') do %>
+          <%= image_tag 'star.png' %>
+        <% end %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:specials] %></span> Specials
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="stat-panel">
+        <%= image_tag 'location.png' %>
+        <div class="panel-footer">
+          <span><%= @stats[:today][:checkins] %></span> Check-ins
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %> <%# -wrapper %>
+
+
+<%= wrapper :dark do %>
+  <%= section_header "Campaigns" %>
+
+  <%# CAMPAIGN CONTENT %>
+  <%= render 'campaigns/card_index', campaigns: @location.campaigns %>
+<% end %> <%# -wrapper dark %>
+
+<%= render 'campaigns/modal_new' %>
+
+<%= content_for :js_header do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<% end %>

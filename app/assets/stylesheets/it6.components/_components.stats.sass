@@ -1,0 +1,77 @@
+@import "bourbon"
+
+@import '../it1.settings/settings.global'
+@import '../it1.settings/settings.breakpoints'
+@import '../it1.settings/settings.colors'
+
+@import '../it2.tools/tools.mixins'
+@import '../it2.tools/tools.functions'
+
+
+// NEEDS EDITED
+.camp-stats 
+  padding-right: 28px
+  float: right
+  margin-top: 6px
+  li 
+    float: left
+    margin-left: 50px
+    color: $c-label
+    font-size: 16px
+    line-height: 24px
+    span 
+      color: $white
+      font-size: 15px
+      text-align: center
+      font-weight: 600
+      width: 48px
+      height: 24px
+      display: inline-block
+      margin-right: 4px
+    
+  
+  li:first-child 
+    margin-left: 0px
+  
+  li.active 
+    span 
+      background: #ff0141
+  
+  li.redemptions 
+    span 
+      background: #4cd9b9
+  
+  li.visits 
+    span 
+      background: #4990e2
+    
+  
+
+
+
+.stat-panel 
+  background: $alabaster
+  border-radius: 10px
+  border: 2px solid #fff
+  @include box-shadow()
+  margin-bottom: $row-gutter
+
+// Wrapper for the entry (numeric) value and name
+.stat-panel_entry
+  color: $mine-shaft
+  font-size: 16px
+  padding-left: $row-gutter/2
+
+// The numeric stat value
+// ---
+// Note - To change color for positive/negative values,
+// toggle the utility classes 
+// .color-type-red
+// and
+// .color-type-green
+// which are both located in it7.trumps/_trumps.type.sass
+
+.stat-panel_entry-value
+  font-size: 20px
+  margin-right: 4px
+  font-weight: 300  

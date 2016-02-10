@@ -1,0 +1,48 @@
+html
+  overflow-y: scroll
+  -webkit-overflow-scrolling: touch
+  overflow-x: hidden
+  @include below(767px)
+    width: 100%
+
+body 
+  background-color: $c-background
+  font-family: 'Roboto', Sans-serif
+  overflow-x: hidden
+  background: $c-background
+  padding-top: 72px
+  @include below(700px)
+    padding-top: $height-header-mobile
+  @include transition(.4s)
+
+  // This is essentially a hack to fix a 
+  // padding-right problem introduced by 
+  // bootstrap's modal
+  padding-right: 0 !important
+
+  &.bare,
+  &.admin
+    // center login form and remove body padding
+    // for login-only pages (otherwise needed for the sidebar)
+    margin-left: auto
+    margin-right: auto
+    @include above($bp-xsmall)
+      padding-left: 0
+
+    
+  @include above($bp-xsmall)
+    padding-left: 75px
+
+
+// A pseudo selector to use via
+// JS for js-media-queries
+// idea from:
+// https://davidwalsh.name/device-state-detection-css-media-queries-javascript#comment-73889
+
+.width-indicator
+  position: absolute
+  top: -999px
+  left: -999px
+.width-indicator:before
+  @include below(700px)
+    content: "mobile"

@@ -1,0 +1,27 @@
+<% content_for(:page_title) { "Locations" } %>
+
+<%= wrapper do %>
+  <%= form_for(@location, url: location_confirm_url(@location)) do |f| %>
+    <%= form_errors_for @location %>
+
+    <div id="location-confirm">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <%= image_tag "UUIDLocation.png" %>
+
+          <h2>Confirm Your Location</h2>
+
+          <p>Please enter the UID code found on your new iBeacon device.</p>
+
+          <%= text_field_tag :uid %>
+
+          <%= f.button "Activate This Location" %>
+
+          <a href="https://zippyspot.zendesk.com/hc/en-us/articles/216754987-What-is-a-beacon-UID-" target="_blank">What is a UID code?</a>
+          <a href="https://zippyspot.zendesk.com/hc/en-us/articles/216274398-I-haven-t-received-my-iBeacon" target="_blank">I haven't received my iBeacon</a>
+        </div>
+      </div>
+    </div>
+
+  <% end %> <%# -form %>
+<% end %> <%# -wrapper %>

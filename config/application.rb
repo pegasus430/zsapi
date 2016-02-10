@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Zippyspot
   class Application < Rails::Application
+    config.action_controller.action_on_unpermitted_parameters = :raise
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -34,6 +36,30 @@ module Zippyspot
             request_specs: true
         g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+    # Stripe
+    config.stripe.secret_key        = ENV['STRIPE_SECRET_KEY']
+    config.stripe.publishable_key   = "pk_test_hpZmC08gcPoSGkB7fjanXYdw"
+
+    # Custom
+    config.x.API_SECRET_KEY             = ENV['API_SECRET_KEY']
+    config.x.BEACON_COST                = ENV['BEACON_COST']
+    config.x.BEACON_DESCRIPTION         = ENV['BEACON_DESCRIPTION']
+    config.x.FACEBOOK_APP_ID            = ENV['FACEBOOK_APP_ID']
+    config.x.FACEBOOK_APP_SECRET        = ENV['FACEBOOK_APP_SECRET']
+    config.x.MAILCHIMP_APP_ID           = ENV['MAILCHIMP_APP_ID']
+    config.x.MAILCHIMP_APP_SECRET       = ENV['MAILCHIMP_APP_SECRET']
+    config.x.CONSTANTCONTACT_APP_ID     = ENV['CONSTANTCONTACT_APP_ID']
+    config.x.CONSTANTCONTACT_APP_SECRET = ENV['CONSTANTCONTACT_APP_SECRET']
+    config.x.TWITTER_APP_ID             = ENV['TWITTER_APP_ID']
+    config.x.TWITTER_APP_SECRET         = ENV['TWITTER_APP_SECRET']
+
+    #Koala
+    Koala.config.api_version = "v2.0"
+    
+    # Make public assets requireable in manifest files
+    config.assets.paths << Rails.root.join("public", "assets", "stylesheets")
+    config.assets.paths << Rails.root.join("public", "assets", "javascripts")
     
   end
 end

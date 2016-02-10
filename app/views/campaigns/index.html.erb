@@ -1,0 +1,76 @@
+<% hopscotch %>
+<% content_for(:page_title) { "Campaigns" } %>
+
+<%= wrapper do %>
+
+    <div class="page-top_left">
+      <h2>Your Campaigns</h2>
+    </div>
+    <div class="page-top_utils">
+      <%# location selector floated right, which is why it's here in the DOM %>
+      <div class="page-top_right" id="tour-location-menu" style="max-width: 240px; min-width: 200px;">
+        <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :index} %>
+      </div>
+      <div class="page-top_center">
+        <%= link_to 'New Campaign', '#', id: "tour-new-campaign", class: 'btn btn-new', data: {toggle: 'modal', target: '#newCampaignModal'} %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row filter-options">
+      <div class="col-xs-2 col-sm-1">
+        <h4 id="tour-filter">View</h4>
+      </div>
+      <%# Filter - status %>
+      <div class="col-xs-5 col-sm-3 col-md-2">
+        <%= render 'filter', filter_type: "status", options: Campaign.statuses.keys.unshift("all") %>
+      </div>
+      <%# Filter - type %>
+      <div class="col-xs-5 col-sm-3 col-md-2">
+        <%= render 'filter', filter_type: "type", options: Campaign.type_ofs.keys.unshift("all") %>
+      </div>
+    </div>
+    
+  <% unless @campaigns.blank? %>
+    <div class="table-responsive">
+      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th class="first"></th>
+            <th data-align="left" data-sortable="true">Title</th>
+            <th data-align="left" data-sortable="true">Location</i></th>
+            <th data-align="left" data-sortable="true">Schedule</th>
+            <th data-align="left" data-sortable="true">Featured?</th>
+            <th data-align="left" data-sortable="false">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @campaigns.includes(:schedule, :locations).each do |c| %>
+            <tr>
+              <td><%= type_of_circle(c.type_of) %></td>
+              <td><%= link_to c.title, c %></td>
+              <td class="overflow-more relative" data-entry-limit="3"><%= c.locations_string %></td>
+              <td><%= c.schedule.title %></td>
+              <td><%= yesno(c.featured) %></td>
+              <td>
+                <%= link_to 'edit', edit_campaign_path(c), class: 'option edit', 'data-no-turbolink' => true %>
+                <%= link_to 'delete', c, method: :delete, data: { confirm: 'Campaigns can only be deleted if they have not been redeemed. Deleting a campaign is irreversable. Are you sure you want to delete this campaign?' }, class: 'option delete' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% else %><%# !campaigns %>
+
+    <div id="no-records">
+      <h2>No campaigns!</h2>
+      <p>There are no approved campaigns available to show.</p>
+    </div>
+
+  <% end %> <%# campaigns? %>
+
+  <%= render 'campaigns/modal_new' %>
+
+<% end %> <%# -wrapper %>

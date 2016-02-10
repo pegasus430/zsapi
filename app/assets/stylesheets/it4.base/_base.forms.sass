@@ -1,0 +1,92 @@
+form,
+.form,
+.notify-form 
+  div 
+    label 
+      display: block
+      padding-right: 19px
+      text-transform: uppercase
+      font-size: 15px
+      color: $c-label
+      line-height: 47px
+      font-weight: 500
+      line-height: 2.7
+
+      &.inline
+        display: inline-block
+        padding-right: 0
+    .row 
+      position: relative
+  input:not(.btn)
+    background: $white
+    width: 100%
+    height: 44px
+    border-radius: 3px
+    border: 1px solid #e9e9e9
+    border-top-color: #d5d5d5
+    border-bottom-color: #efefef
+    padding: 0 12px
+    font-weight: 500
+    font-size: em(20)
+    margin-bottom: 18px
+
+  hr 
+    margin: 37px -20px 28px
+    width: 840px
+    border-top: 1px solid #e0e0e0  
+  
+  span 
+    font-size: 15px
+    color: #4b4b4b
+    font-weight: 500
+    display: inline-block
+    padding: 0 15px
+
+
+.radio
+  margin-top: 0px
+  label
+    color: $c-label
+  input
+    display: block
+    float: left
+
+.radio-inline
+  padding-left: 0px
+
+input[type="radio"] 
+  display: block
+  position: absolute
+  left: -9px
+  z-index: 999
+  width: 60px
+  height: 40px
+  opacity: 0
+  margin-left: 0 !important
+  cursor: pointer
+
+input[type="radio"] + label 
+  background: image-url('rbtn.png') no-repeat bottom left
+
+input[type="radio"]:checked + label 
+  background: image-url('rbtn.png') no-repeat top left
+
+input[type="radio"] + label ,
+input[type="radio"]:checked + label 
+  width: auto
+  margin-top: 10px
+  float: left
+  -webkit-transition: background-color 0.4s linear
+  -o-transition: background-color 0.4s linear
+  -moz-transition: background-color 0.4s linear
+  transition: background-color 0.4s linear
+  padding-left: 32px
+  text-align: left
+  font-size: 16px
+  line-height: 26px
+  margin-bottom: 15px
+
+
+.input,
+input:focus 
+  outline: 0

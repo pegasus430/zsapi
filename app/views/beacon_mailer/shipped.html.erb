@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @user.first_name %>,</h1>
+    <p>
+      A new beacon order has been shipped to the location associated with the payment. Below is a summary of the information:
+
+      --------------------
+      Shipped to:
+      <%= @business.name %><br>
+      <%= @location.full_address %>
+      --------------------
+    </p>
+    <p>
+      Upon receiving the iBeacon, enter your dashboard to the pending location that you had created. Click "Verify", then enter the UID code found on the iBeacon. Once saved, your iBeacon will be linked to your new location.
+    </p>
+    <p>Thanks,<br>The Zippy Spot Team</p>
+  </body>
+</html>

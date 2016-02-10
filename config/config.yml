@@ -1,0 +1,12 @@
+defaults: &defaults
+  lock_business_username: "ZSAdmin"
+  lock_business_password: "<!>ZS<@>admin<#>lock<$>"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

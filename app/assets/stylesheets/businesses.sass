@@ -1,0 +1,275 @@
+//= require jquery.minicolors
+//= require cropbox
+
+
+@import 'it1.settings/settings.global'
+@import 'it1.settings/settings.breakpoints'
+@import 'it1.settings/settings.colors'
+
+@import 'it2.tools/tools.mixins'
+@import 'it2.tools/tools.functions'
+
+
+
+.imgPlaceHolder
+  min-height: 100px
+  min-width: 140px
+  display: block
+  width: auto
+  float: left
+  border: solid 1px #979797
+  img
+    width: 100%
+
+.upload-campaign-image, 
+.preview-campaign
+  letter-spacing: 1px
+  font-family: 'Roboto', Sans-serif !important
+  background-repeat: no-repeat
+  background-color: transparent
+  float: left
+  border: 1px solid #4a4a4a
+  margin-top: 23px
+  display: block
+  border-radius: 40px
+  font-size: 12px
+  line-height: 12px
+  font-weight: bold
+  padding: 10px 30px 
+  color: #4a4a4a
+
+.preview
+  background-image: image-url('mobile-preview.png')
+  background-repeat: no-repeat
+  background-position: 20px center
+  padding-left: 75px
+
+.preview-campaign
+  letter-spacing: 1px
+  background-image: image-url('ico/ico_browse.png')
+  background-position: 20px center
+  padding-left: 55px
+  margin-bottom:  8px
+
+
+.preview-campaign:hover, 
+.upload-campaign-image:hover
+  background-color: #FFF
+  transition: .4s
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+
+.colorPicker
+  width: 206px
+
+.contPaletteColors
+  padding-top: 20px
+  padding-bottom: 20px
+  .paletteColors
+    .color
+      width: 40px
+      height: 40px
+      border: solid 2px #979797
+      border-radius: 50%
+      float: left
+      margin-right: 10px
+      cursor: image-url('eyeDropCursor.png') 0 55, default
+    
+  
+// Integration connect buttons
+
+.connect
+  margin-top: $row-gutter/2
+  &:hover
+    background: $white
+
+// Shown in place of connect button when connected
+
+.connected 
+  margin-top: $row-gutter/2
+  cursor: default
+  padding: 10px
+  line-height: 1.5
+  &:hover 
+    box-shadow: none
+ 
+
+
+.publish
+  background: $c-business
+  color: $white
+  margin-top: $row-gutter/2
+  padding: 0px 45px
+
+
+
+
+.minicolors
+  cursor: pointer
+  padding-right: 105px
+  background: image-url('ico/ico-eyedropper.png') no-repeat right 5px
+  .minicolors-input
+    height: 45px
+    width: 105px
+    padding: 12px 17px !important
+  
+  .minicolors-sprite.minicolors-swatch
+    right: 50px !important
+    height: 45px
+    top: 0
+    width: 45px
+    border-radius: 50%
+    .minicolors-swatch-color
+      border: solid 2px #979797
+      border-radius: 50%
+      overflow: hidden
+
+#shareModal
+  textarea 
+    width: 100%
+    padding: $row-gutter/2
+    margin-bottom: $row-gutter/2
+
+
+
+// ------------------------------
+// Preview Modal
+
+.modal-body
+  .modal-container
+    width: 100%
+    height: 498px
+    overflow-y: scroll
+    overflow-x: hidden
+    padding-top: 0
+
+
+$mobile-preview--orange: #ecb348
+.mobilePreview
+  height: 100%
+  .mobilePreview-head
+    margin-bottom: 8px
+  .mobilePreview-header_bg-wrap
+    position: relative
+    background-color: $c-location
+    overflow: hidden
+  .mobilePreview_bg
+    position: absolute 
+    width: 100%
+    height: 100%
+    background-size: contain
+    background-repeat: no-repeat
+    filter: blur(50px)
+  .mobilePreview-panel
+    position: relative
+    background-color: white
+    margin-bottom: 8px
+    padding: 25px 15px
+    margin-left: 2px
+    margin-right: 2px
+    border-left: solid 3px #efefef
+    border-left: solid 3px #e4e4e4
+    border-right: solid 3px #e4e4e4
+    border-bottom: solid 3px #b7b7b7
+    overflow: hidden
+  .mobilePreview_banner
+    position: absolute
+    top: 8px
+    left: -21px
+    background-color: $mobile-preview--orange
+    font-style: italic
+    font-weight: 700
+    -webkit-transform: rotate(-45deg)
+    -ms-transform: rotate(-45deg)
+    transform: rotate(-51deg)
+    font-size: 10px
+    padding: 2px 20px
+  .mobilePreview_points-count,
+  .mobilePreview_points-label
+    text-align: center
+  .mobilePreview_points
+    padding: 0
+  .mobilePreview_points-count
+    font-size: 33px
+    line-height: 1
+  .mobilePreview_points-label
+    font-size: 10px
+    text-transform: uppercase
+  .mobilePreview_panel-text
+    font-size: 18px
+    padding-top: 12px
+    padding-right: 0
+    padding-left: 5px
+  .mobilePreview-nav_ul
+    li 
+      padding-bottom: 5px
+      border-bottom: solid 4px transparent
+      position: relative
+      &.active
+        border-bottom-color: $mobile-preview--orange
+        &:after 
+          content: ''
+          position: absolute 
+          left: 0
+          right: 0
+          margin-left: auto
+          margin-right: auto
+          width: 0
+          height: 0
+          bottom: -14px
+          border-style: solid
+          border-width: 12px 12px 0 12px
+          border-color: $mobile-preview--orange transparent transparent transparent
+          z-index: 50
+  .mobilePreview_header
+    width: 100%
+    height: 65px
+    background-size: contain
+    background-repeat: no-repeat
+    position: relative
+    z-index: 50
+  .mobilePreview_footer
+    width: 100%
+    height: 58px
+    background-size: contain
+    background-repeat: no-repeat
+
+
+// Device Image (via css)
+
+$bg-mobileDevice: #dddddd
+.mobilePreview_device-wrap
+  position: relative
+  border-radius: 18px
+  border-color: $bg-mobileDevice
+  border-style: solid
+  border-left-width: 18px
+  border-right-width: 18px
+  border-top-width: 36px
+  border-bottom-width: 72px
+  width: 340px
+  margin-left: auto
+  margin-right: auto
+  // Left buttons
+  &:before
+    content: ""
+    position: absolute
+    left: -21px
+    top: 36px 
+    width: 3px
+    height: 18px
+    background-color: #bbbbbb
+    box-shadow: 0 0 0 0 #bbb, 0 36px 0 0 #bbb
+    border-radius: 3px 0 0 3px
+  // Bottom button 
+  &:after
+    content: ""
+    position: absolute
+    left: 0
+    right: 0
+    margin-left: auto
+    margin-right: auto
+    bottom: -54px
+    width: 36px
+    height: 36px
+    border-radius: 18px
+    background-color: #bbbbbb

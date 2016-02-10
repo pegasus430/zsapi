@@ -1,18 +1,164 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="">
 <head>
-  <title>Zippyspot</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<!-- <meta http-equiv="refresh" content="3" > -->
+	<%# Meta %>
+	<meta charset="utf-8">
+	<meta name="keywords" content="zippyspot" />
+	<meta name="description" content="The revolutionary management platform that allows store owner to manage their campaigns.">
+	<meta name="author" content="The coffee-loving enthusiasts at Wesfed.com">
+	<meta name="h-version" content="<%= ENV['HEROKU_RELEASE_VERSION'] || "n/a" %>">
+
+	<title>Zippy Spot | <%= @html_title || "Admin Panel" %></title>
+
+	<%# Mobile Metas %>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<%# Favicon %>
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<%# Custom Fonts %>
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,900' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,700,400italic' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+	<%# CSS %>
+	<%= stylesheet_link_tag 'application', params[:controller], media: 'all', 'data-turbolinks-track' => true %>
+
+	<%# CSRF %>
+	<%= csrf_meta_tags %>
+
+	<%= yield :js_header %>
 </head>
-<body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<body class="<%= "sb-is-open " if current_user.meta[:sidebar_collapsed].to_i == 0 %><%= [params[:controller], params[:action]].join(' ') %>" data-no-turbolink>
+	<div class="width-indicator"></div>
+	
+	<div id="wrapper">
 
+		<%# NAV / VERTICAL SIDEMENU Start %>
+		<div class="db-header" id="db-header">
+			<div class="logo">
+				<%= link_to image_tag('logo_zippy.png'), root_url %>
+			</div>
+			<div class="db-navbar">
+				<ul>
+					<% nav_menu_items.each do |item| %>
+						<li id="<%= item[:id] %>">
+							<%= link_to(send(item[:url])) do %>
+								<i><%= image_tag("ico/ico-#{item[:id]}.svg") %></i>
+								<span><%= item[:label] %></span>
+							<% end %>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<%# NAV / VERTICAL SIDEMENU End %>
 
-<%= yield %>
+		<%# HEADER Start %>
+		<header class="header">
+			<div class="container">
+
+				<div id="navTrigger" class="nav-trigger"><i class="fa fa-bars"></i></div>
+				<div class="header-left">
+					<%= current_user.business.name %>
+				</div>
+
+				<div class="header-right">
+					<% unless current_user.business.beacons.blank? %>
+						<div id="battery-status" class="dropdown_bat-stat dropdown">
+							<a class="ico" href="#" data-toggle="dropdown">
+								<%= image_tag('ico/ico_storeBattery.svg') %>
+							</a>
+							<ul class="dropdown-menu arrow dropdown_bat-stat_ul">
+								<% unless current_user.business.beacons.active.blank? %>
+									<% current_user.business.beacons.includes(:location).active.each do |beacon| %>
+										<li>
+											<%= link_to beacon.location do %>
+												<span class="battery-status_location"><%= beacon.location.title %></span>
+												<div class="inline-block right">
+													<span class="percent-circle_wrap">
+														<%# 
+															Percentage value and color handled by this div.
+															Color classes: 
+																.percent-circle_color-orange 
+																.percent-circle_color-yellow
+																.percent-circle_color-green
+																.percent-circle_color-red 
+															Percentage value: 
+																- Handled by the attribute `data-percentage` 
+																- Can be any positive integegar, 1 - 100 
+														%>
+														<div class="js_percent-circle percent-circle_border percent-circle_color-green" data-percentage="<%= "#{beacon.battery_level}" %>">
+															<div class="percent-circle_inner"></div>
+														</div>
+													</span>
+													<%# Note: The value for this needs to be dynamic... should come from same source
+																		 as the above data-percentage attribute. %>
+													<span class="bat-stat_percent-text"><%= "#{beacon.battery_level}%" %></span>
+												</div>
+											<% end %>
+										</li>
+									<% end %>
+								<% else %>
+									<li> &nbsp; &nbsp; You have no active beacons.</li>
+								<% end %>
+							</ul>
+						</div>
+					<% end %>
+		
+
+					<div id="your-account" class="dropdown header-site_dropdown-account">
+						<%= link_to edit_user_registration_url, id: "profile-label", class: "dropdown-account_primary-label", data: {target: '#', toggle: "dropdown"} do %>
+							Your Account
+							<% if current_user.business.in_trial? %>
+								<span id="tour-trial">(<%= current_user.business.trial_days_remaining %> days)</span>
+							<% end %>
+						<% end %>
+					  <ul class="dropdown-menu arrow">
+							<li>
+								<%= link_to edit_user_registration_url do %>
+									<%= image_tag('ico/icon-profile.svg') %> Profile
+								<% end %>
+							</li>
+					    <li><a href="https://zippyspot.zendesk.com/hc/en-us" target="_blank"><%= image_tag('ico/icon-heart.svg') %> Help</a></li>
+					    <li><%= link_to image_tag('ico/icon-logout.svg') + "Log Out", destroy_user_session_path, method: :delete %></li>
+					  </ul>
+					</div>
+				</div>
+			</div>
+		</header>
+		<%# HEADER End %>
+
+		<%# PAGE HEAD Start %>
+		<div class="page-head">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<h4><%= yield :page_title %></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%# PAGE HEAD End %>
+
+		<%= render('shared/progress_steps') %>
+
+		<%= flash_notices %>
+		<%= yield :form_errors %>
+
+		<div id="content-body">
+			<%= yield %>
+		</div>
+
+	</div> <%# /.wrapper %>
+
+	<%= javascript_include_tag 'application', params[:controller], 'data-turbolinks-track' => true %>
+
+	<%= yield :js_footer %>
+	<%= yield :hopscotch_js %>
+
 
 </body>
 </html>

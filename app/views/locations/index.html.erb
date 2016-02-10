@@ -1,0 +1,77 @@
+<% content_for(:page_title) { "Locations" } %>
+
+<%= wrapper do %>
+  <%= section_header "Active Locations" %>
+
+  <%= link_to 'New Location', new_location_path, id: "tour-new-location", class: 'btn btn-new' %>
+  <div class="table-responsive">
+    <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th data-align="left" data-sortable="true" class="first">ID</th>
+          <th data-align="left" data-sortable="true">Title</th>
+          <th data-align="left" data-sortable="false">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @active_locations.each do |location| %>
+          <tr>
+            <td><%= location.id %></td>
+            <td><%= link_to location.title, location %></td>
+            <td>
+              <%= link_to 'edit', edit_location_path(location), class: 'option edit' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+
+<% unless @pending_locations.blank? %>
+  <% hopscotch "locations-index-has-pending" %>
+  <%= wrapper :dark do %>
+    <%= section_header "Pending Locations" %>
+    <div class="table-responsive" id="tour-pending">
+      <table data-toggle="table" data-toolbar="#custom-toolbar" data-show-columns="false" data-search="false" data-show-refresh="false" data-show-filter="false" data-show-toggle="false" data-show-export="false" data-pagination="true" data-pagination-v-align="both" data-striped="true" class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th data-align="left" data-sortable="true" class="first">ID</th>
+            <th data-align="left" data-sortable="true">Title</th>
+            <th data-align="left" data-sortable="true">Beacon Status</th>
+            <th data-align="left" data-sortable="true">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pending_locations.includes(:beacon).each do |location| %>
+            <tr>
+              <td><%= location.id %></td>
+              <td><%= link_to location.title, location %></td>
+              <td id="tour-pending-status">
+                <% if location.beacon.blank? %>
+                  Not Ordered
+                <% else %>
+                  <%= location.beacon.status.humanize %>
+                <% end %>
+              </td>
+              <td id="tour-pending-options">
+                <% if location.beacon.blank? %>
+                  <%= link_to 'Purchase a Beacon', location_new_subscription_path(location) %>
+                <% else %>
+                  <% if location.beacon.processing? %>
+                    Please wait for your beacon to be shipped.
+                  <% else %>
+                    Received your beacon? <%= link_to 'Activate It!', location %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>   
+        </tbody>
+      </table>
+    </div>
+  <% end %> <%# -wrapper %>
+<% else %>
+  <% hopscotch %>
+<% end %>

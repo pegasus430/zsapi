@@ -1,0 +1,13 @@
+<%= form_for(@greeting, html: {class: 'notify-form'}) do |f| %>
+  <%= form_errors_for @greeting %>
+
+	<%= wrapper do %>
+	  <%= render 'form_fields', f: f, greeting_campaign: @greeting.campaign %>
+
+		<div class="row">
+			<div class="col-xs-12 text-center">
+			  <%= f.button :submit, id: "tour-button", class: "btn btn-submit" %>
+		  </div>
+		</div>
+  <% end %>
+<% end %>

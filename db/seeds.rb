@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Admin.new({:email => "admin@zippyspot.com", :password => "demo1234", :password_confirmation => "demo1234" }).save()

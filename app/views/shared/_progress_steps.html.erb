@@ -1,0 +1,32 @@
+<% unless current_user.business.published? %>
+
+	<div class="profile-progress">
+		<div class="container">
+
+			<div class="profile-progress-head text-center">
+				<span><%= image_tag 'ico_finger.png', id: "progress_finger" %></span>
+				<em>Let's Get Started!</em>
+			</div>
+
+
+			<ul class="list-inline profile-progress-list">
+				<%# progress_steps is defined in the application_helper %>
+				<% progress_steps[:steps].each do |st| %>
+					<li>
+						<%= check_or_x st[:check_if] %>
+						<%= link_to st[:name], st[:url], data: {toggle: "tooltip", placement: "top"}, title: st[:info] %>
+					</li>
+				<% end %>
+			</ul>
+	
+			<div class="profile-progress-bar hidden-xs">
+				<h5><%= progress_steps[:percent] %>% Complete</h5>
+				<span>
+					<em style="width: <%= progress_steps[:percent] %>%"></em>
+				</span>
+			</div>
+
+		</div>
+	</div>
+
+<% end %>

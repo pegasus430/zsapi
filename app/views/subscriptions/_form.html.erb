@@ -1,0 +1,102 @@
+<%= form_for([@location, @subscription], html: {id: "stripe_form"}) do |f| %>
+  <%= form_errors_for @subscription %>
+
+  <%= wrapper do %>
+    <%= section_header 'Purchase a Beacon' %>
+
+    <%= fr "Choose a Subscription", id: "tour-plans" do %>
+      <% @stripe_plans.data.each do |plan| %>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="radio">
+              <%= radio_button_tag "subscription[stripe_plan_id]", plan.id %>
+              <label for="<%= plan.id %>">
+                <%= plan.name %> - <%= cents_to_dollar(plan.amount) %>
+                <% if plan.trial_period_days %>
+                  <em>(<%= plan.trial_period_days %> day trial)</em>
+                <% end %>
+              </label>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %> <%# -wrapper %>
+  
+
+  <%= wrapper :dark do %>
+    <%= section_header 'Subscription Information',
+        desc: "If this is your first location, you will not be billed until the end of your trial period." %>
+
+    <div class="payment-errors alert bold"></div>
+
+    <%= fr 'Name on Card',
+      text_field_tag(:card_name, "", name: "", data: {stripe: "name"}),
+      id: "tour-card" %>
+
+    <%= fr 'Card Number',
+      text_field_tag(:card_number, "", name: "", data: {stripe: "number"}) %>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <label>Expiration</label>
+      </div>
+      <div class="col-xs-2">
+        <%= text_field_tag :card_exp_m, "", name: "", placeholder: "MM", size: 2, data: {stripe: "exp-month"} %>
+      </div>
+      <div class="col-xs-2">
+        <%= text_field_tag :card_exp_y, "", name: "", placeholder: "YYYY", size: 4, data: {stripe: "exp-year"} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <label>CVC Code</label>
+      </div>
+      <div class="col-xs-3">
+        <%= text_field_tag :card_cvc, "", name: "", data: {stripe: "cvc"} %>
+      </div>
+    </div>
+
+    <%= fr '' do %>
+      <%= cbox("agree", "I agree to the Zippy Spot " + link_to('Terms and Conditions', 'http://www.zippyspot.com/terms/')) %>
+    <% end  %>
+
+    <%#
+    <div class="row">
+      <div class="col-xs-12 payment">
+        <span class="paymentText">TOTAL PAYMENT:</span>
+        <span class="paymentAmount">$10000</span>
+      </div>
+    </div>
+    %>
+
+    <%= stripe_javascript_tag %>
+
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.button "Create Subscription", id: "tour-button" %>
+      </div>
+    </div>
+
+  <% end %> <%# -wrapper dark %>
+
+
+  <% if false %> <%# this comments out everything below %>
+    <!--
+    <% if @token %>
+      <%= hidden_field_tag 'stripeToken', @token.id %>
+    <% else %>
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-name="Site Using Stripe"
+              data-description="One Month Subscription"
+              data-amount="900"
+              data-currency="cad"
+              data-email="<%= current_user.email %>"
+              data-allow-remember-me="true"></script>
+    <% end %>
+    -->
+  <% end %> <%# -if false %>
+
+
+<% end %> <%# -form %>

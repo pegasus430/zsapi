@@ -1,0 +1,18 @@
+<select id="locationFilter" class="mr3"> <%# margin-right here to account for angle icon %>
+	<option value="/campaigns">All Locations</option>
+	<% current_user.locations.each do |l| %>
+		<%
+			url_for_opts = {
+				controller: type_of[:controller], 
+				action: type_of[:action]
+			}
+			if type_of[:use_id_for_location]
+				url_for_opts[:id] = l.id.to_s
+			else
+				url_for_opts[:location_id] = l.id.to_s
+			end
+		%>
+	  <option value="<%= url_for(url_for_opts) %>"><%= l.title %></option>
+  <% end %>
+	<option value="<%= new_location_url %>">+ New Location</option>
+</select>

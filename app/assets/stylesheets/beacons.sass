@@ -1,0 +1,23 @@
+@import 'it1.settings/settings.global'
+@import 'it1.settings/settings.breakpoints'
+@import 'it1.settings/settings.colors'
+
+@import 'it2.tools/tools.mixins'
+@import 'it2.tools/tools.functions'
+
+
+
+table 
+	margin: $row-gutter auto
+	width: 100%
+	max-width: $bare-form-width
+
+	th, td
+		padding: $row-gutter/2
+
+	th
+		background: $c-table-head
+		color: $white
+
+	td
+		background: $white

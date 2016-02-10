@@ -1,0 +1,34 @@
+.page-head 
+  padding: 2px 0 5px
+  h4 
+    color: $white
+    font-size: 60px
+    text-align: center
+    font-weight: 200
+
+  body.dashboard &
+    background-color: $c-campaign
+
+  body.campaigns & 
+    background: $c-campaign
+
+  body.greetings & 
+    background: $c-greeting
+
+  body.businesses.edit &
+    background: $c-business
+
+  body.customers & 
+    background: $c-customer
+
+  body.locations & 
+    background: $c-location
+
+  body.receipts & 
+    background: $c-receipt
+
+  // - class toggled on body: .users/registrations
+  // - escape forward slashes for use in css selectors
+  body.users\/registrations & 
+    background: $osio-gray
+  

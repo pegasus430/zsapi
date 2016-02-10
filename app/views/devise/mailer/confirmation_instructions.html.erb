@@ -1,0 +1,9 @@
+<p>Welcome <%= @email %>!</p>
+
+<p>Your Zippy Spot account has been created. We just need you to verify your email address before continuing.</p>
+
+<p>Click the link below to verify your account and you'll be redirected to the login screen where you can login with the email/password you created when signing up.</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>The Zippy Spot Team</p>

@@ -1,0 +1,45 @@
+@import '../it1.settings/settings.global'
+@import '../it1.settings/settings.breakpoints'
+@import '../it1.settings/settings.colors'
+
+
+
+.panel
+	font-size: 2em
+	padding: $row-gutter/2
+	text-align: center
+	margin-bottom: $row-gutter
+
+	h3
+		font-size: 2.5em
+		margin-top: 0
+
+	&#approved_receipts
+		background-color: lighten($olive-drab, 30%)
+
+	&#rejected_receipts
+		background-color: lighten($torch-red, 30%)
+
+#approved,
+#rejected
+	button
+		margin-top: $row-gutter/2
+		width: 100%
+
+
+// Note: 
+// These are repeated in
+// /home/isaac/Web/Wesfed/zippyspot/app/assets/stylesheets/campaigns.sass
+// TODO: consider refactoring
+
+.input-group
+	position: inherit 
+	
+.input-group-addon
+	margin-left: 10px
+	background: image-url('ico/ico_calendar.png') center center no-repeat
+	border: none
+	width: 37px
+	height: 43px
+	.glyphicon
+		display: none

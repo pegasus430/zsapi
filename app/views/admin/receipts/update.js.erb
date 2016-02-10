@@ -1,0 +1,21 @@
+<% if @receipt.valid? %>
+	<%# DECREMENT THE TOTAL NEW %>
+	$('#untouched_receipts h3').text( function(i, oldval) {
+	  return parseInt( oldval, 10) - 1;
+	});
+
+	<%# INCREMENT THE COUNTER FOR APPROVED/REJECTED %>
+	<% %w(approved rejected).each do |s| %>
+	  <% if @receipt.send("#{s}?") %>
+		  $('#<%= s %>_receipts h3').text( function(i, oldval) {
+		    return parseInt( oldval, 10) + 1;
+		  });
+		<% end %>
+	<% end %>
+
+	<%# RELOAD THE FORM %>
+	$('#edit-form').html("<%= j(render('form', receipt: Receipt.untouched.first)) %>");
+	initDatepicker();
+<% else %>
+	alert("<%= @receipt.errors.to_a.join("\\n") %>")
+<% end %>

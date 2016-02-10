@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h4>Set Up Your Business Profile</h4>
+	</div>
+</div>
+
+<%= form_for(@business) do |f| %>
+	<%= form_errors_for @business %>
+
+  <%= fr "Name", f.text_field(:name) %>
+  <%= fr "Website", f.text_field(:website) %>
+
+  <div class="row">
+  	<div class="col-xs-12 text-center"><%= f.button "Create and Go to Dashboard" %></div>
+  </div>
+<% end %>

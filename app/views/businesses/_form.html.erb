@@ -1,0 +1,176 @@
+<!-- Business profile FORM Start -->
+<%= form_for(@business, multipart: true, html: {class: 'form'} ) do |f| %>
+  <%= form_errors_for @business %>
+
+  <%= wrapper do %>
+    <%= section_header 'Your Business' %>
+    <div class="toggle-section">
+
+      <%= fr 'Business Name', f.text_field(:name, class: 'businessName') %>
+
+      <%= fr "Logo (click to edit)", id: "logo-row" do %>
+        <%= image_tag @business.image.url(:index), style: "width:300px", id: "saved_image_1", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-1"} %>
+        <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_1", data: {uploadtarget: "cropImageModal-1"} %>
+      <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %>
+
+  <%= wrapper :dark do %>
+    <%= section_header "Style Options" %>
+    <div class="toggle-section">
+      
+      <div class="row contPaletteColors">
+        <div class="col-xs-12 col-sm-3">
+          <label>Colors From Logo <a href="#" id="refreshDetectedColors" title="Refresh"><i class="fa fa-refresh"></i></a></label>
+        </div>
+        <div class="col-xs-12 col-sm-9 paletteColors">
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+          <div class="color"></div>
+        </div>
+      </div>
+      
+      <%= fr "Primary Color" do %>
+        <%= f.text_field :primary_color, id: 'colorPicker1', placeholder: '#FFF' %>
+      <% end %>
+      
+      <%= fr "Secondary Color" do %>
+        <%= f.text_field :secondary_color, id: 'colorPicker2', placeholder: '#FFF' %>
+      <% end %>
+      
+      <div class="row">
+        <div class="col-md-offset-3 col-md-9 col-xs-12 preview">
+          <%= link_to 'preview your mobile page', '#', class: 'preview-campaign caps', data: {toggle: 'modal', target: '#previewModal'} %>
+        </div>
+      </div>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div> 
+  <% end %> <%# -wrapper dark %>
+
+
+  <%= wrapper do %>
+    <%= section_header "Social Settings" %>
+    <div class="toggle-section">
+      <%= fr "WEBSITE", f.text_field(:website, class: 'website', placeholder: 'http://') %>
+      <%= fr "Yelp URL", f.text_field(:yelp_url, class: 'yelp_url', placeholder: 'http://www.yelp.com/...') %>
+      <%= fr "TWITTER URL", f.text_field(:twitter, class: 'twitterUrl', placeholder: 'http://') %>
+      <%= fr "FACEBOOK URL", f.text_field(:facebook, class: 'facebookUrl', placeholder: 'http://') %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div>
+  <% end %>
+
+
+  <%= wrapper :dark do %>
+    <%= section_header "Integrations",
+        desc: "Please save all changes to your profile before connecting to an app below." %>
+
+    <div class="toggle-section">
+      
+      <div class="row mt3">
+        <div class="col-xs-12 col-sm-3 mb1-5 text-center">
+          <%= image_tag('facebook.png') %>
+          <%= connect_identity_link("facebook") %>
+        </div>
+        <div class="col-xs-12 col-sm-3 mb1-5 text-center">
+          <%= image_tag('twitter.png') %>
+          <%= connect_identity_link("twitter") %>
+        </div>
+        <div class="col-xs-12 col-sm-3 mb1-5 text-center">
+          <%= image_tag('mailchimp.png') %>
+          <%= connect_identity_link("mailchimp") %>
+        </div>
+        <div class="col-xs-12 col-sm-3 mb1-5 text-center">
+          <%= image_tag('constantcontact.png') %>
+          <%= connect_identity_link("constantcontact") %>
+        </div>
+      </div>
+      
+      <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+        <%= section_header "Select a Facebook Page" %>
+      
+        <%= fr "Facebook Page" do %>
+          <% current_user.facebook_pages.each do |page| %>
+            <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= render 'shared/toggle_section_btns' %>
+    </div> <%# /.toggle-section &>
+    
+    <%# Form save button %>
+    <div class="row py4">
+      <div class="col-xs-12 text-center">
+        <%= f.button %>
+      </div>
+      <%# SHOW THE PUBLISH BUTTON %>
+      <% if @business.unpublished? && !@business.new_record? %>
+        <%# TEMPORARY: Hide the publish button if unable to publish. %>
+        <%#            This should be a boolean method in the business object. %>
+        <%
+        publish_errors = []
+        %w(location campaign greeting).each do |child|
+          publish_errors.push "Your business must have at least 1 #{child}" unless @business.send("#{child}s").exists?
+        end
+
+        if publish_errors.empty? %>
+          <div class="col-xs-12 text-center">
+            <%# SHOW SHARE_TO MODAL IF CONNECTED TO FB OR TWITTER %>
+            <% if current_user.facebook || current_user.twitter %>
+              <%= link_to 'Save and Publish Profile!', "#", class: 'btn publish', data: {toggle: 'modal', target: '#shareModal'}  %>
+            <% else %>
+              <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  <% end %> <%# -wrapper dark %>
+
+  <%# GALLERY MODAL %>
+  <%= modal :large, id: "shareModal", title: "Announce your business!",
+      body: capture { %>
+        <div class="row">
+          <div class="col-xs-12">
+            <p>Now that you are publishing your business on Zippy Spot, you can announce to your followers about the big move!</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <textarea name="shareText">We have just published our business on Zippy Spot!</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <% %w(facebook twitter).each do |i| %>
+              <% unless current_user.send(i).nil? %>
+                <div class="cbox">
+                  <%= check_box_tag "share_to[#{i}]", 1, true, id: "share_to_#{i}" %>
+                  <label for="share_to_<%= i %>">Share to <%= i.humanize %></label>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+  <% }, footer: capture { %>
+    <%= f.button 'Share and Publish!', name: 'publish', class: 'publish' %>
+  <% } %>
+
+<% end %> <%# -form %>
+
+
+<%# Mobile preview %>
+<%= render 'mobile_preview', business: @business %>
+
+
+<%# CROP MODAL %>
+<%= render 'shared/crop_modal', resource: @business, id: "cropImageModal-1" %>

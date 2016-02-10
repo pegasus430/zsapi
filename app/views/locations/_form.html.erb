@@ -1,0 +1,89 @@
+<%= form_for(@location, html: {class: 'form'}) do |f| %>
+  <%= form_errors_for @location %>
+
+  <%= wrapper do %>
+    <% if @location.new_record? %>
+      <%= section_header 'Create a Location' %>
+    <% else %>
+      <%= section_header 'Edit your Location' %>
+    <% end %>
+
+    <%= fr "Location Title", f.text_field(:title),
+      id: "tour-title",
+      info: "The name of this location. If the name is the same as other locations, simply enter the street name to differentiate it." %>
+
+    <%= fr "Address", f.text_field(:address) %>
+    <%= fr "", f.text_field(:address2) %>
+
+    <%= fr "" do %>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.text_field :city, placeholder: "City" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :state, placeholder: "State" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :zipcode, placeholder: "Zipcode" %>
+        </div>
+      </div>
+    <% end %>
+
+    
+    <%= fr "Location Photos", id: 'tour-photos' do %>
+      <div class="row">
+        <% Location::MAX_PHOTOS.times do |i| %>
+          <div class="col-sm-4">
+            <%= image_tag @location.location_photos[i].image.url(:thumb), id: "saved_image_#{i}", class: "js-savedImage fit pointer thumbnail", data: {toggle: 'modal', target: "#cropImageModal-#{i}"} %>
+            <%= hidden_field_tag 'image_datafiles[]', "", id: "image_datafiles_#{i}", data: {uploadtarget: "cropImageModal-#{i}"} %>
+            <%#= link_to "Clear", "#", data: {removeImage: i} %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+
+  <%= wrapper :dark do %>
+    <%= section_header 'Greetings' %>
+    <%= fr 'Select a Greeting',
+      id: "tour-greetings",
+      info: "A greeting contains your location's welcome and exit messages. You may reuse greetings, or create a new one." do %>
+      <%= f.select(:greeting_id, options_from_collection_for_select(@greetings, 'id', 'welcome_message', @location.greeting_id), prompt: 'Choose a greeting') %>
+    <% end  %>
+
+    <%= fr '' do %>
+      <div class="mt2 inline-block">
+        <%= cbox("new_greeting", "Create a New Greeting", checkbox: {data: {toggle: 'collapse', target: '#collapseGreeting'}}) %>
+      </div>
+    <% end %>
+
+    <div class="collapse" id="collapseGreeting">
+      <%= f.fields_for @location.build_greeting do |builder| %>
+        <%= render 'greetings/form_fields', f: builder, greeting_campaign: nil %>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.button id: "tour-button" %>
+      </div>
+    </div>
+
+    <% unless @location.new_record? %>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <%= link_to "Cancel Subscription", location_cancel_subscription_url(@location), method: :delete, data: { confirm: 'This will cancel your subscription immediately and you will be required to return the iBeaon. This is irreversable. Are you sure you want to cancel right now?' } %>
+        </div>
+      </div>
+    <% end %>
+
+  <% end %> <%# -wrapper dark %>
+<% end %> <%# -form %>
+
+
+<%# CROP MODALS  %>
+<% Location::MAX_PHOTOS.times do |i| %>
+  <%= render 'shared/crop_modal', resource: @location.location_photos[i], id: "cropImageModal-#{i}" %>
+<% end %>

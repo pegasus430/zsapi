@@ -1,0 +1,139 @@
+.header 
+  height: 72px
+  @include below($bp-sb-default-closed)
+    height: $height-header-mobile
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.2)
+  background: $white none repeat scroll 0% 0%
+  padding: 23px 20px
+  position: fixed
+  top: 0
+  left: $sidebar-collapsed-width
+  right: 0
+  z-index: $z-header
+  @include transition(.4s)
+  @include below($bp-xsmall)
+    left: 0
+    width: 100%
+  
+
+
+  .nav-trigger 
+    width: 29px
+    color: $havelock-blue
+    font-size: 25px
+    margin-right: 13px
+    position: fixed
+    left: 92px
+    top: 16px
+    @include transition(.4s)
+    cursor: pointer
+    @include below($bp-xsmall)
+      left: 15px
+
+  body.sb-is-open & 
+    left: $sidebar-expanded-width
+    // z-index: 9010
+    .nav-trigger 
+      left: $sidebar-expanded-width + 17px
+
+
+.header-left 
+  color: $c-header-font
+  font-weight: 800
+  line-height: rem(32)
+  font-size: rem(32)
+  float: left
+  display: inline-block
+  margin-right: 5px
+  max-width: 360px
+  text-overflow: ellipsis
+  overflow: hidden
+  white-space: nowrap
+  @include below(1165px)
+    padding-left: 15px
+
+.header-right
+  float: right 
+  @include below(700px)
+    position: absolute
+    left: 7px
+    bottom: 0px
+
+.dropdown_bat-stat
+  display: inline-block
+  .ico 
+    border-radius: 50%
+    @include transition(.3s)
+    display: block
+    background: $white
+    height: 42px
+    padding: 4px
+    position: relative
+    top: -6px
+    width: 42px
+    &.active,
+    &:hover 
+      @include box-shadow(0,1px,3px,rgba(0,0,0,0.12))
+      @include transition(.5s)
+
+.dropdown_bat-stat_ul
+  max-width: 250px
+  min-width: 205px
+  li 
+    a
+      padding: 0 $row-gutter/2
+      color: #848c8f
+      line-height: rem(85)
+      display: block 
+
+.bat-stat_percent-text
+  font-size: 95%
+
+
+
+.header-site_dropdown-account
+  margin-left: $row-gutter/2
+  display: inline-block
+  .dropdown-menu
+    // this is an override of the bootstrap
+    // default, which is 160
+    @include below(1100px)
+      min-width: 126px
+    li
+      a 
+        line-height: rem(85)
+        border-bottom: 1px solid #eee
+        padding: 0 $row-gutter/2
+        color: #828d93
+        font-size: rem(23)
+        font-weight: 500
+        display: block
+        img 
+          margin-right: $row-gutter/2        
+          @include below(1100px)
+            margin-left: -5px
+            // margin-right: 5px
+      &:last-child a
+        border-bottom: 0
+
+.dropdown-account_primary-label
+  color: $c-header-font
+  font-size: 11px
+  text-transform: uppercase
+  font-weight: 700
+  letter-spacing: 2px
+  position: relative
+  // Align the label with the left icon
+  top: -6px
+
+
+// location text for beacon battery indicator dropdown
+.battery-status_location
+  display: inline-block
+  overflow: hidden
+  text-overflow: ellipsis
+  max-width: 115px
+.dropdown_bat-stat_ul li a
+  line-height: 1
+  padding-top: 20px
+  padding-bottom: 20px

@@ -20,6 +20,15 @@
 require "capybara/rspec"
 require 'devise'
 
+# Custom method for clearing mail log
+def clear_mail_deliveries
+  ActionMailer::Base.deliveries = []
+end
+
+Devise.setup do |config|
+  config.stretches = 1
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -42,6 +51,27 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+  end
+
+  # Guard - Allow a "filter" so only specific tests can be ran
+  config.filter_run :focus => true
+  config.run_all_when_everything_filtered = true
+
+  # Devise
+  config.include Devise::TestHelpers, :type => :controller
+
+  #DatabaseCleaner
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
 # The settings below are suggested to provide a good initial experience
@@ -88,4 +118,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
 end

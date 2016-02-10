@@ -1,0 +1,63 @@
+<% content_for(:page_title) { "Campaigns" } %>
+
+<%= wrapper do %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <h2><%= @campaign.title %></h2>
+      <p><%#= @campaign.schedule.title %></p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <%= render 'shared/location_selector', type_of: {controller: :campaigns, action: :show} %>
+    </div>
+  </div>
+
+  <% if @campaign.redemptions.size > 0 %>
+    Most popular location: <%= @campaign.most_popular_location.title %>
+  <% end %>
+
+  <%# ANALYSIS %>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="stat-panel">
+        <div class="row">
+          <div class="col-xs-6 col-sm-3">
+            <div class="stat-panel_entry">
+              <%= green_red_stat(@stat_for[:total_redemptions], "Total Redemption", positive: :green) %>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="stat-panel_entry">
+              <%= green_red_stat(@stat_for[:todays_redemptions], "Redemptions Today", positive: :green, pluralize: false) %>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="stat-panel_entry">
+              <%= green_red_stat(@stat_for[:mtd_redemptions], "Compared MTD", positive: :green, pluralize: false) %>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="stat-panel_entry">
+              <%= green_red_stat(@stat_for[:total_redemption_customers], "Customer", positive: :green) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%# -ANALYSIS %>
+
+  <div class="row">
+    <%# AREA CHART %>
+    <div class="col-xs-12">
+        <div id="area-chart"></div>
+        <%= render_chart(@chart_for[:redemptions_in_30_days], 'area-chart') %>
+    </div>
+    <%# -AREA CHART %>
+  </div>
+
+<% end %> <%# -wrapper %>
+
+
+<%= content_for :js_header do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<% end %>

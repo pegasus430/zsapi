@@ -1,5 +1,42 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  
+  # START MAILTRAP
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :user_name => '48554a4b0295693c8',
+  #   :password => 'c88891ed076c8a',
+  #   :address => 'mailtrap.io',
+  #   :domain => 'mailtrap.io',
+  #   :port => '2525',
+  #   :authentication => :cram_md5
+  # }
+  # config.action_mailer.default_url_options = { :host => "zsdev.herokuapp.com" }
+  ## END MAILTRAP
+
+  ## Start sendgrid
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.default_url_options = { :host => "app.zippyspot.com" }
+  ## End sendgrid
+
+  ## Start paperclip S3 ##
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+  ## End paperclip S3 ##
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -42,7 +79,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

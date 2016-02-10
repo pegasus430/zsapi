@@ -11,3 +11,19 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Test files
+/public/system/*
+
+# Config
+# /config/database.yml
+/config/application.yml
+zs-aws-key.pem
+
+# Node related
+/node_modules
+.npm-debug.log
+
+# Other local
+/Progress.txt
+/ZSAPIDoc.pdf

@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div id="untouched_receipts" class="panel">
+      <h3><%= Receipt.untouched.count %></h3>
+      New receipts
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div id="approved_receipts" class="panel">
+      <h3><%= Receipt.approved.from_today.count %></h3>
+      Approved receipts today
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div id="rejected_receipts" class="panel">
+      <h3><%= Receipt.rejected.from_today.count %></h3>
+      Rejected receipts today
+    </div>
+  </div>
+</div>
+
+<div id="edit-form">
+  <%= render 'form', receipt: @receipt %>
+</div>
