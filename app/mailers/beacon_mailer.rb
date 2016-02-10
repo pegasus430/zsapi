@@ -4,7 +4,7 @@ class BeaconMailer < ApplicationMailer
 	  @key = beacon.creation_key
 	  @location = beacon.location
 	  @business = @location.business
-	  mail(to: 'wesfed@gmail.com', subject: 'New iBeacon Order')
+	  mail(to: 'admin@zippyspot.com', subject: 'New iBeacon Order')
 	end
 
 	def shipped(beacon)

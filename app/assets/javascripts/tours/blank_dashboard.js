@@ -2,12 +2,12 @@
 var tour_steps = [
   {
     title: 'Welcome to Zippy Spot!',
-    content: 'Youre on your way to interacting with your customers and becoming a better business because of it. Let us show you around!',
+    content: 'You\'re on your way to interacting with your customers and becoming a better business because of it. Let us show you around!',
     target: '#welcome-heading',
     placement: 'top'
   }, {
     title: 'Account and Help',
-    content: 'Your account dropdown give you the option to view help docs, edit your account, or log out from Zippy Spot.',
+    content: 'Your account dropdown gives you the option to view help docs, edit your account, or log out from Zippy Spot.',
     target: '#your-account',
     placement: 'bottom',
     arrowOffset: 252,

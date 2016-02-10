@@ -1,4 +1,9 @@
-<%= hopscotch %>
 <% content_for(:page_title) { "Business Profile" } %>
 
 <%= render 'form' %>
+
+<% if current_user.business.unpublished? && !notice.blank? %>
+	<%= hopscotch "businesses-edit-updated" %>
+<% else %>
+	<%= hopscotch %>
+<% end %>

@@ -91,9 +91,9 @@
         </div>
       </div>
       
-        <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+      <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
         <%= section_header "Select a Facebook Page" %>
-        
+      
         <%= fr "Facebook Page" do %>
           <% current_user.facebook_pages.each do |page| %>
             <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
@@ -111,14 +111,24 @@
       </div>
       <%# SHOW THE PUBLISH BUTTON %>
       <% if @business.unpublished? && !@business.new_record? %>
-        <div class="col-xs-12 text-center">
-          <%# SHOW SHARE_TO MODAL IF CONNECTED TO FB OR TWITTER %>
-          <% if current_user.facebook || current_user.twitter %>
-            <%= link_to 'Save and Publish Profile!', "#", class: 'btn publish', data: {toggle: 'modal', target: '#shareModal'}  %>
-          <% else %>
-            <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
-          <% end %>
-        </div>
+        <%# TEMPORARY: Hide the publish button if unable to publish. %>
+        <%#            This should be a boolean method in the business object. %>
+        <%
+        publish_errors = []
+        %w(location campaign greeting).each do |child|
+          publish_errors.push "Your business must have at least 1 #{child}" unless @business.send("#{child}s").exists?
+        end
+
+        if publish_errors.empty? %>
+          <div class="col-xs-12 text-center">
+            <%# SHOW SHARE_TO MODAL IF CONNECTED TO FB OR TWITTER %>
+            <% if current_user.facebook || current_user.twitter %>
+              <%= link_to 'Save and Publish Profile!', "#", class: 'btn publish', data: {toggle: 'modal', target: '#shareModal'}  %>
+            <% else %>
+              <%= f.button 'Save and Publish Profile!', name: 'publish', class: 'publish' %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 

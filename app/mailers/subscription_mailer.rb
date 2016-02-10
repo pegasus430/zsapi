@@ -4,6 +4,6 @@ class SubscriptionMailer < ApplicationMailer
 		@sub = sub
 	  @location = sub.location
 	  @business = @location.business
-	  mail(to: 'wesfed@gmail.com', subject: 'Subscription has been canceled')
+	  mail(to: 'admin@zippyspot.com', subject: 'Subscription has been canceled')
 	end
 end

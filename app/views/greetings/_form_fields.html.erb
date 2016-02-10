@@ -9,7 +9,7 @@
 	row: "row bb", info: "Customers can be awarded points for checking into your store on a daily, weekly, or monthly basis." do %>
 	<div class="row">
 		<div class="col-xs-12 col-sm-5">
-			<%= f.number_field :welcome_reward, placeholder: 'ie: 100' %>
+			<%= f.number_field :welcome_reward, placeholder: 'ie: 100', min: 0 %>
 		</div>
 		<div class="col-xs-5 col-sm-2">
 			<%= f.label "per", class: "inline" %>
@@ -49,7 +49,7 @@
 		info: "A customer must return to your store within the assigned timeframe to receive the campaign." do %>
 		<div class="row">
 			<div class="col-xs-5">
-				<%= f.number_field :campaign_wait_time_quantity, placeholder: "(enter 0 for no restriction)" %>
+				<%= f.number_field :campaign_wait_time_quantity, placeholder: "(enter 0 for no restriction)", min: 0 %>
 			</div>
 			<div class="col-xs-7">
 				<%= f.select :campaign_wait_time_span, %w(days weeks months) %>
