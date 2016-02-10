@@ -91,9 +91,9 @@
         </div>
       </div>
       
-        <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
+      <% if current_user.facebook_pages && current_user.facebook.page_token == "" %>
         <%= section_header "Select a Facebook Page" %>
-        
+      
         <%= fr "Facebook Page" do %>
           <% current_user.facebook_pages.each do |page| %>
             <%= radio_button_tag 'facebook_page', page['id'] %> <%= page['name'] %><br />
