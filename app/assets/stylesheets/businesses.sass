@@ -75,17 +75,23 @@
       cursor: image-url('eyeDropCursor.png') 0 55, default
     
   
+// Integration connect buttons
 
+.connect
+  margin-top: $row-gutter/2
+  &:hover
+    background: $white
 
-.connect,
+// Shown in place of connect button when connected
+
 .connected 
   margin-top: $row-gutter/2
-
-.connected, 
-.connect:hover
-  background: $white
-  // @include transition()
-  // padding-left: 25px
+  cursor: default
+  padding: 10px
+  line-height: 1.5
+  &:hover 
+    box-shadow: none
+ 
 
 
 .publish
