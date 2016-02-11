@@ -54,7 +54,7 @@ var initiateMasonry = function() {
 var modalGalleryItems = $('.modal-gallery_item')
 var btn_confirmSelection = $('#btnGalleryConfirm')
 var selected = ""
-var initiallySetImage = $('#saved_image').attr('src')
+var initiallySetImage = $('#saved_image_1').attr('src')
 
 
 var handleGallerySelection = function() {
@@ -101,13 +101,13 @@ var handleGallerySave = function() {
     // Close Modal
     $('#galleryModal').modal('hide')
 
-
+    
     if ( selected.length ) {
 
       // replace the placeholder with selected image
 
       var selectedSrc = selected.attr('src')
-      $('#saved_image').attr('src', selectedSrc)
+      $('#saved_image_1').attr('src', selectedSrc)
 
 
       // Add imageAsDataUri to hidden form field 
@@ -127,7 +127,7 @@ var handleGallerySave = function() {
       // image, re-set the origianlly selected image (placeholder 
       // if a new campaign, otherwise the current campaign image)
 
-      $('#saved_image').attr('src', initiallySetImage)
+      $('#saved_image_1').attr('src', initiallySetImage)
 
     }
 
