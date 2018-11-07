@@ -27,3 +27,6 @@ zs-aws-key.pem
 # Other local
 /Progress.txt
 /ZSAPIDoc.pdf
+
+.env
+.idea
